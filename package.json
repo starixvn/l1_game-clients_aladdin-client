@@ -1,0 +1,13 @@
+{
+    "name": "game-client-template",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "cocos-unittest": "cd src && npm install && npm run test",
+        "install-dependencies": "npm install && cd src && npm install && cd extensions/localization-editor && npm install"
+    },
+    "author": "",
+    "license": "ISC"
+}

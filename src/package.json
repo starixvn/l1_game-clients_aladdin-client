@@ -21,7 +21,7 @@
         "obfuscator-config-file": "ts-node ./site-configs/site-config-obfuscator.ts"
     },
     "dependencies": {
-        "game-client-base": "file:../..",
+        "@sg/game-client-base": "^1.0.2",
         "inversify": "6.0.1",
         "lodash-es": "^4.17.21",
         "mobx": "6.9.0",

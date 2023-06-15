@@ -1,5 +1,5 @@
+import gc from "@sg/game-client-base";
 import { LogStore } from "db://shared-components/game/scripts/stores/log-store";
-import gc from "game-client-base";
 import { sharedContainer } from "../../scripts/shared-container";
 
 export const settings = {

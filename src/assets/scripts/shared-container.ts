@@ -1,5 +1,5 @@
+import gc from "@sg/game-client-base";
 import { getSharedContainer } from "db://shared-components/shared/scripts/startup";
-import gc from "game-client-base";
 import mobx from "mobx";
 import Observer from "observer";
 import { siteConfigs } from "./site-configs";

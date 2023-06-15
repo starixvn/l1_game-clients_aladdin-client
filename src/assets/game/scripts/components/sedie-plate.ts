@@ -1,5 +1,5 @@
+import gc from "@sg/game-client-base";
 import { _decorator, Animation, Component, Node, Sprite, SpriteFrame, tween, UIOpacity, v2, v3 } from "cc";
-import gc from "game-client-base";
 import Observer from "observer";
 import { settings } from "../sedie-settings";
 

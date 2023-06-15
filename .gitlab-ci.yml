@@ -8,7 +8,6 @@ variables:
   GIT_STRATEGY: clone
   COCOS_VERSION: "3.7.2"
 
-
 .build_cocos_creator_script: &build_cocos_creator_script
   stage: build-cocos-web
   script:
@@ -19,16 +18,14 @@ variables:
         exit 0
       fi
     - npm install
-    - npm run build
-    - npm install --prefix examples/cocos-3x
-    - npm install --prefix examples/cocos-3x/extensions/localization-editor
+    - npm run install-dependencies
     - /Applications/CocosCreator/Creator/$COCOS_VERSION/CocosCreator.app/Contents/MacOS/CocosCreator --project ./src --build "platform=web-mobile;debug=false;webOrientation=landscape;md5Cache=true;replaceSplashScreen=true"
   tags:
     - cocos-new
   artifacts:
     when: always
     paths:
-      - ./examples/cocos-3x/build/web-mobile
+      - ./src/build/web-mobile
     expire_in: 1 day
   cache:
     - key:
@@ -56,8 +53,9 @@ unit_test_js:
   - echo $SRC_PATH
   - cd "$SRC_PATH"
   - npm install
+  - npm run install-dependencies
   script:
-  - npm run posttest-coverage-with-cocos
+  - npm run cocos-unittest
   allow_failure: false
   cache:
   - key:

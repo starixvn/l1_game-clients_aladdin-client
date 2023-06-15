@@ -1,5 +1,5 @@
+import { buildObserverContainer } from "@sg/game-client-base";
 import { getSharedContainer } from "db://shared-components/shared/scripts/startup";
-import { buildObserverContainer } from "game-client-base";
 import mobx from "mobx";
 import { configure } from "observer";
 
@@ -9,7 +9,7 @@ jest.mock("db://shared-components/shared/scripts/startup", () => ({
     getSharedContainer: jest.fn(() => ({ sharedContainer: true })),
 }));
 
-jest.mock("game-client-base", () => ({
+jest.mock("@sg/game-client-base", () => ({
     buildObserverContainer: jest.fn(() => ({ sharedContainer: true })),
 }));
 

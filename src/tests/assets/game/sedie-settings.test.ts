@@ -1,5 +1,5 @@
+import { GameConfigs } from "@sg/game-client-base";
 import { LogStore } from "db://shared-components/game/scripts/stores/log-store";
-import { GameConfigs } from "game-client-base";
 import { containerOptions, settings } from "../../../assets/game/scripts/sedie-settings";
 
 jest.mock("db://shared-components/shared/scripts/startup", () => ({
