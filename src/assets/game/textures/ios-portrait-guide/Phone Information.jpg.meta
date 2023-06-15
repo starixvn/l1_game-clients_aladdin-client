@@ -1,0 +1,162 @@
+{
+  "ver": "1.0.25",
+  "importer": "image",
+  "imported": true,
+  "uuid": "d0c38207-f8e0-4b10-9fab-5192b4f46a01",
+  "files": [
+    ".jpg",
+    ".json"
+  ],
+  "subMetas": {
+    "Phone Information": {
+      "ver": "1.0.6",
+      "uuid": "f4fa008f-7725-4f9e-a23d-640eaa1cf247",
+      "importer": "sprite-frame",
+      "rawTextureUuid": "d0c38207-f8e0-4b10-9fab-5192b4f46a01",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 569,
+      "height": 75,
+      "rawWidth": 569,
+      "rawHeight": 75,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {},
+      "imported": false,
+      "files": [],
+      "userData": {},
+      "displayName": "",
+      "id": "",
+      "name": ""
+    },
+    "6c48a": {
+      "importer": "texture",
+      "uuid": "d0c38207-f8e0-4b10-9fab-5192b4f46a01@6c48a",
+      "displayName": "Phone Information",
+      "id": "6c48a",
+      "name": "texture",
+      "userData": {
+        "wrapModeS": "clamp-to-edge",
+        "wrapModeT": "clamp-to-edge",
+        "imageUuidOrDatabaseUri": "d0c38207-f8e0-4b10-9fab-5192b4f46a01",
+        "isUuid": true,
+        "visible": false,
+        "minfilter": "linear",
+        "magfilter": "linear",
+        "mipfilter": "none",
+        "anisotropy": 0
+      },
+      "ver": "1.0.22",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    },
+    "f9941": {
+      "importer": "sprite-frame",
+      "uuid": "d0c38207-f8e0-4b10-9fab-5192b4f46a01@f9941",
+      "displayName": "Phone Information",
+      "id": "f9941",
+      "name": "spriteFrame",
+      "userData": {
+        "trimType": "auto",
+        "trimThreshold": 1,
+        "rotated": false,
+        "offsetX": 0,
+        "offsetY": 0,
+        "trimX": 0,
+        "trimY": 0,
+        "width": 569,
+        "height": 75,
+        "rawWidth": 569,
+        "rawHeight": 75,
+        "borderTop": 0,
+        "borderBottom": 0,
+        "borderLeft": 0,
+        "borderRight": 0,
+        "packable": true,
+        "pixelsToUnit": 100,
+        "pivotX": 0.5,
+        "pivotY": 0.5,
+        "meshType": 0,
+        "vertices": {
+          "rawPosition": [
+            -284.5,
+            -37.5,
+            0,
+            284.5,
+            -37.5,
+            0,
+            -284.5,
+            37.5,
+            0,
+            284.5,
+            37.5,
+            0
+          ],
+          "indexes": [
+            0,
+            1,
+            2,
+            2,
+            1,
+            3
+          ],
+          "uv": [
+            0,
+            75,
+            569,
+            75,
+            0,
+            0,
+            569,
+            0
+          ],
+          "nuv": [
+            0,
+            0,
+            1,
+            0,
+            0,
+            1,
+            1,
+            1
+          ],
+          "minPos": [
+            -284.5,
+            -37.5,
+            0
+          ],
+          "maxPos": [
+            284.5,
+            37.5,
+            0
+          ]
+        },
+        "isUuid": true,
+        "imageUuidOrDatabaseUri": "d0c38207-f8e0-4b10-9fab-5192b4f46a01@6c48a",
+        "atlasUuid": ""
+      },
+      "ver": "1.0.11",
+      "imported": true,
+      "files": [
+        ".json"
+      ],
+      "subMetas": {}
+    }
+  },
+  "userData": {
+    "type": "sprite-frame",
+    "fixAlphaTransparencyArtifacts": true,
+    "hasAlpha": false,
+    "redirect": "d0c38207-f8e0-4b10-9fab-5192b4f46a01@f9941"
+  }
+}

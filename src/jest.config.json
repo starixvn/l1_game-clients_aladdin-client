@@ -1,0 +1,32 @@
+{
+    "testEnvironment": "jsdom",
+    "collectCoverage": false,
+    "coverageDirectory": "coverage",
+    "collectCoverageFrom": ["**/assets/**/*.ts", "!**/engine/*.ts"],
+    "coveragePathIgnorePatterns": ["localization-editor"],
+    "transform": {
+        "^.+\\.tsx?$": ["ts-jest", { "tsconfig": "tsconfig.test.json" }]
+    },
+    "testPathIgnorePatterns": ["/node_modules/"],
+    "testMatch": ["**/?(*.)+(spec|test).+(ts)"],
+    "testResultsProcessor": "jest-sonar-reporter",
+    "coverageReporters": ["cobertura", "text-summary", "text", "lcov"],
+    "setupFiles": ["<rootDir>/tests/cocos-testing/reflect-metadata.ts"],
+    "reporters": [
+        "default",
+        [
+            "jest-junit",
+            {
+                "outputDirectory": "coverage"
+            }
+        ]
+    ],
+    "verbose": true,
+    "moduleNameMapper": {
+        "cc": "<rootDir>/tests/cocos-testing/cc",
+        "observer": "<rootDir>/tests/cocos-testing/observer",
+        "mobx": "<rootDir>/tests/cocos-testing/mobx",
+        "inversify": "<rootDir>/tests/cocos-testing/inversify",
+        "db://shared-components/(.*)": "<rootDir>/extensions/shared-components/assets/$1"
+    }
+}

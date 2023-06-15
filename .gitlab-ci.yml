@@ -1,0 +1,79 @@
+include:
+  - project: "ci/core-cicd"
+    ref: main
+    file: "luminet.gitlab-ci.yml"
+
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+  GIT_STRATEGY: clone
+  COCOS_VERSION: "3.7.2"
+
+
+.build_cocos_creator_script: &build_cocos_creator_script
+  stage: build-cocos-web
+  script:
+    - echo "====== Build Cocos Web Mobile ======"
+    - |
+      if [[ -d "./build/web-mobile" ]]; then
+        echo "Using cache with key $CI_COMMIT_SHA"
+        exit 0
+      fi
+    - npm install
+    - npm run build
+    - npm install --prefix examples/cocos-3x
+    - npm install --prefix examples/cocos-3x/extensions/localization-editor
+    - /Applications/CocosCreator/Creator/$COCOS_VERSION/CocosCreator.app/Contents/MacOS/CocosCreator --project ./src --build "platform=web-mobile;debug=false;webOrientation=landscape;md5Cache=true;replaceSplashScreen=true"
+  tags:
+    - cocos-new
+  artifacts:
+    when: always
+    paths:
+      - ./examples/cocos-3x/build/web-mobile
+    expire_in: 1 day
+  cache:
+    - key:
+        files:
+          - package.json
+          - package-lock.json
+      paths:
+        - node_modules
+    - key: $CI_COMMIT_SHORT_SHA
+      paths:
+        - build
+
+.base_build_cocos:
+  <<: *build_cocos_creator_script
+  allow_failure: true
+
+unit_test_js:
+  stage: test
+  image: "$NODEJS_IMAGE"
+  tags:
+  - docker
+  before_script:
+  - npm set registry http://npm.lumigame.com
+  - yarn global add jest@29.5.0
+  - echo $SRC_PATH
+  - cd "$SRC_PATH"
+  - npm install
+  script:
+  - npm run posttest-coverage-with-cocos
+  allow_failure: false
+  cache:
+  - key:
+      files:
+      - package.json
+      - yarn.lock
+    paths:
+    - node_modules
+  rules:
+  - - if: "$CI_COMMIT_TAG =~ /^deploy-/"
+      when: never
+    - if: "$CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS"
+      when: never
+  - if: $ENABLE_TEST_JS != "true"
+    when: never
+  - - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: "$CI_COMMIT_BRANCH"
+
+
