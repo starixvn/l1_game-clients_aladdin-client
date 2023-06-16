@@ -16,7 +16,7 @@
     },
     "name": "cocos-3x",
     "scripts": {
-        "test": "jest --collect-coverage",
+        "test": "jest",
         "test-coverage": "jest --collect-coverage",
         "obfuscator-config-file": "ts-node ./site-configs/site-config-obfuscator.ts"
     },
