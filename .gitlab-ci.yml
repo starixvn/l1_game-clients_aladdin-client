@@ -49,9 +49,6 @@ unit_test_js:
   - docker
   before_script:
   - npm set registry http://npm.lumigame.com
-  - echo $SRC_PATH
-  - cd "$SRC_PATH"
-  - npm install
   - npm run install-dependencies
   script:
   - npm run cocos-unittest

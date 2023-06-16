@@ -5,7 +5,7 @@
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "cocos-unittest": "cd src && npm install && npm run test-coverage",
+        "cocos-unittest": "ls -l && cd src && ls -l && npm run test-coverage",
         "install-dependencies": "npm install && cd src && npm install && cd extensions/localization-editor && npm install"
     },
     "author": "",

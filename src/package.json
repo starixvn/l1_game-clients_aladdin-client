@@ -17,11 +17,11 @@
     "name": "cocos-3x",
     "scripts": {
         "test": "jest",
-        "test-coverage": "jest --collect-coverage",
+        "test-coverage": "jest",
         "obfuscator-config-file": "ts-node ./site-configs/site-config-obfuscator.ts"
     },
     "dependencies": {
-        "@sg/game-client-base": "^1.0.2",
+        "@sg/game-client-base": "^1.2.0",
         "inversify": "6.0.1",
         "lodash-es": "^4.17.21",
         "mobx": "6.9.0",
