@@ -1,10 +1,12 @@
 import { Label, _decorator, tween } from "cc";
 import GameComponent from "db://shared-components/game/scripts/components/game-component";
+import { startGame } from "db://shared-components/shared/scripts/startup";
 import Observer from "observer";
-import { startGame } from "../../../../extensions/shared-components/assets/shared/scripts/startup";
 import { siteConfigs } from "../../../scripts/site-configs";
 import { containerOptions, settings } from "../sedie-settings";
 import { SediePlate } from "./sedie-plate";
+
+startGame(settings.name, containerOptions, siteConfigs);
 
 const { ccclass, property } = _decorator;
 const { observer } = Observer;
@@ -20,6 +22,9 @@ export default class Sedie extends GameComponent {
 
     @property(SediePlate)
     cpnThePlate: SediePlate = null;
+
+    override namespace = settings.name;
+    override containerOptions = containerOptions;
 
     showResult(result: any, hasAnimation: boolean) {
         if (result) {
@@ -42,9 +47,5 @@ export default class Sedie extends GameComponent {
             this.cpnThePlate.closeBowl(true);
             this.cpnThePlate.shakePlate();
         }
-    }
-
-    refreshContainer() {
-        startGame(settings.name, containerOptions, siteConfigs);
     }
 }
