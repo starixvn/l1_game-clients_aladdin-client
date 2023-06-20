@@ -1,6 +1,6 @@
 {
     "testEnvironment": "jsdom",
-    "collectCoverage": false,
+    "collectCoverage": true,
     "coverageDirectory": "../coverage",
     "collectCoverageFrom": ["assets/**/*.ts", "extensions/**/*.ts", "!**/engine/*.ts"],
     "coveragePathIgnorePatterns": ["localization-editor", "node_modules", "preview-template", "build-templates", "profiles"],
@@ -29,6 +29,5 @@
         "inversify": "<rootDir>/tests/cocos-testing/inversify",
         "db://shared-components/(.*)": "<rootDir>/extensions/shared-components/assets/$1"
     },
-    "maxConcurrency": 3,
-    "maxWorkers": 1
+    "maxWorkers": 2
 }
