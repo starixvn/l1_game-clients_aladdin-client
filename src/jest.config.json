@@ -28,5 +28,7 @@
         "mobx": "<rootDir>/tests/cocos-testing/mobx",
         "inversify": "<rootDir>/tests/cocos-testing/inversify",
         "db://shared-components/(.*)": "<rootDir>/extensions/shared-components/assets/$1"
-    }
+    },
+    "maxConcurrency": 3,
+    "maxWorkers": 1
 }

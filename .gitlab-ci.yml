@@ -57,7 +57,7 @@ unit_test_js:
   - key:
       files:
       - package.json
-      - yarn.lock
+      - package-lock.json
     paths:
     - node_modules
   rules:
