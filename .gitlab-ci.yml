@@ -51,9 +51,14 @@ unit_test_js:
   - npm set registry http://npm.lumigame.com
   - npm run install-dependencies
   script:
-  - cd src 
-  - npm run test-coverage
+  - npm run cocos-unittest
   allow_failure: false
+  artifacts:
+    when: always
+    paths:
+    - "./coverage"
+    - "./reports"
+    expire_in: 1 day
   cache:
   - key:
       files:
@@ -61,11 +66,6 @@ unit_test_js:
       - package-lock.json
     paths:
     - node_modules
-  artifacts:
-    when: always
-    paths:
-    - "./"
-    expire_in: 1 day
   rules:
   - - if: "$CI_COMMIT_TAG =~ /^deploy-/"
       when: never

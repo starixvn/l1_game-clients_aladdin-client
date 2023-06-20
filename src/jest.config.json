@@ -2,7 +2,6 @@
     "testEnvironment": "jsdom",
     "collectCoverage": true,
     "coverageDirectory": "../coverage",
-    "collectCoverageFrom": ["assets/**/*.ts", "extensions/**/*.ts", "!**/engine/*.ts"],
     "coveragePathIgnorePatterns": ["localization-editor", "node_modules", "preview-template", "build-templates", "profiles"],
     "transform": {
         "^.+\\.tsx?$": ["ts-jest", { "tsconfig": "tsconfig.test.json" }]
@@ -17,7 +16,7 @@
         [
             "jest-junit",
             {
-                "outputDirectory": "../coverage"
+                "outputDirectory": "../reports"
             }
         ]
     ],
@@ -29,5 +28,5 @@
         "inversify": "<rootDir>/tests/cocos-testing/inversify",
         "db://shared-components/(.*)": "<rootDir>/extensions/shared-components/assets/$1"
     },
-    "maxWorkers": 2
+    "maxWorkers": 10
 }

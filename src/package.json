@@ -17,7 +17,7 @@
     "name": "cocos-3x",
     "scripts": {
         "test": "jest",
-        "test-coverage": "jest --collect-coverage",
+        "test-coverage": "jest --runInBand --detectOpenHandles --forceExit",
         "obfuscator-config-file": "ts-node ./site-configs/site-config-obfuscator.ts"
     },
     "dependencies": {
