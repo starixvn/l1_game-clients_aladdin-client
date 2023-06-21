@@ -17,9 +17,9 @@ variables:
         echo "Using cache with key $CI_COMMIT_SHA"
         exit 0
       fi
-    - npm install
+    - cd ./src
     - npm run install-dependencies
-    - /Applications/CocosCreator/Creator/$COCOS_VERSION/CocosCreator.app/Contents/MacOS/CocosCreator --project ./src --build "platform=web-mobile;debug=false;webOrientation=landscape;md5Cache=true;replaceSplashScreen=true"
+    - /Applications/CocosCreator/Creator/$COCOS_VERSION/CocosCreator.app/Contents/MacOS/CocosCreator --project ./ --build "platform=web-mobile;debug=false;webOrientation=landscape;md5Cache=true;replaceSplashScreen=true"
   tags:
     - cocos-new
   artifacts:
@@ -49,9 +49,10 @@ unit_test_js:
   - docker
   before_script:
   - npm set registry http://npm.lumigame.com
+  - cd ./src
   - npm run install-dependencies
   script:
-  - npm run cocos-unittest
+  - npm run test-coverage
   allow_failure: false
   artifacts:
     when: always
