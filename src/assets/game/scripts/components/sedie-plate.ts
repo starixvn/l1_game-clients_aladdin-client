@@ -66,7 +66,7 @@ export class SediePlate extends Component {
             tween(this.nodeTheBowl.getComponent(UIOpacity)).delay(this.openPlateDuration).to(0.2, { opacity: 0 }).start();
         } else {
             this.nodeTheBowl.position = v3(platePos.x, platePos.y);
-            this.nodeTheBowl.getComponent(UIOpacity).opacity = 0;
+            this.nodeTheBowl.getComponent(UIOpacity).opacity = 1;
         }
     }
 
