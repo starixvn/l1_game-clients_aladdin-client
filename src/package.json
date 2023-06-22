@@ -1,4 +1,9 @@
 {
+    "name": "game-client-microsite",
+    "version": "1.0.0",
+    "description": "",
+    "author": "",
+    "license": "ISC",
     "uuid": "c276db36-9eca-406d-ab37-8c88b377139f",
     "creator": {
         "version": "3.7.2",
@@ -14,7 +19,6 @@
         "reportFile": "test-reporter.xml",
         "indent": 4
     },
-    "name": "cocos-3x",
     "scripts": {
         "test": "jest",
         "test-coverage": "jest --runInBand --detectOpenHandles --forceExit",
