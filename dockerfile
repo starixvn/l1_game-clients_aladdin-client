@@ -13,3 +13,4 @@ USER nginx
 
 COPY ./src/.nginx/game.conf /etc/nginx/conf.d/default.conf
 COPY ./src/build/web-mobile/ /usr/share/nginx/html
+COPY ./src/remote /usr/share/nginx/html/remote
