@@ -3,8 +3,8 @@ import { LogStore } from "db://shared-components/game/scripts/stores/log-store";
 import { sharedContainer } from "../../scripts/shared-container";
 
 export const settings = {
-    id: 2,
-    name: "SeDie",
+    id: 67,
+    name: "DragonTigerFight",
     durations: {
         wholeRound: 39,
         lockingBet: 5,

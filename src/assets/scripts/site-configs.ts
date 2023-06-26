@@ -20,8 +20,8 @@ const defaultConfig: gc.Configs.SiteConfigs = {
     enableMsgpackParserAllGames: false,
     enableMsgpackParserOnNotification: false,
     websocket: {
-        proxyPath: "sedie",
-        route: "sedie",
+        proxyPath: "dragontigerfight",
+        route: "dragontigerfight",
     },
 };
 
