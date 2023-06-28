@@ -7,9 +7,5 @@ window.envConfig = {
     subGuideDomain: "l1-guide-1",
     enableMsgpackParserAllGames: false,
     enableMsgpackParserOnNotification: false,
-    websocket: {
-        proxyPath: "sedie",
-        route: "sedie",
-    },
     SGConnectSubDomain: "l1-connectsite1",
 };

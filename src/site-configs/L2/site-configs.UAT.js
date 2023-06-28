@@ -7,10 +7,6 @@ window.envConfig = {
     subGuideDomain: "l2guidesuat",
     enableMsgpackParserAllGames: true,
     enableMsgpackParserOnNotification: true,
-    websocket: {
-        proxyPath: "sedie",
-        route: "sedie",
-    },
     subDirectory: "uat",
     SGConnectSubDomain: "l2-connect-uat",
 };
