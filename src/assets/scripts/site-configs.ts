@@ -23,6 +23,7 @@ const defaultConfig: gc.Configs.SiteConfigs = {
         proxyPath: "dragontigerfight",
         route: "dragontigerfight",
     },
+    mainObserverNamespace: "DragonTigerFight",
 };
 
 let configDev = {
