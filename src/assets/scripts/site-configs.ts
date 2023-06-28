@@ -44,3 +44,5 @@ if (window.envConfig) {
 
 export const siteConfigs: gc.Configs.SiteConfigs =
     window.envConfig && window.envConfig.isDev ? defaultConfig : { ...defaultConfig, ...configDev, ...window.envConfig };
+
+window.envConfig = siteConfigs;
