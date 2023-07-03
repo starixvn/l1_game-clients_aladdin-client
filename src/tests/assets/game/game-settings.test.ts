@@ -10,14 +10,14 @@ describe("settings", () => {
     it("should have data as expected", () => {
         // Assert
         expect(settings).toStrictEqual({
-            id: 2,
-            name: "SeDie",
+            id: 67,
+            name: "DragonTigerFight",
             durations: {
                 wholeRound: 39,
                 lockingBet: 5,
                 placingBet: 30,
                 generatingResult: 2,
-                startRound: 1,
+                startRound: 2,
             },
             numberOfRoundHistory: 100,
         });
