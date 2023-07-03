@@ -5,7 +5,7 @@ import { startGame } from "db://shared-components/shared/scripts/startup";
 import Observer from "observer";
 import { PokerCard, ServiceCard } from "../../../../extensions/shared-components/assets/game/poker-cards/scripts/poker-card";
 import { siteConfigs } from "../../../scripts/site-configs";
-import { containerOptions, settings } from "../sedie-settings";
+import { containerOptions, settings } from "../game-settings";
 import { BetChoice, Choice } from "./dtf-commons";
 const { Settlements, Rounds } = gc;
 

@@ -1,7 +1,13 @@
 if (process == null) {
+    var nodeEnv = "production";
+
+    if (localStorage && localStorage.getItem("enabledMobxDebug") == "true") {
+        nodeEnv = "development";
+    }
+
     var process = {
         env: {
-            NODE_ENV: "production",
+            NODE_ENV: nodeEnv,
         },
     };
 }

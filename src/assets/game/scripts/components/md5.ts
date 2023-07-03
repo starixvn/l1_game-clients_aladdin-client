@@ -1,7 +1,7 @@
 import { _decorator } from "cc";
 import MD5Component, { MD5Type } from "db://shared-components/game/md5/scripts/md5-component";
 import Observer from "observer";
-import { settings } from "../sedie-settings";
+import { settings } from "../game-settings";
 const { ccclass } = _decorator;
 
 const { observer } = Observer;
