@@ -1,9 +1,11 @@
 if (process == null) {
     var nodeEnv = "production";
 
-    if (localStorage && localStorage.getItem("enabledMobxDebug") == "true") {
-        nodeEnv = "development";
-    }
+    try {
+        if (localStorage && localStorage.getItem("enabledMobxDebug") == "true") {
+            nodeEnv = "development";
+        }
+    } catch {}
 
     var process = {
         env: {

@@ -23,7 +23,8 @@
         "test": "jest",
         "test-coverage": "jest --runInBand --detectOpenHandles --forceExit",
         "obfuscator-config-file": "ts-node ./site-configs/site-config-obfuscator.ts",
-        "install-dependencies": "npm install && cd extensions/localization-editor && npm install"
+        "install-dependencies": "npm install && cd extensions/localization-editor && npm install",
+        "upgrade-game-base": "npm upgrade @sg/game-client-base"
     },
     "dependencies": {
         "@sg/game-client-base": "^1.15.2",
