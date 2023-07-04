@@ -40,9 +40,9 @@ export default class Game extends GameComponent {
         }
     }
 
-    startGenerateResult(isStartGenerateResult: boolean) {
-        if (isStartGenerateResult) {
-            super.startGenerateResult(isStartGenerateResult);
+    handleStartRound(isStartRound: boolean) {
+        if (isStartRound) {
+            super.handleStartRound(isStartRound);
             this.closeCards();
         }
     }
