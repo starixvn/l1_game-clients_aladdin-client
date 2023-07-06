@@ -1,5 +1,5 @@
 window.envConfig = {
-    systemType: "SC1",
+    systemType: "SG",
     ssl: true,
     subDomain: "l1uatproxy",
     env: "SIT",

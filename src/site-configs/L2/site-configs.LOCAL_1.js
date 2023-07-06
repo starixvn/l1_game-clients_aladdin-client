@@ -1,5 +1,5 @@
 window.envConfig = {
-    systemType: "SC2",
+    systemType: "VG",
     ssl: true,
     subDomain: "l2-proxy1",
     env: "LOCAL1",

@@ -8,7 +8,7 @@ declare global {
 
 const defaultConfig: gc.Configs.SiteConfigs = {
     isDev: false, // if this property is true, then you should add token=anything into the querytring to sso to the game http://localhost:7456/?token=anything
-    systemType: "SC1",
+    systemType: "SG",
     serverDomainMapper: {
         localhost: "lumigame.com",
     },
