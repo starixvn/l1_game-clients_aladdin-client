@@ -3,7 +3,7 @@ import { Label, _decorator } from "cc";
 import GameComponent from "db://shared-components/game/scripts/components/game-component";
 import { startGame } from "db://shared-components/shared/scripts/startup";
 import Observer from "observer";
-import { CardModel, PokerCard } from "../../../../extensions/shared-components/assets/game/poker-cards/scripts/poker-card";
+import { CardModel, PokerCard, ServiceCard } from "../../../../extensions/shared-components/assets/game/poker-cards/scripts/poker-card";
 import { siteConfigs } from "../../../scripts/site-configs";
 import { containerOptions, settings } from "../game-settings";
 import { BetChoice, Choice } from "./dtf-commons";
@@ -48,8 +48,8 @@ export default class Game extends GameComponent {
     }
 
     private renderResultCards(result: gc.GameServiceMessage.TResult) {
-        this.cards[Choice.Dragon].setCard(result[BetChoice.Dragon] as CardModel);
-        this.cards[Choice.Tiger].setCard(result[BetChoice.Tiger] as CardModel);
+        this.cards[Choice.Dragon].setServiceCard(result[BetChoice.Dragon] as ServiceCard);
+        this.cards[Choice.Tiger].setServiceCard(result[BetChoice.Tiger] as ServiceCard);
     }
 
     private openCards() {
