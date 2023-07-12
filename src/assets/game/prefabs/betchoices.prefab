@@ -336,7 +336,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "static",
+    "_name": "highlight-static",
     "_objFlags": 0,
     "_parent": {
       "__id__": 3
@@ -559,7 +559,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "anim",
+    "_name": "highlight-anim",
     "_objFlags": 0,
     "_parent": {
       "__id__": 3
@@ -3290,10 +3290,10 @@
     "chipBox": {
       "__id__": 134
     },
-    "nodeStatic": {
+    "highlightStatic": {
       "__id__": 10
     },
-    "nodeAnim": {
+    "highlightAnim": {
       "__id__": 20
     },
     "_id": ""
@@ -3524,11 +3524,13 @@
       "__id__": 0
     },
     "fileId": "a1nKRd4nhMiaDgijIEWb8m",
+    "instance": null,
+    "targetOverrides": null,
     "nestedPrefabInstanceRoots": null
   },
   {
     "__type__": "cc.Node",
-    "_name": "static",
+    "_name": "highlight-static",
     "_objFlags": 0,
     "_parent": {
       "__id__": 146
@@ -3745,11 +3747,13 @@
       "__id__": 0
     },
     "fileId": "af5WTl3olNWZYJw8Yv5rWc",
+    "instance": null,
+    "targetOverrides": null,
     "nestedPrefabInstanceRoots": null
   },
   {
     "__type__": "cc.Node",
-    "_name": "anim",
+    "_name": "highlight-anim",
     "_objFlags": 0,
     "_parent": {
       "__id__": 146
@@ -6477,8 +6481,12 @@
     "chipBox": {
       "__id__": 277
     },
-    "nodeStatic": null,
-    "nodeAnim": null,
+    "highlightStatic": {
+      "__id__": 153
+    },
+    "highlightAnim": {
+      "__id__": 163
+    },
     "_id": ""
   },
   {
@@ -6494,6 +6502,8 @@
       "__id__": 0
     },
     "fileId": "c9twfX8E1B9aZA7ZtHyS1+",
+    "instance": null,
+    "targetOverrides": null,
     "nestedPrefabInstanceRoots": null
   },
   {
@@ -6853,7 +6863,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "static",
+    "_name": "highlight-static",
     "_objFlags": 0,
     "_parent": {
       "__id__": 295
@@ -7076,7 +7086,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "anim",
+    "_name": "highlight-anim",
     "_objFlags": 0,
     "_parent": {
       "__id__": 295
@@ -9800,10 +9810,10 @@
     "chipBox": {
       "__id__": 426
     },
-    "nodeStatic": {
+    "highlightStatic": {
       "__id__": 302
     },
-    "nodeAnim": {
+    "highlightAnim": {
       "__id__": 312
     },
     "_id": ""
@@ -10041,7 +10051,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "static",
+    "_name": "highlight-static",
     "_objFlags": 0,
     "_parent": {
       "__id__": 438
@@ -10264,7 +10274,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "anim",
+    "_name": "highlight-anim",
     "_objFlags": 0,
     "_parent": {
       "__id__": 438
@@ -12968,10 +12978,10 @@
     "chipBox": {
       "__id__": 569
     },
-    "nodeStatic": {
+    "highlightStatic": {
       "__id__": 445
     },
-    "nodeAnim": {
+    "highlightAnim": {
       "__id__": 455
     },
     "_id": ""
@@ -13209,7 +13219,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "static",
+    "_name": "highlight-static",
     "_objFlags": 0,
     "_parent": {
       "__id__": 581
@@ -13432,7 +13442,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "anim",
+    "_name": "highlight-anim",
     "_objFlags": 0,
     "_parent": {
       "__id__": 581
@@ -16136,10 +16146,10 @@
     "chipBox": {
       "__id__": 712
     },
-    "nodeStatic": {
+    "highlightStatic": {
       "__id__": 588
     },
-    "nodeAnim": {
+    "highlightAnim": {
       "__id__": 598
     },
     "_id": ""
@@ -16377,7 +16387,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "static",
+    "_name": "highlight-static",
     "_objFlags": 0,
     "_parent": {
       "__id__": 724
@@ -16600,7 +16610,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "anim",
+    "_name": "highlight-anim",
     "_objFlags": 0,
     "_parent": {
       "__id__": 724
@@ -19304,10 +19314,10 @@
     "chipBox": {
       "__id__": 855
     },
-    "nodeStatic": {
+    "highlightStatic": {
       "__id__": 731
     },
-    "nodeAnim": {
+    "highlightAnim": {
       "__id__": 741
     },
     "_id": ""
@@ -19545,7 +19555,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "static",
+    "_name": "highlight-static",
     "_objFlags": 0,
     "_parent": {
       "__id__": 867
@@ -19768,7 +19778,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "anim",
+    "_name": "highlight-anim",
     "_objFlags": 0,
     "_parent": {
       "__id__": 867
@@ -22492,10 +22502,10 @@
     "chipBox": {
       "__id__": 992
     },
-    "nodeStatic": {
+    "highlightStatic": {
       "__id__": 874
     },
-    "nodeAnim": {
+    "highlightAnim": {
       "__id__": 884
     },
     "_id": ""
