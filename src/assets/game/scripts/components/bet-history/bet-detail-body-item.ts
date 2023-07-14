@@ -1,10 +1,11 @@
 import { _decorator, Color, Label, Node } from "cc";
 import gc from "@sg/game-client-base";
-import BetDetailBodyItem from "../../../../../extensions/shared-components/assets/game/bet-history/scripts/components/bet-detail/bet-detail-body-item";
+import BetDetailBodyItem from "db://shared-components/game/bet-history/scripts/components/bet-detail/bet-detail-body-item";
+import { IBetLogDetails } from "db://shared-components/game/bet-history/scripts/components/bet-detail/stores/bet-detail-store";
 
 const { ccclass } = _decorator;
 const { property } = _decorator;
-const { DateTimeUtils } = gc;
+const { DateTimeUtils, FormatUtils } = gc;
 
 @ccclass
 export default class DragonTigerFightBetDetailBodyItem extends BetDetailBodyItem {
@@ -32,7 +33,7 @@ export default class DragonTigerFightBetDetailBodyItem extends BetDetailBodyItem
     @property(Label)
     lblHour: Label = null;
 
-    setData(data: any, index: number) {
+    setData(data: IBetLogDetails, index: number, odds: any, settlementResult: any, freeBet: boolean) {
         this.nodeBackground.active = index % 2 > 0;
         const { time, amount, choice } = data;
 
@@ -45,5 +46,12 @@ export default class DragonTigerFightBetDetailBodyItem extends BetDetailBodyItem
         }
 
         this.lblChoice.string = choice;
+        this.lblOdds.string = odds[choice]; // TO DO check fractionalOddsFormat
+
+        this.lblAmount.string = FormatUtils.numberWithCommas(amount);
+
+        const effectiveOdds = freeBet ? odds[choice] - 1 : odds[choice];
+        const winningAmount = settlementResult[choice] ? amount * effectiveOdds : 0;
+        this.lblWin.string = FormatUtils.numberWithCommas(winningAmount);
     }
 }
