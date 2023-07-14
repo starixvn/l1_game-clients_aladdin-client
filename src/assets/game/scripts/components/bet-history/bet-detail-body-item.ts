@@ -33,7 +33,6 @@ export default class DragonTigerFightBetDetailBodyItem extends BetDetailBodyItem
     lblHour: Label = null;
 
     setData(data: any, index: number) {
-        console.log(data);
         this.nodeBackground.active = index % 2 > 0;
         const { time, amount, choice } = data;
 
