@@ -7,6 +7,16 @@ const { ccclass } = _decorator;
 const { property } = _decorator;
 const { DateTimeUtils, FormatUtils } = gc;
 
+const choiceMapping = {
+    dragon: "Dragon",
+    tiger: "Tiger",
+    tie: "Tie",
+    blackDragon: "Black Dragon",
+    redDragon: "Red Dragon",
+    blackTiger: "Black Tiger",
+    redTiger: "Red Tiger",
+};
+
 @ccclass
 export default class DragonTigerFightBetDetailBodyItem extends BetDetailBodyItem {
     @property(Label)
@@ -35,23 +45,25 @@ export default class DragonTigerFightBetDetailBodyItem extends BetDetailBodyItem
 
     setData(data: IBetLogDetails, index: number, odds: any, settlementResult: any, freeBet: boolean) {
         this.nodeBackground.active = index % 2 > 0;
+
         const { time, amount, choice } = data;
 
-        if (this.lblTime && this.lblTime.node.children.length === 0) {
-            this.lblTime.string = DateTimeUtils.getStringDateByTime(time);
-            this.lblTime.color = amount ? Color.YELLOW : Color.WHITE;
-        } else if (this.lblDate && this.lblHour) {
-            this.lblDate.string = DateTimeUtils.getStringDate(time);
-            this.lblHour.string = DateTimeUtils.getStringHourByTime(time);
-        }
-
-        this.lblChoice.string = choice;
+        this.lblTime.string = DateTimeUtils.getStringDateByTime(time);
+        this.lblChoice.string = choiceMapping[choice];
         this.lblOdds.string = odds[choice]; // TO DO check fractionalOddsFormat
-
         this.lblAmount.string = FormatUtils.numberWithCommas(amount);
 
         const effectiveOdds = freeBet ? odds[choice] - 1 : odds[choice];
         const winningAmount = settlementResult[choice] ? amount * effectiveOdds : 0;
         this.lblWin.string = FormatUtils.numberWithCommas(winningAmount);
+        this.setHighlightTicketDetail(winningAmount > amount);
+    }
+
+    setHighlightTicketDetail(highlight: boolean) {
+        const color = highlight ? Color.YELLOW : Color.WHITE;
+        this.lblChoice.color = color;
+        this.lblOdds.color = color;
+        this.lblAmount.color = color;
+        this.lblWin.color = color;
     }
 }
