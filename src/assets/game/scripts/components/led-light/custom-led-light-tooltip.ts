@@ -9,7 +9,7 @@ export class CustomLedLightTooltip extends LedLightTooltip {
     public setTooltipInfo(ledLightInfo: gc.RoundHistories.RoundHistory) {
         this.roundId.string = `#${ledLightInfo.roundId}`;
         let winChoice = "";
-        const choices = [BetChoice.Dragon, BetChoice.Tie, BetChoice.Tie];
+        const choices = [BetChoice.Dragon, BetChoice.Tiger, BetChoice.Tie];
         choices.forEach((choice) => {
             if (ledLightInfo.settlementResult[choice]) {
                 winChoice = choice;
