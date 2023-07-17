@@ -68,7 +68,7 @@ export default class Game extends GameComponent {
     async drawCards() {
         const cards = this.cards;
         const pullDuration = 0.1;
-        const drawDuration = 0.65;
+        const drawDuration = 0.4;
 
         for (let i = 0; i < cards.length; i++) {
             const card = cards[i];
