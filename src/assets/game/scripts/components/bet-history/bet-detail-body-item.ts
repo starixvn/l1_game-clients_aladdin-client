@@ -43,14 +43,14 @@ export default class DragonTigerFightBetDetailBodyItem extends BetDetailBodyItem
     @property(Label)
     lblHour: Label = null;
 
-    setData(data: IBetLogDetails, index: number, odds: any, settlementResult: any, freeBet: boolean) {
+    setData(data: IBetLogDetails, index: number, odds: any, settlementResult: any, freeBet: boolean, fractionalOddsFormat: boolean) {
         this.nodeBackground.active = index % 2 > 0;
 
         const { time, amount, choice } = data;
 
-        this.lblTime.string = DateTimeUtils.getStringDateByTime(time);
+        this.lblTime.string = DateTimeUtils.formatDateTime(time);
         this.lblChoice.string = choiceMapping[choice];
-        this.lblOdds.string = odds[choice]; // TO DO check fractionalOddsFormat
+        this.lblOdds.string = fractionalOddsFormat ? FormatUtils.numberWithCommas(+odds - 1, 2) : odds[choice];
         this.lblAmount.string = FormatUtils.numberWithCommas(amount);
 
         const effectiveOdds = freeBet ? odds[choice] - 1 : odds[choice];

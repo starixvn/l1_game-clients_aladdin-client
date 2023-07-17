@@ -1,7 +1,7 @@
 import { _decorator, Button, EventHandler, instantiate, Label, Node, Prefab } from "cc";
-import BetHistoryBodyItem, { BaseResultBodyItem } from "db://shared-components/game/bet-history/scripts/components/bet-history-body-item";
+import BetHistoryBodyItem from "db://shared-components/game/bet-history/scripts/components/bet-history-body-item";
 import gc from "@sg/game-client-base";
-import { BetDetailStore, IBetLog } from "db://shared-components/game/bet-history/scripts/components/bet-detail/stores/bet-detail-store";
+import { BetDetailStore, IBetDetailModel, IBetHistoryLogInDetails } from "db://shared-components/game/bet-history/scripts/components/bet-detail/stores/bet-detail-store";
 import Observer from "observer";
 import ResultBodyItem from "./result-body-item";
 
@@ -9,6 +9,7 @@ const { ccclass } = _decorator;
 const { property } = _decorator;
 const { DateTimeUtils, FormatUtils } = gc;
 const { handle } = Observer;
+
 @ccclass
 export default class DragonTigerFightBetHistoryBodyItem extends BetHistoryBodyItem {
     @property(Label)
@@ -42,9 +43,10 @@ export default class DragonTigerFightBetHistoryBodyItem extends BetHistoryBodyIt
     result: Node = null;
 
     clickEventHandler = new EventHandler();
-    betLog: IBetLog = null;
+    betLog: IBetHistoryLogInDetails = null;
+    fractionalOddsFormat: boolean = false;
 
-    setData(betLog: IBetLog, index: number) {
+    setData(betLog: IBetHistoryLogInDetails, index: number, fractionalOddsFormat: boolean) {
         this.betLog = betLog;
         this.nodeBackground.active = index % 2 > 0;
         const { time, betwin, roundId, totalAmount } = betLog;
@@ -60,10 +62,13 @@ export default class DragonTigerFightBetHistoryBodyItem extends BetHistoryBodyIt
         this.result.addChild(bodyRow);
     }
 
-    @handle(BetDetailStore, (store, betLog: IBetLog) => store.setData(betLog))
+    @handle(BetDetailStore, (store, model: IBetDetailModel ) => store.setData(model))
     openTicketDetail() {
         this.playSoundClick();
-        return this.betLog;
+        return {
+            betLog:this.betLog,
+            fractionalOddsFormat:this.fractionalOddsFormat
+        };
     }
 
     @handle(gc.Audios.AudioHandler, (handle, id: string) => handle.playSFX(id))
