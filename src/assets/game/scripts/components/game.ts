@@ -41,6 +41,7 @@ export default class Game extends GameComponent {
     private originalCardPosition: Vec3[] = [];
 
     onLoad() {
+        super.onLoad();
         this.cards.forEach((card) => this.originalCardPosition.push(new Vec3(card.node.position)));
     }
 
