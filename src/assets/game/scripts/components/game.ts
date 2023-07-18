@@ -7,6 +7,7 @@ import { PokerCard, ServiceCard } from "../../../../extensions/shared-components
 import { AnimationUtils } from "../../../../extensions/shared-components/assets/shared/utils";
 import { siteConfigs } from "../../../scripts/site-configs";
 import { containerOptions, settings } from "../game-settings";
+import "./../../../resources/i18n";
 import { BetChoice, Choice } from "./dtf-commons";
 const { Settlements, Rounds } = gc;
 

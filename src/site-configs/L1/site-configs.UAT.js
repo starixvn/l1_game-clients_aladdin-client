@@ -9,4 +9,7 @@ window.envConfig = {
     enableMsgpackParserOnNotification: true,
     subDirectory: "uat",
     SGConnectSubDomain: "l1uatconnectsite",
+    tolgee: {
+        defaultLanguage: "en",
+    },
 };
