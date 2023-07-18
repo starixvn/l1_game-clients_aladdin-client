@@ -1,8 +1,8 @@
 import { _decorator, Color, Label } from "cc";
 import { BaseResultBodyItem } from "db://shared-components/game/bet-history/scripts/components/bet-history-body-item";
-import { convertRank, PokerCard } from "db://shared-components/game/poker-cards/scripts/poker-card";
+import { convertRank, PokerCard, ServiceCard } from "db://shared-components/game/poker-cards/scripts/poker-card";
 import { BetChoice, Choice } from "../dtf-commons";
-import { IBetHistoryLogInDetails } from "db://shared-components/game/bet-history/scripts/components/bet-detail/stores/bet-detail-store";
+import gc from "@sg/game-client-base";
 
 const { ccclass } = _decorator;
 const { property } = _decorator;
@@ -18,9 +18,7 @@ export default class ResultBodyItem extends BaseResultBodyItem {
     @property(Label)
     tigerRank: Label = null;
 
-    setData(betLog: IBetHistoryLogInDetails) {
-        const { result, settlementResult } = betLog;
-
+    setData(result: gc.BetHistory.DynamicObject<ServiceCard>, settlementResult: gc.BetHistory.DynamicObject<boolean>) {
         const dragonCard = result[BetChoice.Dragon];
         this.cards[Choice.Dragon].setServiceCard(dragonCard);
         this.cards[Choice.Dragon].faceUp();

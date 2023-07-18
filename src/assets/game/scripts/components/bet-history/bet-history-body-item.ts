@@ -1,13 +1,13 @@
 import { _decorator, Button, EventHandler, instantiate, Label, Node, Prefab } from "cc";
 import BetHistoryBodyItem from "db://shared-components/game/bet-history/scripts/components/bet-history-body-item";
 import gc from "@sg/game-client-base";
-import { BetDetailStore, IBetDetailModel, IBetHistoryLogInDetails } from "db://shared-components/game/bet-history/scripts/components/bet-detail/stores/bet-detail-store";
 import Observer from "observer";
 import ResultBodyItem from "./result-body-item";
+import { ServiceCard } from "db://shared-components/game/poker-cards/scripts/poker-card";
 
 const { ccclass } = _decorator;
 const { property } = _decorator;
-const { DateTimeUtils, FormatUtils } = gc;
+const { DateTimeUtils, FormatUtils, BetHistory } = gc;
 const { handle } = Observer;
 
 @ccclass
@@ -43,13 +43,13 @@ export default class DragonTigerFightBetHistoryBodyItem extends BetHistoryBodyIt
     result: Node = null;
 
     clickEventHandler = new EventHandler();
-    betLog: IBetHistoryLogInDetails = null;
+    betHistoryLog: gc.BetHistory.BetHistoryLog = null;
     fractionalOddsFormat: boolean = false;
 
-    setData(betLog: IBetHistoryLogInDetails, index: number, fractionalOddsFormat: boolean) {
-        this.betLog = betLog;
+    setData(betHistoryLog: gc.BetHistory.BetHistoryLog, index: number) {
+        this.betHistoryLog = betHistoryLog;
         this.nodeBackground.active = index % 2 > 0;
-        const { time, betwin, roundId, totalAmount } = betLog;
+        const { time, betwin, roundId, totalAmount } = betHistoryLog;
 
         this.lblTime.string = DateTimeUtils.getStringDateByTime(time);
         this.lblRound.string = roundId.toString();
@@ -58,17 +58,17 @@ export default class DragonTigerFightBetHistoryBodyItem extends BetHistoryBodyIt
         this.lblTotalStake.string = FormatUtils.numberWithCommas(totalAmount, 2);
 
         const bodyRow = instantiate(this.resultPrefab);
-        bodyRow.getComponent(ResultBodyItem).setData(betLog);
+        const { result, settlementResult } = betHistoryLog;
+        bodyRow.getComponent(ResultBodyItem).setData(result as gc.BetHistory.DynamicObject<ServiceCard>, settlementResult);
         this.result.addChild(bodyRow);
     }
 
-    @handle(BetDetailStore, (store, model: IBetDetailModel ) => store.setData(model))
+    @handle(BetHistory.BetDetailHitoryStore, (store, betHistoryLog: gc.BetHistory.BetHistoryLog) => {
+        store.setData(betHistoryLog);
+    })
     openTicketDetail() {
         this.playSoundClick();
-        return {
-            betLog:this.betLog,
-            fractionalOddsFormat:this.fractionalOddsFormat
-        };
+        return this.betHistoryLog;
     }
 
     @handle(gc.Audios.AudioHandler, (handle, id: string) => handle.playSFX(id))
