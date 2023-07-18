@@ -1,22 +1,22 @@
 import gc from "@sg/game-client-base";
-import { Label, Node, Vec3, _decorator } from "cc";
+import { Label, Node, Vec3, _decorator, sp } from "cc";
+import { PokerCard, ServiceCard } from "db://shared-components/game/poker-cards/scripts/poker-card";
 import GameComponent from "db://shared-components/game/scripts/components/game-component";
 import { startGame } from "db://shared-components/shared/scripts/startup";
+import { AnimationUtils } from "db://shared-components/shared/utils";
 import Observer from "observer";
-import { PokerCard, ServiceCard } from "../../../../extensions/shared-components/assets/game/poker-cards/scripts/poker-card";
-import { AnimationUtils } from "../../../../extensions/shared-components/assets/shared/utils";
 import { siteConfigs } from "../../../scripts/site-configs";
 import { containerOptions, settings } from "../game-settings";
 import "./../../../resources/i18n";
 import { BetChoice, Choice } from "./dtf-commons";
 const { Settlements, Rounds } = gc;
 
-const { movingNode, getPositionAtDestNode } = AnimationUtils;
+const { movingNode, getPositionAtDestNode, playSpine } = AnimationUtils;
 
 startGame(settings.name, containerOptions, siteConfigs);
 
 const { ccclass, property } = _decorator;
-const { observer } = Observer;
+const { observer, render } = Observer;
 
 @ccclass
 @observer(settings.name)
@@ -36,6 +36,9 @@ export default class Game extends GameComponent {
     @property(Node)
     nodeCardDrop: Node = null;
 
+    @property({ type: sp.Skeleton })
+    resultSpines: sp.Skeleton[] = [];
+
     override namespace = settings.name;
     override containerOptions = containerOptions;
 
@@ -43,18 +46,42 @@ export default class Game extends GameComponent {
 
     onLoad() {
         super.onLoad();
+        this.initResultSpines();
         this.cards.forEach((card) => this.originalCardPosition.push(new Vec3(card.node.position)));
     }
 
-    showResult(result: gc.GameServiceMessage.TResult, hasAnimation: boolean) {
+    async finishShowResult(settlementResult: gc.GameServiceMessage.TSettlementResult) {
+        await this.showResultSpines(settlementResult);
+        super.finishShowResult(settlementResult);
+    }
+
+    async showResult(result: gc.GameServiceMessage.TResult, hasAnimation: boolean) {
         if (result) {
             this.renderResultCards(result);
 
             if (hasAnimation) {
-                this.openCards().then(() => {
-                    this.finishShowResult();
-                });
+                await this.openCards();
             }
+        }
+    }
+
+    private initResultSpines() {
+        this.resultSpines.forEach((spine) => {
+            spine.node.active = false;
+            // spine.setCompleteListener(() => (spine.node.active = false));
+        });
+    }
+
+    private async showResultSpines(settlementResult: gc.GameServiceMessage.TSettlementResult) {
+        const winChoice = Object.keys(settlementResult).find((choice) => settlementResult[choice]);
+        if (winChoice === BetChoice.Tie) {
+            return;
+        }
+        const spine = this.resultSpines.find((spine) => spine.node.name === winChoice);
+        if (spine) {
+            spine.node.active = true;
+            await playSpine(spine, winChoice);
+            spine.node.active = false;
         }
     }
 
