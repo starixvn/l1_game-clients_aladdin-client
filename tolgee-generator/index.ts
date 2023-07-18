@@ -1,7 +1,7 @@
 import { DevTools, Tolgee } from "@tolgee/web";
 import fs from "fs";
 
-function writeFile(fileName, content, extension = "ts") {
+function writeFile(fileName: string, content: string, extension = "ts") {
     fs.writeFileSync(`${fileName}.${extension}`, content, {
         encoding: "utf8",
         flag: "w",
@@ -24,7 +24,13 @@ const tg = Tolgee().use(DevTools()).init({
 tg.run();
 
 tg.on("initialLoad", () => {
-    const languages = {};
+    const languages: {
+        [languageId: string]: {
+            [ns: string]: {
+                [key: string]: string;
+            };
+        };
+    } = {};
 
     languageCodes.forEach(async (languageId) => {
         await tg.changeLanguage(languageId);
@@ -34,7 +40,7 @@ tg.on("initialLoad", () => {
                 if (record.namespace == ns) {
                     languages[languageId][ns] = {};
                     record.data.forEach((value, key) => {
-                        languages[languageId][ns][key] = value;
+                        languages[languageId][ns][key] = value as string;
                     });
                 }
             });
