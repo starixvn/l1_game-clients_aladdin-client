@@ -1,4 +1,4 @@
-import { _decorator, Button, EventHandler, instantiate, Label, Node, Prefab } from "cc";
+import { _decorator, Button, instantiate, Label, Node, Prefab } from "cc";
 import BetHistoryBodyItem from "db://shared-components/game/bet-history/scripts/components/bet-history-body-item";
 import gc from "@sg/game-client-base";
 import Observer from "observer";
@@ -42,7 +42,6 @@ export default class DragonTigerFightBetHistoryBodyItem extends BetHistoryBodyIt
     @property(Node)
     result: Node = null;
 
-    clickEventHandler = new EventHandler();
     betHistoryLog: gc.BetHistory.BetHistoryLog = null;
     fractionalOddsFormat: boolean = false;
 
