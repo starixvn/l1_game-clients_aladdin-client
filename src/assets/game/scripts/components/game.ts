@@ -1,5 +1,5 @@
 import gc from "@sg/game-client-base";
-import { Label, Node, Vec3, _decorator, sp } from "cc";
+import { Label, Node, Vec3, _decorator, sp, tween } from "cc";
 import { PokerCard, ServiceCard } from "db://shared-components/game/poker-cards/scripts/poker-card";
 import GameComponent from "db://shared-components/game/scripts/components/game-component";
 import { startGame } from "db://shared-components/shared/scripts/startup";
@@ -71,7 +71,6 @@ export default class Game extends GameComponent {
     private initResultSpines() {
         this.resultSpines.forEach((spine) => {
             spine.node.active = false;
-            // spine.setCompleteListener(() => (spine.node.active = false));
         });
     }
 
@@ -83,11 +82,23 @@ export default class Game extends GameComponent {
         const spine = this.resultSpines.find((spine) => spine.node.name === winChoice);
         const staticImage = this.staticMonsters.find((staticMonster) => staticMonster.name === winChoice);
         if (spine) {
-            await fadeOut(staticImage, 0.2);
+            fadeOut(staticImage, 0.2);
             spine.node.active = true;
-            await playSpine(spine, winChoice);
-            await fadeIn(staticImage, 0.2);
+            const animationName = winChoice;
+            const duration = spine.findAnimation(animationName).duration;
+            const hidingDuration = 0.2;
+            const scaleNode = spine.node.parent;
+            const originalScale = new Vec3(scaleNode.scale);
+            tween(scaleNode)
+                .delay(duration - hidingDuration)
+                .call(() => {
+                    fadeIn(staticImage, hidingDuration);
+                })
+                .to(hidingDuration, { scale: Vec3.ONE })
+                .start();
+            await playSpine(spine, animationName);
             spine.node.active = false;
+            scaleNode.scale = originalScale;
         }
     }
 
