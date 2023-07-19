@@ -7,7 +7,7 @@ import { AnimationUtils } from "db://shared-components/shared/utils";
 import Observer from "observer";
 import { siteConfigs } from "../../../scripts/site-configs";
 import { containerOptions, settings } from "../game-settings";
-//import "./../../../resources/i18n";
+import "./../../../resources/i18n";
 import { BetChoice, Choice } from "./dtf-commons";
 const { Settlements, Rounds } = gc;
 
