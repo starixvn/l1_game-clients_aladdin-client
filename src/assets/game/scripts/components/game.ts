@@ -11,7 +11,7 @@ import { containerOptions, settings } from "../game-settings";
 import { BetChoice, Choice } from "./dtf-commons";
 const { Settlements, Rounds } = gc;
 
-const { movingNode, getPositionAtDestNode, playSpine } = AnimationUtils;
+const { movingNode, getPositionAtDestNode, playSpine, fadeOut, fadeIn } = AnimationUtils;
 
 startGame(settings.name, containerOptions, siteConfigs);
 
@@ -38,6 +38,9 @@ export default class Game extends GameComponent {
 
     @property({ type: sp.Skeleton })
     resultSpines: sp.Skeleton[] = [];
+
+    @property({ type: Node })
+    staticMonsters: Node[] = [];
 
     override namespace = settings.name;
     override containerOptions = containerOptions;
@@ -78,9 +81,12 @@ export default class Game extends GameComponent {
             return;
         }
         const spine = this.resultSpines.find((spine) => spine.node.name === winChoice);
+        const staticImage = this.staticMonsters.find((staticMonster) => staticMonster.name === winChoice);
         if (spine) {
+            await fadeOut(staticImage, 0.2);
             spine.node.active = true;
             await playSpine(spine, winChoice);
+            await fadeIn(staticImage, 0.2);
             spine.node.active = false;
         }
     }
