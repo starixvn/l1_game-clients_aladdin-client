@@ -1,14 +1,15 @@
 import gc from "@sg/game-client-base";
-import { Label, Sprite, SpriteFrame, _decorator } from "cc";
+import { Color, Label, Sprite, SpriteFrame, _decorator } from "cc";
 import { LedLightTooltip } from "db://shared-components/game/led-light/scripts/components/led-light-tooltip";
 import { ServiceCard, convertRank } from "db://shared-components/game/poker-cards/scripts/poker-card";
 import { BetChoice } from "../dtf-commons";
 const { ccclass, property } = _decorator;
 
-type TCard = {
-    rank: number;
-    suit: number;
-};
+enum ColorResult {
+    dragon = "#0691f2",
+    tiger = "#eba807",
+    tie = "#08c826",
+}
 @ccclass("CustomLedLightTooltip")
 export class CustomLedLightTooltip extends LedLightTooltip {
     @property(Label)
@@ -28,14 +29,12 @@ export class CustomLedLightTooltip extends LedLightTooltip {
 
     public setTooltipInfo(ledLightInfo: gc.RoundHistories.RoundHistory) {
         this.roundId.string = `#${ledLightInfo.roundId}`;
-
         const winChoice = this.findWinningChoice(ledLightInfo);
         const name = gc.Translator.gameTranslate(`glossary_${winChoice}`);
-        this.result.string = name;
-
+        this.result.string = name.toUpperCase();
+        this.result.color = new Color(ColorResult[winChoice]);
         this.showCardInfo(ledLightInfo?.result?.dragon, this.lblDragonValue, this.spriteCardDragon);
         this.showCardInfo(ledLightInfo?.result?.tiger, this.lblTigerValue, this.spriteCardTiger);
-
         this.showTooltip();
     }
 
