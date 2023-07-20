@@ -1,6 +1,7 @@
 import { _decorator, Color, Label, Node } from "cc";
 import gc from "@sg/game-client-base";
 import BetDetailBodyItem from "db://shared-components/game/bet-history/scripts/components/bet-detail/bet-detail-body-item";
+import { BetChoice } from "../dtf-commons";
 
 const { ccclass } = _decorator;
 const { property } = _decorator;
@@ -46,10 +47,9 @@ export default class DragonTigerFightBetDetailBodyItem extends BetDetailBodyItem
         data: gc.BetHistory.BetDetailsLog,
         index: number,
         odd: number,
-        isWin: boolean,
+        settlementResult: gc.BetHistory.DynamicObject<boolean>,
         freeBet: boolean,
-        fractionalOddsFormat: boolean,
-        isTie?: boolean
+        fractionalOddsFormat: boolean
     ) {
         this.nodeBackground.active = index % 2 > 0;
 
@@ -60,11 +60,11 @@ export default class DragonTigerFightBetDetailBodyItem extends BetDetailBodyItem
         this.lblOdds.string = (fractionalOddsFormat ? FormatUtils.numberWithCommas(+odd - 1, 2) : odd).toString();
         this.lblAmount.string = FormatUtils.numberWithCommas(amount);
 
-        if (isTie) {
+        if (settlementResult[BetChoice.Tie]) {
             this.lblWin.string = FormatUtils.numberWithCommas(amount / 2);
         } else {
             const effectiveOdds = freeBet ? odd - 1 : odd;
-            const winningAmount = isWin ? amount * effectiveOdds : 0;
+            const winningAmount = settlementResult[choice] ? amount * effectiveOdds : 0;
             this.lblWin.string = FormatUtils.numberWithCommas(winningAmount);
             this.setHighlightTicketDetail(winningAmount > amount);
         }

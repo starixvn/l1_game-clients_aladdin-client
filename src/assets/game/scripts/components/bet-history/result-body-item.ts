@@ -19,20 +19,21 @@ export default class ResultBodyItem extends BaseResultBodyItem {
     tigerRank: Label = null;
 
     setData(result: gc.BetHistory.DynamicObject<ServiceCard>, settlementResult: gc.BetHistory.DynamicObject<boolean>) {
-        this.showCardResult(BetChoice.Dragon, Choice.Dragon, result, settlementResult);
-        this.showCardResult(BetChoice.Tiger, Choice.Tiger, result, settlementResult);
+        this.showCardResult(BetChoice.Dragon, Choice.Dragon, result, settlementResult, this.dragonRank);
+        this.showCardResult(BetChoice.Tiger, Choice.Tiger, result, settlementResult, this.tigerRank);
     }
 
     showCardResult(
         betChoice: BetChoice,
         choiceIndex: Choice,
         result: gc.BetHistory.DynamicObject<ServiceCard>,
-        settlementResult: gc.BetHistory.DynamicObject<boolean>
+        settlementResult: gc.BetHistory.DynamicObject<boolean>,
+        rankLabel: Label
     ) {
         const card = result[betChoice];
         this.cards[choiceIndex].setServiceCard(card);
         this.cards[choiceIndex].faceUp();
-        this.tigerRank.string = (card.rank + 1).toString();
-        this.tigerRank.color = settlementResult[betChoice] ? Color.YELLOW : Color.WHITE;
+        rankLabel.string = (card.rank + 1).toString();
+        rankLabel.color = settlementResult[betChoice] ? Color.YELLOW : Color.WHITE;
     }
 }
