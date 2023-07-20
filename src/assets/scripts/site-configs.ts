@@ -24,6 +24,8 @@ const defaultConfig: gc.Configs.SiteConfigs = {
         route: "dragontigerfight",
     },
     mainObserverNamespace: "DragonTigerFight",
+    tolgeeUrl:
+        "https://tolgee.sabagame.com/v2/projects/5/translations?ak=tgpak_gvpw45brha2xg3btoztxeytunvudc5dbn5twqodtonztc&size=1000&filterNamespace=Common,DragonTigerFight&languages=",
 };
 
 let configDev = {
