@@ -48,7 +48,8 @@ export default class DragonTigerFightBetDetailBodyItem extends BetDetailBodyItem
         odd: number,
         isWin: boolean,
         freeBet: boolean,
-        fractionalOddsFormat: boolean
+        fractionalOddsFormat: boolean,
+        isTie?: boolean
     ) {
         this.nodeBackground.active = index % 2 > 0;
 
@@ -59,10 +60,14 @@ export default class DragonTigerFightBetDetailBodyItem extends BetDetailBodyItem
         this.lblOdds.string = (fractionalOddsFormat ? FormatUtils.numberWithCommas(+odd - 1, 2) : odd).toString();
         this.lblAmount.string = FormatUtils.numberWithCommas(amount);
 
-        const effectiveOdds = freeBet ? odd - 1 : odd;
-        const winningAmount = isWin ? amount * effectiveOdds : 0;
-        this.lblWin.string = FormatUtils.numberWithCommas(winningAmount);
-        this.setHighlightTicketDetail(winningAmount > amount);
+        if (isTie) {
+            this.lblWin.string = FormatUtils.numberWithCommas(amount / 2);
+        } else {
+            const effectiveOdds = freeBet ? odd - 1 : odd;
+            const winningAmount = isWin ? amount * effectiveOdds : 0;
+            this.lblWin.string = FormatUtils.numberWithCommas(winningAmount);
+            this.setHighlightTicketDetail(winningAmount > amount);
+        }
     }
 
     setHighlightTicketDetail(highlight: boolean) {
