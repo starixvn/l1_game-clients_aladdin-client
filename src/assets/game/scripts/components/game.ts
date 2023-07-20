@@ -128,17 +128,12 @@ export default class Game extends GameComponent {
 
     async dropCards() {
         const cards = this.cards;
-        const dropDruration = 0.5;
-        for (let i = 0; i < cards.length; i++) {
-            const card = cards[i];
-
-            movingNode(card.node, dropDruration, this.nodeCardDrop);
-            const isLast = i === cards.length - 1;
-            if (isLast) {
-                await card.dropCard(dropDruration);
-            } else {
-                card.dropCard(dropDruration);
-            }
+        const dropDuration = 0.5;
+        const closeDuration = 0.2;
+        for (const card of cards) {
+            movingNode(card.node, dropDuration, this.nodeCardDrop);
+            await card.dropCard(dropDuration);
+            await card.closeAfterDrop(closeDuration);
         }
     }
 
@@ -150,9 +145,5 @@ export default class Game extends GameComponent {
     private async openCards() {
         await this.cards[Choice.Dragon].openCard();
         await this.cards[Choice.Tiger].openCard();
-    }
-
-    private closeCards() {
-        this.cards.forEach((card) => card.faceDown());
     }
 }
