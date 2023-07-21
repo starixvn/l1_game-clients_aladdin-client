@@ -8,10 +8,6 @@ window.envConfig = {
     enableMsgpackParserOnNotification: false,
     enableMsgpackParserAllGames: false,
     SGConnectSubDomain: "l1-connectsite3",
-    tolgee: {
-        defaultLanguage: "en",
-        apiKey: "tgpak_gvpw45brha2xg3btoztxeytunvudc5dbn5twqodtonztc",
-        apiUrl: "https://tolgee.sabagame.com/",
-        projectId: "5",
-    },
+    tolgeeUrl:
+        "https://tolgee.sabagame.com/v2/projects/5/translations?ak=tgpak_gvpw45brha2xg3btoztxeytunvudc5dbn5twqodtonztc&size=1000&filterNamespace=Common,DragonTigerFight&languages=",
 };

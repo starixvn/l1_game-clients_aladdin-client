@@ -1,17 +1,13 @@
 window.envConfig = {
     systemType: "SG",
     ssl: true,
-    subDomain: "l1-proxy",
-    env: "LOCAL",
+    subDomain: "l1-proxy3",
+    env: "LOCAL3",
     sentryUrl: "https://2af29bdacdbf4d9ba2db6600b450541f@sentry.lumigame.com/28",
-    subGuideDomain: "l1-guide",
-    enableMsgpackParserAllGames: false,
+    subGuideDomain: "l1-guide-3",
     enableMsgpackParserOnNotification: false,
-    SGConnectSubDomain: "connectsite",
-    tolgee: {
-        defaultLanguage: "en",
-        apiKey: "tgpak_gvpw45brha2xg3btoztxeytunvudc5dbn5twqodtonztc",
-        apiUrl: "https://tolgee.sabagame.com/",
-        projectId: "5",
-    },
+    enableMsgpackParserAllGames: false,
+    SGConnectSubDomain: "l1-connectsite3",
+    tolgeeUrl:
+        "https://tolgee.sabagame.com/v2/projects/5/translations?ak=tgpak_gvpw45brha2xg3btoztxeytunvudc5dbn5twqodtonztc&size=1000&filterNamespace=Common,DragonTigerFight&languages=",
 };

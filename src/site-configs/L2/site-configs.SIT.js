@@ -9,7 +9,5 @@ window.envConfig = {
     enableMsgpackParserOnNotification: true,
     subDirectory: "sit",
     SGConnectSubDomain: "l2-connect-sit",
-    tolgee: {
-        defaultLanguage: "en",
-    },
+    defaultLanguage: "en",
 };
