@@ -64,6 +64,8 @@ export default class Game extends GameComponent {
 
             if (hasAnimation) {
                 await this.openCards();
+            } else {
+                this.openCardsWithoutAnim();
             }
         }
     }
@@ -145,5 +147,10 @@ export default class Game extends GameComponent {
     private async openCards() {
         await this.cards[Choice.Dragon].openCard();
         await this.cards[Choice.Tiger].openCard();
+    }
+
+    private openCardsWithoutAnim() {
+        this.cards[Choice.Dragon].faceUp();
+        this.cards[Choice.Tiger].faceUp();
     }
 }
