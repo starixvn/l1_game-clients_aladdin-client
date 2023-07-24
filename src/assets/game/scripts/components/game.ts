@@ -54,8 +54,8 @@ export default class Game extends GameComponent {
     }
 
     async finishShowResult(settlementResult: gc.GameServiceMessage.TSettlementResult) {
+        await this.showResultSpines(settlementResult);
         super.finishShowResult(settlementResult);
-        this.showResultSpines(settlementResult);
     }
 
     async showResult(result: gc.GameServiceMessage.TResult, hasAnimation: boolean) {
