@@ -83,6 +83,7 @@ export const languages = {
         "message_system_mantainance_place_bet": "Permainan %{gameName} (#%{gameRoundId})\n\nGagal memasang taruhan! Permainan sedang dalam pemeliharaan.",
         "message_unauthorized": "Tidak sah.",
         "message_unavailable_game": "Permainan %{gameName} (#%{gameRoundId})\n\nPermainan tidak tersedia saat ini. Silakan hubungi CSD untuk lebih lanjut, terima kasih. (%{errorCode})",
+        "message_under_maintain": "SITUS DALAM PEMELIHARAAN. SILAKAN KEMBALI LAGI.",
         "message_user_not_found": "Permainan %{gameName} (#%{gameRoundId})\nGagal memasang taruhan! Pengguna tidak ditemukan. (%{errorCode})",
         "message_user_notfound_place_bet": "Permainan %{gameName} (#%{gameRoundId})\n\nGagal memasang taruhan! Pengguna tidak ditemukan. (%{errorCode})",
         "message_void_running_ticket": "Taruhan dibatalkan karena masalah teknis. Silakan coba permainan lagi.",
@@ -108,6 +109,8 @@ export const languages = {
         "win": "Menang"
     },
     "DragonTigerFight": {
+        "bet_history_dragon": "(Naga",
+        "bet_history_tiger": "Harimau)",
         "game_icon_name": "Tarung\nNaga Harimau",
         "game_name": "Tarung Naga Harimau",
         "glossary_blackDragon": "Naga Hitam",

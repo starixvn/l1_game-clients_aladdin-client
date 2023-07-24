@@ -82,7 +82,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "background",
+    "_name": "bgRow",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
@@ -242,7 +242,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "time",
+    "_name": "lblTime",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
@@ -402,7 +402,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "choice",
+    "_name": "lblChoice",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
@@ -562,7 +562,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "odds",
+    "_name": "lblOdd",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
@@ -722,7 +722,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "amount",
+    "_name": "lblStake",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
@@ -879,7 +879,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "win",
+    "_name": "lblWin",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
@@ -1111,8 +1111,6 @@
     "nodeBackground": {
       "__id__": 2
     },
-    "lblDate": null,
-    "lblHour": null,
     "_id": ""
   },
   {

@@ -83,6 +83,7 @@ export const languages = {
         "message_system_mantainance_place_bet": "%{gameName} 游戏 (#%{gameRoundId})\n\n下注失败！ 游戏正在维护中。",
         "message_unauthorized": "未经授权。",
         "message_unavailable_game": "%{gameName} 游戏 (#%{gameRoundId})\n\n该游戏暂时无法使用。 详情请联系CSD，谢谢。      (%{errorCode})",
+        "message_under_maintain": "本网站正在维护中。 请稍后再回来。",
         "message_user_not_found": "未找到用户。(%{errorCode})",
         "message_user_notfound_place_bet": "%{gameName} 游戏 (#%{gameRoundId})\n\n下注失败！ 未找到用户。(%{errorCode})",
         "message_void_running_ticket": "由于技术问题，该投注无效。请再次尝试游戏。",
@@ -108,6 +109,8 @@ export const languages = {
         "win": "赢"
     },
     "DragonTigerFight": {
+        "bet_history_dragon": "(龙",
+        "bet_history_tiger": "虎)",
         "game_icon_name": "龙虎斗",
         "game_name": "龙虎斗",
         "glossary_blackDragon": "龙黑",

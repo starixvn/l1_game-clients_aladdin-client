@@ -83,6 +83,7 @@ export const languages = {
         "message_system_mantainance_place_bet": "Game %{gameName} (#%{gameRoundId})\n\nHệ thống đang được bảo trì.",
         "message_unauthorized": "Không được phép.",
         "message_unavailable_game": "Game %{gameName} (#%{gameRoundId})\n\nTrò chơi không khả dụng vào thời điểm này. Vui lòng liên hệ với bộ phận CSKH để biết chi tiết, cảm ơn bạn. (%{errorCode})",
+        "message_under_maintain": "HỆ THỐNG ĐANG ĐƯỢC BẢO TRÌ.\\r\\nVUI LÒNG QUAY LẠI SAU.",
         "message_user_not_found": "Không tìm thấy người chơi này. (%{errorCode})",
         "message_user_notfound_place_bet": "Game %{gameName} (#%{gameRoundId})\n\nKhông tìm thấy người chơi này. Đặt cược thất bại! (%{errorCode})",
         "message_void_running_ticket": "Cược của bạn đã bị hủy vì lý do kỹ thuật. Vui lòng thử lại game.",
@@ -108,6 +109,8 @@ export const languages = {
         "win": "Thắng"
     },
     "DragonTigerFight": {
+        "bet_history_dragon": "(Rồng",
+        "bet_history_tiger": "Hổ)",
         "game_icon_name": "Đại Chiến\nRồng Hổ",
         "game_name": "Đại Chiến Rồng Hổ",
         "glossary_blackDragon": "Rồng Đen",

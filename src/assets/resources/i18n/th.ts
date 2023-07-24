@@ -83,6 +83,7 @@ export const languages = {
         "message_system_mantainance_place_bet": "เกม %{gameName} (#%{gameRoundId})\n\nการวางเดิมพันล้มเหลว! เกมอยู่ระหว่างการบำรุงรักษา ",
         "message_unauthorized": "ไม่ได้รับอนุญาต",
         "message_unavailable_game": "เกม %{gameName} (#%{gameRoundId})\n\nเกมไม่สามารถใช้งานได้ในขณะนี้ กรุณาติดต่อแอดมินสำหรับรายละเอียดขอบคุณ (%{errorCode})",
+        "message_under_maintain": "ระบบปิดปรับปรุง กรุณาเข้ามาใช้งานใหม่อีกครั้ง",
         "message_user_not_found": "ไม่พบชื่อผู้ใช้ (%{errorCode})",
         "message_user_notfound_place_bet": "เกม %{gameName} (#%{gameRoundId})\n\nการวางเดิมพันล้มเหลว! ไม่พบชื่อผู้ใช้ (%{errorCode})",
         "message_void_running_ticket": "การเดิมพันถือเป็นโมฆะเนื่องจากปัญหาทางเทคนิค โปรดลองอีกครั้ง",
@@ -108,6 +109,8 @@ export const languages = {
         "win": "ชนะ"
     },
     "DragonTigerFight": {
+        "bet_history_dragon": "(มังกร",
+        "bet_history_tiger": "เสือ)",
         "game_icon_name": "เสือมังกรไฟท์",
         "game_name": "เสือมังกรไฟท์",
         "glossary_blackDragon": "มังกรดำ",

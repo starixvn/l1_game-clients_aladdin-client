@@ -42,7 +42,7 @@ export const languages = {
         "message_exist_nickname": "Nickname is already taken, please try another one.",
         "message_game_under_maintain": "Game is under maintenance. Please come back later.",
         "message_get_balance_failed": "Cannot update the account balance.(%{errorCode})",
-        "message_hedge_bet": "Can bet on either {choice_1} or {choice_2}.",
+        "message_hedge_bet": "Can bet on either %{betChoice1} or %{betChoice2}.",
         "message_insufficient_fund": "Your account has insufficient funds.",
         "message_invalid_bet_choice": "Invalid Bet Choice",
         "message_invalid_data": "Invalid Data.",
@@ -83,6 +83,7 @@ export const languages = {
         "message_system_mantainance_place_bet": "Game %{gameName} (#%{gameRoundId})\n\nFailed to place bet! The game is under maintenance.",
         "message_unauthorized": "Unauthorized",
         "message_unavailable_game": "Game %{gameName} (#%{gameRoundId})\n\nThe game is unavailable at the moment. Please contact CSD for details, thank you.(%{errorCode})",
+        "message_under_maintain": "THE SITE IS UNDER MAINTENANCE. PLEASE COME BACK LATER.",
         "message_user_not_found": "User was not found.(%{errorCode})",
         "message_user_notfound_place_bet": "Game %{gameName} (#%{gameRoundId})\n\nFailed to place bet! User was not found.(%{errorCode})",
         "message_void_running_ticket": "The bet was voided due to a technical issue. Please try the game again.",
@@ -108,6 +109,8 @@ export const languages = {
         "win": "Win"
     },
     "DragonTigerFight": {
+        "bet_history_dragon": "(dragon",
+        "bet_history_tiger": "tiger)",
         "game_icon_name": "Dragon Tiger\nFight",
         "game_name": "Dragon Tiger Fight",
         "glossary_blackDragon": "Black Dragon",

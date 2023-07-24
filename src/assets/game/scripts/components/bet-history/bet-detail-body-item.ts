@@ -27,13 +27,13 @@ export default class DragonTigerFightBetDetailBodyItem extends BetDetailBodyItem
         fractionalOddsFormat: boolean
     ) {
         const { amount, choice } = betDetailsLog;
-        if (settlementResult[BetChoice.Tie]) {
-            this.lblWin.string = FormatUtils.numberWithCommas(amount / 2);
-        } else {
+        if (settlementResult[choice]) {
             const effectiveOdds = freeBet ? odd - 1 : odd;
-            const winningAmount = settlementResult[choice] ? amount * effectiveOdds : 0;
+            const winningAmount = amount * effectiveOdds;
             this.lblWin.string = FormatUtils.numberWithCommas(winningAmount);
             this.setHighlightTicketDetail(winningAmount > amount);
+        } else {
+            this.lblWin.string = FormatUtils.numberWithCommas(settlementResult[BetChoice.Tie] ? amount / 2 : 0);
         }
     }
 }
