@@ -9,7 +9,8 @@
         "resolveJsonModule": true,
         "paths": {
             "cc": ["./tests/cocos-testing/cc"],
-            "db://shared-components/*": ["./extensions/shared-components/assets/*"]
+            "db://shared-components/*": ["./extensions/shared-components/assets/*"],
+            "db://i18n/*": ["./extensions/i18n/assets/*"]
         }
     }
 }
