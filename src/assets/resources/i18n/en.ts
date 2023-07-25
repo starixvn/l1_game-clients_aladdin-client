@@ -11,7 +11,7 @@ export const languages = {
         "copy_successfully_md5": "Copy successful!",
         "create_nick_name": "Create Your Nickname",
         "enter_your_name": "Enter your nickname.",
-        "game_excluded": "%{gameName}\\n\\nYour account is no longer allowed to play this game. Please try other games.",
+        "game_excluded": "%{gameName}\n\nYour account is no longer allowed to play this game. Please try other games.",
         "game_guide": "Game Guides",
         "hand_not_active": "Inactive Hand",
         "invalid_deal_hands": "The number of Hands is invalid",
