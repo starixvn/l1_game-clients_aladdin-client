@@ -3,6 +3,9 @@
     "version": "1.0.0",
     "main": "index.js",
     "license": "MIT",
+    "scripts": {
+        "pack-images": "npm install && python pack-resources.py"
+    },
     "dependencies": {
         "argparse": "^2.0.1",
         "async-mutex": "^0.4.0",
