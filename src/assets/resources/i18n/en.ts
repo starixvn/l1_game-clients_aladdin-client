@@ -20,7 +20,6 @@ export const languages = {
         "md5_copy": "COPY",
         "md5_key": "MD5 KEY",
         "md5_result": "RESULT",
-        "message__round_maxbet": "Max total stake on this round is %{maxBet} ",
         "message_account_blacklist_place_bet": "Game %{gameName} (#%{gameRoundId})\n\nFailed to place bet! Account has been closed. Please contact CSD for details.(%{errorCode})",
         "message_account_locked_place_bet": "Game %{gameName} (#%{gameRoundId})\n\nFailed to place bet! Account has been closed. Please contact your upline for details, thank you.",
         "message_account_not_exist": "An error has occurred. Please contact CSD for details, thank you.(%{errorCode})",
@@ -73,6 +72,7 @@ export const languages = {
         "message_player_unpermitted_play": "Game %{gameName} (#%{gameRoundId})\n\nGame disabled. Please contact your upline for details, thank you.(%{errorCode})",
         "message_processing_action": "Data are being processed, please wait.",
         "message_rotate_device": "Please rotate your device.",
+        "message_round_maxbet": "Max total stake on this round is %{maxBet} ",
         "message_server_error": "The server has encountered an error,",
         "message_server_not_found": "The server is not found.",
         "message_session_expired": "Your session has expired, please login again.",
@@ -109,8 +109,8 @@ export const languages = {
         "win": "Win"
     },
     "DragonTigerFight": {
-        "bet_history_dragon": "(dragon",
-        "bet_history_tiger": "tiger)",
+        "bet_history_dragon": "(Dragon",
+        "bet_history_tiger": "Tiger)",
         "game_icon_name": "Dragon Tiger\nFight",
         "game_name": "Dragon Tiger Fight",
         "glossary_blackDragon": "Black Dragon",
