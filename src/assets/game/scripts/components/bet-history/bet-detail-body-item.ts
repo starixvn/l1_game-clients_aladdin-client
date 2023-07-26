@@ -35,7 +35,9 @@ export default class DragonTigerFightBetDetailBodyItem extends BetDetailBodyItem
             this.lblWin.string = FormatUtils.numberWithCommas(winningAmount);
             this.setHighlightTicketDetail(winningAmount > amount);
         } else {
-            this.lblWin.string = FormatUtils.numberWithCommas(settlementResult[BetChoice.Tie] ? amount / 2 : 0);
+            const lossAmount =
+                settlementResult[BetChoice.Tie] && (choice == BetChoice.Tiger || choice == BetChoice.Dragon) ? amount / 2 : 0;
+            this.lblWin.string = FormatUtils.numberWithCommas(lossAmount);
         }
     }
 }

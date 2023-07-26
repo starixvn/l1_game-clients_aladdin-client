@@ -215,7 +215,7 @@
       "b": 0,
       "a": 255
     },
-    "_string": "Thời Gian",
+    "_string": "Time",
     "_horizontalAlign": 0,
     "_verticalAlign": 1,
     "_actualFontSize": 42,
@@ -234,7 +234,7 @@
     "_isBold": true,
     "_isUnderline": false,
     "_underlineHeight": 0,
-    "_cacheMode": 0,
+    "_cacheMode": 2,
     "_id": ""
   },
   {
@@ -272,8 +272,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 209.53,
-      "height": 55.44
+      "width": 107.59,
+      "height": 44
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -298,7 +298,7 @@
       "__id__": 11
     },
     "overrideFonts": [],
-    "enableCacheMode": false,
+    "enableCacheMode": true,
     "_id": ""
   },
   {
@@ -317,7 +317,7 @@
       "__id__": 13
     },
     "key": "Common.time",
-    "format": 0,
+    "format": 3,
     "_id": ""
   },
   {
@@ -416,7 +416,7 @@
       "b": 0,
       "a": 255
     },
-    "_string": "Phiên",
+    "_string": "Round",
     "_horizontalAlign": 0,
     "_verticalAlign": 1,
     "_actualFontSize": 42,
@@ -435,7 +435,7 @@
     "_isBold": true,
     "_isUnderline": false,
     "_underlineHeight": 0,
-    "_cacheMode": 0,
+    "_cacheMode": 2,
     "_id": ""
   },
   {
@@ -473,8 +473,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 121.59,
-      "height": 55.44
+      "width": 138.71,
+      "height": 44
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -499,7 +499,7 @@
       "__id__": 23
     },
     "overrideFonts": [],
-    "enableCacheMode": false,
+    "enableCacheMode": true,
     "_id": ""
   },
   {
@@ -518,7 +518,7 @@
       "__id__": 25
     },
     "key": "Common.round",
-    "format": 0,
+    "format": 3,
     "_id": ""
   },
   {
@@ -617,7 +617,7 @@
       "b": 0,
       "a": 255
     },
-    "_string": "Kết Quả",
+    "_string": "Result",
     "_horizontalAlign": 1,
     "_verticalAlign": 1,
     "_actualFontSize": 42,
@@ -636,7 +636,7 @@
     "_isBold": true,
     "_isUnderline": false,
     "_underlineHeight": 0,
-    "_cacheMode": 0,
+    "_cacheMode": 2,
     "_id": ""
   },
   {
@@ -700,7 +700,7 @@
       "__id__": 35
     },
     "overrideFonts": [],
-    "enableCacheMode": false,
+    "enableCacheMode": true,
     "_id": ""
   },
   {
@@ -719,7 +719,7 @@
       "__id__": 37
     },
     "key": "Common.result",
-    "format": 0,
+    "format": 3,
     "_id": ""
   },
   {
@@ -835,7 +835,7 @@
     },
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": -92.01000000000002,
+      "x": -82.01000000000002,
       "y": -27.262,
       "z": 0
     },
@@ -883,7 +883,7 @@
       "b": 0,
       "a": 255
     },
-    "_string": "(Rồng",
+    "_string": "(Dragon",
     "_horizontalAlign": 2,
     "_verticalAlign": 1,
     "_actualFontSize": 42,
@@ -902,7 +902,7 @@
     "_isBold": true,
     "_isUnderline": false,
     "_underlineHeight": 0,
-    "_cacheMode": 0,
+    "_cacheMode": 2,
     "_id": ""
   },
   {
@@ -968,7 +968,7 @@
     "_alignFlags": 32,
     "_target": null,
     "_left": -20.21400000000002,
-    "_right": 140,
+    "_right": 130,
     "_top": 52.167,
     "_bottom": -7.606999999999999,
     "_horizontalCenter": 0,
@@ -1001,7 +1001,7 @@
       "__id__": 50
     },
     "overrideFonts": [],
-    "enableCacheMode": false,
+    "enableCacheMode": true,
     "_id": ""
   },
   {
@@ -1074,6 +1074,8 @@
       "__id__": 0
     },
     "fileId": "45rbBK8O9H9Z3jV2CKuDCo",
+    "instance": null,
+    "targetOverrides": null,
     "nestedPrefabInstanceRoots": null
   },
   {
@@ -1171,7 +1173,7 @@
     "_isBold": false,
     "_isUnderline": false,
     "_underlineHeight": 0,
-    "_cacheMode": 0,
+    "_cacheMode": 2,
     "_id": ""
   },
   {
@@ -1210,7 +1212,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 23.48,
-      "height": 45.36
+      "height": 36
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1270,7 +1272,7 @@
     },
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": 92.01000000000002,
+      "x": 82.01000000000002,
       "y": -27.262,
       "z": 0
     },
@@ -1318,7 +1320,7 @@
       "b": 0,
       "a": 255
     },
-    "_string": "Hổ)",
+    "_string": "Tiger)",
     "_horizontalAlign": 0,
     "_verticalAlign": 1,
     "_actualFontSize": 42,
@@ -1337,7 +1339,7 @@
     "_isBold": true,
     "_isUnderline": false,
     "_underlineHeight": 0,
-    "_cacheMode": 0,
+    "_cacheMode": 2,
     "_id": ""
   },
   {
@@ -1402,7 +1404,7 @@
     },
     "_alignFlags": 8,
     "_target": null,
-    "_left": 140,
+    "_left": 130,
     "_right": 0,
     "_top": 0,
     "_bottom": 0,
@@ -1436,7 +1438,7 @@
       "__id__": 76
     },
     "overrideFonts": [],
-    "enableCacheMode": false,
+    "enableCacheMode": true,
     "_id": ""
   },
   {
@@ -1471,6 +1473,8 @@
       "__id__": 0
     },
     "fileId": "acMcvkCC1MTbqTJ3Gtna9z",
+    "instance": null,
+    "targetOverrides": null,
     "nestedPrefabInstanceRoots": null
   },
   {
@@ -1509,6 +1513,8 @@
       "__id__": 0
     },
     "fileId": "2d8H1WaDtGS6a19oZ0KTny",
+    "instance": null,
+    "targetOverrides": null,
     "nestedPrefabInstanceRoots": null
   },
   {
@@ -1590,7 +1596,7 @@
       "b": 0,
       "a": 255
     },
-    "_string": "Tổng Cược",
+    "_string": "Total Stake",
     "_horizontalAlign": 0,
     "_verticalAlign": 1,
     "_actualFontSize": 42,
@@ -1609,7 +1615,7 @@
     "_isBold": true,
     "_isUnderline": false,
     "_underlineHeight": 0,
-    "_cacheMode": 0,
+    "_cacheMode": 2,
     "_id": ""
   },
   {
@@ -1647,8 +1653,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 225.34,
-      "height": 55.44
+      "width": 238.48,
+      "height": 44
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1673,7 +1679,7 @@
       "__id__": 91
     },
     "overrideFonts": [],
-    "enableCacheMode": false,
+    "enableCacheMode": true,
     "_id": ""
   },
   {
@@ -1692,7 +1698,7 @@
       "__id__": 93
     },
     "key": "Common.total_stake",
-    "format": 0,
+    "format": 3,
     "_id": ""
   },
   {
@@ -1791,7 +1797,7 @@
       "b": 0,
       "a": 255
     },
-    "_string": "Thắng",
+    "_string": "Win",
     "_horizontalAlign": 0,
     "_verticalAlign": 1,
     "_actualFontSize": 42,
@@ -1810,7 +1816,7 @@
     "_isBold": true,
     "_isUnderline": false,
     "_underlineHeight": 0,
-    "_cacheMode": 0,
+    "_cacheMode": 2,
     "_id": ""
   },
   {
@@ -1848,8 +1854,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 132.13,
-      "height": 55.44
+      "width": 87.61,
+      "height": 44
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1874,7 +1880,7 @@
       "__id__": 103
     },
     "overrideFonts": [],
-    "enableCacheMode": false,
+    "enableCacheMode": true,
     "_id": ""
   },
   {
@@ -1893,7 +1899,7 @@
       "__id__": 105
     },
     "key": "Common.win",
-    "format": 0,
+    "format": 3,
     "_id": ""
   },
   {
