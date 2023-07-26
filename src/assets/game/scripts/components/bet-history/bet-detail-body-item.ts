@@ -27,6 +27,8 @@ export default class DragonTigerFightBetDetailBodyItem extends BetDetailBodyItem
         fractionalOddsFormat: boolean
     ) {
         const { amount, choice } = betDetailsLog;
+        super.setData(betDetailsLog, index, odd, settlementResult, freeBet, fractionalOddsFormat);
+
         if (settlementResult[choice]) {
             const effectiveOdds = freeBet ? odd - 1 : odd;
             const winningAmount = amount * effectiveOdds;
