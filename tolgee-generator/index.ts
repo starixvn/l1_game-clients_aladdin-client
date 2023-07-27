@@ -23,7 +23,7 @@ const tg = Tolgee().use(DevTools()).init({
 
 tg.run();
 
-tg.on("initialLoad", () => {
+tg.on("initialLoad", async () => {
     const languages: {
         [languageId: string]: {
             [ns: string]: {
@@ -32,7 +32,18 @@ tg.on("initialLoad", () => {
         };
     } = {};
 
-    languageCodes.forEach(async (languageId) => {
+    let remoteNames: {
+        [propertyName: string]: {
+            [languageId: string]: string;
+        };
+    } = {
+        lobbyNames: {},
+        gameNames: {},
+    };
+
+    for (let index = 0; index < languageCodes.length; index++) {
+        const languageId = languageCodes[index];
+
         await tg.changeLanguage(languageId);
         languages[languageId] = {};
         namespaces.forEach((ns) => {
@@ -41,6 +52,14 @@ tg.on("initialLoad", () => {
                     languages[languageId][ns] = {};
                     record.data.forEach((value, key) => {
                         languages[languageId][ns][key] = value as string;
+
+                        if (key == "game_name") {
+                            remoteNames.gameNames[languageId] = value as string;
+                        }
+
+                        if (key == "game_icon_name") {
+                            remoteNames.lobbyNames[languageId] = value as string;
+                        }
                     });
                 }
             });
@@ -56,7 +75,7 @@ if (!win.languages) {
 win.languages.${languageId} = languages;`;
 
         writeFile(languageFolder + languageId, languageScript.replace("{0}", JSON.stringify(languages[languageId], null, 4)));
-    });
+    }
 
     writeFile(
         languageFolder + "index",
@@ -67,6 +86,8 @@ win.languages.${languageId} = languages;`;
     export * as zh_cn from "./zh_cn";
     export * as zh_tw from "./zh_tw";`
     );
+
+    writeFile("./src/remote/localization", JSON.stringify(remoteNames, null, 4), "json");
 
     console.log("Generated done!");
 });
