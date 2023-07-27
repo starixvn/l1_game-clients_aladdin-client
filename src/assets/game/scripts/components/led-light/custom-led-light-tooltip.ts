@@ -2,7 +2,7 @@ import gc from "@sg/game-client-base";
 import { Color, Label, Sprite, SpriteFrame, _decorator } from "cc";
 import { LedLightTooltip } from "db://shared-components/game/led-light/scripts/components/led-light-tooltip";
 import { ServiceCard, convertRank } from "db://shared-components/game/poker-cards/scripts/poker-card";
-import { ComponentUtils } from "../../../../../extensions/shared-components/assets/shared/utils";
+import { ComponentUtils } from "db://shared-components/shared/utils";
 import { BetChoice } from "../dtf-commons";
 const { ccclass, property } = _decorator;
 
@@ -30,7 +30,7 @@ export class CustomLedLightTooltip extends LedLightTooltip {
 
     protected onLoad(): void {
         super.onLoad();
-        ComponentUtils.handleLabelFirstLoad([this.lblDragonValue, this.lblTigerValue]);
+        ComponentUtils.firstLoadEmptyLabel([this.lblDragonValue, this.lblTigerValue]);
     }
 
     public setTooltipInfo(ledLightInfo: gc.RoundHistories.RoundHistory) {
