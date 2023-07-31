@@ -14,6 +14,7 @@ export const languages = {
         "game_excluded": "%{gameName}\n\nAkun Anda tidak lagi diizinkan untuk memainkan game ini. Silakan coba game lain.",
         "game_guide": "Panduan Permainan",
         "hand_not_active": "Tangan Tidak Aktif",
+        "invalid_bet": "Taruhan Tidak Valid",
         "invalid_deal_hands": "Jumlah Tangan tidak valid",
         "invalid_position": "Posisi Tidak Valid",
         "max_stake_hand": "Total taruhan maksimum di Tangan adalah %{maxBet}",

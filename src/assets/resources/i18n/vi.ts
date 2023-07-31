@@ -14,6 +14,7 @@ export const languages = {
         "game_excluded": "%{gameName}\n\nTài khoản của bạn hiện đang bị giới hạn, vui lòng thử các trò chơi khác.",
         "game_guide": "Hướng Dẫn",
         "hand_not_active": "Tay bài chưa tới lượt",
+        "invalid_bet": "Cược không hợp lệ",
         "invalid_deal_hands": "Số lượng tay bài không hợp lệ.",
         "invalid_position": "Vị trí tay bài không đúng",
         "max_stake_hand": "Tổng tiền cược tối đa của tay bài này là %{maxBet}",

@@ -14,6 +14,7 @@ export const languages = {
         "game_excluded": "%{gameName}\n\nYour account is no longer allowed to play this game. Please try other games.",
         "game_guide": "Game Guides",
         "hand_not_active": "Inactive Hand",
+        "invalid_bet": "Invalid Bet",
         "invalid_deal_hands": "The number of Hands is invalid",
         "invalid_position": "Invalid Position",
         "max_stake_hand": "Max total stake on Hand is %{maxBet}",

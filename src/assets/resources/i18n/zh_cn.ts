@@ -14,6 +14,7 @@ export const languages = {
         "game_excluded": "%{gameName}\n\n您的帐户不再允许玩此游戏。 请尝试其他游戏。",
         "game_guide": "游戏指南",
         "hand_not_active": "不活跃手牌",
+        "invalid_bet": "无效投注",
         "invalid_deal_hands": "这数量手牌无效",
         "invalid_position": "无效位置",
         "max_stake_hand": "手头上的最的大赌注为 %{maxBet}",
