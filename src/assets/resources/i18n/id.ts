@@ -77,6 +77,7 @@ export const languages = {
         "message_server_error": "Server mengalami kesalahan.",
         "message_server_not_found": "Server tidak ditemukan.",
         "message_session_expired": "Sesi Anda telah kedaluwarsa, silakan masuk lagi.",
+        "message_session_time_out_break": "Sesi Anda telah habis atau Anda belum masuk.\\nHarap tutup jendela saat ini dan coba masuk lagi.",
         "message_session_timeout": "Sesi Anda telah habis atau Anda belum masuk. Harap tutup jendela saat ini dan coba masuk lagi.",
         "message_session_timeout_break": "Sesi Anda telah habis atau Anda belum masuk.\nHarap tutup jendela saat ini dan coba masuk lagi.",
         "message_session_timeout_place_bet": "Permainan %{gameName} (#%{gameRoundId})\n\nGagal memasang taruhan! Sesi Anda telah habis atau Anda belum masuk. Harap tutup jendela saat ini dan coba masuk lagi.",

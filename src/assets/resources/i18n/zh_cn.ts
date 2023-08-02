@@ -77,6 +77,7 @@ export const languages = {
         "message_server_error": "服务器遇到错误。",
         "message_server_not_found": "找不到服务器。",
         "message_session_expired": "您的会话已过期，请重新登录。",
+        "message_session_time_out_break": "您的会话已超时或您尚未登录\\n 请关闭当前窗口并再次尝试登录。",
         "message_session_timeout": "您的会话已超时或您尚未登录。 请关闭当前窗口并再次尝试登录。",
         "message_session_timeout_break": "您的会话已超时或您尚未登录\n请关闭当前窗口并再次尝试登录。",
         "message_session_timeout_place_bet": "%{gameName} 游戏 (#%{gameRoundId})\n\n下注失败！ 您的会话已超时或您尚未登录。 请关闭当前窗口并再次尝试登录。",

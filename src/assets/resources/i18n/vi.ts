@@ -77,6 +77,7 @@ export const languages = {
         "message_server_error": "Máy chủ gặp sự cố.",
         "message_server_not_found": "Không tìm thấy máy chủ.",
         "message_session_expired": "Phiên đăng nhập đã hết hạn, bạn vui lòng đăng nhập lại.",
+        "message_session_time_out_break": "Phiên đăng nhập của bạn đã hết hạn, hoặc bạn chưa có đăng nhập.\\nVui lòng đóng cửa sổ game và thử đăng nhập lại.",
         "message_session_timeout": "Phiên đăng nhập của bạn đã hết hạn, hoặc bạn chưa có đăng nhập. Vui lòng đóng cửa sổ game và thử đăng nhập lại.",
         "message_session_timeout_break": "Phiên đăng nhập của bạn đã hết hạn, hoặc bạn chưa có đăng nhập.\nVui lòng đóng cửa sổ game và thử đăng nhập lại.",
         "message_session_timeout_place_bet": "Game %{gameName} (#%{gameRoundId})\n\nPhiên đăng nhập của bạn đã hết hạn, hoặc bạn chưa có đăng nhập. Vui lòng đóng cửa sổ game và thử đăng nhập lại. Đặt cược thất bại!",

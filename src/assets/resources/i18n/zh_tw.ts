@@ -77,6 +77,7 @@ export const languages = {
         "message_server_error": "服務器遇到錯誤。",
         "message_server_not_found": "找不到服務器。",
         "message_session_expired": "您的會話已過期，請重新登錄。",
+        "message_session_time_out_break": "您的會話已超時或您尚未登錄。\\n請關閉當前窗口並再次嘗試登錄。",
         "message_session_timeout": "您的會話已超時或您尚未登錄。請關閉當前窗口並再次嘗試登錄。",
         "message_session_timeout_break": "您的會話已超時或您尚未登錄。\n請關閉當前窗口並再次嘗試登錄。",
         "message_session_timeout_place_bet": "%{gameName} 遊戲 (#%{gameRoundId})\n\n下注失敗！您的會話已超時或您尚未登錄。請關閉當前窗口並再次嘗試登錄。",
