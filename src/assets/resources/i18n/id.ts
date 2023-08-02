@@ -18,9 +18,9 @@ export const languages = {
         "invalid_deal_hands": "Jumlah Tangan tidak valid",
         "invalid_position": "Posisi Tidak Valid",
         "max_stake_hand": "Total taruhan maksimum di Tangan adalah %{maxBet}",
-        "md5_copy": "Salin",
+        "md5_copy": "SALIN",
         "md5_key": "KUNCI MD5",
-        "md5_result": "Hasil",
+        "md5_result": "HASIL",
         "message_account_blacklist_place_bet": "Permainan %{gameName} (#%{gameRoundId})\n\nGagal memasang taruhan! Akun telah ditutup. Silakan hubungi CSD untuk lebih lanjut. (%{errorCode})",
         "message_account_locked_place_bet": "Permainan %{gameName} (#%{gameRoundId})\n\nGagal memasang taruhan! Akun telah ditutup. Silakan hubungi upline Anda untuk lebih lanjut, terima kasih.",
         "message_account_not_exist": "Sebuah kesalahan telah terjadi. Silakan hubungi CSD untuk lebih lanjut, terima kasih. (%{errorCode})",
@@ -78,6 +78,7 @@ export const languages = {
         "message_server_not_found": "Server tidak ditemukan.",
         "message_session_expired": "Sesi Anda telah kedaluwarsa, silakan masuk lagi.",
         "message_session_timeout": "Sesi Anda telah habis atau Anda belum masuk. Harap tutup jendela saat ini dan coba masuk lagi.",
+        "message_session_timeout_break": "Sesi Anda telah habis atau Anda belum masuk.\nHarap tutup jendela saat ini dan coba masuk lagi.",
         "message_session_timeout_place_bet": "Permainan %{gameName} (#%{gameRoundId})\n\nGagal memasang taruhan! Sesi Anda telah habis atau Anda belum masuk. Harap tutup jendela saat ini dan coba masuk lagi.",
         "message_stop_bet": "Tidak ada lagi taruhan",
         "message_sys_maintenance": "Permainan sedang dalam pemeliharaan.",
@@ -113,6 +114,7 @@ export const languages = {
     "DragonTigerFight": {
         "bet_history_dragon": "(Naga",
         "bet_history_tiger": "Harimau)",
+        "dragon_win": "DRAGON MENANG",
         "game_icon_name": "Tarung\nNaga Harimau",
         "game_name": "Tarung Naga Harimau",
         "glossary_blackDragon": "Naga Hitam",
@@ -123,7 +125,9 @@ export const languages = {
         "glossary_tie": "Seri",
         "glossary_tiger": "Harimau",
         "option_black": "Hitam",
-        "option_red": "Merah"
+        "option_red": "Merah",
+        "tie_win": "SERI!",
+        "tiger_win": "TIGER MENANG"
     }
 };
 

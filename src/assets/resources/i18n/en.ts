@@ -78,6 +78,7 @@ export const languages = {
         "message_server_not_found": "The server is not found.",
         "message_session_expired": "Your session has expired, please login again.",
         "message_session_timeout": "Your session has timed out or you have not logged in yet. Please close the current windows and try to login again.",
+        "message_session_timeout_break": "Your session has timed out or you have not logged in yet.\n Please close the current windows and try to login again.",
         "message_session_timeout_place_bet": "Game %{gameName} (#%{gameRoundId})\n\nFailed to place bet! Your session has timed out or you have not logged in yet. Please close the current windows and try to login again.",
         "message_stop_bet": "No More Bets",
         "message_sys_maintenance": "The game is under maintenance.",
@@ -113,6 +114,7 @@ export const languages = {
     "DragonTigerFight": {
         "bet_history_dragon": "(Dragon",
         "bet_history_tiger": "Tiger)",
+        "dragon_win": "DRAGON WINS",
         "game_icon_name": "Dragon Tiger\nFight",
         "game_name": "Dragon Tiger Fight",
         "glossary_blackDragon": "Black Dragon",
@@ -123,7 +125,9 @@ export const languages = {
         "glossary_tie": "Tie",
         "glossary_tiger": "Tiger",
         "option_black": "Black",
-        "option_red": "Red"
+        "option_red": "Red",
+        "tie_win": "TIE ",
+        "tiger_win": "TIGER WINS"
     }
 };
 

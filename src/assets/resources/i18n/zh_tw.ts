@@ -78,6 +78,7 @@ export const languages = {
         "message_server_not_found": "找不到服務器。",
         "message_session_expired": "您的會話已過期，請重新登錄。",
         "message_session_timeout": "您的會話已超時或您尚未登錄。請關閉當前窗口並再次嘗試登錄。",
+        "message_session_timeout_break": "您的會話已超時或您尚未登錄。\n請關閉當前窗口並再次嘗試登錄。",
         "message_session_timeout_place_bet": "%{gameName} 遊戲 (#%{gameRoundId})\n\n下注失敗！您的會話已超時或您尚未登錄。請關閉當前窗口並再次嘗試登錄。",
         "message_stop_bet": "不能再下注",
         "message_sys_maintenance": "遊戲正在維護中。",
@@ -113,6 +114,7 @@ export const languages = {
     "DragonTigerFight": {
         "bet_history_dragon": "(龍",
         "bet_history_tiger": "虎)",
+        "dragon_win": "龍贏",
         "game_icon_name": "龍虎鬥",
         "game_name": "龍虎鬥",
         "glossary_blackDragon": "龍黑",
@@ -123,7 +125,9 @@ export const languages = {
         "glossary_tie": "平局",
         "glossary_tiger": "虎",
         "option_black": "黑",
-        "option_red": "紅"
+        "option_red": "紅",
+        "tie_win": "平局!",
+        "tiger_win": "虎贏"
     }
 };
 

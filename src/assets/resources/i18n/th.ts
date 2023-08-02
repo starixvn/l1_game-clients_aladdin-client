@@ -78,6 +78,7 @@ export const languages = {
         "message_server_not_found": "ไม่พบเซิร์ฟเวอร์",
         "message_session_expired": "เซสชั่นของคุณหมดอายุ โปรดเข้าสู่ระบบอีกครั้ง",
         "message_session_timeout": "เซสชั่นของคุณหมดเวลาหรือคุณยังไม่ได้เข้าสู่ระบบ กรุณาปิดหน้าต่างปัจจุบันและลองเข้าสู่ระบบอีกครั้ง",
+        "message_session_timeout_break": "เซสชั่นของคุณหมดเวลาหรือคุณยังไม่ได้เข้าสู่ระบบ\nกรุณาปิดหน้าต่างปัจจุบันและลองเข้าสู่ระบบอีกครั้ง",
         "message_session_timeout_place_bet": "เกม %{gameName} (#%{gameRoundId})\n\nการวางเดิมพันล้มเหลว! เซสชั่นของคุณหมดเวลาหรือคุณยังไม่ได้เข้าสู่ระบบ กรุณาปิดหน้าต่างปัจจุบันและลองเข้าสู่ระบบอีกครั้ง",
         "message_stop_bet": "ไม่มีการเดิมพัน",
         "message_sys_maintenance": "เกมอยู่ระหว่างการบำรุงรักษา",
@@ -113,6 +114,7 @@ export const languages = {
     "DragonTigerFight": {
         "bet_history_dragon": "(มังกร",
         "bet_history_tiger": "เสือ)",
+        "dragon_win": "มังกรชนะ",
         "game_icon_name": "เสือมังกรไฟท์",
         "game_name": "เสือมังกรไฟท์",
         "glossary_blackDragon": "มังกรดำ",
@@ -123,7 +125,9 @@ export const languages = {
         "glossary_tie": "เสมอ",
         "glossary_tiger": "เสือ",
         "option_black": "ดำ",
-        "option_red": "แดง"
+        "option_red": "แดง",
+        "tie_win": "เสมอ!",
+        "tiger_win": "เสือชนะ"
     }
 };
 

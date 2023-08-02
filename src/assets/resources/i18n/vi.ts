@@ -78,6 +78,7 @@ export const languages = {
         "message_server_not_found": "Không tìm thấy máy chủ.",
         "message_session_expired": "Phiên đăng nhập đã hết hạn, bạn vui lòng đăng nhập lại.",
         "message_session_timeout": "Phiên đăng nhập của bạn đã hết hạn, hoặc bạn chưa có đăng nhập. Vui lòng đóng cửa sổ game và thử đăng nhập lại.",
+        "message_session_timeout_break": "Phiên đăng nhập của bạn đã hết hạn, hoặc bạn chưa có đăng nhập.\nVui lòng đóng cửa sổ game và thử đăng nhập lại.",
         "message_session_timeout_place_bet": "Game %{gameName} (#%{gameRoundId})\n\nPhiên đăng nhập của bạn đã hết hạn, hoặc bạn chưa có đăng nhập. Vui lòng đóng cửa sổ game và thử đăng nhập lại. Đặt cược thất bại!",
         "message_stop_bet": "Dừng nhận cược",
         "message_sys_maintenance": "Hệ thống đang được bảo trì.",
@@ -113,6 +114,7 @@ export const languages = {
     "DragonTigerFight": {
         "bet_history_dragon": "(Rồng",
         "bet_history_tiger": "Hổ)",
+        "dragon_win": "RỒNG THẮNG",
         "game_icon_name": "Đại Chiến\nRồng Hổ",
         "game_name": "Đại Chiến Rồng Hổ",
         "glossary_blackDragon": "Rồng Đen",
@@ -123,7 +125,9 @@ export const languages = {
         "glossary_tie": "Hòa",
         "glossary_tiger": "Hổ",
         "option_black": "Đen",
-        "option_red": "Đỏ"
+        "option_red": "Đỏ",
+        "tie_win": "HÒA!",
+        "tiger_win": "HỔ THẮNG"
     }
 };
 
