@@ -5,6 +5,7 @@ import GameComponent from "db://shared-components/game/scripts/components/game-c
 import { startGame } from "db://shared-components/shared/scripts/startup";
 import { AnimationUtils } from "db://shared-components/shared/utils";
 import Observer from "observer";
+import { WinningResult } from "../../../../extensions/shared-components/assets/shared/common-components/winning-result/scripts/winning-result";
 import { siteConfigs } from "../../../scripts/site-configs";
 import { containerOptions, settings } from "../game-settings";
 import "./../../../resources/i18n";
@@ -42,6 +43,9 @@ export default class Game extends GameComponent {
     @property({ type: Node })
     staticMonsters: Node[] = [];
 
+    @property(WinningResult)
+    winningResult: WinningResult = null;
+
     override namespace = settings.name;
     override containerOptions = containerOptions;
 
@@ -51,10 +55,17 @@ export default class Game extends GameComponent {
         super.onLoad();
         this.initResultSpines();
         this.cards.forEach((card) => this.originalCardPosition.push(new Vec3(card.node.position)));
+        this.winningResult.hideQuickly();
     }
 
     async finishShowResult(settlementResult: gc.GameServiceMessage.TSettlementResult) {
         await this.showResultSpines(settlementResult);
+        this.winningResult.setSettlementResult(settlementResult);
+        await this.winningResult.show();
+        const resultSpineDuration = 1.67;
+        const showWinningResult = 1 + (settlementResult[BetChoice.Tie] ? resultSpineDuration : 0);
+        await AnimationUtils.delayTime(showWinningResult);
+        this.winningResult.hide();
         super.finishShowResult(settlementResult);
     }
 
