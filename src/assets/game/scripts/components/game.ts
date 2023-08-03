@@ -16,7 +16,7 @@ const { movingNode, getPositionAtDestNode, playSpine, fadeOut, fadeIn } = Animat
 startGame(settings.name, containerOptions, siteConfigs);
 
 const { ccclass, property } = _decorator;
-const { observer, render } = Observer;
+const { observer, render, handle } = Observer;
 
 @ccclass
 @observer(settings.name)
@@ -124,6 +124,7 @@ export default class Game extends GameComponent {
             card.node.position = destPosition;
             await card.pullCard(pullDuration);
             movingNode(card.node, drawDuration, this.originalCardPosition[i]);
+            this.playSoundDrawCard();
             await card.drawCard(drawDuration);
         }
     }
@@ -152,5 +153,10 @@ export default class Game extends GameComponent {
     private openCardsWithoutAnim() {
         this.cards[Choice.Dragon].faceUp();
         this.cards[Choice.Tiger].faceUp();
+    }
+
+    @handle(gc.Audios.AudioHandler, (handle, id: string) => handle.playSFX(id))
+    playSoundDrawCard() {
+        return gc.Audios.AudioIds.DRAW_SINGLE_CARD;
     }
 }
