@@ -9,7 +9,7 @@ export const settings = {
         wholeRound: 41,
         lockingBet: 5,
         placingBet: 30,
-        generatingResult: 4,
+        generatingResult: 3,
         startRound: 2,
     },
     numberOfRoundHistory: 100,
