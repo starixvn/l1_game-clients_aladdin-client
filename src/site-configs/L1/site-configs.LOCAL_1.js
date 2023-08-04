@@ -7,7 +7,5 @@ window.envConfig = {
     subGuideDomain: "l1-guide-3",
     enableMsgpackParserOnNotification: false,
     enableMsgpackParserAllGames: false,
-    SGConnectSubDomain: "l1-connectsite3",
-    tolgeeUrl:
-        "https://tolgee.sabagame.com/v2/projects/5/translations?ak=tgpak_gvpw45brha2xg3btoztxeytunvudc5dbn5twqodtonztc&size=1000&filterNamespace=Common,DragonTigerFight&languages=",
+    SGConnectSubDomain: "l1-connectsite3"
 };
