@@ -6,5 +6,5 @@ window.envConfig = {
     subGuideDomain: "l2-guide-1",
     enableMsgpackParserAllGames: false,
     enableMsgpackParserOnNotification: false,
-    SGConnectSubDomain: "l2-connect-1",    
+    SGConnectSubDomain: "l2-connect-1",
 };
