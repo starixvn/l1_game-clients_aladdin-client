@@ -111,7 +111,24 @@ export const languages = {
         "under_maintenance_time": "Mulai dari %{startTime} hingga %{endTime} (GMT+8)",
         "win": "Menang"
     },
-    "DragonTigerFight": {}
+    "DragonTigerFight": {
+        "bet_history_dragon": "(Naga",
+        "bet_history_tiger": "Harimau)",
+        "dragon_win": "DRAGON MENANG",
+        "game_icon_name": "Tarung\nNaga Harimau",
+        "game_name": "Tarung Naga Harimau",
+        "glossary_blackDragon": "Naga Hitam",
+        "glossary_blackTiger": "Harimau Hitam",
+        "glossary_dragon": "Naga",
+        "glossary_redDragon": "Naga Merah",
+        "glossary_redTiger": "Harimau Merah",
+        "glossary_tie": "Seri",
+        "glossary_tiger": "Harimau",
+        "option_black": "Hitam",
+        "option_red": "Merah",
+        "tie_win": "SERI!",
+        "tiger_win": "TIGER MENANG"
+    }
 };
 
 if (!win.languages) {
