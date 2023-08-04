@@ -165,4 +165,9 @@ export default class Game extends GameComponent {
         this.cards[Choice.Dragon].faceUp();
         this.cards[Choice.Tiger].faceUp();
     }
+
+    @render(Rounds.RoundTimeStore, (store) => store.isStartingRound)
+    playSoundStartGame(isStartingRound: boolean) {
+        isStartingRound && this.playSound(gc.Audios.AudioIds.START_PLACING_BET);
+    }
 }
