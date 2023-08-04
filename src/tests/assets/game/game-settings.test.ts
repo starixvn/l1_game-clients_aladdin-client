@@ -13,10 +13,10 @@ describe("settings", () => {
             id: 67,
             name: "DragonTigerFight",
             durations: {
-                wholeRound: 39,
+                wholeRound: 41,
                 lockingBet: 5,
                 placingBet: 30,
-                generatingResult: 2,
+                generatingResult: 4,
                 startRound: 2,
             },
             numberOfRoundHistory: 100,
