@@ -77,7 +77,6 @@ export const languages = {
         "message_server_error": "Server mengalami kesalahan.",
         "message_server_not_found": "Server tidak ditemukan.",
         "message_session_expired": "Sesi Anda telah kedaluwarsa, silakan masuk lagi.",
-        "message_session_time_out_break": "Sesi Anda telah habis atau Anda belum masuk.\\nHarap tutup jendela saat ini dan coba masuk lagi.",
         "message_session_timeout": "Sesi Anda telah habis atau Anda belum masuk. Harap tutup jendela saat ini dan coba masuk lagi.",
         "message_session_timeout_break": "Sesi Anda telah habis atau Anda belum masuk.\nHarap tutup jendela saat ini dan coba masuk lagi.",
         "message_session_timeout_place_bet": "Permainan %{gameName} (#%{gameRoundId})\n\nGagal memasang taruhan! Sesi Anda telah habis atau Anda belum masuk. Harap tutup jendela saat ini dan coba masuk lagi.",
@@ -97,7 +96,7 @@ export const languages = {
         "not_enough_money": "Akun Anda memiliki dana yang tidak mencukupi.",
         "notice": "ULASAN",
         "odds": "Odds",
-        "ok": "OK",
+        "ok": "OKE",
         "one_choice_allowed": "Hanya bisa bertaruh pada satu opsi.",
         "result": "Hasil",
         "round": "Babak",
@@ -112,24 +111,7 @@ export const languages = {
         "under_maintenance_time": "Mulai dari %{startTime} hingga %{endTime} (GMT+8)",
         "win": "Menang"
     },
-    "DragonTigerFight": {
-        "bet_history_dragon": "(Naga",
-        "bet_history_tiger": "Harimau)",
-        "dragon_win": "DRAGON MENANG",
-        "game_icon_name": "Tarung\nNaga Harimau",
-        "game_name": "Tarung Naga Harimau",
-        "glossary_blackDragon": "Naga Hitam",
-        "glossary_blackTiger": "Harimau Hitam",
-        "glossary_dragon": "Naga",
-        "glossary_redDragon": "Naga Merah",
-        "glossary_redTiger": "Harimau Merah",
-        "glossary_tie": "Seri",
-        "glossary_tiger": "Harimau",
-        "option_black": "Hitam",
-        "option_red": "Merah",
-        "tie_win": "SERI!",
-        "tiger_win": "TIGER MENANG"
-    }
+    "DragonTigerFight": {}
 };
 
 if (!win.languages) {
