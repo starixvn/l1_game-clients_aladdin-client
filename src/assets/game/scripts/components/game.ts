@@ -2,10 +2,10 @@ import gc from "@sg/game-client-base";
 import { Label, Node, Vec3, _decorator, sp, tween } from "cc";
 import { PokerCard, ServiceCard } from "db://shared-components/game/poker-cards/scripts/poker-card";
 import GameComponent from "db://shared-components/game/scripts/components/game-component";
+import { WinningResult } from "db://shared-components/shared/common-components/winning-result/scripts/winning-result";
 import { startGame } from "db://shared-components/shared/scripts/startup";
 import { AnimationUtils } from "db://shared-components/shared/utils";
 import Observer from "observer";
-import { WinningResult } from "../../../../extensions/shared-components/assets/shared/common-components/winning-result/scripts/winning-result";
 import { siteConfigs } from "../../../scripts/site-configs";
 import { containerOptions, settings } from "../game-settings";
 import "./../../../resources/i18n";
@@ -33,9 +33,6 @@ export default class Game extends GameComponent {
 
     @property(Node)
     nodeCardBox: Node = null;
-
-    @property(Node)
-    nodeCardDrop: Node = null;
 
     @property({ type: sp.Skeleton })
     resultSpines: sp.Skeleton[] = [];
@@ -119,7 +116,7 @@ export default class Game extends GameComponent {
         if (isStartRound) {
             super.handleStartRound(isStartRound);
 
-            await this.dropCards();
+            this.hideCards();
             await this.drawCards();
         }
     }
@@ -131,6 +128,8 @@ export default class Game extends GameComponent {
 
         for (let i = 0; i < cards.length; i++) {
             const card = cards[i];
+            card.node.active = true;
+            card.faceDown();
             const destPosition = getPositionAtDestNode(card.node, this.nodeCardBox);
             card.node.position = destPosition;
             await card.pullCard(pullDuration);
@@ -140,14 +139,10 @@ export default class Game extends GameComponent {
         }
     }
 
-    async dropCards() {
+    async hideCards() {
         const cards = this.cards;
-        const dropDuration = 0.5;
-        const closeDuration = 0.2;
         for (const card of cards) {
-            movingNode(card.node, dropDuration, this.nodeCardDrop);
-            await card.dropCard(dropDuration);
-            await card.closeAfterDrop(closeDuration);
+            card.node.active = false;
         }
     }
 
