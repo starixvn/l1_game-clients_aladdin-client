@@ -30,7 +30,7 @@ export class CustomLedLightTooltip extends LedLightTooltip {
 
     protected onLoad(): void {
         super.onLoad();
-        ComponentUtils.firstLoadEmptyLabel([this.lblDragonValue, this.lblTigerValue]);
+        ComponentUtils.setEmptyLabels([this.lblDragonValue, this.lblTigerValue]);
     }
 
     public setTooltipInfo(ledLightInfo: gc.RoundHistories.RoundHistory) {
