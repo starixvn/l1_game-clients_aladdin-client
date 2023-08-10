@@ -6,7 +6,7 @@ include:
 variables:
   GIT_SUBMODULE_STRATEGY: recursive
   GIT_STRATEGY: clone
-  COCOS_VERSION: "3.7.2"
+  COCOS_VERSION: "3.8.0"
 
 .build_cocos_creator_script: &build_cocos_creator_script
   stage: build-cocos-web
