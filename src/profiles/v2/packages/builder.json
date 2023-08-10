@@ -10,8 +10,8 @@
         "id": "1681353552761",
         "progress": 1,
         "state": "success",
-        "stage": "build",
-        "message": "6-13-2023 16:43:09 build success in 119021 ms!",
+        "stage": "run",
+        "message": "8-9-2023 13:52:20 run package E:\\project\\dragon-tiger-fight-client\\src\\build\\web-mobile success!",
         "options": {
           "name": "cocos-3x",
           "platform": "web-mobile",
@@ -29,7 +29,7 @@
           "mainBundleCompressionType": "merge_dep",
           "useSplashScreen": false,
           "packAutoAtlas": true,
-          "startScene": "77134ae0-6a21-45c4-a01e-5ea25dfe88ac",
+          "startScene": "cdeb5c24-9ba8-4cab-a306-8a562fd04b39",
           "outputName": "web-mobile",
           "scenes": [
             {
@@ -38,8 +38,13 @@
               "inBundle": false
             },
             {
-              "url": "db://shared-components/splash/prefabs/splash.scene",
-              "uuid": "77134ae0-6a21-45c4-a01e-5ea25dfe88ac",
+              "url": "db://assets/game/splash/splash.scene",
+              "uuid": "cdeb5c24-9ba8-4cab-a306-8a562fd04b39",
+              "inBundle": false
+            },
+            {
+              "url": "db://shared-components/feature-structure/scene.scene",
+              "uuid": "b97b166d-3dd1-4968-8fa8-488f447e05b0",
               "inBundle": false
             },
             {
@@ -48,8 +53,33 @@
               "inBundle": false
             },
             {
-              "url": "db://assets/under-maintenance/under-maintenance.scene",
-              "uuid": "86a3474c-ed60-42a0-89da-9d530ed682d0",
+              "url": "db://shared-components/under-maintenance/under-maintenance.scene",
+              "uuid": "3640a00f-a2ed-4aec-b369-779ede63f5df",
+              "inBundle": false
+            },
+            {
+              "url": "db://shared-components/game/around-table-player/around-table-player.scene",
+              "uuid": "3a56c048-a4f9-4ea2-90c1-25349467f933",
+              "inBundle": false
+            },
+            {
+              "url": "db://shared-components/game/scoreboards/scoreboard.scene",
+              "uuid": "9ec9624e-8ef6-4e81-bf0e-34a4eab4a438",
+              "inBundle": false
+            },
+            {
+              "url": "db://shared-components/shared/common-components/custom-materials/test-flash-light.scene",
+              "uuid": "9765a2ea-52d3-41b3-ab5a-af4714aeabbf",
+              "inBundle": false
+            },
+            {
+              "url": "db://shared-components/shared/common-components/custom-materials/test-gradient-node.scene",
+              "uuid": "0c7bef3a-f145-4930-b6f2-ecb6b560e875",
+              "inBundle": false
+            },
+            {
+              "url": "db://shared-components/shared/common-components/integrations/identifier.scene",
+              "uuid": "8fa0d7ef-6c87-40c2-bd73-c63184ba47ff",
               "inBundle": false
             }
           ],
@@ -58,7 +88,7 @@
           "__version__": "1.3.4",
           "web-mobile": []
         },
-        "time": "6-13-2023 16:41",
+        "time": "8-9-2023 13:50",
         "dirty": false
       }
     }
@@ -71,7 +101,7 @@
     "useSplashScreen": false,
     "skipCompressTexture": false,
     "mainBundleIsRemote": false,
-    "startScene": "77134ae0-6a21-45c4-a01e-5ea25dfe88ac",
+    "startScene": "cdeb5c24-9ba8-4cab-a306-8a562fd04b39",
     "scenes": [
       {
         "url": "db://assets/game/game.scene",
