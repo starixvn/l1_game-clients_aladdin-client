@@ -115,7 +115,7 @@ export const languages = {
         "bet_history_dragon": "(Rồng",
         "bet_history_tiger": "Hổ)",
         "dragon_win": "RỒNG THẮNG",
-        "game_icon_name": "Đại Chiến\nRồng Hổ",
+        "game_icon_name": "Đại Chiến Rồng Hổ",
         "game_name": "Đại Chiến Rồng Hổ",
         "glossary_blackDragon": "Rồng Đen",
         "glossary_blackTiger": "Hổ Đen",

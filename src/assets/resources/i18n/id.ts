@@ -115,7 +115,7 @@ export const languages = {
         "bet_history_dragon": "(Naga",
         "bet_history_tiger": "Harimau)",
         "dragon_win": "DRAGON MENANG",
-        "game_icon_name": "Tarung\nNaga Harimau",
+        "game_icon_name": "Tarung Naga Harimau",
         "game_name": "Tarung Naga Harimau",
         "glossary_blackDragon": "Naga Hitam",
         "glossary_blackTiger": "Harimau Hitam",

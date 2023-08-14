@@ -8,16 +8,6 @@ const { FormatUtils } = gc;
 
 @ccclass
 export default class DragonTigerFightBetDetailBodyItem extends BetDetailBodyItem {
-    choiceMapping = {
-        dragon: "Dragon",
-        tiger: "Tiger",
-        tie: "Tie",
-        blackDragon: "Black Dragon",
-        redDragon: "Red Dragon",
-        blackTiger: "Black Tiger",
-        redTiger: "Red Tiger",
-    };
-
     setData(
         betDetailsLog: gc.BetHistory.BetDetailsLog,
         index: number,
