@@ -42,7 +42,7 @@
     },
     "client": {
         "delayForAssert": 3000,
-        "delayForAction": 3000,
+        "delayForAction": 1000,
         "action": "Integration.click('dragon')",
         "actual": "Integration.label('balance')",
         "expected": "1,999"

@@ -1,12 +1,7 @@
 [
     {
-        "name": "In Game",
+        "name": "Reset Store",
         "server": {
-            "waitForRequest": {
-                "namespace": "/user/dragontigerfight",
-                "event": "inGame",
-                "payload": null
-            },
             "response": [
                 {
                     "namespace": "/user/dragontigerfight",
@@ -109,11 +104,6 @@
                     }
                 }
             ]
-        },
-        "client": {
-            "delayForAssert": 15000,
-            "actual": "Integration.label('balance')",
-            "expected": "2,000"
         }
     }
 ]

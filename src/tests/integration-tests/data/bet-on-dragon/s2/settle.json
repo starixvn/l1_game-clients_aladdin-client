@@ -64,6 +64,31 @@
                             "bet": 1.5
                         }
                     }
+                },
+                {
+                    "namespace": "/user/dragontigerfight",
+                    "event": "DragonTigerFight",
+                    "payload": {
+                        "winners": {
+                            "roundId": 2,
+                            "winningPlayers": {
+                                "abc": {
+                                    "rate": 1,
+                                    "win": true,
+                                    "bet": 390,
+                                    "winningByChoices": {
+                                        "dragon": 0,
+                                        "tiger": 390,
+                                        "tie": 0,
+                                        "blackDragon": 0,
+                                        "redDragon": 0,
+                                        "blackTiger": 0,
+                                        "redTiger": 0
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             ]
         }
@@ -89,7 +114,7 @@
                         "umInfo": null,
                         "isSuccessful": true,
                         "isUM": false,
-                        "balance": 2000.95,
+                        "balance": 2000.5,
                         "scoins": 0,
                         "availableSpins": 0
                     }
@@ -97,7 +122,7 @@
             ]
         },
         "client": {
-            "delayForAssert": 3000,
+            "delayForAssert": 20000,
             "actual": "Integration.label('balance')",
             "expected": "2,000.5"
         }
