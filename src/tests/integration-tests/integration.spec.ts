@@ -25,7 +25,7 @@ test.beforeEach(async ({ page }) => {
 test("start job", async ({ page }) => {
     setInterval(async () => {
         if (!page.isClosed()) {
-            const fps = await page.evaluate("1 / cc.director.getDeltaTime()");
+            const fps = await page.evaluate("1 / cc.game.deltaTime");
 
             console.log(`fps: ${fps}`);
         }
