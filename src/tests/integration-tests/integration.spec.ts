@@ -23,6 +23,14 @@ test.beforeEach(async ({ page }) => {
 });
 
 test("start job", async ({ page }) => {
+    setInterval(async () => {
+        if (!page.isClosed()) {
+            const fps = await page.evaluate("1 / cc.director.getDeltaTime()");
+
+            console.log(`fps: ${fps}`);
+        }
+    }, 5000);
+
     return new Promise((resolve) => {
         const interval = setInterval(() => {
             if (Manager.done() && !Manager.running) {

@@ -25,8 +25,8 @@
                                 "tie": true,
                                 "blackDragon": false,
                                 "redDragon": true,
-                                "blackTiger": false,
-                                "redTiger": true
+                                "blackTiger": true,
+                                "redTiger": false
                             },
                             "roundId": 2,
                             "winningPlayers": {}
@@ -122,7 +122,7 @@
             ]
         },
         "client": {
-            "delayForAssert": 20000,
+            "delayForAssert": 18000,
             "actual": "Integration.label('balance')",
             "expected": "2,000.5"
         }
