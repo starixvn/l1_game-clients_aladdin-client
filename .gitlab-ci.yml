@@ -154,10 +154,7 @@ cocos_integration_build:
     before_script: []
     script:
         - cd $COCOS_PROJECT_DIR
-        - |
-            if (-not (Test-Path "node_modules")) {
-              npm install
-            }
+        - npm install
         - CocosCreator --project . --build "platform=web-mobile;debug=false;webOrientation=landscape;md5Cache=true;replaceSplashScreen=true"
     tags:
         - cocos-3x
