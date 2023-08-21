@@ -100,7 +100,7 @@ export const languages = {
         "ok": "ตกลง",
         "one_choice_allowed": "สามารถเดิมพันได้เพียงตัวเลือกเดียวเท่านั้น",
         "promotion": "โปรโมชั่น",
-        "promotion_terms_and_conditions": "ข้อกำหนด และเงื่อนไข",
+        "promotion_terms_and_conditions": "ข้อกำหนด\nและเงื่อนไข",
         "result": "ผลลัพธ์",
         "round": "รอบ",
         "splash_check_downloading": "กำลังตรวจสอบและกำลังดาวน์โหลดเกมของการอัพเดทล่าสุด",

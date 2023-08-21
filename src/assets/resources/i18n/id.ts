@@ -17,7 +17,7 @@ export const languages = {
         "invalid_bet": "Taruhan Tidak Valid",
         "invalid_deal_hands": "Jumlah Tangan tidak valid",
         "invalid_position": "Posisi Tidak Valid",
-        "join_game": "Gabung Permainan",
+        "join_game": "Gabung\nPermainan",
         "max_stake_hand": "Total taruhan maksimum di Tangan adalah %{maxBet}",
         "md5_copy": "SALIN",
         "md5_key": "KUNCI MD5",
