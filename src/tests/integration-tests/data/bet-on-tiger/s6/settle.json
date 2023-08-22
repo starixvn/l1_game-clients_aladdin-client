@@ -1,7 +1,6 @@
 {
     "name": "settle",
     "server": {
-        "delay": 7000,
         "response": [
             {
                 "namespace": "/user/dragontigerfight",
@@ -92,6 +91,7 @@
         ]
     },
     "client": {
+        "waitUntilMetExpectation": true,
         "actual": "Integration.label('balance')",
         "expected": "1,999"
     }

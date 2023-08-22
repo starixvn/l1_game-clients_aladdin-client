@@ -7,7 +7,7 @@
             "payload": {
                 "m": 1,
                 "username": "Conall",
-                "betChoice": "tiger",
+                "betChoice": "dragon",
                 "amount": 1,
                 "freeBet": false
             }
@@ -41,9 +41,9 @@
         ]
     },
     "client": {
-        "delayForAssert": 3000,
-        "delayForAction": 1000,
+        "delayForAction": 5000,
         "action": "Integration.click('dragon')",
+        "waitUntilMetExpectation": true,
         "actual": "Integration.label('balance')",
         "expected": "1,999"
     }

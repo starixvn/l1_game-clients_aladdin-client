@@ -1,7 +1,12 @@
 [
     {
-        "name": "Reset Store",
+        "name": "In Game",
         "server": {
+            "waitForRequest": {
+                "namespace": "/user/dragontigerfight",
+                "event": "inGame",
+                "payload": null
+            },
             "response": [
                 {
                     "namespace": "/user/dragontigerfight",
@@ -87,23 +92,13 @@
                         "players": {},
                         "chips": {}
                     }
-                },
-                {
-                    "namespace": "/user/dragontigerfight",
-                    "event": "DragonTigerFight",
-                    "payload": {
-                        "totalBets": {
-                            "tiger": 0,
-                            "dragon": 0,
-                            "blackTiger": 0,
-                            "redDragon": 0,
-                            "tie": 0,
-                            "blackDragon": 0,
-                            "redTiger": 0
-                        }
-                    }
                 }
             ]
+        },
+        "client": {
+            "waitUntilMetExpectation": true,
+            "actual": "Integration.label('balance')",
+            "expected": "2,000"
         }
     }
 ]
