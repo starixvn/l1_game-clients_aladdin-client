@@ -52,7 +52,7 @@ export default class Game extends GameComponent {
         super.onLoad();
         this.initResultSpines();
         this.cards.forEach((card) => this.originalCardPosition.push(new Vec3(card.node.position)));
-        this.winningResult?.hideQuickly();
+        this.winningResult.hideQuickly();
     }
 
     async finishShowResult(settlementResult: gc.GameServiceMessage.TSettlementResult) {
