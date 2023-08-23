@@ -41,7 +41,6 @@
         ]
     },
     "client": {
-        "delayForAction": 8000,
         "action": "Integration.click('tiger')",
         "waitUntilMetExpectation": true,
         "actual": "Integration.label('balance')",

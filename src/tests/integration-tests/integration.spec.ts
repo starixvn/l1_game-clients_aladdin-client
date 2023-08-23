@@ -25,9 +25,13 @@ test.beforeEach(async ({ page }) => {
 test("start job", async ({ page }) => {
     setInterval(async () => {
         if (!page.isClosed()) {
-            const fps = await page.evaluate("1 / cc.game.deltaTime");
+            try {
+                const fps = await page.evaluate("1 / cc.game.deltaTime");
 
-            console.log(`fps: ${fps}`);
+                console.log(`fps: ${fps}`);
+            } catch (error) {
+                // Skip it, error on the page reload
+            }
         }
     }, 5000);
 
