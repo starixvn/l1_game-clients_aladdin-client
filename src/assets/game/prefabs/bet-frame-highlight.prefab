@@ -3,6 +3,7 @@
     "__type__": "cc.Prefab",
     "_name": "bet-frame-highlight",
     "_objFlags": 0,
+    "__editorExtras__": {},
     "_native": "",
     "data": {
       "__id__": 1
@@ -30,10 +31,13 @@
       },
       {
         "__id__": 8
+      },
+      {
+        "__id__": 10
       }
     ],
     "_prefab": {
-      "__id__": 10
+      "__id__": 12
     },
     "_lpos": {
       "__type__": "cc.Vec3",
@@ -68,6 +72,7 @@
     "__type__": "cc.UITransform",
     "_name": "",
     "_objFlags": 0,
+    "__editorExtras__": {},
     "node": {
       "__id__": 1
     },
@@ -95,6 +100,7 @@
     "__type__": "cc.Sprite",
     "_name": "",
     "_objFlags": 0,
+    "__editorExtras__": {},
     "node": {
       "__id__": 1
     },
@@ -116,12 +122,12 @@
       "a": 255
     },
     "_spriteFrame": {
-      "__uuid__": "bd099de7-b2dc-4827-a68a-8850ce14f3ef@f9941",
+      "__uuid__": "2d67d332-0b65-4c26-aacf-03f54c9217cc@51283",
       "__expectedType__": "cc.SpriteFrame"
     },
-    "_type": 0,
+    "_type": 1,
     "_fillType": 0,
-    "_sizeMode": 1,
+    "_sizeMode": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
       "x": 0,
@@ -142,6 +148,7 @@
     "__type__": "7665an8H0FPtbnIX5Ef8/f0",
     "_name": "",
     "_objFlags": 0,
+    "__editorExtras__": {},
     "node": {
       "__id__": 1
     },
@@ -176,6 +183,7 @@
     "__type__": "84754Vx6CBA1Yvvbe7y1D6a",
     "_name": "",
     "_objFlags": 0,
+    "__editorExtras__": {},
     "node": {
       "__id__": 1
     },
@@ -192,6 +200,27 @@
     "fileId": "0cPvGvZthNR47HE7WXQ9nu"
   },
   {
+    "__type__": "cc.Animation",
+    "_name": "",
+    "_objFlags": 0,
+    "__editorExtras__": {},
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "__prefab": {
+      "__id__": 11
+    },
+    "playOnLoad": false,
+    "_clips": [],
+    "_defaultClip": null,
+    "_id": ""
+  },
+  {
+    "__type__": "cc.CompPrefabInfo",
+    "fileId": "d9BIPWdHJJN6kNZi87jSHf"
+  },
+  {
     "__type__": "cc.PrefabInfo",
     "root": {
       "__id__": 1
@@ -200,7 +229,6 @@
       "__id__": 0
     },
     "fileId": "3b9r/OetdE7piFKhNOHNdb",
-    "instance": null,
-    "targetOverrides": null
+    "instance": null
   }
 ]
