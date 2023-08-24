@@ -11,6 +11,17 @@ variables:
     INTEGRATION_IMAGE: pentagon/l1_dragon_tiger_fight_client
     INTEGRATION_WS_PATH: dragontigerfight
 
+stages:
+  - test
+  - scan-config
+  - transform-config
+  - build-cocos-web
+  - build
+  - integration-test
+  - deploy
+  - post-deploy
+
+
 .build_cocos_creator_script: &build_cocos_creator_script
     stage: build-cocos-web
     script:
@@ -81,7 +92,7 @@ unit_test_js:
           - if: "$CI_COMMIT_BRANCH"
 
 cocos_integration_tests:
-    stage: test
+    stage: integration-test
     allow_failure: true
     before_script:
         - cd $COCOS_PROJECT_DIR
@@ -147,7 +158,7 @@ cocos_integration_tests:
               - $COCOS_PROJECT_DIR/node_modules
 
 cocos_integration_build:
-    stage: .pre
+    stage: build
     allow_failure: true
     before_script: []
     script:
@@ -186,7 +197,7 @@ cocos_integration_docker_build:
         entrypoint: [""]
     tags:
         - docker
-    stage: .pre
+    stage: build
     allow_failure: true
     before_script:
         - export CI_REGISTRY_IMAGE=$DOCKER_REG_LOCAL_URL/$INTEGRATION_IMAGE:$CI_COMMIT_SHORT_SHA
