@@ -30,13 +30,13 @@ stages:
         echo "Using cache with key $CI_COMMIT_SHA"
         exit 0
       fi
-    - |
-      if [ ! -d "./$COCOS_PROJECT_DIR/node_modules" ]; then
-        echo "Using cache with key node_modules"
-        npm set registry http://npm.lumigame.com
-        cd ./$COCOS_PROJECT_DIR
-        npm run install-dependencies
-      fi
+    # - |
+    #   if [ ! -d "./$COCOS_PROJECT_DIR/node_modules" ]; then
+    #     echo "Re-install node_modules"
+    #     npm run install-dependencies --prefix "./$COCOS_PROJECT_DIR"
+    #   fi
+    - node --version
+    - npm run install-dependencies --prefix "./$COCOS_PROJECT_DIR"
     - set +e
     - /Applications/CocosCreator/Creator/$COCOS_VERSION/CocosCreator.app/Contents/MacOS/CocosCreator --project "./$COCOS_PROJECT_DIR" --build "platform=web-mobile;debug=false;webOrientation=landscape;md5Cache=true;replaceSplashScreen=true"
     - set -e
@@ -57,7 +57,6 @@ stages:
     - key: $CI_COMMIT_SHORT_SHA
       paths:
         - $COCOS_PROJECT_DIR/build/web-mobile
-
 .base_build_cocos:
   <<: *build_cocos_creator_script
   allow_failure: true
