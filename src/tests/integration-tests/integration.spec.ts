@@ -35,6 +35,10 @@ test("start job", async ({ page }) => {
         }
     }, 5000);
 
+    page.on("console", (msg) => {
+        console[msg.type()]?.(msg.text());
+    });
+
     return new Promise((resolve) => {
         const interval = setInterval(() => {
             if (Manager.done() && !Manager.running) {
