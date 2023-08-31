@@ -97,6 +97,7 @@
         },
         "client": {
             "waitUntilMetExpectation": true,
+            "waitExpectationTimeout": 60000,
             "actual": "Integration.label('balance')",
             "expected": "2,000"
         }

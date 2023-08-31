@@ -43,6 +43,7 @@
     "client": {
         "action": "Integration.click('tiger')",
         "waitUntilMetExpectation": true,
+        "waitExpectationTimeout": 60000,
         "actual": "Integration.label('balance')",
         "expected": "1,999"
     }
