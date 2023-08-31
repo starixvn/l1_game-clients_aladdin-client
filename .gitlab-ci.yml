@@ -30,16 +30,16 @@ stages:
         echo "Using cache with key $CI_COMMIT_SHA"
         exit 0
       fi
-    # - |
-    #   if [ ! -d "./$COCOS_PROJECT_DIR/node_modules" ]; then
-    #     echo "Re-install node_modules"
-    #     npm run install-dependencies --prefix "./$COCOS_PROJECT_DIR"
-    #   fi
     - node --version
     - npm run install-dependencies --prefix "./$COCOS_PROJECT_DIR"
     - set +e
     - /Applications/CocosCreator/Creator/$COCOS_VERSION/CocosCreator.app/Contents/MacOS/CocosCreator --project "./$COCOS_PROJECT_DIR" --build "platform=web-mobile;debug=false;webOrientation=landscape;md5Cache=true;replaceSplashScreen=true"
     - set -e
+    - |
+      if [ -z "$(ls -A ./$COCOS_PROJECT_DIR/build/web-mobile)" ]; then
+        echo -e "\033[0;31mFolder build is empty, please check the build scritp"
+        exit 1
+      fi
   tags:
     - cocos-new
   artifacts:
@@ -59,7 +59,6 @@ stages:
         - $COCOS_PROJECT_DIR/build/web-mobile
 .base_build_cocos:
   <<: *build_cocos_creator_script
-  allow_failure: true
 
 unit_test_js:
   stage: test
