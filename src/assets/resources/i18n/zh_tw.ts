@@ -67,7 +67,7 @@ export const languages = {
         "message_no_game_offer": "您的帳戶不支持此遊戲。請聯繫您的上線，謝謝。",
         "message_not_enough_scoin": "沒有足夠的 Scoin 下注。",
         "message_option_maxbet": "此選項的最大賭注是 %{maxBet}",
-        "message_place_bets": "下注",
+        "message_place_bets": "投注開始",
         "message_placebet_failed": "%{gameName} 遊戲 (#%{gameRoundId})\n\n下注失敗！(%{errorCode})",
         "message_placebet_next_round": "請等待下一輪。",
         "message_play_on_otherdevice": "您的帳戶正被用於在其他瀏覽器或設備上玩 [game]。",
