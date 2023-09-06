@@ -81,7 +81,7 @@ export const languages = {
         "message_session_timeout": "您的会话已超时或您尚未登录。 请关闭当前窗口并再次尝试登录。",
         "message_session_timeout_break": "您的会话已超时或您尚未登录\n请关闭当前窗口并再次尝试登录。",
         "message_session_timeout_place_bet": "%{gameName} 游戏 (#%{gameRoundId})\n\n下注失败！ 您的会话已超时或您尚未登录。 请关闭当前窗口并再次尝试登录。",
-        "message_stop_bet": "不能再下注",
+        "message_stop_bet": "投注停止",
         "message_sys_maintenance": "游戏正在维护中。",
         "message_system_mantainance_place_bet": "%{gameName} 游戏 (#%{gameRoundId})\n\n下注失败！ 游戏正在维护中。",
         "message_unauthorized": "未经授权。",
