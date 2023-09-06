@@ -19,7 +19,7 @@ describe("settings", () => {
                 generatingResult: 3,
                 startRound: 2,
             },
-            numberOfRoundHistory: 100,
+            numberOfRoundHistory: 102,
         });
     });
 });
