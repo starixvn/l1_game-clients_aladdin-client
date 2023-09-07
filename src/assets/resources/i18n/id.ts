@@ -118,7 +118,7 @@ export const languages = {
     "DragonTigerFight": {
         "bet_history_dragon": "(Naga",
         "bet_history_tiger": "Harimau)",
-        "dragon_win": "DRAGON MENANG",
+        "dragon_win": "Naga menang",
         "game_icon_name": "Tarung\nNaga Harimau",
         "game_name": "Tarung Naga Harimau",
         "glossary_blackDragon": "Naga Hitam",
@@ -130,8 +130,8 @@ export const languages = {
         "glossary_tiger": "Harimau",
         "option_black": "Hitam",
         "option_red": "Merah",
-        "tie_win": "SERI!",
-        "tiger_win": "TIGER MENANG"
+        "tie_win": "Permainan seri!",
+        "tiger_win": "Harimau menang"
     }
 };
 

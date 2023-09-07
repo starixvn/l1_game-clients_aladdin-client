@@ -67,7 +67,7 @@ export const languages = {
         "message_no_game_offer": "บัญชีของคุณไม่ได้รับการรองรับการเข้าถึงข้อมูลของเกม โปรดกรุณาติดต่อทีมงานผู้แนะนำของคุณ ขอบคุณค่ะ ",
         "message_not_enough_scoin": "Scoin ไม่เพียงพอที่จะวางเดิมพัน",
         "message_option_maxbet": "เดิมพันสูงสุดสำหรับตัวเลือกนี้คือ %{maxBet}",
-        "message_place_bets": "วางเดิมพัน",
+        "message_place_bets": "เริ่มการพนัน",
         "message_placebet_failed": "เกม %{gameName} (#%{gameRoundId})\n\nล้มเหลวในการวางเดิมพัน! (%{errorCode})",
         "message_placebet_next_round": "โปรดรอรอบต่อไป",
         "message_play_on_otherdevice": "บัญชีของคุณถูกใช้เพื่อเล่น [game] บนเบราว์เซอร์หรืออุปกรณ์อื่น",
@@ -81,7 +81,7 @@ export const languages = {
         "message_session_timeout": "เซสชั่นของคุณหมดเวลาหรือคุณยังไม่ได้เข้าสู่ระบบ กรุณาปิดหน้าต่างปัจจุบันและลองเข้าสู่ระบบอีกครั้ง",
         "message_session_timeout_break": "เซสชั่นของคุณหมดเวลาหรือคุณยังไม่ได้เข้าสู่ระบบ\nกรุณาปิดหน้าต่างปัจจุบันและลองเข้าสู่ระบบอีกครั้ง",
         "message_session_timeout_place_bet": "เกม %{gameName} (#%{gameRoundId})\n\nการวางเดิมพันล้มเหลว! เซสชั่นของคุณหมดเวลาหรือคุณยังไม่ได้เข้าสู่ระบบ กรุณาปิดหน้าต่างปัจจุบันและลองเข้าสู่ระบบอีกครั้ง",
-        "message_stop_bet": "ไม่มีการเดิมพัน",
+        "message_stop_bet": "หยุดการพนัน",
         "message_sys_maintenance": "เกมอยู่ระหว่างการบำรุงรักษา",
         "message_system_mantainance_place_bet": "เกม %{gameName} (#%{gameRoundId})\n\nการวางเดิมพันล้มเหลว! เกมอยู่ระหว่างการบำรุงรักษา ",
         "message_unauthorized": "ไม่ได้รับอนุญาต",
@@ -118,7 +118,7 @@ export const languages = {
     "DragonTigerFight": {
         "bet_history_dragon": "(มังกร",
         "bet_history_tiger": "เสือ)",
-        "dragon_win": "มังกรชนะ",
+        "dragon_win": "ชนะ",
         "game_icon_name": "เสือมังกรไฟท์",
         "game_name": "เสือมังกรไฟท์",
         "glossary_blackDragon": "มังกรดำ",
@@ -130,8 +130,8 @@ export const languages = {
         "glossary_tiger": "เสือ",
         "option_black": "ดำ",
         "option_red": "แดง",
-        "tie_win": "เสมอ!",
-        "tiger_win": "เสือชนะ"
+        "tie_win": "เกมส์เสมอ!",
+        "tiger_win": "ชนะ"
     }
 };
 

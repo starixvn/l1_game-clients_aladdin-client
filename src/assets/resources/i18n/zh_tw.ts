@@ -130,7 +130,7 @@ export const languages = {
         "glossary_tiger": "虎",
         "option_black": "黑",
         "option_red": "紅",
-        "tie_win": "平局!",
+        "tie_win": "和局!",
         "tiger_win": "虎贏"
     }
 };

@@ -10,7 +10,7 @@ import { siteConfigs } from "../../../scripts/site-configs";
 import { containerOptions, settings } from "../game-settings";
 import "./../../../resources/i18n";
 import { BetChoice, Choice } from "./dtf-commons";
-const { Settlements, Rounds } = gc;
+const { Settlements, Rounds, Translator } = gc;
 
 const { movingNode, getPositionAtDestNode, playSpine, fadeOut, fadeIn } = AnimationUtils;
 
@@ -61,7 +61,8 @@ export default class Game extends GameComponent {
 
     async finishShowResult(settlementResult: gc.GameServiceMessage.TSettlementResult) {
         await this.showResultSpines(settlementResult);
-        this.winningResult.setSettlementResult(settlementResult);
+        const winChoice = this.winningResult.setSettlementResult(settlementResult);
+        !!winChoice && this.playSound(this.getAudioKeyChoiceWinning(winChoice));
         await this.winningResult.show();
         const resultSpineDuration = 1.67;
         const showWinningResult = 1 + (settlementResult[BetChoice.Tie] ? resultSpineDuration : 0);
@@ -115,6 +116,10 @@ export default class Game extends GameComponent {
             spine.node.active = false;
             scaleNode.scale = originalScale;
         }
+    }
+
+    private getAudioKeyChoiceWinning(name: string): string {
+        return `${name.toLowerCase()}_${Translator.getLanguageId() || "en"}`;
     }
 
     async handleStartRound(isStartRound: boolean) {
