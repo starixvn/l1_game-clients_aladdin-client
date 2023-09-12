@@ -59,7 +59,7 @@ export default class Game extends GameComponent {
         this.winningResult.hideQuickly();
     }
 
-    async finishShowResult(settlementResult: gc.GameServiceMessage.TSettlementResult) {
+    async finishShowResult(result: gc.GameServiceMessage.TResult, settlementResult: gc.GameServiceMessage.TSettlementResult) {
         await this.showResultSpines(settlementResult);
         const winChoice = this.winningResult.setSettlementResult(settlementResult);
         !!winChoice && this.playSound(this.getAudioKeyChoiceWinning(winChoice));
@@ -68,7 +68,7 @@ export default class Game extends GameComponent {
         const showWinningResult = 1 + (settlementResult[BetChoice.Tie] ? resultSpineDuration : 0);
         await AnimationUtils.delayTime(showWinningResult);
         this.winningResult.hide();
-        super.finishShowResult(settlementResult);
+        super.finishShowResult(result, settlementResult);
     }
 
     async showResult(result: gc.GameServiceMessage.TResult, hasAnimation: boolean) {
