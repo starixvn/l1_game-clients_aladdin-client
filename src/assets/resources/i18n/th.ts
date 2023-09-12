@@ -118,7 +118,7 @@ export const languages = {
     "DragonTigerFight": {
         "bet_history_dragon": "(มังกร",
         "bet_history_tiger": "เสือ)",
-        "dragon_win": "Dragon ชนะ",
+        "dragon_win": "ดราก้อนชนะ",
         "game_icon_name": "เสือมังกรไฟท์",
         "game_name": "เสือมังกรไฟท์",
         "glossary_blackDragon": "มังกรดำ",
@@ -131,7 +131,7 @@ export const languages = {
         "option_black": "ดำ",
         "option_red": "แดง",
         "tie_win": "เกมส์เสมอ!",
-        "tiger_win": "Tiger ชนะ"
+        "tiger_win": "ไทเกอร์ชนะ"
     }
 };
 
