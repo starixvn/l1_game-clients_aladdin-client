@@ -67,7 +67,7 @@ export const languages = {
         "message_no_game_offer": "Tài khoản của bạn không được hỗ trợ trên cổng game này. Vui lòng liên hệ với cấp trên.",
         "message_not_enough_scoin": "Bạn hiện không có đủ Scoin để cược.",
         "message_option_maxbet": "Tiền cược tối đa ở cửa này là %{maxBet}",
-        "message_place_bets": "Bắt Đầu Đặt Cược",
+        "message_place_bets": "Mời Đặt Cược",
         "message_placebet_failed": "Game %{gameName} (#%{gameRoundId})\n\nĐặt cược không thành công! (%{errorCode})",
         "message_placebet_next_round": "Vui lòng đặt cược ở phiên sau.",
         "message_play_on_otherdevice": "Bạn hoặc ai đó đang chơi [game] bằng tài khoản này.",
@@ -115,28 +115,11 @@ export const languages = {
         "under_maintenance_time": "Thời gian bảo trì từ %{startTime} đến %{endTime} (GMT+8).",
         "win": "Thắng"
     },
-    "DragonTigerFight": {
-        "bet_history_dragon": "(Rồng",
-        "bet_history_tiger": "Hổ)",
-        "dragon_win": "RỒNG THẮNG",
-        "game_icon_name": "Đại Chiến Rồng Hổ",
-        "game_name": "Đại Chiến Rồng Hổ",
-        "glossary_blackDragon": "Rồng Đen",
-        "glossary_blackTiger": "Hổ Đen",
-        "glossary_dragon": "Rồng",
-        "glossary_redDragon": "Rồng Đỏ",
-        "glossary_redTiger": "Hổ Đỏ",
-        "glossary_tie": "Hòa",
-        "glossary_tiger": "Hổ",
-        "option_black": "Đen",
-        "option_red": "Đỏ",
-        "tie_win": "HÒA!",
-        "tiger_win": "HỔ THẮNG"
-    }
+    "SpaceFlight": {}
 };
 
 if (!win.languages) {
     win.languages = {};
 }
-                          
+
 win.languages.vi = languages;
