@@ -8,7 +8,7 @@ variables:
   GIT_STRATEGY: clone
   COCOS_VERSION: "3.8.0"
   COCOS_PROJECT_DIR: src
-  INTEGRATION_IMAGE: pentagon/l1_space_flight_client
+  INTEGRATION_IMAGE: pentagon/l1_spaceflight_client
   INTEGRATION_WS_PATH: spaceflight
 
 .build_cocos_creator_script: &build_cocos_creator_script
