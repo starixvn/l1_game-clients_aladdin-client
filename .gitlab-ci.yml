@@ -8,21 +8,11 @@ variables:
   GIT_STRATEGY: clone
   COCOS_VERSION: "3.8.0"
   COCOS_PROJECT_DIR: src
-  INTEGRATION_IMAGE: pentagon/l1_dragon_tiger_fight_client
-  INTEGRATION_WS_PATH: dragontigerfight
-
-stages:
-  - test
-  - scan-config
-  - transform-config
-  - build-cocos-web
-  - build
-  - integration-test
-  - deploy
-  - post-deploy
+  INTEGRATION_IMAGE: pentagon/l1_space_flight_client
+  INTEGRATION_WS_PATH: spaceflight
 
 .build_cocos_creator_script: &build_cocos_creator_script
-  stage: build-cocos-web
+  stage: test
   script:
     - echo "====== Build Cocos Web Mobile ======"
     - |
@@ -96,7 +86,7 @@ unit_test_js:
       - if: "$CI_COMMIT_BRANCH"
 
 cocos_integration_tests:
-  stage: integration-test
+  stage: test
   allow_failure: true
   before_script:
     - cd $COCOS_PROJECT_DIR
@@ -161,8 +151,14 @@ cocos_integration_tests:
       paths:
         - $COCOS_PROJECT_DIR/node_modules
 
+  artifacts:
+    paths:
+      - ./test-results
+    expire_in: 1 day
+  retry: 1
+
 cocos_integration_build:
-  stage: build
+  stage: test
   allow_failure: true
   before_script: []
   script:
@@ -184,9 +180,7 @@ cocos_integration_build:
     - if: $ENABLE_TEST_JS != "true"
       when: never
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: manual
     - if: "$CI_COMMIT_BRANCH"
-      when: manual
   cache:
     - key:
         files:
@@ -201,7 +195,7 @@ cocos_integration_docker_build:
     entrypoint: [""]
   tags:
     - docker
-  stage: build
+  stage: test
   allow_failure: true
   before_script:
     - export CI_REGISTRY_IMAGE=$DOCKER_REG_LOCAL_URL/$INTEGRATION_IMAGE:$CI_COMMIT_SHORT_SHA
@@ -240,3 +234,10 @@ cocos_integration_docker_build:
       when: never
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
     - if: "$CI_COMMIT_BRANCH"
+
+.sonar_js:
+  before_script:
+    - - echo "===========Start Sonar Scanner============="
+    - echo $SRC_PATH
+    - echo $TEST_PATH
+    - cp ./src/tsconfig.sonar.json ./src/tsconfig.json
