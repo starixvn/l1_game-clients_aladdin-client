@@ -3,7 +3,6 @@ import "./../../../resources/i18n";
 import gc from "@sg/game-client-base";
 import { _decorator, Label } from "cc";
 import GameComponent from "db://shared-components/game/scripts/components/game-component";
-import { WinningResult } from "db://shared-components/shared/common-components/winning-result/scripts/winning-result";
 import { startGame } from "db://shared-components/shared/scripts/startup";
 import { AnimationUtils } from "db://shared-components/shared/utils";
 import Observer from "observer";
@@ -28,9 +27,6 @@ export default class Game extends GameComponent {
 
     @property({ type: Label, override: true, visible: false })
     lblMaxBet: Label = null;
-
-    @property(WinningResult)
-    winningResult: WinningResult = null;
 
     override namespace = settings.name;
     override containerOptions = containerOptions;
