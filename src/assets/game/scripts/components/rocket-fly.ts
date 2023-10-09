@@ -1,4 +1,4 @@
-import { _decorator, Node, v3 } from "cc";
+import { _decorator, EditBox, Node, Sprite, UITransform, v3 } from "cc";
 
 import { ObserverComponent } from "../../../../extensions/shared-components/assets/shared/common-components/observer-component/scripts/observer-component";
 
@@ -9,16 +9,29 @@ export class RocketFly extends ObserverComponent {
     @property(Node)
     rocket: Node = null;
 
+    @property(Sprite)
+    rocketLine: Sprite = null;
+
+    @property(EditBox)
+    fromMultiplier: EditBox = null;
+
+    @property(EditBox)
+    toMultiplier: EditBox = null;
+
     playAnim = false;
-    ball = { x: -386, y: -153, speed: 0.1, t: 0, radius: 20 };
+    ball = { x: -520, y: -198, speed: 0.1, t: 0, radius: 20 };
     //Define the bezier curve movement of the rocket
     points = [
         { x: this.ball.x, y: this.ball.y },
-        { x: 1, y: -163 },
-        { x: 266, y: -48 },
-        { x: 416, y: 158 },
+        { x: -96, y: -224 },
+        { x: 283, y: -89 },
+        { x: 520, y: 193 },
     ];
     rocketFlyInterval;
+    maxMutiplierFly = 3;
+    prevMultiplier = 0;
+    currentMultiplier = 0;
+    linePercent = 0;
 
     moveBallInBezierCurve() {
         let [p0, p1, p2, p3] = this.points;
@@ -43,6 +56,21 @@ export class RocketFly extends ObserverComponent {
             this.ball.t = 1;
         }
 
+        this.linePercent = this.currentMultiplier / this.maxMutiplierFly;
+        const rocketFlyLineWidth = this.rocketLine.getComponent(UITransform).width;
+
+        let rocketPathPercent;
+        if (xt < 0) {
+            rocketPathPercent = (rocketFlyLineWidth / 2 - Math.abs(xt)) / rocketFlyLineWidth;
+        } else {
+            rocketPathPercent = (rocketFlyLineWidth / 2 + xt) / rocketFlyLineWidth;
+        }
+        if (rocketPathPercent > this.linePercent || this.ball.x === this.points[3].x) {
+            this.prevMultiplier = this.currentMultiplier;
+            clearInterval(this.rocketFlyInterval);
+            return;
+        }
+
         //We draw the ball to the canvas in the new location
         this.ball.x = xt;
         this.ball.y = yt;
@@ -51,6 +79,7 @@ export class RocketFly extends ObserverComponent {
 
     updateBallPosition() {
         this.rocket.position = v3(this.ball.x, this.ball.y, this.rocket.position.z);
+        this.rocketLine.fillRange = this.linePercent;
     }
 
     animate() {
@@ -69,12 +98,15 @@ export class RocketFly extends ObserverComponent {
     //     }
     // }
 
-    //Event listeners
+    calculateMultiplier() {
+        this.currentMultiplier += +this.toMultiplier.string - +this.fromMultiplier.string;
+    }
     onClickPlay() {
+        this.calculateMultiplier();
         this.playAnim = true;
         this.rocketFlyInterval = setInterval(() => {
             this.animate();
-        }, 1000);
+        }, 1000 / 30);
 
         if (this.ball.x === this.points[3].x && this.ball.y === this.points[3].y) {
             //Restart the animation
@@ -82,6 +114,9 @@ export class RocketFly extends ObserverComponent {
             this.ball.x = this.points[0].x;
             this.ball.y = this.points[0].y;
             clearInterval(this.rocketFlyInterval);
+            this.fromMultiplier.string = "0";
+            this.toMultiplier.string = "0";
+            this.rocketLine.fillRange = 0;
         }
     }
 
