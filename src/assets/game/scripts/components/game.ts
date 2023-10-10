@@ -36,9 +36,9 @@ export default class Game extends GameComponent {
         super.onLoad();
         gc.initMobxLogger();
         const configs = new gc.GameServiceMessage.GameConfigs();
-        configs.chips = ["1", "5", "10", "50", "100", "200", "500", "1000", "2000"];
+        configs.chips = ["1", "5", "10", "50", "100", "200", "500", "1000"];
         configs.minBet = 1;
-        configs.maxBet = 2000;
+        configs.maxBet = 1000;
         this.setDemoGameConfigs(configs);
     }
 

@@ -4,6 +4,51 @@
     <dict>
         <key>frames</key>
         <dict>
+            <key>auto-cashout-btn-dissable.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{73,76}</string>
+                <key>spriteSourceSize</key>
+                <string>{73,76}</string>
+                <key>textureRect</key>
+                <string>{{402,1907},{73,76}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>auto-cashout-enabled-button.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{75,76}</string>
+                <key>spriteSourceSize</key>
+                <string>{75,76}</string>
+                <key>textureRect</key>
+                <string>{{325,1908},{75,76}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>auto-cashout-frame-bg.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{66,51}</string>
+                <key>spriteSourceSize</key>
+                <string>{66,51}</string>
+                <key>textureRect</key>
+                <string>{{574,1907},{66,51}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
             <key>autoplay-arrow.png</key>
             <dict>
                 <key>aliases</key>
@@ -139,21 +184,6 @@
                 <key>textureRotated</key>
                 <true/>
             </dict>
-            <key>btn-cashout-dissable.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{73,76}</string>
-                <key>spriteSourceSize</key>
-                <string>{73,76}</string>
-                <key>textureRect</key>
-                <string>{{402,1907},{73,76}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
             <key>btn-cashout-green-dissable.png</key>
             <dict>
                 <key>aliases</key>
@@ -184,21 +214,6 @@
                 <key>textureRotated</key>
                 <true/>
             </dict>
-            <key>btn-cashout.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{75,76}</string>
-                <key>spriteSourceSize</key>
-                <string>{75,76}</string>
-                <key>textureRect</key>
-                <string>{{325,1908},{75,76}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
             <key>btn_clear.png</key>
             <dict>
                 <key>aliases</key>
@@ -210,7 +225,7 @@
                 <key>spriteSourceSize</key>
                 <string>{64,50}</string>
                 <key>textureRect</key>
-                <string>{{574,1907},{64,50}}</string>
+                <string>{{575,1975},{64,50}}</string>
                 <key>textureRotated</key>
                 <true/>
             </dict>
@@ -288,21 +303,6 @@
                 <string>{{664,1580},{299,52}}</string>
                 <key>textureRotated</key>
                 <false/>
-            </dict>
-            <key>btn_giatribet_dissable.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{299,48}</string>
-                <key>spriteSourceSize</key>
-                <string>{299,48}</string>
-                <key>textureRect</key>
-                <string>{{972,1527},{299,48}}</string>
-                <key>textureRotated</key>
-                <true/>
             </dict>
             <key>btn_placebet.png</key>
             <dict>
@@ -439,6 +439,21 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
+            <key>frame-desc-insc-disables.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{299,48}</string>
+                <key>spriteSourceSize</key>
+                <string>{299,48}</string>
+                <key>textureRect</key>
+                <string>{{972,1527},{299,48}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
             <key>icon-starting.png</key>
             <dict>
                 <key>aliases</key>
@@ -495,7 +510,7 @@
                 <key>spriteSourceSize</key>
                 <string>{33,55}</string>
                 <key>textureRect</key>
-                <string>{{626,1907},{33,55}}</string>
+                <string>{{664,1828},{33,55}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -510,7 +525,7 @@
                 <key>spriteSourceSize</key>
                 <string>{59,60}</string>
                 <key>textureRect</key>
-                <string>{{619,1973},{59,60}}</string>
+                <string>{{627,1971},{59,60}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -525,7 +540,7 @@
                 <key>spriteSourceSize</key>
                 <string>{44,38}</string>
                 <key>textureRect</key>
-                <string>{{661,1907},{44,38}}</string>
+                <string>{{671,1885},{44,38}}</string>
                 <key>textureRotated</key>
                 <true/>
             </dict>
@@ -555,7 +570,7 @@
                 <key>spriteSourceSize</key>
                 <string>{62,42}</string>
                 <key>textureRect</key>
-                <string>{{575,1973},{62,42}}</string>
+                <string>{{627,1907},{62,42}}</string>
                 <key>textureRotated</key>
                 <true/>
             </dict>
@@ -663,7 +678,7 @@
             <key>size</key>
             <string>{1024,2048}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:4812492a3e985da429794aa46c8ec1fe:1797b353eb42ffe03630bb7a35a904d0:c267e8d10c0bc09dc57664e81b0ef2af$</string>
+            <string>$TexturePacker:SmartUpdate:fa40d35bf328062c0ae982f61b10a503:7ab617863ba48a12c778cd0546516d1c:c267e8d10c0bc09dc57664e81b0ef2af$</string>
             <key>textureFileName</key>
             <string>main-altas.png</string>
         </dict>
