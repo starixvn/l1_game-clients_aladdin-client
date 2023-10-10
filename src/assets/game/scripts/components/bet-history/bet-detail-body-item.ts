@@ -1,8 +1,8 @@
-import { _decorator } from "cc";
 import gc from "@sg/game-client-base";
+import { _decorator } from "cc";
 import BaseBetDetailBodyItem from "db://shared-components/game/bet-history/scripts/components/bet-detail/bet-detail-body-item";
-import { BetChoice } from "../dtf-commons";
 import { ServiceCard } from "db://shared-components/game/poker-cards/scripts/poker-card";
+import { BetChoice } from "../dtf-commons";
 
 const { ccclass } = _decorator;
 const { FormatUtils } = gc;
@@ -31,7 +31,7 @@ export default class BetDetailBodyItem extends BaseBetDetailBodyItem {
             this.setHighlightTicketDetail(winningAmount > amount);
         } else {
             const lossAmount =
-                settlementResult[BetChoice.Tie] && (choice == BetChoice.Tiger || choice == BetChoice.Dragon) ? amount / 2 : 0;
+                settlementResult[BetChoice.Tie] && (choice === BetChoice.Tiger || choice === BetChoice.Dragon) ? amount / 2 : 0;
             this.lblWin.string = FormatUtils.numberWithCommas(lossAmount, 2);
         }
     }

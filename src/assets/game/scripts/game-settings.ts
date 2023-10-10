@@ -1,10 +1,11 @@
 import gc from "@sg/game-client-base";
 import { LogStore } from "db://shared-components/game/scripts/stores/log-store";
+
 import { sharedContainer } from "../../scripts/shared-container";
 
 export const settings = {
-    id: 67,
-    name: "DragonTigerFight",
+    id: 73,
+    name: "SpaceFlight",
     durations: {
         wholeRound: 41,
         lockingBet: 5,

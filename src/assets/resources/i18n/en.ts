@@ -115,28 +115,14 @@ export const languages = {
         "under_maintenance_time": "Starting from %{startTime} to %{endTime} (GMT+8)",
         "win": "Win"
     },
-    "DragonTigerFight": {
-        "bet_history_dragon": "(Dragon",
-        "bet_history_tiger": "Tiger)",
-        "dragon_win": "DRAGON WINS",
-        "game_icon_name": "Dragon Tiger Fight",
-        "game_name": "Dragon Tiger Fight",
-        "glossary_blackDragon": "Black Dragon",
-        "glossary_blackTiger": "Black Tiger",
-        "glossary_dragon": "Dragon",
-        "glossary_redDragon": "Red Dragon",
-        "glossary_redTiger": "Red Tiger",
-        "glossary_tie": "Tie",
-        "glossary_tiger": "Tiger",
-        "option_black": "Black",
-        "option_red": "Red",
-        "tie_win": "TIE!",
-        "tiger_win": "TIGER WINS"
+    "SpaceFlight": {
+        "game_icon_name": "SpaceFlight",
+        "game_name": "SpaceFlight"
     }
 };
 
 if (!win.languages) {
     win.languages = {};
 }
-                          
+
 win.languages.en = languages;

@@ -10,7 +10,7 @@ function writeFile(fileName: string, content: string, extension = "ts") {
 
 const languageFolder = "./src/assets/resources/i18n/";
 const languageCodes = ["en", "id", "th", "vi", "zh_cn", "zh_tw"];
-const namespaces = ["Common", "DragonTigerFight"];
+const namespaces = ["Common", "SpaceFlight"];
 const tg = Tolgee().use(DevTools()).init({
     defaultLanguage: "en",
     availableLanguages: languageCodes,
@@ -71,7 +71,7 @@ export const languages = {0};
 if (!win.languages) {
     win.languages = {};
 }
-                          
+
 win.languages.${languageId} = languages;`;
 
         writeFile(languageFolder + languageId, languageScript.replace("{0}", JSON.stringify(languages[languageId], null, 4)));

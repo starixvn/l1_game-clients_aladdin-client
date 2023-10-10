@@ -20,10 +20,10 @@ const defaultConfig: gc.Configs.SiteConfigs = {
     enableMsgpackParserAllGames: false,
     enableMsgpackParserOnNotification: false,
     websocket: {
-        proxyPath: "dragontigerfight",
-        route: "dragontigerfight",
+        proxyPath: "spaceflight",
+        route: "spaceflight",
     },
-    mainObserverNamespace: "DragonTigerFight",
+    mainObserverNamespace: "SpaceFlight",
     tolgeeUrl: "",
 };
 
