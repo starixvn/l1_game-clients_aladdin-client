@@ -1,4 +1,5 @@
-import { _decorator, EditBox, Node, Sprite, UITransform, v3 } from "cc";
+import { _decorator, Node, Sprite, tween, v3 } from "cc";
+import { random } from "lodash-es";
 
 import { ObserverComponent } from "../../../../extensions/shared-components/assets/shared/common-components/observer-component/scripts/observer-component";
 
@@ -12,29 +13,31 @@ export class RocketFly extends ObserverComponent {
     @property(Sprite)
     rocketLine: Sprite = null;
 
-    @property(EditBox)
-    fromMultiplier: EditBox = null;
-
-    @property(EditBox)
-    toMultiplier: EditBox = null;
-
     playAnim = false;
-    ball = { x: -520, y: -198, speed: 0.1, t: 0, radius: 20 };
+    defaultRocketPoint = { x: -520, y: -198, speed: 0.1, t: 0 };
     //Define the bezier curve movement of the rocket
     points = [
-        { x: this.ball.x, y: this.ball.y },
+        { x: this.defaultRocketPoint.x, y: this.defaultRocketPoint.y },
         { x: -96, y: -224 },
         { x: 283, y: -89 },
         { x: 520, y: 193 },
     ];
     rocketFlyInterval;
-    maxMutiplierFly = 3;
-    prevMultiplier = 0;
+    maxMutiplierFly = 10;
     currentMultiplier = 0;
     linePercent = 0;
+    isExplode = false;
+    multiplierTween;
 
     moveBallInBezierCurve() {
         let [p0, p1, p2, p3] = this.points;
+
+        if (this.defaultRocketPoint.x === p3.x || this.defaultRocketPoint.t > 1) {
+            this.playAnim = false;
+            this.multiplierTween?.stop();
+            return;
+        }
+
         //Calculate the coefficients based on where the ball currently is in the animation
         let cx = 3 * (p1.x - p0.x);
         let bx = 3 * (p2.x - p1.x) - cx;
@@ -44,81 +47,77 @@ export class RocketFly extends ObserverComponent {
         let by = 3 * (p2.y - p1.y) - cy;
         let ay = p3.y - p0.y - cy - by;
 
-        let t = this.ball.t;
+        let t = this.currentMultiplier / this.maxMutiplierFly;
 
         //Increment t value by speed
-        this.ball.t += this.ball.speed;
+        this.defaultRocketPoint.t += this.defaultRocketPoint.speed;
         //Calculate new X & Y positions of ball
         let xt = ax * (t * t * t) + bx * (t * t) + cx * t + p0.x;
         let yt = ay * (t * t * t) + by * (t * t) + cy * t + p0.y;
 
-        if (this.ball.t > 1) {
-            this.ball.t = 1;
-        }
-
-        this.linePercent = this.currentMultiplier / this.maxMutiplierFly;
-        const rocketFlyLineWidth = this.rocketLine.getComponent(UITransform).width;
-
-        let rocketPathPercent;
-        if (xt < 0) {
-            rocketPathPercent = (rocketFlyLineWidth / 2 - Math.abs(xt)) / rocketFlyLineWidth;
-        } else {
-            rocketPathPercent = (rocketFlyLineWidth / 2 + xt) / rocketFlyLineWidth;
-        }
-        if (rocketPathPercent > this.linePercent || this.ball.x === this.points[3].x) {
-            this.prevMultiplier = this.currentMultiplier;
-            clearInterval(this.rocketFlyInterval);
-            return;
-        }
-
         //We draw the ball to the canvas in the new location
-        this.ball.x = xt;
-        this.ball.y = yt;
+        this.defaultRocketPoint.x = xt;
+        this.defaultRocketPoint.y = yt;
         this.updateBallPosition();
     }
 
     updateBallPosition() {
-        this.rocket.position = v3(this.ball.x, this.ball.y, this.rocket.position.z);
-        this.rocketLine.fillRange = this.linePercent;
+        this.rocket.position = v3(this.defaultRocketPoint.x, this.defaultRocketPoint.y, this.rocket.position.z);
+        this.rocketLine.fillRange = this.currentMultiplier / this.maxMutiplierFly;
     }
 
     animate() {
-        // requestAnimationFrame(() => this.animate());
-        //Ball code comes below
-        if (!this.playAnim) {
-            this.updateBallPosition();
-        } else {
-            this.moveBallInBezierCurve();
+        if (this.isExplode) {
+            return;
         }
+
+        this.moveBallInBezierCurve();
     }
 
-    // update() {
-    //     if (this.playAnim) {
-    //         this.animate();
-    //     }
-    // }
-
-    calculateMultiplier() {
-        this.currentMultiplier += +this.toMultiplier.string - +this.fromMultiplier.string;
+    randomMultiplier() {
+        this.currentMultiplier = random(1, this.maxMutiplierFly);
+        console.log("currentMultiplier", this.currentMultiplier);
     }
-    onClickPlay() {
-        this.calculateMultiplier();
+
+    onClickPlay(e) {
+        this.reset();
+        this.randomMultiplier();
         this.playAnim = true;
-        this.rocketFlyInterval = setInterval(() => {
-            this.animate();
-        }, 1000 / 30);
+        this.multiplierTween?.stop();
 
-        if (this.ball.x === this.points[3].x && this.ball.y === this.points[3].y) {
-            //Restart the animation
-            this.ball.t = 0;
-            this.ball.x = this.points[0].x;
-            this.ball.y = this.points[0].y;
-            clearInterval(this.rocketFlyInterval);
-            this.fromMultiplier.string = "0";
-            this.toMultiplier.string = "0";
-            this.rocketLine.fillRange = 0;
-        }
+        this.multiplierTween = tween(this.node)
+            .call(() => {
+                this.animate();
+                this.currentMultiplier += 0.01;
+            })
+            .delay(1 / 60)
+            .union()
+            .repeatForever()
+            .start();
+
+        // this.rocketFlyInterval = setInterval(() => {this.animate();}, 1000 / 30);
     }
 
-    onClickRestart() {}
+    onClickExplodeRocket() {
+        this.isExplode = true;
+        this.multiplierTween?.stop();
+        this.rocketLine.fillRange = 0;
+        this.rocket.active = false;
+        tween(this.node)
+            .delay(2)
+            .call(() => {
+                this.reset();
+            })
+            .start();
+    }
+
+    reset() {
+        this.playAnim = false;
+        this.isExplode = false;
+        this.rocket.active = true;
+        this.defaultRocketPoint.t = 0;
+        this.defaultRocketPoint.x = -520;
+        this.defaultRocketPoint.y = -198;
+        this.rocket.position = v3(this.points[0].x, this.points[0].y, this.rocket.position.z);
+    }
 }
