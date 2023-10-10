@@ -13,26 +13,58 @@ export class RocketFly extends ObserverComponent {
     @property(Sprite)
     rocketLine: Sprite = null;
 
+    @property(Node)
+    point1: Node = null;
+
+    @property(Node)
+    point2: Node = null;
+
+    @property(Node)
+    point3: Node = null;
+
+    @property(Node)
+    point4: Node = null;
+
     playAnim = false;
-    defaultRocketPoint = { x: -520, y: -198, speed: 0.1, t: 0 };
+    targetPoint;
     //Define the bezier curve movement of the rocket
     points = [
-        { x: this.defaultRocketPoint.x, y: this.defaultRocketPoint.y },
-        { x: -96, y: -224 },
-        { x: 283, y: -89 },
-        { x: 520, y: 193 },
+        // { x: this.startPoint.x, y: this.startPoint.y },
+        // { x: this.point2.position.x, y: this.point2.position.y },
+        // { x: this.point3.position.x, y: this.point3.position.y },
+        // { x: this.point4.position.x, y: this.point4.position.y },
     ];
-    rocketFlyInterval;
     maxMutiplierFly = 10;
     currentMultiplier = 0;
     linePercent = 0;
     isExplode = false;
     multiplierTween;
+    point1Position;
+    point2Position;
+    point3Position;
+    point4Position;
+
+    onLoad() {
+        super.onLoad();
+        this.point1Position = this.point1.position;
+        this.point2Position = this.point2.position;
+        this.point3Position = this.point3.position;
+        this.point4Position = this.point4.position;
+
+        this.targetPoint = { x: this.point1Position.x, y: this.point1Position.y, speed: 0.1, t: 0 };
+        //Define the bezier curve movement of the rocket
+        this.points = [
+            { x: this.targetPoint.x, y: this.targetPoint.y },
+            { x: this.point2Position.x, y: this.point2Position.y },
+            { x: this.point3Position.x, y: this.point3Position.y },
+            { x: this.point4Position.x, y: this.point4Position.y },
+        ];
+    }
 
     moveBallInBezierCurve() {
         let [p0, p1, p2, p3] = this.points;
 
-        if (this.defaultRocketPoint.x === p3.x || this.defaultRocketPoint.t > 1) {
+        if (this.targetPoint.x === p3.x || this.targetPoint.t > 1) {
             this.playAnim = false;
             this.multiplierTween?.stop();
             return;
@@ -50,19 +82,26 @@ export class RocketFly extends ObserverComponent {
         let t = this.currentMultiplier / this.maxMutiplierFly;
 
         //Increment t value by speed
-        this.defaultRocketPoint.t += this.defaultRocketPoint.speed;
+        this.targetPoint.t += this.targetPoint.speed;
         //Calculate new X & Y positions of ball
         let xt = ax * (t * t * t) + bx * (t * t) + cx * t + p0.x;
         let yt = ay * (t * t * t) + by * (t * t) + cy * t + p0.y;
 
         //We draw the ball to the canvas in the new location
-        this.defaultRocketPoint.x = xt;
-        this.defaultRocketPoint.y = yt;
+        this.targetPoint.x = xt;
+        this.targetPoint.y = yt;
+
+        const deltaX = Math.abs(xt - this.rocket.position.x);
+        const deltaY = Math.abs(yt - this.rocket.position.y);
+        const angle = -90 + (Math.atan2(deltaY, deltaX) * 180) / Math.PI;
+
+        this.rocket.eulerAngles = v3(0, 0, angle);
+        console.log("rocket angle:", angle);
         this.updateBallPosition();
     }
 
     updateBallPosition() {
-        this.rocket.position = v3(this.defaultRocketPoint.x, this.defaultRocketPoint.y, this.rocket.position.z);
+        this.rocket.position = v3(this.targetPoint.x, this.targetPoint.y, this.rocket.position.z);
         this.rocketLine.fillRange = this.currentMultiplier / this.maxMutiplierFly;
     }
 
@@ -94,8 +133,6 @@ export class RocketFly extends ObserverComponent {
             .union()
             .repeatForever()
             .start();
-
-        // this.rocketFlyInterval = setInterval(() => {this.animate();}, 1000 / 30);
     }
 
     onClickExplodeRocket() {
@@ -115,9 +152,9 @@ export class RocketFly extends ObserverComponent {
         this.playAnim = false;
         this.isExplode = false;
         this.rocket.active = true;
-        this.defaultRocketPoint.t = 0;
-        this.defaultRocketPoint.x = -520;
-        this.defaultRocketPoint.y = -198;
-        this.rocket.position = v3(this.points[0].x, this.points[0].y, this.rocket.position.z);
+        this.targetPoint.t = 0;
+        this.targetPoint.x = this.point1Position.x;
+        this.targetPoint.y = this.point1Position.y;
+        this.rocket.position = v3(this.point1Position.x, this.point1Position.y, this.rocket.position.z);
     }
 }
