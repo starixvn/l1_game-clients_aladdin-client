@@ -145,8 +145,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 372,
-      "height": 84
+      "width": 300,
+      "height": 52
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -182,12 +182,12 @@
       "a": 255
     },
     "_spriteFrame": {
-      "__uuid__": "3285b3b6-5cd2-43e7-b32e-f8f4457948f1@f9941",
+      "__uuid__": "2d67d332-0b65-4c26-aacf-03f54c9217cc@31489",
       "__expectedType__": "cc.SpriteFrame"
     },
     "_type": 0,
     "_fillType": 0,
-    "_sizeMode": 1,
+    "_sizeMode": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
       "x": 0,
@@ -251,10 +251,7 @@
       "b": 124,
       "a": 255
     },
-    "_normalSprite": {
-      "__uuid__": "3285b3b6-5cd2-43e7-b32e-f8f4457948f1@f9941",
-      "__expectedType__": "cc.SpriteFrame"
-    },
+    "_normalSprite": null,
     "_hoverSprite": null,
     "_pressedSprite": null,
     "_disabledSprite": null,
@@ -319,7 +316,7 @@
     },
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": -131.775,
+      "x": -108.38,
       "y": 0,
       "z": 0
     },
@@ -332,7 +329,7 @@
     },
     "_lscale": {
       "__type__": "cc.Vec3",
-      "x": 1,
+      "x": -1,
       "y": 1,
       "z": 1
     },
@@ -360,8 +357,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 52,
-      "height": 52
+      "width": 24,
+      "height": 30
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -397,7 +394,7 @@
       "a": 255
     },
     "_spriteFrame": {
-      "__uuid__": "37d1a0dc-f19b-47ae-a09e-41989449a8ee@f9941",
+      "__uuid__": "2d67d332-0b65-4c26-aacf-03f54c9217cc@36a4d",
       "__expectedType__": "cc.SpriteFrame"
     },
     "_type": 0,
@@ -466,10 +463,7 @@
       "b": 124,
       "a": 255
     },
-    "_normalSprite": {
-      "__uuid__": "37d1a0dc-f19b-47ae-a09e-41989449a8ee@f9941",
-      "__expectedType__": "cc.SpriteFrame"
-    },
+    "_normalSprite": null,
     "_hoverSprite": null,
     "_pressedSprite": null,
     "_disabledSprite": null,
@@ -588,8 +582,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 33.369140625,
-      "height": 50.4
+      "width": 58.75,
+      "height": 40
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -633,8 +627,11 @@
     "_lineHeight": 40,
     "_overflow": 0,
     "_enableWrapText": true,
-    "_font": null,
-    "_isSystemFontUsed": true,
+    "_font": {
+      "__uuid__": "4ae76f86-272a-4a2c-8d19-46312697fa60",
+      "__expectedType__": "cc.BitmapFont"
+    },
+    "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_isItalic": false,
     "_isBold": false,
@@ -689,7 +686,7 @@
     },
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": 138.363,
+      "x": 110.899,
       "y": 0,
       "z": 0
     },
@@ -730,8 +727,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 52,
-      "height": 52
+      "width": 24,
+      "height": 30
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -767,7 +764,7 @@
       "a": 255
     },
     "_spriteFrame": {
-      "__uuid__": "0923cc0a-f6a0-487c-a196-3061f6f6a43e@f9941",
+      "__uuid__": "2d67d332-0b65-4c26-aacf-03f54c9217cc@36a4d",
       "__expectedType__": "cc.SpriteFrame"
     },
     "_type": 0,
@@ -836,10 +833,7 @@
       "b": 124,
       "a": 255
     },
-    "_normalSprite": {
-      "__uuid__": "0923cc0a-f6a0-487c-a196-3061f6f6a43e@f9941",
-      "__expectedType__": "cc.SpriteFrame"
-    },
+    "_normalSprite": null,
     "_hoverSprite": null,
     "_pressedSprite": null,
     "_disabledSprite": null,
@@ -903,7 +897,7 @@
       "__id__": 1
     },
     "_children": [],
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 40
@@ -964,8 +958,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 372,
-      "height": 84
+      "width": 300,
+      "height": 52
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1006,7 +1000,7 @@
     },
     "_type": 0,
     "_fillType": 0,
-    "_sizeMode": 1,
+    "_sizeMode": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
       "x": 0,
@@ -1087,7 +1081,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 372,
+      "width": 300,
       "height": 84
     },
     "_anchorPoint": {
@@ -1214,6 +1208,7 @@
       "__id__": 0
     },
     "fileId": "32WVPfQFhBDowHde01O5F8",
+    "instance": null,
     "targetOverrides": [
       {
         "__id__": 57
