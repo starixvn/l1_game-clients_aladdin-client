@@ -33,7 +33,7 @@ let configDev = {
     serverDomainMapper: defaultConfig.serverDomainMapper,
     notificationServiceUrlDev: defaultConfig.notificationServiceUrlDev,
 };
-
+ 
 if (window.envConfig) {
     configDev = {
         isDev: undefined,
