@@ -7,7 +7,7 @@ export const settings = {
     id: 73,
     name: "SpaceFlight",
     durations: {
-        wholeRound: 41,
+        wholeRound: 14,
         lockingBet: 3,
         placingBet: 10,
         generatingResult: 0,
