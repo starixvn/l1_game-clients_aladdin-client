@@ -45,7 +45,7 @@ export class RocketFly extends ObserverComponent {
     level2Multiplier = 10;
     targetPoint;
     points = [];
-    maxMutiplierFly = 3;
+    maxMutiplierFly = 2;
     currentMultiplier = 0;
     linePercent = 0;
     startRound = false;
@@ -73,11 +73,10 @@ export class RocketFly extends ObserverComponent {
     @render(gc.CrashMultiplier.MultiplierStore, (store) => store.multiplier, { fireImmediately: false })
     private setCurrentMultiplier(multiplier: number) {
         console.log("multiplier: ", multiplier);
-        this.currentMultiplier = multiplier - 1;
+        this.currentMultiplier = multiplier;
         this.animate();
 
         let fraLine: SpriteFrame;
-        let color: string;
         if (multiplier <= this.level1Multiplier) {
             fraLine = this.fraLevel1Line;
         } else if (multiplier <= this.level2Multiplier) {
@@ -157,7 +156,7 @@ export class RocketFly extends ObserverComponent {
     private updateRocketPosition() {
         this.flyTween?.start();
         this.flyTween = tween(this.nodeRocket)
-            .to(0.1, { position: v3(this.targetPoint.x, this.targetPoint.y, this.nodeRocket.position.z) }, { easing: "linear" })
+            .to(0.1, { position: v3(this.targetPoint.x, this.targetPoint.y, this.nodeRocket.position.z) }, { easing: "sineOut" })
             .start();
         // this.rocket.position = v3(this.targetPoint.x, this.targetPoint.y, this.rocket.position.z);
         this.sprRocketLine.fillRange = this.currentMultiplier / this.maxMutiplierFly;
