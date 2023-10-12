@@ -36,25 +36,20 @@ export class RocketFly extends ObserverComponent {
     @property(Node)
     nodePoint4: Node = null;
 
-    playAnim = false;
     point1Position = v3(0, 0, 0);
     point2Position = v3(0, 0, 0);
     point3Position = v3(0, 0, 0);
     point4Position = v3(0, 0, 0);
-
+    defaultAngle = -90;
+    level1Multiplier = 5;
+    level2Multiplier = 10;
     targetPoint;
-    //Define the bezier curve movement of the rocket
     points = [];
     maxMutiplierFly = 3;
     currentMultiplier = 0;
     linePercent = 0;
-    isExplode = false;
-    multiplierTween;
     startRound = false;
-    defaultAngle = -90;
     flyTween;
-    level1Multiplier = 5;
-    level2Multiplier = 10;
 
     onLoad() {
         super.onLoad();
@@ -76,10 +71,13 @@ export class RocketFly extends ObserverComponent {
     }
 
     @render(gc.CrashMultiplier.MultiplierStore, (store) => store.multiplier, { fireImmediately: false })
-    setCurrentMultiplier(multiplier: number) {
+    private setCurrentMultiplier(multiplier: number) {
         console.log("multiplier: ", multiplier);
-        let fraLine: SpriteFrame;
+        this.currentMultiplier = multiplier - 1;
+        this.animate();
 
+        let fraLine: SpriteFrame;
+        let color: string;
         if (multiplier <= this.level1Multiplier) {
             fraLine = this.fraLevel1Line;
         } else if (multiplier <= this.level2Multiplier) {
@@ -89,12 +87,10 @@ export class RocketFly extends ObserverComponent {
         }
 
         this.sprRocketLine.spriteFrame = fraLine;
-        this.currentMultiplier = multiplier - 1;
-        this.animate();
     }
 
     @render(gc.Rounds.RoundTimeStore, (store) => store.startNewRound)
-    appearRocket(startNewRound: boolean) {
+    private appearRocket(startNewRound: boolean) {
         if (this.points.length < 1) {
             return;
         }
@@ -108,7 +104,6 @@ export class RocketFly extends ObserverComponent {
         } else {
             console.log("-----end game----");
             this.flyTween?.start();
-            this.isExplode = true;
             this.sprRocketLine.fillRange = 0;
             this.nodeRocket.active = false;
             this.nodeRocket.eulerAngles = v3(0, 0, this.defaultAngle);
@@ -118,14 +113,13 @@ export class RocketFly extends ObserverComponent {
         }
     }
 
-    moveBallInBezierCurve() {
+    private moveBallInBezierCurve() {
         if (this.points.length < 1) {
             return;
         }
         let [p0, p1, p2, p3] = this.points;
 
         if (this.targetPoint.x >= p3.x) {
-            this.playAnim = false;
             return;
         }
 
@@ -160,7 +154,7 @@ export class RocketFly extends ObserverComponent {
         this.updateRocketPosition();
     }
 
-    updateRocketPosition() {
+    private updateRocketPosition() {
         this.flyTween?.start();
         this.flyTween = tween(this.nodeRocket)
             .to(0.1, { position: v3(this.targetPoint.x, this.targetPoint.y, this.nodeRocket.position.z) }, { easing: "linear" })
@@ -169,7 +163,7 @@ export class RocketFly extends ObserverComponent {
         this.sprRocketLine.fillRange = this.currentMultiplier / this.maxMutiplierFly;
     }
 
-    animate() {
+    private animate() {
         if (!this.startRound) {
             return;
         }
