@@ -1,57 +1,71 @@
-import { _decorator, Node, Sprite, tween, v3 } from "cc";
-import { random } from "lodash-es";
+import gc from "@sg/game-client-base";
+import { _decorator, Node, Sprite, SpriteFrame, tween, v3 } from "cc";
+import Observer from "observer";
 
 import { ObserverComponent } from "../../../../extensions/shared-components/assets/shared/common-components/observer-component/scripts/observer-component";
 
 const { ccclass, property } = _decorator;
 
+const { render, handle } = Observer;
 @ccclass
 export class RocketFly extends ObserverComponent {
     @property(Node)
-    rocket: Node = null;
+    nodeRocket: Node = null;
 
     @property(Sprite)
-    rocketLine: Sprite = null;
+    sprRocketLine: Sprite = null;
+
+    @property(SpriteFrame)
+    fraLevel1Line: SpriteFrame = null;
+
+    @property(SpriteFrame)
+    fraLevel2Line: SpriteFrame = null;
+
+    @property(SpriteFrame)
+    fraLevel3Line: SpriteFrame = null;
 
     @property(Node)
-    point1: Node = null;
+    nodePoint1: Node = null;
 
     @property(Node)
-    point2: Node = null;
+    nodePoint2: Node = null;
 
     @property(Node)
-    point3: Node = null;
+    nodePoint3: Node = null;
 
     @property(Node)
-    point4: Node = null;
+    nodePoint4: Node = null;
 
     playAnim = false;
+    point1Position = v3(0, 0, 0);
+    point2Position = v3(0, 0, 0);
+    point3Position = v3(0, 0, 0);
+    point4Position = v3(0, 0, 0);
+
     targetPoint;
     //Define the bezier curve movement of the rocket
-    points = [
-        // { x: this.startPoint.x, y: this.startPoint.y },
-        // { x: this.point2.position.x, y: this.point2.position.y },
-        // { x: this.point3.position.x, y: this.point3.position.y },
-        // { x: this.point4.position.x, y: this.point4.position.y },
-    ];
-    maxMutiplierFly = 10;
+    points = [];
+    maxMutiplierFly = 3;
     currentMultiplier = 0;
     linePercent = 0;
     isExplode = false;
     multiplierTween;
-    point1Position;
-    point2Position;
-    point3Position;
-    point4Position;
+    startRound = false;
+    defaultAngle = -90;
+    flyTween;
+    level1Multiplier = 5;
+    level2Multiplier = 10;
 
     onLoad() {
         super.onLoad();
-        this.point1Position = this.point1.position;
-        this.point2Position = this.point2.position;
-        this.point3Position = this.point3.position;
-        this.point4Position = this.point4.position;
+        this.nodeRocket.active = false;
+        this.sprRocketLine.fillRange = 0;
+        this.point1Position = this.nodePoint1.position;
+        this.point2Position = this.nodePoint2.position;
+        this.point3Position = this.nodePoint3.position;
+        this.point4Position = this.nodePoint4.position;
 
-        this.targetPoint = { x: this.point1Position.x, y: this.point1Position.y, speed: 0.1, t: 0 };
+        this.targetPoint = { x: this.point1Position.x, y: this.point1Position.y, speed: 0.1, t: 0.1 };
         //Define the bezier curve movement of the rocket
         this.points = [
             { x: this.targetPoint.x, y: this.targetPoint.y },
@@ -61,12 +75,57 @@ export class RocketFly extends ObserverComponent {
         ];
     }
 
+    @render(gc.CrashMultiplier.MultiplierStore, (store) => store.multiplier, { fireImmediately: false })
+    setCurrentMultiplier(multiplier: number) {
+        console.log("multiplier: ", multiplier);
+        let fraLine: SpriteFrame;
+
+        if (multiplier <= this.level1Multiplier) {
+            fraLine = this.fraLevel1Line;
+        } else if (multiplier <= this.level2Multiplier) {
+            fraLine = this.fraLevel2Line;
+        } else {
+            fraLine = this.fraLevel3Line;
+        }
+
+        this.sprRocketLine.spriteFrame = fraLine;
+        this.currentMultiplier = multiplier - 1;
+        this.animate();
+    }
+
+    @render(gc.Rounds.RoundTimeStore, (store) => store.startNewRound)
+    appearRocket(startNewRound: boolean) {
+        if (this.points.length < 1) {
+            return;
+        }
+
+        this.startRound = startNewRound;
+        if (startNewRound) {
+            console.log("-----start game----");
+            this.nodeRocket.active = true;
+            this.nodeRocket.position = v3(this.point1Position.x, this.point1Position.y, this.nodeRocket.position.z);
+            this.sprRocketLine.fillRange = 0;
+        } else {
+            console.log("-----end game----");
+            this.flyTween?.start();
+            this.isExplode = true;
+            this.sprRocketLine.fillRange = 0;
+            this.nodeRocket.active = false;
+            this.nodeRocket.eulerAngles = v3(0, 0, this.defaultAngle);
+            this.targetPoint.x = this.point1Position.x;
+            this.targetPoint.y = this.point1Position.y;
+            this.targetPoint.t = 0.1;
+        }
+    }
+
     moveBallInBezierCurve() {
+        if (this.points.length < 1) {
+            return;
+        }
         let [p0, p1, p2, p3] = this.points;
 
-        if (this.targetPoint.x === p3.x || this.targetPoint.t > 1) {
+        if (this.targetPoint.x >= p3.x) {
             this.playAnim = false;
-            this.multiplierTween?.stop();
             return;
         }
 
@@ -91,70 +150,30 @@ export class RocketFly extends ObserverComponent {
         this.targetPoint.x = xt;
         this.targetPoint.y = yt;
 
-        const deltaX = Math.abs(xt - this.rocket.position.x);
-        const deltaY = Math.abs(yt - this.rocket.position.y);
-        const angle = -90 + (Math.atan2(deltaY, deltaX) * 180) / Math.PI;
+        console.log("targetPoint: ", this.targetPoint);
 
-        this.rocket.eulerAngles = v3(0, 0, angle);
-        console.log("rocket angle:", angle);
-        this.updateBallPosition();
+        const deltaX = Math.abs(xt - this.nodeRocket.position.x);
+        const deltaY = Math.abs(yt - this.nodeRocket.position.y);
+        const angle = this.defaultAngle + (Math.atan2(deltaY, deltaX) * 180) / Math.PI;
+        console.log("rocket angle: ", angle);
+        this.nodeRocket.eulerAngles = v3(0, 0, angle);
+        this.updateRocketPosition();
     }
 
-    updateBallPosition() {
-        this.rocket.position = v3(this.targetPoint.x, this.targetPoint.y, this.rocket.position.z);
-        this.rocketLine.fillRange = this.currentMultiplier / this.maxMutiplierFly;
+    updateRocketPosition() {
+        this.flyTween?.start();
+        this.flyTween = tween(this.nodeRocket)
+            .to(0.1, { position: v3(this.targetPoint.x, this.targetPoint.y, this.nodeRocket.position.z) }, { easing: "linear" })
+            .start();
+        // this.rocket.position = v3(this.targetPoint.x, this.targetPoint.y, this.rocket.position.z);
+        this.sprRocketLine.fillRange = this.currentMultiplier / this.maxMutiplierFly;
     }
 
     animate() {
-        if (this.isExplode) {
+        if (!this.startRound) {
             return;
         }
-
+        this.nodeRocket.active = true;
         this.moveBallInBezierCurve();
-    }
-
-    randomMultiplier() {
-        this.currentMultiplier = random(1, this.maxMutiplierFly);
-        console.log("currentMultiplier", this.currentMultiplier);
-    }
-
-    onClickPlay(e) {
-        this.reset();
-        this.randomMultiplier();
-        this.playAnim = true;
-        this.multiplierTween?.stop();
-
-        this.multiplierTween = tween(this.node)
-            .call(() => {
-                this.animate();
-                this.currentMultiplier += 0.01;
-            })
-            .delay(1 / 60)
-            .union()
-            .repeatForever()
-            .start();
-    }
-
-    onClickExplodeRocket() {
-        this.isExplode = true;
-        this.multiplierTween?.stop();
-        this.rocketLine.fillRange = 0;
-        this.rocket.active = false;
-        tween(this.node)
-            .delay(2)
-            .call(() => {
-                this.reset();
-            })
-            .start();
-    }
-
-    reset() {
-        this.playAnim = false;
-        this.isExplode = false;
-        this.rocket.active = true;
-        this.targetPoint.t = 0;
-        this.targetPoint.x = this.point1Position.x;
-        this.targetPoint.y = this.point1Position.y;
-        this.rocket.position = v3(this.point1Position.x, this.point1Position.y, this.rocket.position.z);
     }
 }
