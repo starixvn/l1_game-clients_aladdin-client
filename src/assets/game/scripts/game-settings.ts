@@ -8,10 +8,10 @@ export const settings = {
     name: "SpaceFlight",
     durations: {
         wholeRound: 41,
-        lockingBet: 5,
-        placingBet: 30,
-        generatingResult: 3,
-        startRound: 2,
+        lockingBet: 3,
+        placingBet: 10,
+        generatingResult: 0,
+        startRound: 0,
     },
     numberOfRoundHistory: 102,
 };
