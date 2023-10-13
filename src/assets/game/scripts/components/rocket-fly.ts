@@ -63,7 +63,7 @@ export class RocketFly extends ObserverComponent {
         this.isReady = true;
         this.nodeRocket.active = false;
         this.skeExplosion.node.active = false;
-        this.sprRocketLine.fillRange = 0;
+        this.updateRocketLine(0);
         this.point1Position = this.nodePoint1.position;
         this.point2Position = this.nodePoint2.position;
         this.point3Position = this.nodePoint3.position;
@@ -125,18 +125,47 @@ export class RocketFly extends ObserverComponent {
 
     @render(gc.Rounds.RoundTimeStore, (store) => store.isStartRound)
     startNewRound(isStartRound: boolean) {
-        if (isStartRound) {
-            console.log("-----start game----");
-            this.explositionTween?.stop();
-            this.nodeRocketContainer.active = isStartRound;
-            this.skeExplosion.node.active = !isStartRound;
-            this.nodeRocket.active = isStartRound;
-            this.nodeRocketContainer.position = v3(this.point1Position.x, this.point1Position.y, this.nodeRocketContainer.position.z);
-            this.nodeRocketContainer.eulerAngles = v3(0, 0, this.defaultAngle);
-            this.targetPoint.x = this.point1Position.x;
-            this.targetPoint.y = this.point1Position.y;
-            this.targetPoint.t = 0.1;
+        if (!isStartRound) {
+            return;
         }
+        console.log("-----start game----");
+        this.explositionTween?.stop();
+        this.nodeRocketContainer.active = true;
+        this.setRocketVisibility(true);
+        this.resetStartPosition();
+    }
+
+    private setRocketVisibility(status: boolean) {
+        this.skeExplosion.node.active = !status;
+        this.nodeRocket.active = status;
+    }
+
+    private updateRocketLine(value: number) {
+        this.sprRocketLine.fillRange = value;
+    }
+
+    private updateRocketAngle(angle: number) {
+        this.nodeRocketContainer.eulerAngles = v3(0, 0, angle);
+    }
+
+    private updateRocketPosition(targetPoint, isAnimated = false) {
+        if (isAnimated) {
+            this.flyTween?.stop();
+            this.flyTween = tween(this.nodeRocketContainer)
+                .to(0.1, { position: v3(targetPoint.x, targetPoint.y, this.nodeRocketContainer.position.z) }, { easing: "linear" })
+                .start();
+        } else {
+            this.nodeRocketContainer.position = v3(targetPoint.x, targetPoint.y, this.nodeRocketContainer.position.z);
+        }
+    }
+
+    private resetStartPosition() {
+        this.updateRocketPosition(this.point1Position);
+        this.nodeRocketContainer.position = v3(this.point1Position.x, this.point1Position.y, this.nodeRocketContainer.position.z);
+        this.updateRocketAngle(this.defaultAngle);
+        this.targetPoint.x = this.point1Position.x;
+        this.targetPoint.y = this.point1Position.y;
+        this.targetPoint.t = 0.1;
     }
 
     private moveBallInBezierCurve() {
@@ -173,17 +202,9 @@ export class RocketFly extends ObserverComponent {
         const deltaX = Math.abs(xt - this.nodeRocketContainer.position.x);
         const deltaY = Math.abs(yt - this.nodeRocketContainer.position.y);
         const angle = this.defaultAngle + (Math.atan2(deltaY, deltaX) * 180) / Math.PI;
-        console.log("rocket angle: ", angle);
-        this.nodeRocketContainer.eulerAngles = v3(0, 0, angle);
-        this.updateRocketPosition();
-    }
-
-    private updateRocketPosition() {
-        this.flyTween?.stop();
-        this.flyTween = tween(this.nodeRocketContainer)
-            .to(0.1, { position: v3(this.targetPoint.x, this.targetPoint.y, this.nodeRocketContainer.position.z) }, { easing: "linear" })
-            .start();
-        this.sprRocketLine.fillRange = this.currentMultiplier / this.maxMutiplierFly;
+        this.updateRocketAngle(angle);
+        this.updateRocketPosition(this.targetPoint);
+        this.updateRocketLine(this.currentMultiplier / this.maxMutiplierFly);
     }
 
     private animate() {
@@ -200,15 +221,12 @@ export class RocketFly extends ObserverComponent {
         }
         this.flyTween?.stop();
         this.explositionTween?.stop();
-        this.nodeRocket.active = false;
-        this.sprRocketLine.fillRange = 0;
+        this.setRocketVisibility(false);
+        this.updateRocketLine(0);
 
         const animName = isSMall ? "explosion-small" : "explosion-big";
         const duration = this.skeExplosion.findAnimation(animName).duration;
-
-        this.skeExplosion.node.active = true;
         this.skeExplosion.setAnimation(0, animName, false);
-
         this.explositionTween = tween(this.nodeRocketContainer)
             .delay(duration)
             .call(() => {
