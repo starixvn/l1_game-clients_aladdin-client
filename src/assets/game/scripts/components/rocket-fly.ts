@@ -136,7 +136,6 @@ export class RocketFly extends ObserverComponent {
             this.targetPoint.x = this.point1Position.x;
             this.targetPoint.y = this.point1Position.y;
             this.targetPoint.t = 0.1;
-            this.sprRocketLine.fillRange = 0;
         }
     }
 
@@ -202,6 +201,7 @@ export class RocketFly extends ObserverComponent {
         this.flyTween?.stop();
         this.explositionTween?.stop();
         this.nodeRocket.active = false;
+        this.sprRocketLine.fillRange = 0;
 
         const animName = isSMall ? "explosion-small" : "explosion-big";
         const duration = this.skeExplosion.findAnimation(animName).duration;
