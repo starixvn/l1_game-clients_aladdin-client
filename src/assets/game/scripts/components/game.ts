@@ -1,7 +1,7 @@
 import "./../../../resources/i18n";
 
 import gc from "@sg/game-client-base";
-import { _decorator, Label } from "cc";
+import { _decorator, Label, Node } from "cc";
 import GameComponent from "db://shared-components/game/scripts/components/game-component";
 import { startGame } from "db://shared-components/shared/scripts/startup";
 import { AnimationUtils } from "db://shared-components/shared/utils";
@@ -9,6 +9,7 @@ import Observer from "observer";
 
 import { siteConfigs } from "../../../scripts/site-configs";
 import { containerOptions, settings } from "../game-settings";
+import { RocketFly } from "./rocket-fly";
 
 const { Settlements, Rounds, Translator } = gc;
 
@@ -28,6 +29,31 @@ export default class Game extends GameComponent {
     @property({ type: Label, override: true, visible: false })
     lblMaxBet: Label = null;
 
+    @property(Node)
+    rocketFly: Node = null;
+
     override namespace = settings.name;
     override containerOptions = containerOptions;
+    cpnRocketFly: RocketFly = null;
+
+    onLoad() {
+        super.onLoad();
+        this.cpnRocketFly = this.rocketFly.getComponent(RocketFly);
+    }
+
+    @render(Settlements.SettlementStore, (store) => ({ result: store.result, settlementResult: store.settlementResult }))
+    handleResult(data: { result: gc.GameServiceMessage.TResult; settlementResult: gc.GameServiceMessage.TSettlementResult }) {
+        const { result, settlementResult } = data;
+
+        if (!result) {
+            return;
+        }
+        this.showResult(result, true);
+        this.playSound(gc.Audios.AudioIds.RECEIVE_FINISH);
+    }
+
+    async showResult(result: gc.GameServiceMessage.TResult, hasAnimation: boolean) {
+        console.log("----showResult----");
+        this.cpnRocketFly?.explodeRocket(false);
+    }
 }
