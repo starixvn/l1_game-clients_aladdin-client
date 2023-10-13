@@ -58,6 +58,7 @@ export class RocketFly extends ObserverComponent {
     angleTween: Tween<Node>;
     flyTween: Tween<Node>;
     explositionTween: Tween<Node>;
+    skeRocket: sp.Skeleton;
 
     onLoad() {
         super.onLoad();
@@ -65,6 +66,7 @@ export class RocketFly extends ObserverComponent {
         this.nodeRocket.active = false;
         this.skeExplosion.node.active = false;
         this.updateRocketLine(0);
+        this.skeRocket = this.nodeRocket.getComponent(sp.Skeleton);
 
         this.point1Position = this.nodePoint1.position;
         this.point2Position = this.nodePoint2.position;
@@ -85,7 +87,7 @@ export class RocketFly extends ObserverComponent {
     @render(gc.CrashMultiplier.MultiplierStore, (store) => store.multiplier, { fireImmediately: false })
     private setCurrentMultiplier(multiplier: number) {
         console.log("multiplier: ", multiplier);
-
+        this.skeRocket.setAnimation(0, "rocket-fly", true);
         const multiplierTemp = multiplier - 1;
         this.currentMultiplier = multiplierTemp;
 
@@ -113,6 +115,7 @@ export class RocketFly extends ObserverComponent {
         this.nodeRocketContainer.active = true;
         this.setRocketVisibility(true);
         this.resetStartPosition();
+        this.skeRocket.setAnimation(0, "rocket-start", true);
     }
 
     private setRocketVisibility(status: boolean) {

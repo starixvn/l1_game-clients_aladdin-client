@@ -3500,13 +3500,13 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 54,
-      "height": 107
+      "width": 163.27999877929688,
+      "height": 270.0299987792969
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
-      "x": 0.5,
-      "y": 0.5
+      "x": 0.5304997758094363,
+      "y": 0.6868496169282768
     },
     "_id": ""
   },
@@ -3515,7 +3515,7 @@
     "fileId": "6cBzFMrb9DiIS/mbi7OYM2"
   },
   {
-    "__type__": "cc.Sprite",
+    "__type__": "sp.Skeleton",
     "_name": "",
     "_objFlags": 0,
     "__editorExtras__": {},
@@ -3536,28 +3536,29 @@
       "b": 255,
       "a": 255
     },
-    "_spriteFrame": {
-      "__uuid__": "2d67d332-0b65-4c26-aacf-03f54c9217cc@b7a05",
-      "__expectedType__": "cc.SpriteFrame"
+    "_skeletonData": {
+      "__uuid__": "8ec84bac-77af-4f21-97a2-eabc2ff4ae08",
+      "__expectedType__": "sp.SkeletonData"
     },
-    "_type": 0,
-    "_fillType": 0,
-    "_sizeMode": 1,
-    "_fillCenter": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
-    },
-    "_fillStart": 0,
-    "_fillRange": 0,
-    "_isTrimmedMode": true,
-    "_useGrayscale": false,
-    "_atlas": null,
+    "defaultSkin": "default",
+    "defaultAnimation": "rocket-start",
+    "_premultipliedAlpha": false,
+    "_timeScale": 1,
+    "_preCacheMode": 0,
+    "_cacheMode": 0,
+    "_defaultCacheMode": 0,
+    "_sockets": [],
+    "_useTint": false,
+    "_debugMesh": false,
+    "_debugBones": false,
+    "_debugSlots": false,
+    "_enableBatch": false,
+    "loop": true,
     "_id": ""
   },
   {
     "__type__": "cc.CompPrefabInfo",
-    "fileId": "eaBzFKyyVKqoQMy8rB9W2L"
+    "fileId": "de8t8wHlFPUbl358DPFo4E"
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -3568,6 +3569,8 @@
       "__id__": 0
     },
     "fileId": "11yx2i1LJCGoOOLfjhFlqJ",
+    "instance": null,
+    "targetOverrides": null,
     "nestedPrefabInstanceRoots": null
   },
   {
@@ -3830,6 +3833,8 @@
       "__id__": 0
     },
     "fileId": "66np605k9FcYOMW5D9pC1T",
+    "instance": null,
+    "targetOverrides": null,
     "nestedPrefabInstanceRoots": null
   },
   {
