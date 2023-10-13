@@ -51,10 +51,11 @@ export class RocketFly extends ObserverComponent {
     level2Multiplier = 10;
     targetPoint;
     points = [];
-    maxMutiplierFly = 4;
+    maxMutiplierFly = 0.7;
     currentMultiplier = 0;
     linePercent = 0;
     isReady = false;
+    angleTween: Tween<Node>;
     flyTween: Tween<Node>;
     explositionTween: Tween<Node>;
 
@@ -64,6 +65,7 @@ export class RocketFly extends ObserverComponent {
         this.nodeRocket.active = false;
         this.skeExplosion.node.active = false;
         this.updateRocketLine(0);
+
         this.point1Position = this.nodePoint1.position;
         this.point2Position = this.nodePoint2.position;
         this.point3Position = this.nodePoint3.position;
@@ -77,37 +79,15 @@ export class RocketFly extends ObserverComponent {
             { x: this.point3Position.x, y: this.point3Position.y },
             { x: this.point4Position.x, y: this.point4Position.y },
         ];
+        this.updateRocketPosition(this.point1Position);
     }
 
     @render(gc.CrashMultiplier.MultiplierStore, (store) => store.multiplier, { fireImmediately: false })
     private setCurrentMultiplier(multiplier: number) {
         console.log("multiplier: ", multiplier);
+
         const multiplierTemp = multiplier - 1;
         this.currentMultiplier = multiplierTemp;
-
-        if (multiplierTemp > 3 && multiplierTemp < 4.5) {
-            this.maxMutiplierFly = 4.5;
-            console.log("maxMutiplierFly1: ", this.maxMutiplierFly);
-        }
-
-        if (multiplierTemp > 4.5 && multiplierTemp < 5.5) {
-            this.maxMutiplierFly = 5;
-            console.log("maxMutiplierFly2: ", this.maxMutiplierFly);
-        }
-
-        if (multiplierTemp > 5.5 && multiplierTemp < 6) {
-            this.maxMutiplierFly = 5.5;
-            console.log("maxMutiplierFly3: ", this.maxMutiplierFly);
-        }
-
-        if (multiplierTemp > 6 && multiplierTemp < 6.5) {
-            this.maxMutiplierFly = 6;
-            console.log("maxMutiplierFly4: ", this.maxMutiplierFly);
-        }
-
-        if (multiplierTemp > 6.5) {
-            this.maxMutiplierFly = 7;
-        }
 
         this.animate();
 
@@ -124,7 +104,7 @@ export class RocketFly extends ObserverComponent {
     }
 
     @render(gc.Rounds.RoundTimeStore, (store) => store.isStartRound)
-    startNewRound(isStartRound: boolean) {
+    private startNewRound(isStartRound: boolean) {
         if (!isStartRound) {
             return;
         }
@@ -144,8 +124,15 @@ export class RocketFly extends ObserverComponent {
         this.sprRocketLine.fillRange = value;
     }
 
-    private updateRocketAngle(angle: number) {
-        this.nodeRocketContainer.eulerAngles = v3(0, 0, angle);
+    private updateRocketAngle(angle: number, isAnimated = false) {
+        if (isAnimated) {
+            this.angleTween?.stop();
+            this.angleTween = tween(this.nodeRocketContainer)
+                .to(0.1, { eulerAngles: v3(0, 0, angle) }, { easing: "linear" })
+                .start();
+        } else {
+            this.nodeRocketContainer.eulerAngles = v3(0, 0, angle);
+        }
     }
 
     private updateRocketPosition(targetPoint, isAnimated = false) {
@@ -202,8 +189,8 @@ export class RocketFly extends ObserverComponent {
         const deltaX = Math.abs(xt - this.nodeRocketContainer.position.x);
         const deltaY = Math.abs(yt - this.nodeRocketContainer.position.y);
         const angle = this.defaultAngle + (Math.atan2(deltaY, deltaX) * 180) / Math.PI;
-        this.updateRocketAngle(angle);
-        this.updateRocketPosition(this.targetPoint);
+        this.updateRocketAngle(angle, true);
+        this.updateRocketPosition(this.targetPoint, true);
         this.updateRocketLine(this.currentMultiplier / this.maxMutiplierFly);
     }
 
@@ -220,6 +207,7 @@ export class RocketFly extends ObserverComponent {
             return;
         }
         this.flyTween?.stop();
+        this.angleTween?.stop();
         this.explositionTween?.stop();
         this.setRocketVisibility(false);
         this.updateRocketLine(0);
