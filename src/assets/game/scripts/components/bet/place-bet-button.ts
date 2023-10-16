@@ -6,7 +6,7 @@ import { BetInputStore } from "../../../../../extensions/shared-components/asset
 
 const { handle, render } = Observer;
 const { property, ccclass } = _decorator;
-const { CrashBet, Bet } = gc;
+const { CrashBet, Bet, Rounds } = gc;
 
 @ccclass
 export default class PlaceBetButton extends ObserverComponent {
@@ -33,7 +33,6 @@ export default class PlaceBetButton extends ObserverComponent {
     changeText(lastReceivedBet: any) {
         if (lastReceivedBet && lastReceivedBet.value > 0) {
             this.setStatusBet(true);
-            this.node.active = false;
         }
     }
 
@@ -42,10 +41,17 @@ export default class PlaceBetButton extends ObserverComponent {
         return { autoCashOut: undefined, amount: this.amount };
     }
 
+    @render(Rounds.RoundTimeStore, (store) => ({ roundState: store.roundState }))
+    showPlaceBet({ roundState }) {
+        if (roundState === Rounds.ROUND_STATE.LOCKING_BET) {
+            this.setStatusBet(false);
+        }
+    }
+
     setStatusBet(selected: boolean) {
         this.bgWaiting.node.active = selected;
         this.sprBetAccepted.node.active = selected;
         this.sprPlaceBet.node.active = !selected;
-        this.bgPlaceBet.node.active = !selected;       
+        this.bgPlaceBet.node.active = !selected;
     }
 }
