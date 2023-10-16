@@ -6,7 +6,7 @@ import { ObserverComponent } from "../../../../../extensions/shared-components/a
 
 const { handle, render } = Observer;
 const { property, ccclass } = _decorator;
-const { CrashMultiplier } = gc;
+const { CrashMultiplier, Rounds } = gc;
 
 @ccclass
 export class CashOutButton extends ObserverComponent {
@@ -30,5 +30,11 @@ export class CashOutButton extends ObserverComponent {
             cashOutValue = cashOutValue / 2;
         }
         this.lblCashOut.string = cashOutValue.toFixed(2);
+    }
+
+    @render(Rounds.RoundTimeStore, (store) => store.remaining)
+    updateCashoutButtonStatus(remaining: number) {
+        console.log("updateCashoutButtonStatus", remaining);
+        this.node.active = remaining > 0 ? false : true;
     }
 }

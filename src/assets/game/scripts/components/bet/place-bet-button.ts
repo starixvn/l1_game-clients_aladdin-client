@@ -1,8 +1,8 @@
 import gc from "@sg/game-client-base";
-import { _decorator, Label, Sprite } from "cc";
+import { _decorator, Sprite } from "cc";
 import Observer from "observer";
-import { ObserverComponent } from "../../../../../extensions/shared-components/assets/shared/common-components/observer-component/scripts/observer-component";
 import { BetInputStore } from "../../../../../extensions/shared-components/assets/game/bet-input/scripts/stores/bet-input-store";
+import { ObserverComponent } from "../../../../../extensions/shared-components/assets/shared/common-components/observer-component/scripts/observer-component";
 
 const { handle, render } = Observer;
 const { property, ccclass } = _decorator;
@@ -53,5 +53,9 @@ export default class PlaceBetButton extends ObserverComponent {
         this.sprBetAccepted.node.active = selected;
         this.sprPlaceBet.node.active = !selected;
         this.bgPlaceBet.node.active = !selected;
+    }
+    @render(Rounds.RoundTimeStore, (store) => store.remaining)
+    updateCashoutButtonStatus(remaining: number) {
+        this.node.active = remaining > 0 ? true : false;
     }
 }
