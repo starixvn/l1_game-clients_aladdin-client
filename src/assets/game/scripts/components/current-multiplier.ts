@@ -24,7 +24,7 @@ export class CurrentMultiplier extends ObserverComponent {
     @render(gc.CrashMultiplier.MultiplierStore, (store) => store.multiplier, { fireImmediately: false })
     private setCurrentMultiplier(multiplier: number) {
         this.setCurrentMultiplierVisibility(true);
-        this.lblCurrentMultiplier.string = `${multiplier}X`;
+        this.lblCurrentMultiplier.string = `${multiplier}x`;
 
         let color: string;
         if (multiplier <= this.level1Multiplier) {
@@ -38,9 +38,9 @@ export class CurrentMultiplier extends ObserverComponent {
         this.lblCurrentMultiplier.color = new Color().fromHEX(color);
     }
 
-    @render(gc.Rounds.RoundTimeStore, (store) => store.startNewRound)
-    private hideCurrentMultiplier(startNewRound: boolean) {
-        if (!startNewRound) {
+    @render(gc.Rounds.RoundTimeStore, (store) => store.isStartRound)
+    private hideCurrentMultiplier(isStartRound: boolean) {
+        if (!isStartRound) {
             this.setCurrentMultiplierVisibility(false);
         }
     }
