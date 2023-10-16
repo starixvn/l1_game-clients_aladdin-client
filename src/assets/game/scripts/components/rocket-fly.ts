@@ -52,6 +52,7 @@ export class RocketFly extends ObserverComponent {
     targetPoint;
     points = [];
     maxMutiplierFly = 0.4;
+    maxMutiplierFlyTemp = this.maxMutiplierFly;
     currentMultiplier = 0;
     linePercent = 0;
     isReady = false;
@@ -90,6 +91,17 @@ export class RocketFly extends ObserverComponent {
         this.skeRocket.setAnimation(0, "rocket-fly", true);
         const multiplierTemp = multiplier - 1;
         this.currentMultiplier = multiplierTemp;
+        if (multiplier <= 2) {
+            this.maxMutiplierFlyTemp += 0.5;
+        }
+
+        if (multiplier > 2 && multiplier <= 5) {
+            this.maxMutiplierFlyTemp += 0.05;
+        }
+
+        if (multiplier > 5 && multiplier <= 10) {
+            this.maxMutiplierFlyTemp += 0.01;
+        }
 
         this.animate();
 
@@ -115,6 +127,7 @@ export class RocketFly extends ObserverComponent {
         this.nodeRocketContainer.active = true;
         this.setRocketVisibility(true);
         this.resetStartPosition();
+        this.maxMutiplierFlyTemp = this.maxMutiplierFly;
         this.skeRocket.setAnimation(0, "rocket-start", true);
     }
 
