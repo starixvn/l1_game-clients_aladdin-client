@@ -51,7 +51,7 @@ export class RocketFly extends ObserverComponent {
     level2Multiplier = 10;
     targetPoint;
     points = [];
-    maxMutiplierFly = 0.7;
+    maxMutiplierFly = 0.4;
     currentMultiplier = 0;
     linePercent = 0;
     isReady = false;
