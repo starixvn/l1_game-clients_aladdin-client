@@ -35,6 +35,7 @@ export default class Game extends GameComponent {
     override namespace = settings.name;
     override containerOptions = containerOptions;
     cpnRocketFly: RocketFly = null;
+    smallExplosion = 1.02;
 
     onLoad() {
         super.onLoad();
@@ -55,7 +56,7 @@ export default class Game extends GameComponent {
 
     async showResult(result: gc.GameServiceMessage.TResult, hasAnimation: boolean) {
         console.log("----showResult----");
-        this.cpnRocketFly?.explodeRocket(false);
+        this.cpnRocketFly?.explodeRocket(+result < this.smallExplosion);
     }
 
     finishShowResult(result: gc.GameServiceMessage.TResult, settlementResult: gc.GameServiceMessage.TSettlementResult) {

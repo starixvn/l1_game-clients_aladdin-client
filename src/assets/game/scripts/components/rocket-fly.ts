@@ -42,27 +42,27 @@ export class RocketFly extends ObserverComponent {
     @property(Node)
     nodePoint4: Node = null;
 
-    point1Position = v3(0, 0, 0);
-    point2Position = v3(0, 0, 0);
-    point3Position = v3(0, 0, 0);
-    point4Position = v3(0, 0, 0);
-    defaultAngle = -90;
-    level1Multiplier = 5;
-    level2Multiplier = 10;
-    targetPoint;
-    points = [];
-    linePercent = 0;
-    defaultSpeed = 0.005;
-    startMoveTime = 0;
-    rocketIntervalTime = 1000 / 40;
-    isReady = false;
-    firstMultiplierRound = false;
-    angleTween: Tween<Node>;
-    flyTween: Tween<Node>;
-    explositionTween: Tween<Node>;
-    skeRocket: sp.Skeleton;
-    timeByMultiplier = 0;
-    flyInterval;
+    private point1Position = v3(0, 0, 0);
+    private point2Position = v3(0, 0, 0);
+    private point3Position = v3(0, 0, 0);
+    private point4Position = v3(0, 0, 0);
+    private defaultAngle = -90;
+    private level1Multiplier = 5;
+    private level2Multiplier = 10;
+    private targetPoint;
+    private points = [];
+    private linePercent = 0;
+    private defaultSpeed = 0.005;
+    private startMoveTime = 0;
+    private rocketIntervalTime = 1000 / 40;
+    private isReady = false;
+    private firstMultiplierRound = false;
+    private angleTween: Tween<Node>;
+    private flyTween: Tween<Node>;
+    private explositionTween: Tween<Node>;
+    private skeRocket: sp.Skeleton;
+    private timeByMultiplier = 0;
+    private flyInterval;
 
     onLoad() {
         super.onLoad();
@@ -213,11 +213,21 @@ export class RocketFly extends ObserverComponent {
         // 10 -> m = 7.25
         // 12 -> m = 10
 
-        if (this.targetPoint.t <= 0.15) {
-            console.log("---level0---", this.targetPoint.t);
-        }
+        this.updateSpeedByTime();
 
-        if (this.targetPoint.t > 0.92) {
+        //We draw the rocket to the canvas in the new location
+        this.targetPoint.x = xt;
+        this.targetPoint.y = yt;
+
+        const deltaX = Math.abs(xt - this.nodeRocketContainer.position.x);
+        const deltaY = Math.abs(yt - this.nodeRocketContainer.position.y);
+        const angle = this.defaultAngle + (Math.atan2(deltaY, deltaX) * 180) / Math.PI;
+        this.updateRocketAngle(angle, true, this.rocketIntervalTime / 1000);
+        this.updateRocketPosition(this.targetPoint, true, this.rocketIntervalTime / 1000);
+    }
+
+    private updateSpeedByTime() {
+        if (this.targetPoint.t > 0.9) {
             this.targetPoint.speed = 0.0001;
         } else if (this.targetPoint.t > 0.5) {
             this.targetPoint.speed = 0.0015;
@@ -230,16 +240,6 @@ export class RocketFly extends ObserverComponent {
         } else {
             this.targetPoint.speed = this.defaultSpeed;
         }
-
-        //We draw the rocket to the canvas in the new location
-        this.targetPoint.x = xt;
-        this.targetPoint.y = yt;
-
-        const deltaX = Math.abs(xt - this.nodeRocketContainer.position.x);
-        const deltaY = Math.abs(yt - this.nodeRocketContainer.position.y);
-        const angle = this.defaultAngle + (Math.atan2(deltaY, deltaX) * 180) / Math.PI;
-        this.updateRocketAngle(angle, true, this.rocketIntervalTime / 1000);
-        this.updateRocketPosition(this.targetPoint, true, this.rocketIntervalTime / 1000);
     }
 
     private animate() {
