@@ -1,6 +1,8 @@
 import gc from "@sg/game-client-base";
 import { _decorator, Sprite } from "cc";
+import { inject } from "inversify";
 import Observer from "observer";
+import AutoCashOutStore from "../../../../../extensions/shared-components/assets/game/auto-cash-out/scripts/stores/auto-cash-out-store";
 import { BetInputStore } from "../../../../../extensions/shared-components/assets/game/bet-input/scripts/stores/bet-input-store";
 import { ObserverComponent } from "../../../../../extensions/shared-components/assets/shared/common-components/observer-component/scripts/observer-component";
 
@@ -10,6 +12,10 @@ const { CrashBet, Bet, Rounds } = gc;
 
 @ccclass
 export default class PlaceBetButton extends ObserverComponent {
+    constructor(@inject(AutoCashOutStore) protected readonly autoCashoutStore: AutoCashOutStore) {
+        super();
+    }
+    
     @property(Sprite)
     bgWaiting: Sprite = null;
 
@@ -42,7 +48,7 @@ export default class PlaceBetButton extends ObserverComponent {
     @handle(CrashBet.CrashBetHandler, (handle, payload: { autoCashOut: number; amount: number }) => handle.handle(payload))
     onClickPlaceBet() {
         if (!this.isBetAccepted) {
-            return { autoCashOut: undefined, amount: this.amount };
+            return { autoCashOut: this.autoCashoutStore.isEnable ? this.autoCashoutStore.getMultiplier : undefined, amount: this.amount };
         }
     }
 
