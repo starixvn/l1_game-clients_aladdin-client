@@ -41,9 +41,10 @@ export default class PlaceBetButton extends ObserverComponent {
         return { autoCashOut: undefined, amount: this.amount };
     }
 
-    @render(Rounds.RoundTimeStore, (store) => store.isStartRound)
-    showPlaceBet(isStartRound: boolean) {
-        if (isStartRound) {
+    @render(Rounds.RoundTimeStore, (store) => ({ isStartRound: store.isStartRound, isShowResult: store.isShowResult }))
+    showPlaceBet(data: { isStartRound: boolean; isShowResult: boolean }) {
+        const { isStartRound, isShowResult } = data;
+        if (isStartRound || isShowResult) {
             this.setStatusBet(false);
         }
     }
