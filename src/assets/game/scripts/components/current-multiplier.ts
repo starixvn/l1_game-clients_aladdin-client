@@ -38,9 +38,9 @@ export class CurrentMultiplier extends ObserverComponent {
         this.lblCurrentMultiplier.color = new Color().fromHEX(color);
     }
 
-    @render(gc.Rounds.RoundTimeStore, (store) => store.isStartRound)
-    private hideCurrentMultiplier(isStartRound: boolean) {
-        if (!isStartRound) {
+    @render(gc.Rounds.RoundTimeStore, (store) => store.startNewRound)
+    hideCurrentMultiplier(startNewRound: boolean) {
+        if (!startNewRound) {
             this.setCurrentMultiplierVisibility(false);
         }
     }
