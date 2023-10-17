@@ -86,7 +86,7 @@ export class RocketFly extends ObserverComponent {
 
     @render(gc.CrashMultiplier.MultiplierStore, (store) => store.multiplier, { fireImmediately: false })
     private setCurrentMultiplier(multiplier: number) {
-        console.log("multiplier: ", multiplier);
+        //console.log("multiplier: ", multiplier);
         this.skeRocket.setAnimation(0, "rocket-fly", true);
         const multiplierTemp = multiplier - 1;
         this.currentMultiplier = multiplierTemp;

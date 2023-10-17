@@ -44,16 +44,22 @@ export default class Game extends GameComponent {
     @render(Settlements.SettlementStore, (store) => ({ result: store.result, settlementResult: store.settlementResult }))
     handleResult(data: { result: gc.GameServiceMessage.TResult; settlementResult: gc.GameServiceMessage.TSettlementResult }) {
         const { result, settlementResult } = data;
-
         if (!result) {
             return;
         }
-        this.showResult(result, true);
+        this.showResult(result, true).then(() => {
+            this.finishShowResult(result, settlementResult);
+        });
         this.playSound(gc.Audios.AudioIds.RECEIVE_FINISH);
     }
 
     async showResult(result: gc.GameServiceMessage.TResult, hasAnimation: boolean) {
         console.log("----showResult----");
         this.cpnRocketFly?.explodeRocket(false);
+    }
+
+    finishShowResult(result: gc.GameServiceMessage.TResult, settlementResult: gc.GameServiceMessage.TSettlementResult) {
+        console.log("----finishShowResult----", result);
+        super.finishShowResult(result, settlementResult);
     }
 }
