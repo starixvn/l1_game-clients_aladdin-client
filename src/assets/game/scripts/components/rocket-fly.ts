@@ -52,9 +52,9 @@ export class RocketFly extends ObserverComponent {
     private targetPoint;
     private points = [];
     private linePercent = 0;
-    private defaultSpeed = 0.005;
+    private defaultSpeed = 0.02;
     private startMoveTime = 0;
-    private rocketIntervalTime = 1000 / 40;
+    private rocketIntervalTime = 1000 / 10;
     private isReady = false;
     private firstMultiplierRound = false;
     private angleTween: Tween<Node>;
@@ -88,15 +88,26 @@ export class RocketFly extends ObserverComponent {
         this.updateRocketPosition(this.point1Position);
     }
 
+    @render(gc.Rounds.RoundTimeStore, (store) => store.isStaringLocking)
+    rotateRocketWhenStart(isStaringLocking: boolean) {
+        if (isStaringLocking) {
+            tween(this.nodeRocketContainer)
+                .to(1, { eulerAngles: v3(0, 0, this.defaultAngle) }, { easing: "sineOut" })
+                .call(() => {
+                    this.skeRocket.setAnimation(0, "rocket-start", true);
+                })
+                .start();
+        }
+    }
+
     @render(gc.CrashMultiplier.MultiplierStore, (store) => store.time, { fireImmediately: false })
     setTimeByMultiplier(time: number) {
         this.timeByMultiplier = time / 1000;
+        console.log("----timeByMultiplier", this.timeByMultiplier);
     }
 
     @render(gc.CrashMultiplier.MultiplierStore, (store) => store.multiplier, { fireImmediately: false })
     private setCurrentMultiplier(multiplier: number) {
-        //console.log("multiplier: ", multiplier);
-
         if (!this.firstMultiplierRound) {
             this.skeRocket.setAnimation(1, "rocket-fly", true);
             this.flyInterval && clearInterval(this.flyInterval);
@@ -132,13 +143,6 @@ export class RocketFly extends ObserverComponent {
         this.updateRocketAngle(0);
 
         this.skeRocket.setAnimation(0, "rocket-idle", false);
-        tween(this.nodeRocketContainer)
-            .to(2, { eulerAngles: v3(0, 0, this.defaultAngle) }, { easing: "sineOut" })
-            .delay(1)
-            .call(() => {
-                this.skeRocket.setAnimation(0, "rocket-start", true);
-            })
-            .start();
     }
 
     private setRocketVisibility(status: boolean) {
@@ -203,6 +207,7 @@ export class RocketFly extends ObserverComponent {
 
         //Increment t value by speed
         this.targetPoint.t += this.targetPoint.speed;
+        console.log("Move time", this.targetPoint.t);
 
         //Calculate new X & Y positions of rocket
         let xt = ax * (t * t * t) + bx * (t * t) + cx * t + p0.x;
@@ -228,15 +233,13 @@ export class RocketFly extends ObserverComponent {
 
     private updateSpeedByTime() {
         if (this.targetPoint.t > 0.9) {
-            this.targetPoint.speed = 0.0001;
+            this.targetPoint.speed = 0.001;
         } else if (this.targetPoint.t > 0.5) {
-            this.targetPoint.speed = 0.0015;
+            this.targetPoint.speed = 0.005;
         } else if (this.targetPoint.t > 0.3) {
-            this.targetPoint.speed = 0.0025;
+            this.targetPoint.speed = 0.008;
         } else if (this.targetPoint.t > 0.2) {
-            this.targetPoint.speed = 0.0035;
-        } else if (this.targetPoint.t > 1.5) {
-            this.targetPoint.speed = 0.0045;
+            this.targetPoint.speed = 0.01;
         } else {
             this.targetPoint.speed = this.defaultSpeed;
         }
