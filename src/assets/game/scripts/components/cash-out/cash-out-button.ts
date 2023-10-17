@@ -1,5 +1,5 @@
 import gc from "@sg/game-client-base";
-import { Label, _decorator } from "cc";
+import { Label, Sprite, _decorator } from "cc";
 import Observer from "observer";
 import { ObserverComponent } from "../../../../../extensions/shared-components/assets/shared/common-components/observer-component/scripts/observer-component";
 
@@ -12,23 +12,30 @@ export class CashOutButton extends ObserverComponent {
     @property(Label)
     lblCashOut: Label = null;
 
-    @property()
+    @property(Sprite)
+    sprDisabled: Sprite = null;
+
+    @property
     isHalfCashOut = false;
 
     private bet = 0;
+    private isCashedOut = false;
 
-    // @render(BetInputStore, (store) => store.betAmount)
-    // updateBetAmount(betAmount: number) {
-    //     this.bet = betAmount;
-    // }
+    @render(CrashCashOut.CrashCashoutStore, (store) => store.isCashedOut)
+    updateCashOutButton(isCashedOut: boolean) {
+        this.sprDisabled.node.active = isCashedOut;
+        this.isCashedOut = isCashedOut;
+    }
 
     @render(CrashMultiplier.MultiplierStore, (store) => store.multiplier)
     updateCashOut(multiplier: number) {
-        let cashOutValue = multiplier * this.bet;
-        if (this.isHalfCashOut) {
-            cashOutValue = cashOutValue / 2;
+        if (!this.isCashedOut) {
+            let cashOutValue = multiplier * this.bet;
+            if (this.isHalfCashOut) {
+                cashOutValue = cashOutValue / 2;
+            }
+            this.lblCashOut.string = cashOutValue.toFixed(2);
         }
-        this.lblCashOut.string = cashOutValue.toFixed(2);
     }
 
     @render(Bet.BetStore, (store) => store.lastReceivedBet)
