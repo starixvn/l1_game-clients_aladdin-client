@@ -1,7 +1,6 @@
 import gc from "@sg/game-client-base";
 import { _decorator, Sprite } from "cc";
 import Observer from "observer";
-import AutoCashOutStore from "../../../../../extensions/shared-components/assets/game/auto-cash-out/scripts/stores/auto-cash-out-store";
 import { BetInputStore } from "../../../../../extensions/shared-components/assets/game/bet-input/scripts/stores/bet-input-store";
 import { ObserverComponent } from "../../../../../extensions/shared-components/assets/shared/common-components/observer-component/scripts/observer-component";
 
@@ -43,22 +42,21 @@ export default class PlaceBetButton extends ObserverComponent {
             this.isBetAccepted = true;
         }
     }
+    // @render(AutoCashOutStore, (store) => store.isEnable)
+    // updateStatusAutoCashOut(isEnable: boolean) {
+    //     this.isEnableAutoCashOut = isEnable;
+    // }
 
-    @render(AutoCashOutStore, (store) => store.enable)
-    updateStatusAutoCashOut(isEnable: boolean) {
-        this.isEnableAutoCashOut = isEnable;
-    }
-
-    @render(AutoCashOutStore, (store) => store.multiplier)
-    updateValueAutoCashOut(value: number) {
-        this.valueAutoCashOut = value;
-    }
+    // @render(AutoCashOutStore, (store) => store.getMultiplier)
+    // updateValueAutoCashOut(value: number) {
+    //     this.valueAutoCashOut = value;
+    // }
 
     @handle(CrashBet.CrashBetHandler, (handle, payload: { autoCashOut: number; amount: number }) => handle.handle(payload))
     onClickPlaceBet() {
         console.log("onClickPlaceBet", this.isEnableAutoCashOut, this.valueAutoCashOut, this.isBetAccepted);
         if (!this.isBetAccepted) {
-            return { autoCashOut: this.isEnableAutoCashOut ? this.valueAutoCashOut : undefined, amount: this.amount };
+            return { autoCashOut: undefined, amount: this.amount };
         }
     }
 
