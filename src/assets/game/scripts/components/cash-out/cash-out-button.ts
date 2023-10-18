@@ -21,8 +21,14 @@ export class CashOutButton extends ObserverComponent {
     private bet = 0;
     private isCashedOut = false;
 
-    @render(CrashCashOut.CrashCashoutStore, (store) => store.isCashedOut)
-    updateCashOutButton(isCashedOut: boolean) {
+    @render(CrashCashOut.CrashCashoutStore, (store) => store.isCashedOutFull)
+    updateCashOutFullButton(isCashedOut: boolean) {
+        this.sprDisabled.node.active = isCashedOut;
+        this.isCashedOut = isCashedOut;
+    }
+
+    @render(CrashCashOut.CrashCashoutStore, (store) => store.isCashedOutHalf)
+    updateCashOutHalfButton(isCashedOut: boolean) {
         this.sprDisabled.node.active = isCashedOut;
         this.isCashedOut = isCashedOut;
     }
@@ -66,6 +72,7 @@ export class CashOutButton extends ObserverComponent {
 
     @render(CrashCashOut.CrashCashoutStore, (store) => store.cashoutAmount)
     updateValueCashOut(cashOutValue: number) {
+        console.log("updateValueCashOut", cashOutValue);
         this.lblCashOut.string = cashOutValue.toString();
     }
 }
