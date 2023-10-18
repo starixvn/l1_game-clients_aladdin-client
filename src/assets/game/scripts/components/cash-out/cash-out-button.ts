@@ -15,21 +15,13 @@ export class CashOutButton extends ObserverComponent {
     @property(Sprite)
     sprDisabled: Sprite = null;
 
-    @property
-    isHalfCashOut = false;
-
     private bet = 0;
     private isCashedOut = false;
 
     @render(CrashCashOut.CrashCashoutStore, (store) => store.isCashedOutFull)
     updateCashOutFullButton(isCashedOut: boolean) {
         this.sprDisabled.node.active = isCashedOut;
-        this.isCashedOut = isCashedOut;
-    }
 
-    @render(CrashCashOut.CrashCashoutStore, (store) => store.isCashedOutHalf)
-    updateCashOutHalfButton(isCashedOut: boolean) {
-        this.sprDisabled.node.active = isCashedOut;
         this.isCashedOut = isCashedOut;
     }
 
@@ -37,9 +29,7 @@ export class CashOutButton extends ObserverComponent {
     updateCashOut(multiplier: number) {
         if (!this.isCashedOut) {
             let cashOutValue = multiplier * this.bet;
-            if (this.isHalfCashOut) {
-                cashOutValue = cashOutValue / 2;
-            }
+
             this.lblCashOut.string = cashOutValue.toFixed(2);
         }
     }
@@ -65,14 +55,8 @@ export class CashOutButton extends ObserverComponent {
         return +this.lblCashOut.string;
     }
 
-    @handle(CrashCashOut.CrashCashOutUIHandlers, (cashOutHandler, cashOutValue: number) => cashOutHandler.handle(cashOutValue, true))
-    onClickCashOutHalf() {
-        return +this.lblCashOut.string;
-    }
-
     @render(CrashCashOut.CrashCashoutStore, (store) => store.cashoutAmount)
     updateValueCashOut(cashOutValue: number) {
-        console.log("updateValueCashOut", cashOutValue);
         this.lblCashOut.string = cashOutValue.toString();
     }
 }
