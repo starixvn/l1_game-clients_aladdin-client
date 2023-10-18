@@ -1,6 +1,5 @@
 import gc from "@sg/game-client-base";
 import { _decorator, Sprite } from "cc";
-import { inject } from "inversify";
 import Observer from "observer";
 import AutoCashOutStore from "../../../../../extensions/shared-components/assets/game/auto-cash-out/scripts/stores/auto-cash-out-store";
 import { BetInputStore } from "../../../../../extensions/shared-components/assets/game/bet-input/scripts/stores/bet-input-store";
@@ -12,10 +11,6 @@ const { CrashBet, Bet, Rounds } = gc;
 
 @ccclass
 export default class PlaceBetButton extends ObserverComponent {
-    constructor(@inject(AutoCashOutStore) protected readonly autoCashoutStore: AutoCashOutStore) {
-        super();
-    }
-    
     @property(Sprite)
     bgWaiting: Sprite = null;
 
@@ -32,6 +27,10 @@ export default class PlaceBetButton extends ObserverComponent {
 
     private isBetAccepted = false;
 
+    private isEnableAutoCashOut = false;
+
+    private valueAutoCashOut = 1.01;
+
     @render(BetInputStore, (store) => store.betAmount)
     updateBetAmount(betAmount: number) {
         this.amount = betAmount;
@@ -45,10 +44,21 @@ export default class PlaceBetButton extends ObserverComponent {
         }
     }
 
+    @render(AutoCashOutStore, (store) => store.isEnable)
+    updateStatusAutoCashOut(isEnable: boolean) {
+        this.isEnableAutoCashOut = isEnable;
+    }
+
+    @render(AutoCashOutStore, (store) => store.getMultiplier)
+    updateValueAutoCashOut(value: number) {
+        this.valueAutoCashOut = value;
+    }
+
     @handle(CrashBet.CrashBetHandler, (handle, payload: { autoCashOut: number; amount: number }) => handle.handle(payload))
     onClickPlaceBet() {
+        console.log("onClickPlaceBet", this.isEnableAutoCashOut, this.valueAutoCashOut, this.isBetAccepted);
         if (!this.isBetAccepted) {
-            return { autoCashOut: this.autoCashoutStore.isEnable ? this.autoCashoutStore.getMultiplier : undefined, amount: this.amount };
+            return { autoCashOut: this.isEnableAutoCashOut ? this.valueAutoCashOut : undefined, amount: this.amount };
         }
     }
 
