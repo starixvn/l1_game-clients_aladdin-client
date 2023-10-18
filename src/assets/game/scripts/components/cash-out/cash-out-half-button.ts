@@ -53,7 +53,7 @@ export class CashOutHalfButton extends ObserverComponent {
         return +this.lblCashOut.string;
     }
 
-    @render(CrashCashOut.CrashCashoutStore, (store) => store.cashoutAmount)
+    @render(CrashCashOut.CrashCashoutStore, (store) => store.cashoutHalfAmount)
     updateValueCashOut(cashOutValue: number) {
         this.lblCashOut.string = cashOutValue.toString();
     }
