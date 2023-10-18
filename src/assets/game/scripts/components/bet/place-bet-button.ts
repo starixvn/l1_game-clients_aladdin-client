@@ -44,12 +44,12 @@ export default class PlaceBetButton extends ObserverComponent {
         }
     }
 
-    @render(AutoCashOutStore, (store) => store.isEnable)
+    @render(AutoCashOutStore, (store) => store.enable)
     updateStatusAutoCashOut(isEnable: boolean) {
         this.isEnableAutoCashOut = isEnable;
     }
 
-    @render(AutoCashOutStore, (store) => store.getMultiplier)
+    @render(AutoCashOutStore, (store) => store.multiplier)
     updateValueAutoCashOut(value: number) {
         this.valueAutoCashOut = value;
     }
