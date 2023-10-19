@@ -228,7 +228,7 @@ export class RocketFly extends ObserverComponent {
     }
 
     calculateMultiplier(timeInMilliseconds): number {
-        const multiplier = (timeInMilliseconds / 1000) ** 2 / this.crashTimeSeed ** 2 + 1;
+        const multiplier = timeInMilliseconds ** 2 / 10;
 
         return +multiplier.toFixed(2);
     }
@@ -240,23 +240,25 @@ export class RocketFly extends ObserverComponent {
         this.nodeRocket.active = true;
         // this.moveBallInBezierCurve();
 
-        if (this.nodeRocketContainer.position.x > this.xMax || this.nodeRocketContainer.position.y > this.yMax - 50) {
+        if (this.nodeRocketContainer.position.x > this.xMax || this.nodeRocketContainer.position.y > this.yMax - 100) {
             this.flyInterval && clearInterval(this.flyInterval);
 
             return;
         }
 
-        const y = this.yMax * (this.calculateMultiplier(this.deltaTime) / this.maxMutiplierFly);
-        const x = (this.deltaTime / 1000) * (this.xMax / 5) * 0.5;
+        const x = ((this.deltaTime / 1000) * this.xMax) / 8;
+        const y = this.calculateMultiplier(x);
 
-        const deltaX = x;
+        const scaleX = 10;
+        const deltaX = x * scaleX;
         const deltaY = y;
         const angle = this.defaultAngle + (Math.atan2(deltaY, deltaX) * 180) / Math.PI;
-        console.log("angle", angle);
+        console.log(`delta: ${(Math.atan2(deltaY, deltaX) * 180) / Math.PI}, angle ${angle}`);
 
-        this.updateRocketAngle(angle, true, this.rocketIntervalTime / 1000);
+        const angleCalc = deltaY > 0 ? angle : this.defaultAngle;
+        this.updateRocketAngle(angleCalc, true, this.rocketIntervalTime / 1000);
 
-        this.targetPoint.x = x;
+        this.targetPoint.x = x * scaleX;
         this.targetPoint.y = y;
 
         this.updateRocketPosition(this.targetPoint, true);
