@@ -34,15 +34,16 @@ export class CashOutButton extends ObserverComponent {
         }
     }
 
-    @render(Bet.BetStore, (store) => store.lastReceivedBet.value)
+    @render(Bet.BetStore, (store) => store.lastReceivedBet)
     updateBetValue(lastReceivedBet: any) {
-        if (lastReceivedBet && lastReceivedBet > 0) {
-            this.bet = lastReceivedBet;
+        if (lastReceivedBet && lastReceivedBet.value >= 0) {
+            this.bet = lastReceivedBet.value;
         }
     }
 
     @render(Rounds.RoundTimeStore, (store) => store.remaining)
     updateCashoutButtonStatus(remaining: number) {
+        console.log("updateCashoutButtonStatus", this.bet);
         if (this.bet > 0 && remaining === 0) {
             this.node.active = true;
         } else {

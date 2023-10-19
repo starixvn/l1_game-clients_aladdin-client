@@ -3,6 +3,7 @@ import { _decorator, Sprite } from "cc";
 import Observer from "observer";
 import { BetInputStore } from "../../../../../extensions/shared-components/assets/game/bet-input/scripts/stores/bet-input-store";
 import { ObserverComponent } from "../../../../../extensions/shared-components/assets/shared/common-components/observer-component/scripts/observer-component";
+import { EarlyBetStore } from "./early-bet-store";
 
 const { handle, render } = Observer;
 const { property, ccclass } = _decorator;
@@ -30,9 +31,16 @@ export default class PlaceBetButton extends ObserverComponent {
 
     private valueAutoCashOut = 1.01;
 
+    private earlyBet = false;
+
     @render(BetInputStore, (store) => store.betAmount)
     updateBetAmount(betAmount: number) {
         this.amount = betAmount;
+    }
+
+    @render(EarlyBetStore, (store) => store.earlyBet)
+    enableEarlyBet(enable: boolean) {
+        this.earlyBet = enable;
     }
 
     @render(Bet.BetStore, (store) => store.lastReceivedBet)
@@ -63,9 +71,14 @@ export default class PlaceBetButton extends ObserverComponent {
     @render(Rounds.RoundTimeStore, (store) => ({ isStartRound: store.isStartRound, isShowResult: store.isShowResult }))
     showPlaceBet(data: { isStartRound: boolean; isShowResult: boolean }) {
         const { isStartRound, isShowResult } = data;
-        if (isStartRound || isShowResult) {
+        if (isShowResult) {
+            this.updateValueEndBet();
             this.isBetAccepted = false;
+            this.node.active = false;
             this.setStatusBet(false);
+        } else if (isStartRound && this.earlyBet) {
+            this.isBetAccepted = true;
+            this.setStatusBet(true);
         }
     }
 
@@ -75,8 +88,16 @@ export default class PlaceBetButton extends ObserverComponent {
         this.sprPlaceBet.node.active = !selected;
         this.bgPlaceBet.node.active = !selected;
     }
+
     @render(Rounds.RoundTimeStore, (store) => store.remaining)
     updateCashoutButtonStatus(remaining: number) {
-        this.node.active = remaining > 0 ? true : false;
+        const isShow = remaining > 0 && remaining < 10;
+        this.node.active = isShow ? true : false;
+    }
+
+    @handle(Bet.BetResponseHandlers, (handle, value: number) => handle.handleBetResponse(value))
+    updateValueEndBet() {
+        console.log("updateValueEndBet");
+        return 0;
     }
 }
