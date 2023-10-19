@@ -32,11 +32,13 @@ export class CashOutHalfButton extends ObserverComponent {
         }
     }
 
-    @render(Bet.BetStore, (store) => store.lastReceivedBet.value)
+    @render(Bet.BetStore, (store) => store.lastReceivedBet)
     updateBetValue(lastReceivedBet: any) {
-        if (lastReceivedBet && lastReceivedBet > 0) {
-            console.log("lastReceivedBet", lastReceivedBet);
-            this.bet = lastReceivedBet;
+        if (lastReceivedBet) {
+            const lastestBet = lastReceivedBet.value;
+            if (lastestBet > 0) {
+                this.bet = lastestBet;
+            }
         }
     }
 
