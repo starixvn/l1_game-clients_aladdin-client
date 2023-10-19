@@ -61,6 +61,10 @@ export class RocketFly extends ObserverComponent {
     private flyInterval;
     private receivedMultiplierTimes = 0;
     private cpnColMultipliers: ColMultipliers;
+    yMax = 449;
+    xMax = 1098;
+    crashTimeSeed = 4;
+    maxMutiplierFly = 10;
 
     onLoad() {
         super.onLoad();
@@ -101,6 +105,8 @@ export class RocketFly extends ObserverComponent {
 
     @render(gc.CrashMultiplier.MultiplierStore, (store) => store.time, { fireImmediately: false })
     setTimeByMultiplier(time: number) {
+        this.timeByMultiplier = time / 1000;
+
         if (!this.isReady || this.receivedMultiplierTimes > 0) {
             return;
         }
@@ -219,10 +225,12 @@ export class RocketFly extends ObserverComponent {
 
     private calculateDecreaseTime(t: number) {
         return 0.0025;
-        // console.log("Math.sqr", 1 - --t * t);
-        // const time = Math.sqrt(1 - --t * t) / 10;
-        // console.log("calculateDecreaseTime", time);
-        // return time;
+    }
+
+    calculateMultiplier(timeInMilliseconds): number {
+        const multiplier = (timeInMilliseconds / 1000) ** 2 / this.crashTimeSeed ** 2 + 1;
+
+        return +multiplier.toFixed(2);
     }
 
     private animate() {
@@ -230,7 +238,28 @@ export class RocketFly extends ObserverComponent {
             return;
         }
         this.nodeRocket.active = true;
-        this.moveBallInBezierCurve();
+        // this.moveBallInBezierCurve();
+
+        if (this.nodeRocketContainer.position.x > this.xMax || this.nodeRocketContainer.position.y > this.yMax - 50) {
+            this.flyInterval && clearInterval(this.flyInterval);
+
+            return;
+        }
+
+        const y = this.yMax * (this.calculateMultiplier(this.deltaTime) / this.maxMutiplierFly);
+        const x = (this.deltaTime / 1000) * (this.xMax / 5) * 0.5;
+
+        const deltaX = x;
+        const deltaY = y;
+        const angle = this.defaultAngle + (Math.atan2(deltaY, deltaX) * 180) / Math.PI;
+        console.log("angle", angle);
+
+        this.updateRocketAngle(angle, true, this.rocketIntervalTime / 1000);
+
+        this.targetPoint.x = x;
+        this.targetPoint.y = y;
+
+        this.updateRocketPosition(this.targetPoint, true);
     }
 
     explodeRocket(isSMall: boolean) {
