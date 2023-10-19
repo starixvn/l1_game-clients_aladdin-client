@@ -1,8 +1,9 @@
 import gc from "@sg/game-client-base";
-import { _decorator, Node, sp, Sprite, SpriteFrame, Tween, tween, v3 } from "cc";
+import { _decorator, Node, sp, Tween, tween, v3 } from "cc";
 import Observer from "observer";
 
 import { ObserverComponent } from "../../../../extensions/shared-components/assets/shared/common-components/observer-component/scripts/observer-component";
+import ColMultipliers from "./col-multipliers/col-multipliers";
 
 const { ccclass, property } = _decorator;
 
@@ -15,17 +16,8 @@ export class RocketFly extends ObserverComponent {
     @property(Node)
     nodeRocket: Node = null;
 
-    @property(Sprite)
-    sprRocketLine: Sprite = null;
-
-    @property(SpriteFrame)
-    fraLevel1Line: SpriteFrame = null;
-
-    @property(SpriteFrame)
-    fraLevel2Line: SpriteFrame = null;
-
-    @property(SpriteFrame)
-    fraLevel3Line: SpriteFrame = null;
+    @property(Node)
+    nodeRocketLine: Node = null;
 
     @property(sp.Skeleton)
     skeExplosion: sp.Skeleton = null;
@@ -42,6 +34,9 @@ export class RocketFly extends ObserverComponent {
     @property(Node)
     nodePoint4: Node = null;
 
+    @property(Node)
+    nodeColMultiplier: Node = null;
+
     private point1Position = v3(0, 0, 0);
     private point2Position = v3(0, 0, 0);
     private point3Position = v3(0, 0, 0);
@@ -49,12 +44,13 @@ export class RocketFly extends ObserverComponent {
     private defaultAngle = -90;
     private level1Multiplier = 5;
     private level2Multiplier = 10;
-    private targetPoint;
+    private targetPoint: { x: number; y: number; acc: number; v: number };
     private points = [];
     private linePercent = 0;
-    private defaultSpeed = 0.02;
-    private startMoveTime = 0;
-    private rocketIntervalTime = 1000 / 10;
+    private defaultV = 0.04;
+    private defaultAcc = 0.4;
+    private rocketIntervalTime = 100;
+    private deltaTime = 0;
     private isReady = false;
     private firstMultiplierRound = false;
     private angleTween: Tween<Node>;
@@ -63,21 +59,24 @@ export class RocketFly extends ObserverComponent {
     private skeRocket: sp.Skeleton;
     private timeByMultiplier = 0;
     private flyInterval;
+    private receivedMultiplierTimes = 0;
+    private cpnColMultipliers: ColMultipliers;
 
     onLoad() {
         super.onLoad();
         this.isReady = true;
         this.nodeRocket.active = false;
         this.skeExplosion.node.active = false;
-        this.updateRocketLine(0);
+        this.nodeRocketLine.active = false;
         this.skeRocket = this.nodeRocket.getComponent(sp.Skeleton);
+        this.cpnColMultipliers = this.nodeColMultiplier.getComponent(ColMultipliers);
 
         this.point1Position = this.nodePoint1.position;
         this.point2Position = this.nodePoint2.position;
         this.point3Position = this.nodePoint3.position;
         this.point4Position = this.nodePoint4.position;
 
-        this.targetPoint = { x: this.point1Position.x, y: this.point1Position.y, speed: this.defaultSpeed, t: this.startMoveTime };
+        this.targetPoint = { x: this.point1Position.x, y: this.point1Position.y, acc: this.defaultAcc, v: this.defaultV };
         //Define the bezier curve movement of the rocket
         this.points = [
             { x: this.targetPoint.x, y: this.targetPoint.y },
@@ -102,32 +101,27 @@ export class RocketFly extends ObserverComponent {
 
     @render(gc.CrashMultiplier.MultiplierStore, (store) => store.time, { fireImmediately: false })
     setTimeByMultiplier(time: number) {
-        this.timeByMultiplier = time / 1000;
-        console.log("----timeByMultiplier", this.timeByMultiplier);
+        if (!this.isReady || this.receivedMultiplierTimes > 0) {
+            return;
+        }
+
+        this.deltaTime = time;
+        this.receivedMultiplierTimes += 1;
     }
 
     @render(gc.CrashMultiplier.MultiplierStore, (store) => store.multiplier, { fireImmediately: false })
     private setCurrentMultiplier(multiplier: number) {
         if (!this.firstMultiplierRound) {
             this.skeRocket.setAnimation(1, "rocket-fly", true);
+            this.cpnColMultipliers.startScrollDown();
             this.flyInterval && clearInterval(this.flyInterval);
             this.flyInterval = setInterval(() => {
+                this.deltaTime += this.rocketIntervalTime;
                 this.animate();
             }, this.rocketIntervalTime);
         }
 
         this.firstMultiplierRound = true;
-
-        let fraLine: SpriteFrame;
-        if (multiplier <= this.level1Multiplier) {
-            fraLine = this.fraLevel1Line;
-        } else if (multiplier <= this.level2Multiplier) {
-            fraLine = this.fraLevel2Line;
-        } else {
-            fraLine = this.fraLevel3Line;
-        }
-
-        this.sprRocketLine.spriteFrame = fraLine;
     }
 
     @render(gc.Rounds.RoundTimeStore, (store) => store.isStartRound)
@@ -138,9 +132,11 @@ export class RocketFly extends ObserverComponent {
 
         this.explositionTween?.stop();
         this.nodeRocketContainer.active = true;
+        this.nodeRocketLine.active = false;
         this.setRocketVisibility(true);
         this.resetStartPosition();
         this.updateRocketAngle(0);
+        this.cpnColMultipliers.initDefaultMultiplier();
 
         this.skeRocket.setAnimation(0, "rocket-idle", false);
     }
@@ -148,10 +144,6 @@ export class RocketFly extends ObserverComponent {
     private setRocketVisibility(status: boolean) {
         this.skeExplosion.node.active = !status;
         this.nodeRocket.active = status;
-    }
-
-    private updateRocketLine(value: number) {
-        this.sprRocketLine.fillRange = value;
     }
 
     private updateRocketAngle(angle: number, isAnimated = false, duration = 0.1) {
@@ -182,8 +174,9 @@ export class RocketFly extends ObserverComponent {
 
         this.targetPoint.x = this.point1Position.x;
         this.targetPoint.y = this.point1Position.y;
-        this.targetPoint.t = this.startMoveTime;
-        this.targetPoint.speed = this.defaultSpeed;
+        this.targetPoint.v = this.defaultV;
+        this.targetPoint.acc = this.defaultAcc;
+        this.deltaTime = 0;
     }
 
     private moveBallInBezierCurve() {
@@ -203,22 +196,15 @@ export class RocketFly extends ObserverComponent {
         let by = 3 * (p2.y - p1.y) - cy;
         let ay = p3.y - p0.y - cy - by;
 
-        let t = this.targetPoint.t;
+        let t = this.targetPoint.v;
 
-        //Increment t value by speed
-        this.targetPoint.t += this.targetPoint.speed;
-        console.log("Move time", this.targetPoint.t);
+        const times = this.deltaTime / this.rocketIntervalTime;
+        this.targetPoint.acc = this.defaultAcc + (times * (this.calculateDecreaseTime(this.deltaTime / 1000) * this.deltaTime)) / 1000;
+        this.targetPoint.v = this.defaultV + (times * (this.targetPoint.acc * this.defaultV * this.deltaTime)) / 1000;
 
         //Calculate new X & Y positions of rocket
         let xt = ax * (t * t * t) + bx * (t * t) + cx * t + p0.x;
         let yt = ay * (t * t * t) + by * (t * t) + cy * t + p0.y;
-
-        // 4s -> m = 2
-        // 8s -> m = 5
-        // 10 -> m = 7.25
-        // 12 -> m = 10
-
-        this.updateSpeedByTime();
 
         //We draw the rocket to the canvas in the new location
         this.targetPoint.x = xt;
@@ -231,18 +217,12 @@ export class RocketFly extends ObserverComponent {
         this.updateRocketPosition(this.targetPoint, true, this.rocketIntervalTime / 1000);
     }
 
-    private updateSpeedByTime() {
-        if (this.targetPoint.t > 0.9) {
-            this.targetPoint.speed = 0.001;
-        } else if (this.targetPoint.t > 0.5) {
-            this.targetPoint.speed = 0.005;
-        } else if (this.targetPoint.t > 0.3) {
-            this.targetPoint.speed = 0.008;
-        } else if (this.targetPoint.t > 0.2) {
-            this.targetPoint.speed = 0.01;
-        } else {
-            this.targetPoint.speed = this.defaultSpeed;
-        }
+    private calculateDecreaseTime(t: number) {
+        return 0.0025;
+        // console.log("Math.sqr", 1 - --t * t);
+        // const time = Math.sqrt(1 - --t * t) / 10;
+        // console.log("calculateDecreaseTime", time);
+        // return time;
     }
 
     private animate() {
@@ -262,8 +242,9 @@ export class RocketFly extends ObserverComponent {
         this.angleTween?.stop();
         this.explositionTween?.stop();
         this.setRocketVisibility(false);
-        this.updateRocketLine(0);
+        this.nodeRocketLine.active = false;
         this.firstMultiplierRound = false;
+        this.cpnColMultipliers.stopScrollDown();
 
         const animName = isSMall ? "explosion-small" : "explosion-big";
         const duration = this.skeExplosion.findAnimation(animName).duration;
