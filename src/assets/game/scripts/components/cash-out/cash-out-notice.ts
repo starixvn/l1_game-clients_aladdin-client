@@ -15,13 +15,11 @@ export class CashOutNotice extends ObserverComponent {
 
     onLoad(): void {
         super.onLoad();
-    }
-    start() {
         this.node.active = false;
     }
+
     @render(CrashCashOut.CrashCashoutStore, (store) => store.cashOutNotice, { fireImmediately: false })
     updateCashoutAmount(amount: any) {
-        console.log("updateCashoutAmount", amount.value);
         this.showNotice(true);
         this.updateCashOutAmount(amount.value);
     }

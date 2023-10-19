@@ -46,7 +46,6 @@ export class CashOutButton extends ObserverComponent {
 
     @render(Rounds.RoundTimeStore, (store) => store.remaining)
     updateCashoutButtonStatus(remaining: number) {
-        console.log("updateCashoutButtonStatus", this.bet);
         if (this.bet > 0 && remaining === 0) {
             this.node.active = true;
         } else {
