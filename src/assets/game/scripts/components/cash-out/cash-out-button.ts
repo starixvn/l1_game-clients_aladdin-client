@@ -21,7 +21,6 @@ export class CashOutButton extends ObserverComponent {
     @render(CrashCashOut.CrashCashoutStore, (store) => store.isCashedOutFull)
     updateCashOutFullButton(isCashedOut: boolean) {
         this.sprDisabled.node.active = isCashedOut;
-
         this.isCashedOut = isCashedOut;
     }
 
@@ -29,7 +28,6 @@ export class CashOutButton extends ObserverComponent {
     updateCashOut(multiplier: number) {
         if (!this.isCashedOut) {
             let cashOutValue = multiplier * this.bet;
-
             this.lblCashOut.string = cashOutValue.toFixed(2);
         }
     }
