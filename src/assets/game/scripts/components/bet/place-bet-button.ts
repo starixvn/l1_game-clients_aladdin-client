@@ -1,5 +1,5 @@
 import gc from "@sg/game-client-base";
-import { _decorator, Sprite } from "cc";
+import { _decorator, Sprite, Node } from "cc";
 import Observer from "observer";
 import { BetInputStore } from "../../../../../extensions/shared-components/assets/game/bet-input/scripts/stores/bet-input-store";
 import { ObserverComponent } from "../../../../../extensions/shared-components/assets/shared/common-components/observer-component/scripts/observer-component";
@@ -23,6 +23,9 @@ export default class PlaceBetButton extends ObserverComponent {
     @property(Sprite)
     sprBetAccepted: Sprite = null;
 
+    @property(Node)
+    placeBetNotice: Node = null;
+
     private amount: number;
 
     private isBetAccepted = false;
@@ -44,10 +47,14 @@ export default class PlaceBetButton extends ObserverComponent {
     }
 
     @render(Bet.BetStore, (store) => store.lastReceivedBet)
-    changeText(lastReceivedBet: any) {
+    updateStatusPlaceBet(lastReceivedBet: any) {
         if (lastReceivedBet && lastReceivedBet.value > 0) {
             this.setStatusBet(true);
             this.isBetAccepted = true;
+            this.placeBetNotice.active = true;
+            setTimeout(() => {
+                this.placeBetNotice.active = false;
+            }, 3000);
         }
     }
     // @render(AutoCashOutStore, (store) => store.isEnable)
@@ -97,7 +104,6 @@ export default class PlaceBetButton extends ObserverComponent {
 
     @handle(Bet.BetResponseHandlers, (handle, value: number) => handle.handleBetResponse(value))
     updateValueEndBet() {
-        console.log("updateValueEndBet");
         return 0;
     }
 }

@@ -13,6 +13,5 @@ export class EarlyBetUIHandlers implements IHandler<boolean> {
     handle(enable: boolean) {
         this.earlyBetStore.betAmount = this.betInputStore.betAmount;
         this.earlyBetStore.earlyBet = enable;
-        console.log("handle", this.earlyBetStore.betAmount, this.earlyBetStore.earlyBet);
     }
 }

@@ -4,10 +4,9 @@ import Observer from "observer";
 import { ObserverComponent } from "../../../../../extensions/shared-components/assets/shared/common-components/observer-component/scripts/observer-component";
 import { EarlyBetUIHandlers } from "./early-bet-ui-handler";
 import { EarlyBetStore } from "./early-bet-store";
-import { BetInputStore } from "../../../../../extensions/shared-components/assets/game/bet-input/scripts/stores/bet-input-store";
 const { handle, render } = Observer;
 const { property, ccclass } = _decorator;
-const { CrashBet, Bet, Rounds, CrashCashOut } = gc;
+const { CrashBet, Bet, Rounds } = gc;
 
 @ccclass
 export default class EarlyBetButton extends ObserverComponent {
@@ -37,7 +36,7 @@ export default class EarlyBetButton extends ObserverComponent {
 
     @render(Bet.BetStore, (store) => store.lastReceivedBet)
     updateBetValue(lastReceivedBet: any) {
-        if (lastReceivedBet && lastReceivedBet.value > 0) {
+        if (lastReceivedBet && lastReceivedBet.value >= 0) {
             this.betAmountAccept = lastReceivedBet.value;
         }
     }
@@ -88,7 +87,6 @@ export default class EarlyBetButton extends ObserverComponent {
 
     @handle(CrashBet.CrashBetHandler, (handle, payload: { autoCashOut: number; amount: number }) => handle.handle(payload))
     autoPlaceBet() {
-        console.log("autoPlaceBet", this.amount);
         this.enableCancelBet = false;
         return { autoCashOut: undefined, amount: this.amount };
     }
