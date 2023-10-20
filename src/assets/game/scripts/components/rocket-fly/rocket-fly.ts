@@ -2,8 +2,8 @@ import gc from "@sg/game-client-base";
 import { _decorator, Node, sp, Tween, tween, v3 } from "cc";
 import Observer from "observer";
 
-import { ObserverComponent } from "../../../../extensions/shared-components/assets/shared/common-components/observer-component/scripts/observer-component";
-import ColMultipliers from "./col-multipliers/col-multipliers";
+import { ObserverComponent } from "../../../../../extensions/shared-components/assets/shared/common-components/observer-component/scripts/observer-component";
+import ColMultipliers from "../col-multipliers/col-multipliers";
 
 const { ccclass, property } = _decorator;
 
@@ -42,11 +42,9 @@ export class RocketFly extends ObserverComponent {
     private point3Position = v3(0, 0, 0);
     private point4Position = v3(0, 0, 0);
     private defaultAngle = -90;
-    private level1Multiplier = 5;
-    private level2Multiplier = 10;
     private targetPoint: { x: number; y: number; acc: number; v: number };
     private points = [];
-    private linePercent = 0;
+    private currentMultiplier = 0;
     private defaultV = 0.04;
     private defaultAcc = 0.4;
     private rocketIntervalTime = 100;
@@ -57,7 +55,6 @@ export class RocketFly extends ObserverComponent {
     private flyTween: Tween<Node>;
     private explositionTween: Tween<Node>;
     private skeRocket: sp.Skeleton;
-    private timeByMultiplier = 0;
     private flyInterval;
     private receivedMultiplierTimes = 0;
     private cpnColMultipliers: ColMultipliers;
@@ -105,8 +102,6 @@ export class RocketFly extends ObserverComponent {
 
     @render(gc.CrashMultiplier.MultiplierStore, (store) => store.time, { fireImmediately: false })
     setTimeByMultiplier(time: number) {
-        this.timeByMultiplier = time / 1000;
-
         if (!this.isReady || this.receivedMultiplierTimes > 0) {
             return;
         }
@@ -117,9 +112,10 @@ export class RocketFly extends ObserverComponent {
 
     @render(gc.CrashMultiplier.MultiplierStore, (store) => store.multiplier, { fireImmediately: false })
     private setCurrentMultiplier(multiplier: number) {
+        this.currentMultiplier = multiplier;
+
         if (!this.firstMultiplierRound) {
             this.skeRocket.setAnimation(1, "rocket-fly", true);
-            this.cpnColMultipliers.startScrollDown();
             this.flyInterval && clearInterval(this.flyInterval);
             this.flyInterval = setInterval(() => {
                 this.deltaTime += this.rocketIntervalTime;
@@ -169,6 +165,7 @@ export class RocketFly extends ObserverComponent {
             this.flyTween = tween(this.nodeRocketContainer)
                 .to(duration, { position: v3(targetPoint.x, targetPoint.y, this.nodeRocketContainer.position.z) }, { easing: "linear" })
                 .start();
+            this.cpnColMultipliers.needChangePosition(this.nodeRocketContainer, this.currentMultiplier);
         } else {
             this.nodeRocketContainer.position = v3(targetPoint.x, targetPoint.y, this.nodeRocketContainer.position.z);
         }
@@ -249,7 +246,7 @@ export class RocketFly extends ObserverComponent {
         const x = this.deltaTime / 1000;
         const y = this.calculateMultiplier(x);
 
-        const scaleX = this.xMax / 6;
+        const scaleX = this.xMax / 15;
         const deltaX = x * scaleX;
         const deltaY = y * scaleX;
         const angle = this.defaultAngle + (Math.atan2(deltaY, deltaX) * 180) / Math.PI;

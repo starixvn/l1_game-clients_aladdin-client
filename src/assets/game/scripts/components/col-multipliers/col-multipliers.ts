@@ -1,5 +1,4 @@
-import gc from "@sg/game-client-base";
-import { _decorator, instantiate, Node, Prefab, Tween, tween, v3 } from "cc";
+import { _decorator, instantiate, Node, Prefab, Tween, tween, UITransform, v3 } from "cc";
 import Observer from "observer";
 
 import { ObserverComponent } from "../../../../../extensions/shared-components/assets/shared/common-components/observer-component/scripts/observer-component";
@@ -16,10 +15,11 @@ export default class ColMultipliers extends ObserverComponent {
     @property(Prefab)
     prfMultiplierItem: Prefab = null;
 
-    defaultMultiplierList = ["1", "2", "4", "8", "16"];
-    scrollHeight = 5;
+    defaultMultiplierList = [1, 2, 3, 4, 8];
+    multiplierList = [];
+    multiplierItemHeight = 178;
     scrollTween: Tween<Node>;
-    scrollDownDuration = 0.3;
+    scrollDownDuration = 0.1;
     scrollTime = 0;
     currentMaxMultiplierCol = this.defaultMultiplierList[this.defaultMultiplierList.length - 1];
 
@@ -31,45 +31,66 @@ export default class ColMultipliers extends ObserverComponent {
     initDefaultMultiplier() {
         this.nodeMultipliersContainer.destroyAllChildren();
         this.defaultMultiplierList.forEach((multiplier) => {
-            this.addMultiplierItem(multiplier);
+            this.addMultiplierItem(`${multiplier}`);
+            this.multiplierList.push(multiplier);
         });
     }
 
     addMultiplierItem(multiplier: string) {
         const node = instantiate(this.prfMultiplierItem);
+        node.name = multiplier;
         const comp = node.getComponent(ColMultiplierItem);
         comp && comp.setMultiplier(multiplier);
         this.nodeMultipliersContainer.addChild(node);
     }
 
-    @render(gc.CrashMultiplier.MultiplierStore, (store) => store.multiplier, { fireImmediately: false })
-    updateScrollDownDuration(multiplier) {
-        if (multiplier > 8 && this.scrollTime / 2 === 0) {
-            this.currentMaxMultiplierCol = `${+this.currentMaxMultiplierCol * 2}`;
-            this.addMultiplierItem(this.currentMaxMultiplierCol);
-        }
-    }
-
-    startScrollDown() {
+    startScrollDown(transitionY: number) {
+        this.scrollTween && this.scrollTween.stop();
         this.scrollTween = tween(this.nodeMultipliersContainer)
             .by(
                 this.scrollDownDuration,
                 {
-                    position: v3(0, -this.scrollHeight, 0),
+                    position: v3(0, -transitionY, 0),
                 },
                 { easing: "sineOut" }
             )
-            .call(() => {
-                this.scrollTime += 2;
-            })
-            .union()
-            .repeatForever()
             .start();
+        // const pos = this.nodeMultipliersContainer.position;
+        // this.nodeMultipliersContainer.position = v3(pos.x, pos.y - transitionY, pos.z);
     }
 
     stopScrollDown() {
         this.scrollTween && this.scrollTween.stop();
         this.currentMaxMultiplierCol = this.defaultMultiplierList[this.defaultMultiplierList.length - 1];
         this.nodeMultipliersContainer.position = v3(this.nodeMultipliersContainer.position.x, 0, this.nodeMultipliersContainer.position.z);
+    }
+
+    convertRocketPositionToMultiplierCol(transformRocket: UITransform) {
+        return this.nodeMultipliersContainer
+            .getComponent(UITransform)
+            .convertToNodeSpaceAR(transformRocket.convertToWorldSpaceAR(v3(0, 0, 0)));
+    }
+
+    calcMultipplierPosition(multiplier: number) {
+        const multiplierIndex = this.multiplierList.findIndex((element) => element > multiplier);
+        const multiplierTop = +this.multiplierList[multiplierIndex];
+        const multiplierBottom = +this.multiplierList[multiplierIndex - 1];
+        const deltaMultiplier = multiplierTop - multiplierBottom;
+        let multiplierHeight = (multiplier - 1) * (this.multiplierItemHeight / deltaMultiplier);
+
+        return multiplierHeight;
+    }
+
+    needChangePosition(rocket: Node, multiplier: number) {
+        const convertRocketPosition = this.convertRocketPositionToMultiplierCol(rocket.getComponent(UITransform));
+        const rocketY = convertRocketPosition.y;
+
+        const multiplierPos = this.calcMultipplierPosition(multiplier);
+        console.log(`rocketY: ${rocketY}, multiplierPos: ${multiplierPos}`);
+
+        if (multiplierPos > rocketY) {
+            console.log(`--- rocketY: ${multiplierPos - rocketY}`);
+            this.startScrollDown(multiplierPos - rocketY);
+        }
     }
 }

@@ -1,31 +1,31 @@
 import gc from "@sg/game-client-base";
-import { _decorator, Node, sp, Sprite, SpriteFrame, Tween, tween, v3 } from "cc";
+import { _decorator, Node, sp, Tween, tween, v3 } from "cc";
 import Observer from "observer";
 
-import { ObserverComponent } from "../../../../extensions/shared-components/assets/shared/common-components/observer-component/scripts/observer-component";
+import { ObserverComponent } from "../../../../../extensions/shared-components/assets/shared/common-components/observer-component/scripts/observer-component";
 
 const { ccclass, property } = _decorator;
 
 const { render, handle } = Observer;
 @ccclass
-export class RocketFly001 extends ObserverComponent {
+export class RocketFly2 extends ObserverComponent {
     @property(Node)
     nodeRocketContainer: Node = null;
 
     @property(Node)
     nodeRocket: Node = null;
 
-    @property(Sprite)
-    sprRocketLine: Sprite = null;
+    // @property(Sprite)
+    // sprRocketLine: Sprite = null;
 
-    @property(SpriteFrame)
-    fraLevel1Line: SpriteFrame = null;
+    // @property(SpriteFrame)
+    // fraLevel1Line: SpriteFrame = null;
 
-    @property(SpriteFrame)
-    fraLevel2Line: SpriteFrame = null;
+    // @property(SpriteFrame)
+    // fraLevel2Line: SpriteFrame = null;
 
-    @property(SpriteFrame)
-    fraLevel3Line: SpriteFrame = null;
+    // @property(SpriteFrame)
+    // fraLevel3Line: SpriteFrame = null;
 
     @property(sp.Skeleton)
     skeExplosion: sp.Skeleton = null;
@@ -51,24 +51,27 @@ export class RocketFly001 extends ObserverComponent {
     level2Multiplier = 10;
     targetPoint;
     points = [];
-    maxMutiplierFly = 2;
+    maxMutiplierFly = 10;
     maxMutiplierFlyTemp = this.maxMutiplierFly;
     currentMultiplier = 0;
     linePercent = 0;
     dataServerReturnTime = 0.1;
+    yMax = 449;
+    xMax = 1098;
     isReady = false;
     firstMultiplierRound = false;
     angleTween: Tween<Node>;
     flyTween: Tween<Node>;
     explositionTween: Tween<Node>;
     skeRocket: sp.Skeleton;
+    timeByMultiplier = 0;
 
     onLoad() {
         super.onLoad();
         this.isReady = true;
         this.nodeRocket.active = false;
         this.skeExplosion.node.active = false;
-        this.updateRocketLine(0);
+        // this.updateRocketLine(0);
         this.skeRocket = this.nodeRocket.getComponent(sp.Skeleton);
 
         this.point1Position = this.nodePoint1.position;
@@ -87,6 +90,11 @@ export class RocketFly001 extends ObserverComponent {
         this.updateRocketPosition(this.point1Position);
     }
 
+    @render(gc.CrashMultiplier.MultiplierStore, (store) => store.time, { fireImmediately: false })
+    setTimeByMultiplier(time: number) {
+        this.timeByMultiplier = time / 1000;
+    }
+
     @render(gc.CrashMultiplier.MultiplierStore, (store) => store.multiplier, { fireImmediately: false })
     private setCurrentMultiplier(multiplier: number) {
         console.log("multiplier: ", multiplier);
@@ -96,41 +104,20 @@ export class RocketFly001 extends ObserverComponent {
         }
 
         this.firstMultiplierRound = true;
-        const multiplierTemp = multiplier - 1;
-        this.currentMultiplier = multiplierTemp;
-
-        if (multiplier <= 1.4) {
-            this.maxMutiplierFlyTemp += 0.1;
-        }
-
-        if (multiplier > 1.4 && multiplier <= 3) {
-            this.maxMutiplierFlyTemp += 0.04;
-        }
-
-        if (multiplier > 3 && multiplier <= 5) {
-            this.maxMutiplierFlyTemp += 0.08;
-        }
-
-        if (multiplier > 5 && multiplier <= 8) {
-            this.maxMutiplierFlyTemp += 0.1;
-        }
-
-        if (multiplier > 8 && multiplier <= 10) {
-            this.maxMutiplierFlyTemp += 0.1;
-        }
+        this.currentMultiplier = multiplier;
 
         this.animate();
 
-        let fraLine: SpriteFrame;
-        if (multiplier <= this.level1Multiplier) {
-            fraLine = this.fraLevel1Line;
-        } else if (multiplier <= this.level2Multiplier) {
-            fraLine = this.fraLevel2Line;
-        } else {
-            fraLine = this.fraLevel3Line;
-        }
+        // let fraLine: SpriteFrame;
+        // if (multiplier <= this.level1Multiplier) {
+        //     fraLine = this.fraLevel1Line;
+        // } else if (multiplier <= this.level2Multiplier) {
+        //     fraLine = this.fraLevel2Line;
+        // } else {
+        //     fraLine = this.fraLevel3Line;
+        // }
 
-        this.sprRocketLine.spriteFrame = fraLine;
+        // this.sprRocketLine.spriteFrame = fraLine;
     }
 
     @render(gc.Rounds.RoundTimeStore, (store) => store.isStartRound)
@@ -149,7 +136,6 @@ export class RocketFly001 extends ObserverComponent {
         this.skeRocket.setAnimation(0, "rocket-idle", false);
         tween(this.nodeRocketContainer)
             .to(2, { eulerAngles: v3(0, 0, this.defaultAngle) }, { easing: "sineOut" })
-            .delay(1)
             .call(() => {
                 this.skeRocket.setAnimation(0, "rocket-start", true);
             })
@@ -162,7 +148,7 @@ export class RocketFly001 extends ObserverComponent {
     }
 
     private updateRocketLine(value: number) {
-        this.sprRocketLine.fillRange = value;
+        // this.sprRocketLine.fillRange = value;
     }
 
     private updateRocketAngle(angle: number, isAnimated = false, duration = 0.1) {
@@ -196,51 +182,24 @@ export class RocketFly001 extends ObserverComponent {
         this.targetPoint.t = this.dataServerReturnTime;
     }
 
-    private moveBallInBezierCurve() {
-        if (!this.isReady) {
-            return;
-        }
-        let [p0, p1, p2, p3] = this.points;
-
-        if (this.targetPoint.x >= p3.x) {
-            return;
-        }
-
-        //Calculate the coefficients based on where the rocket currently is in the animation
-        let cx = 3 * (p1.x - p0.x);
-        let bx = 3 * (p2.x - p1.x) - cx;
-        let ax = p3.x - p0.x - cx - bx;
-
-        let cy = 3 * (p1.y - p0.y);
-        let by = 3 * (p2.y - p1.y) - cy;
-        let ay = p3.y - p0.y - cy - by;
-
-        let t = this.currentMultiplier / this.maxMutiplierFlyTemp;
-
-        //Increment t value by speed
-        this.targetPoint.t += this.targetPoint.speed;
-        //Calculate new X & Y positions of rocket
-        let xt = ax * (t * t * t) + bx * (t * t) + cx * t + p0.x;
-        let yt = ay * (t * t * t) + by * (t * t) + cy * t + p0.y;
-
-        //We draw the rocket to the canvas in the new location
-        this.targetPoint.x = xt;
-        this.targetPoint.y = yt;
-
-        const deltaX = Math.abs(xt - this.nodeRocketContainer.position.x);
-        const deltaY = Math.abs(yt - this.nodeRocketContainer.position.y);
-        const angle = this.defaultAngle + (Math.atan2(deltaY, deltaX) * 180) / Math.PI;
-        this.updateRocketAngle(angle, true);
-        this.updateRocketPosition(this.targetPoint, true);
-        this.updateRocketLine(this.currentMultiplier / this.maxMutiplierFlyTemp);
-    }
-
     private animate() {
-        if (!this.isReady) {
+        if (!this.isReady || this.nodeRocketContainer.position.x > this.xMax) {
             return;
         }
         this.nodeRocket.active = true;
-        this.moveBallInBezierCurve();
+        // this.moveBallInBezierCurve();
+        const y = this.yMax * (this.currentMultiplier / this.maxMutiplierFly);
+        const x = this.timeByMultiplier * (this.xMax / 5) * 0.5;
+        this.targetPoint.x = x;
+        this.targetPoint.y = y;
+        console.log(this.targetPoint);
+
+        const deltaX = Math.abs(x - this.nodeRocketContainer.position.x);
+        const deltaY = Math.abs(y - this.nodeRocketContainer.position.y);
+        const angle = this.defaultAngle + (Math.atan2(deltaY, deltaX) * 180) / Math.PI;
+        this.updateRocketAngle(angle, false);
+        this.updateRocketPosition(this.targetPoint, true);
+        // this.updateRocketLine(this.currentMultiplier / this.maxMutiplierFlyTemp);
     }
 
     explodeRocket(isSMall: boolean) {
@@ -251,7 +210,7 @@ export class RocketFly001 extends ObserverComponent {
         this.angleTween?.stop();
         this.explositionTween?.stop();
         this.setRocketVisibility(false);
-        this.updateRocketLine(0);
+        // this.updateRocketLine(0);
         this.firstMultiplierRound = false;
 
         const animName = isSMall ? "explosion-small" : "explosion-big";

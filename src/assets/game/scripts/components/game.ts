@@ -9,7 +9,7 @@ import Observer from "observer";
 
 import { siteConfigs } from "../../../scripts/site-configs";
 import { containerOptions, settings } from "../game-settings";
-import { RocketFly } from "./rocket-fly";
+import { RocketFly } from "./rocket-fly/rocket-fly";
 
 const { Settlements, Rounds, Translator } = gc;
 
