@@ -21,6 +21,8 @@ export default class ColMultipliers extends ObserverComponent {
     scrollTween: Tween<Node>;
     scrollDownDuration = 0.1;
     scrollTime = 0;
+    multiplierBottom = 0;
+    multiplierTop = 0;
     currentMaxMultiplierCol = this.defaultMultiplierList[this.defaultMultiplierList.length - 1];
 
     onLoad() {
@@ -55,14 +57,20 @@ export default class ColMultipliers extends ObserverComponent {
                 { easing: "sineOut" }
             )
             .start();
-        // const pos = this.nodeMultipliersContainer.position;
-        // this.nodeMultipliersContainer.position = v3(pos.x, pos.y - transitionY, pos.z);
     }
 
     stopScrollDown() {
         this.scrollTween && this.scrollTween.stop();
         this.currentMaxMultiplierCol = this.defaultMultiplierList[this.defaultMultiplierList.length - 1];
-        this.nodeMultipliersContainer.position = v3(this.nodeMultipliersContainer.position.x, 0, this.nodeMultipliersContainer.position.z);
+        tween(this.nodeMultipliersContainer)
+            .to(
+                1,
+                {
+                    position: v3(0, 0, 0),
+                },
+                { easing: "sineOut" }
+            )
+            .start();
     }
 
     convertRocketPositionToMultiplierCol(transformRocket: UITransform) {
@@ -71,26 +79,25 @@ export default class ColMultipliers extends ObserverComponent {
             .convertToNodeSpaceAR(transformRocket.convertToWorldSpaceAR(v3(0, 0, 0)));
     }
 
-    calcMultipplierPosition(multiplier: number) {
+    calcMultipplierHeight(multiplier: number) {
         const multiplierIndex = this.multiplierList.findIndex((element) => element > multiplier);
-        const multiplierTop = +this.multiplierList[multiplierIndex];
-        const multiplierBottom = +this.multiplierList[multiplierIndex - 1];
-        const deltaMultiplier = multiplierTop - multiplierBottom;
-        let multiplierHeight = (multiplier - 1) * (this.multiplierItemHeight / deltaMultiplier);
+        this.multiplierTop = +this.multiplierList[multiplierIndex];
+        this.multiplierBottom = +this.multiplierList[multiplierIndex - 1];
+        const deltaMultiplier = this.multiplierTop - this.multiplierBottom;
+        let multiplierHeight = (multiplier - this.multiplierBottom) * (this.multiplierItemHeight / deltaMultiplier);
 
         return multiplierHeight;
     }
 
     needChangePosition(rocket: Node, multiplier: number) {
-        const convertRocketPosition = this.convertRocketPositionToMultiplierCol(rocket.getComponent(UITransform));
-        const rocketY = convertRocketPosition.y;
+        const convertRocketPositionWorld = rocket.getComponent(UITransform).convertToWorldSpaceAR(v3(0, 0, 0));
+        const rocketY = convertRocketPositionWorld.y;
+        const multiplierHeight = this.calcMultipplierHeight(multiplier);
+        const multiplierBottomNode = this.nodeMultipliersContainer.getChildByName(`${this.multiplierBottom}`);
+        const multiplierY = multiplierBottomNode.getComponent(UITransform).convertToWorldSpaceAR(v3(0, 0, 0)).y + multiplierHeight;
 
-        const multiplierPos = this.calcMultipplierPosition(multiplier);
-        console.log(`rocketY: ${rocketY}, multiplierPos: ${multiplierPos}`);
-
-        if (multiplierPos > rocketY) {
-            console.log(`--- rocketY: ${multiplierPos - rocketY}`);
-            this.startScrollDown(multiplierPos - rocketY);
+        if (multiplierY > rocketY) {
+            this.startScrollDown(multiplierY - rocketY);
         }
     }
 }
