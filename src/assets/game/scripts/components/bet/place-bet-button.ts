@@ -1,6 +1,8 @@
 import gc from "@sg/game-client-base";
-import { _decorator, Sprite, Node } from "cc";
+import { Node, Sprite, _decorator } from "cc";
 import Observer from "observer";
+import { AutoPlayHandler } from "../../../../../extensions/shared-components/assets/game/auto-play/scripts/handlers/auto-play-handler";
+import { AutoPlayStore } from "../../../../../extensions/shared-components/assets/game/auto-play/scripts/stores/auto-play-store";
 import { BetInputStore } from "../../../../../extensions/shared-components/assets/game/bet-input/scripts/stores/bet-input-store";
 import { ObserverComponent } from "../../../../../extensions/shared-components/assets/shared/common-components/observer-component/scripts/observer-component";
 import { EarlyBetStore } from "./early-bet-store";
@@ -35,6 +37,8 @@ export default class PlaceBetButton extends ObserverComponent {
     private valueAutoCashOut = 1.01;
 
     private earlyBet = false;
+
+    private isAutoPlayMode = false;
 
     @render(BetInputStore, (store) => store.betAmount)
     updateBetAmount(betAmount: number) {
@@ -106,4 +110,20 @@ export default class PlaceBetButton extends ObserverComponent {
     updateValueEndBet() {
         return 0;
     }
+
+    @render(AutoPlayStore, (store) => store.isAutoPlay)
+    updateAutoPlayMode(isAutoPlay: boolean) {
+        this.isAutoPlayMode = isAutoPlay;
+    }
+
+    @render(Rounds.RoundTimeStore, (store) => store.isPlacingBet)
+    renderPlacingBet(isPlacingBet: boolean) {
+        if (isPlacingBet && this.isAutoPlayMode) {
+            this.onClickPlaceBet();
+            this.decreaseAutoPlayRounds();
+        }
+    }
+
+    @handle(AutoPlayHandler, (handle) => handle.decreaseAutoPlayRounds())
+    decreaseAutoPlayRounds() {}
 }
