@@ -253,7 +253,6 @@ export class RocketFly extends ObserverComponent {
         const deltaX = x * scaleX;
         const deltaY = y * scaleX;
         const angle = this.defaultAngle + (Math.atan2(deltaY, deltaX) * 180) / Math.PI;
-        console.log(`delta: ${(Math.atan2(deltaY, deltaX) * 180) / Math.PI}, angle ${angle}`);
 
         const angleCalc = deltaY > 0 ? angle : this.defaultAngle;
         this.updateRocketAngle(angleCalc, true, this.rocketIntervalTime / 1000);
@@ -283,7 +282,6 @@ export class RocketFly extends ObserverComponent {
         this.explositionTween = tween(this.nodeRocketContainer)
             .delay(duration)
             .call(() => {
-                console.log("hide explosion");
                 this.skeExplosion.node.active = false;
             })
             .start();

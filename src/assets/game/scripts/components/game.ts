@@ -55,12 +55,10 @@ export default class Game extends GameComponent {
     }
 
     async showResult(result: gc.GameServiceMessage.TResult, hasAnimation: boolean) {
-        console.log("----showResult----");
         this.cpnRocketFly?.explodeRocket(+result < this.smallExplosion);
     }
 
     finishShowResult(result: gc.GameServiceMessage.TResult, settlementResult: gc.GameServiceMessage.TSettlementResult) {
-        console.log("----finishShowResult----", result);
         super.finishShowResult(result, settlementResult);
     }
 }
