@@ -44,7 +44,7 @@ export const languages = {
         "message_game_under_maintain": "遊戲正在維護中。請待會再過來。",
         "message_get_balance_failed": "無法更新帳戶餘額。(%{errorCode})",
         "message_hedge_bet": "可以下注 %{betChoice1} 或 %{betChoice2}。",
-        "message_insufficient_fund": "您的賬戶資金不足。(%{errorCode})",
+        "message_insufficient_fund": "您的賬戶資金不足。",
         "message_invalid_bet_choice": "無效的投注選擇",
         "message_invalid_data": "無效數據。",
         "message_invalid_deal_dueto_running_round": "無效投注",

@@ -44,7 +44,7 @@ export const languages = {
         "message_game_under_maintain": "Game is under maintenance. Please come back later.",
         "message_get_balance_failed": "Cannot update the account balance. (%{errorCode})",
         "message_hedge_bet": "Can bet on either %{betChoice1} or %{betChoice2}.",
-        "message_insufficient_fund": "Your account has insufficient funds. (%{errorCode})",
+        "message_insufficient_fund": "Your account has insufficient funds.",
         "message_invalid_bet_choice": "Invalid Bet Choice",
         "message_invalid_data": "Invalid Data.",
         "message_invalid_deal_dueto_running_round": "Invalid Bet",

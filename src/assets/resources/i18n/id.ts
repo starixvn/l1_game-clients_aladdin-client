@@ -44,7 +44,7 @@ export const languages = {
         "message_game_under_maintain": "Permainan sedang dalam perbaikan. Silahkan kembali lagi nanti.",
         "message_get_balance_failed": "Tidak dapat memperbarui saldo akun.(%{errorCode})",
         "message_hedge_bet": "Dapat bertaruh pada %{betChoice1} atau %{betChoice2}.",
-        "message_insufficient_fund": "Akun Anda memiliki dana yang tidak mencukupi. (%{errorCode})",
+        "message_insufficient_fund": "Akun Anda memiliki dana yang tidak mencukupi.",
         "message_invalid_bet_choice": "Pilihan Taruhan Tidak Valid",
         "message_invalid_data": "Data Tidak Valid.",
         "message_invalid_deal_dueto_running_round": "Taruhan Tidak Valid",

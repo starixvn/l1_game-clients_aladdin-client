@@ -44,7 +44,7 @@ export const languages = {
         "message_game_under_maintain": "Hệ thống đang được bảo trì. Vui lòng quay lại sau.",
         "message_get_balance_failed": "Không thể cập nhật số tiền trong tài khoản. (%{errorCode})",
         "message_hedge_bet": "Chỉ có thể đặt cược trên %{betChoice1} hoặc %{betChoice2}.",
-        "message_insufficient_fund": "Tài khoản của bạn thiếu tiền. (%{errorCode})",
+        "message_insufficient_fund": "Bạn hiện không có đủ tiền để cược.",
         "message_invalid_bet_choice": "Cửa cược không hợp lệ.",
         "message_invalid_data": "Dữ liệu không hợp lệ.",
         "message_invalid_deal_dueto_running_round": "Cược không hợp lệ do phiên chưa kết thúc.",
