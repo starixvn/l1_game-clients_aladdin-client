@@ -6,7 +6,6 @@ import { AutoPlayStore } from "../../../../../extensions/shared-components/asset
 import { BetInputStore } from "../../../../../extensions/shared-components/assets/game/bet-input/scripts/stores/bet-input-store";
 import { ObserverComponent } from "../../../../../extensions/shared-components/assets/shared/common-components/observer-component/scripts/observer-component";
 import { EarlyBetStore } from "./early-bet-store";
-
 const { handle, render } = Observer;
 const { property, ccclass } = _decorator;
 const { CrashBet, Bet, Rounds } = gc;
@@ -18,6 +17,9 @@ export default class PlaceBetButton extends ObserverComponent {
 
     @property(Sprite)
     bgPlaceBet: Sprite = null;
+
+    @property(Sprite)
+    bgDisable: Sprite = null;
 
     @property(Sprite)
     sprPlaceBet: Sprite = null;
@@ -70,40 +72,56 @@ export default class PlaceBetButton extends ObserverComponent {
     // updateValueAutoCashOut(value: number) {
     //     this.valueAutoCashOut = value;
     // }
-
-    @handle(CrashBet.CrashBetHandler, (handle, payload: { autoCashOut: number; amount: number }) => handle.handle(payload))
     onClickPlaceBet() {
-        console.log("onClickPlaceBet", this.isEnableAutoCashOut, this.valueAutoCashOut, this.isBetAccepted);
         if (!this.isBetAccepted) {
-            return { autoCashOut: undefined, amount: this.amount };
+            this.sendBetRequest();
         }
     }
 
-    @render(Rounds.RoundTimeStore, (store) => ({ isStartRound: store.isStartRound, isShowResult: store.isShowResult }))
-    showPlaceBet(data: { isStartRound: boolean; isShowResult: boolean }) {
-        const { isStartRound, isShowResult } = data;
-        if (isShowResult) {
-            this.updateValueEndBet();
+    @handle(CrashBet.CrashBetHandler, (handle, payload: { autoCashOut: number; amount: number }) => handle.handle(payload))
+    sendBetRequest() {
+        return { autoCashOut: undefined, amount: this.amount };
+    }
+
+    @render(Rounds.RoundTimeStore, (store) => ({
+        isPlacingBet: store.isPlacingBet,
+        remaining: store.remaining,
+        isLockingBet: store.isLocking,
+        isShowResult: store.isShowResult,
+    }))
+    showPlaceBet(data: { isPlacingBet: boolean; remaining: number; isLockingBet: boolean; isShowResult: boolean }) {
+        const { isPlacingBet, remaining, isLockingBet, isShowResult } = data;
+        if (remaining <= 0) {
             this.isBetAccepted = false;
             this.node.active = false;
             this.setStatusBet(false);
-        } else if (isStartRound && this.earlyBet) {
-            this.isBetAccepted = true;
-            this.setStatusBet(true);
+        }
+        
+        if (isShowResult) {
+            this.updateValueEndBet();
+        }
+
+        if (isPlacingBet) {
+            this.node.active = true;
+            if (this.earlyBet || this.isBetAccepted) {
+                this.isBetAccepted = true;
+                this.setStatusBet(true);
+            } else this.setStatusBet(false);
+        }
+
+        if (isLockingBet && !this.isBetAccepted) {
+            this.lockBet(true);
         }
     }
 
     setStatusBet(selected: boolean) {
-        this.bgWaiting.node.active = selected;
-        this.sprBetAccepted.node.active = selected;
-        this.sprPlaceBet.node.active = !selected;
-        this.bgPlaceBet.node.active = !selected;
+        this.bgWaiting.node.active = this.sprBetAccepted.node.active = selected;
+        this.sprPlaceBet.node.active = this.bgPlaceBet.node.active = !selected;
+        this.lockBet(false);
     }
 
-    @render(Rounds.RoundTimeStore, (store) => store.remaining)
-    updateCashoutButtonStatus(remaining: number) {
-        const isShow = remaining > 0 && remaining < 10;
-        this.node.active = isShow ? true : false;
+    lockBet(disable: boolean) {
+        this.bgDisable.node.active = disable;
     }
 
     @handle(Bet.BetResponseHandlers, (handle, value: number) => handle.handleBetResponse(value))

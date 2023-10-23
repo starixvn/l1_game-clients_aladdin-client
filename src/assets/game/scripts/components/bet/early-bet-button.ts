@@ -63,13 +63,13 @@ export default class EarlyBetButton extends ObserverComponent {
     }
 
     @render(Rounds.RoundTimeStore, (store) => ({
-        isStartRound: store.isStartRound,
+        isPlacingBet: store.isPlacingBet,
         isShowResult: store.isShowResult,
         remaining: store.remaining,
     }))
-    showHideEarlyBet(data: { isStartRound: boolean; isShowResult: boolean; remaining: number }) {
-        const { isShowResult, isStartRound, remaining } = data;
-        if (isStartRound) {
+    showHideEarlyBet(data: { isPlacingBet: boolean; isShowResult: boolean; remaining: number }) {
+        const { isShowResult, isPlacingBet, remaining } = data;
+        if (isPlacingBet) {
             this.node.active = false;
             if (this.enableCancelBet) {
                 this.autoPlaceBet();

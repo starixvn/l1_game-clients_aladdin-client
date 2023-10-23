@@ -44,7 +44,7 @@ export const languages = {
         "message_game_under_maintain": "เกมอยู่ระหว่างการปรับปรุง โปรดกลับมาใหม่.",
         "message_get_balance_failed": "ไม่สามารถอัปเดตยอดเงินในบัญชี (%{errorCode})",
         "message_hedge_bet": "สามารถเดิมพันได้ทั้ง %{betChoice1} หรือ %{betChoice2}",
-        "message_insufficient_fund": "บัญชีของคุณมีเงินไม่เพียงพอ (%{errorCode})",
+        "message_insufficient_fund": "บัญชีของคุณมีเงินไม่เพียงพอ",
         "message_invalid_bet_choice": "ตัวเลือกการเดิมพันที่ไม่ถูกต้อง",
         "message_invalid_data": "ข้อมูลไม่ถูกต้อง",
         "message_invalid_deal_dueto_running_round": "เดิมพันไม่ถูกต้อง",

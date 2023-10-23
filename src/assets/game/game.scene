@@ -214,7 +214,7 @@
     "_priority": 0,
     "_fov": 45,
     "_fovAxis": 0,
-    "_orthoHeight": 393,
+    "_orthoHeight": 393.00000000000006,
     "_near": 0,
     "_far": 1000,
     "_color": {
@@ -3611,7 +3611,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "bg-select",
+    "_name": "bgDisable",
     "_objFlags": 0,
     "__editorExtras__": {},
     "_parent": {
@@ -3863,6 +3863,9 @@
     },
     "bgPlaceBet": {
       "__id__": 166
+    },
+    "bgDisable": {
+      "__id__": 178
     },
     "sprPlaceBet": {
       "__id__": 172
