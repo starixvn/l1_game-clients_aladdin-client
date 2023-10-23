@@ -113,7 +113,9 @@ export const languages = {
         "total_stake": "總賭注",
         "under_maintenance_suggest": "維護完成後請重新登錄繼續玩遊戲。",
         "under_maintenance_time": "從 %{startTime} 到 %{endTime} (GMT+8)",
-        "win": "贏"
+        "win": "贏",
+        "invalid_cash_out": "Cashout Failed",
+        "invalid_value_cash_out": "Auto cashout value is invalid"
     },
     "SpaceFlight": {}
 };

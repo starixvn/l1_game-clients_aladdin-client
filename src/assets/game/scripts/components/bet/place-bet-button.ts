@@ -96,7 +96,7 @@ export default class PlaceBetButton extends ObserverComponent {
             this.node.active = false;
             this.setStatusBet(false);
         }
-        
+
         if (isShowResult) {
             this.updateValueEndBet();
         }
@@ -111,6 +111,7 @@ export default class PlaceBetButton extends ObserverComponent {
 
         if (isLockingBet && !this.isBetAccepted) {
             this.lockBet(true);
+            this.isBetAccepted = true;
         }
     }
 

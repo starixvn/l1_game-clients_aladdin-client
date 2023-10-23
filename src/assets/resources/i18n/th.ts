@@ -113,7 +113,9 @@ export const languages = {
         "total_stake": "เดิมพันรวม",
         "under_maintenance_suggest": "กรุณาเข้าสู่ระบบใหม่อีกครั้งเพื่อเล่นเกมต่อหลังจากการปิดปรับปรุงเสร็จสิ้นแล้ว",
         "under_maintenance_time": "เริ่มต้นจาก %{startTime} ถึง %{endTime} (GMT+8)",
-        "win": "ชนะ"
+        "win": "ชนะ",
+        "invalid_cash_out": "Cashout Failed",
+        "invalid_value_cash_out": "Auto cashout value is invalid"
     },
     "SpaceFlight": {}
 };

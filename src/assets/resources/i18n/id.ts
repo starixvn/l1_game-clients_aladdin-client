@@ -113,7 +113,9 @@ export const languages = {
         "total_stake": "Total Taruhan",
         "under_maintenance_suggest": "Silakan login kembali untuk melanjutkan permainan setelah maintenance selesai.",
         "under_maintenance_time": "Mulai dari %{startTime} hingga %{endTime} (GMT+8)",
-        "win": "Menang"
+        "win": "Menang",
+        "invalid_cash_out": "Cashout Failed",
+        "invalid_value_cash_out": "Auto cashout value is invalid"
     },
     "SpaceFlight": {}
 };

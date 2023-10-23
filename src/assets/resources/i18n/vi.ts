@@ -113,7 +113,9 @@ export const languages = {
         "total_stake": "Tổng Cược",
         "under_maintenance_suggest": "Sau thời gian bảo trì, bạn hãy đăng nhập lại để có thể tiếp tục chơi game.",
         "under_maintenance_time": "Thời gian bảo trì từ %{startTime} đến %{endTime} (GMT+8).",
-        "win": "Thắng"
+        "win": "Thắng",
+        "invalid_cash_out": "Rút tiền không hợp lệ",
+        "invalid_value_cash_out": "Giá trị tự động rút tiền không phù hơp"
     },
     "SpaceFlight": {}
 };

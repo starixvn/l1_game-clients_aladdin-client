@@ -113,7 +113,9 @@ export const languages = {
         "total_stake": "Total Stake",
         "under_maintenance_suggest": "Please kindly re-login to continue playing games after the maintenance is complete.",
         "under_maintenance_time": "Starting from %{startTime} to %{endTime} (GMT+8)",
-        "win": "Win"
+        "win": "Win",
+        "invalid_cash_out": "Cashout Failed",
+        "invalid_value_cash_out": "Auto cashout value is invalid"
     },
     "SpaceFlight": {
         "game_icon_name": "SpaceFlight",
