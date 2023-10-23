@@ -7,7 +7,7 @@ export class ColMultiplierItem extends Component {
     @property(Label)
     lblMultiplier: Label = null;
 
-    setMultiplier(value: string) {
-        this.lblMultiplier.string = `${value}`;
+    setMultiplier(value: number) {
+        this.lblMultiplier.string = value.toString();
     }
 }
