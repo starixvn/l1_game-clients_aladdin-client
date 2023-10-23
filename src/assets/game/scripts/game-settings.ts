@@ -21,5 +21,7 @@ export const containerOptions: gc.IContainerOptions = {
     onContainerCreated: (container) => {
         container.bind(gc.GameConfigs.GameSetting).toConstantValue(settings);
         container.bind(LogStore).to(LogStore);
+        container.bind(gc.GameConfigs.GameConfigStore).to(gc.CrashGameConfigStore);
+        container.bind(gc.CrashGameConfigStore).to(gc.CrashGameConfigStore);
     },
 };
