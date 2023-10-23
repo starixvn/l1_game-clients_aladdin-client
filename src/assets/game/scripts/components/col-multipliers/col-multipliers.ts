@@ -18,18 +18,21 @@ export default class ColMultipliers extends Component {
     multiplierList = [];
     multiplierItemHeight = 178;
     scrollTween: Tween<Node>;
-    scrollDownDuration = 0.1;
-    scrollTime = 0;
     multiplierBottom = 0;
     multiplierTop = 0;
+    multiplierIndex = 0;
     currentMaxMultiplierCol: number;
+    multiplierContainerSize: UITransform;
 
     onLoad() {
         this.initDefaultMultiplier();
     }
 
     initDefaultMultiplier() {
+        this.multiplierContainerSize = this.nodeMultipliersContainer.getComponent(UITransform);
+        this.multiplierContainerSize.height = 0;
         this.nodeMultipliersContainer.destroyAllChildren();
+        this.multiplierList = [];
         this.defaultMultiplierList.forEach((multiplier) => {
             this.addMultiplierItem(multiplier);
         });
@@ -39,25 +42,27 @@ export default class ColMultipliers extends Component {
         const node = instantiate(this.prfMultiplierItem);
         node.name = multiplier.toString();
         node && this.nodeMultipliersContainer.addChild(node);
+
+        const itemPosY = this.multiplierContainerSize.height;
+        node.position = v3(0, itemPosY, 0);
+        this.multiplierContainerSize.height = this.multiplierItemHeight + itemPosY;
+
         const comp = node.getComponent(ColMultiplierItem);
         comp?.setMultiplier(multiplier);
         this.multiplierList.push(multiplier);
     }
 
-    startScrollDown(transitionY: number) {
+    scrollDown(transitionY: number) {
         this.scrollTween?.stop();
         this.scrollTween = tween(this.nodeMultipliersContainer)
-            .by(
-                this.scrollDownDuration,
-                {
-                    position: v3(0, -transitionY, 0),
-                },
-                { easing: "sineOut" }
-            )
+            .by(0.1, {
+                position: v3(0, -transitionY, 0),
+            })
             .call(() => {
-                if (this.nodeMultipliersContainer.position.y < -this.multiplierItemHeight * 2) {
-                    // const removedNode = this.nodeMultipliersContainer.getChildByName(this.multiplierList[0].toString());
-                    // this.nodeMultipliersContainer.removeChild(removedNode);
+                if (this.multiplierIndex > this.multiplierList.length - 1) {
+                    const removedNode = this.nodeMultipliersContainer.getChildByName(this.multiplierList[0].toString());
+                    this.nodeMultipliersContainer.removeChild(removedNode);
+                    this.multiplierList.shift();
                     const nextMultiplier = this.multiplierList[this.multiplierList.length - 1];
                     this.addMultiplierItem(nextMultiplier * 2);
                 }
@@ -65,9 +70,10 @@ export default class ColMultipliers extends Component {
             .start();
     }
 
-    stopScrollDown() {
-        this.scrollTween?.stop();
+    scrollUp() {
+        this.initDefaultMultiplier();
 
+        this.scrollTween?.stop();
         this.currentMaxMultiplierCol = this.defaultMultiplierList[this.defaultMultiplierList.length - 1];
         this.scrollTween = tween(this.nodeMultipliersContainer)
             .to(
@@ -81,11 +87,10 @@ export default class ColMultipliers extends Component {
     }
 
     calcMultipplierHeight(multiplier: number): number {
-        const multiplierIndex = this.multiplierList.findIndex((element) => element > multiplier);
-        this.multiplierTop = +this.multiplierList[multiplierIndex];
-        this.multiplierBottom = +this.multiplierList[multiplierIndex - 1];
+        this.multiplierIndex = this.multiplierList.findIndex((element) => element > multiplier);
+        this.multiplierTop = +this.multiplierList[this.multiplierIndex];
+        this.multiplierBottom = +this.multiplierList[this.multiplierIndex - 1];
         const deltaMultiplier = this.multiplierTop - this.multiplierBottom;
-
         return (multiplier - this.multiplierBottom) * (this.multiplierItemHeight / deltaMultiplier);
     }
 
@@ -99,7 +104,7 @@ export default class ColMultipliers extends Component {
         const calcMultiplierPosY = this.convertWorldPosition(multiplierBottomNode)?.y + multiplierHeight;
 
         if (convertRocketWorldPos && calcMultiplierPosY > convertRocketWorldPos.y) {
-            this.startScrollDown(calcMultiplierPosY - convertRocketWorldPos.y);
+            this.scrollDown(calcMultiplierPosY - convertRocketWorldPos.y);
         }
     }
 }

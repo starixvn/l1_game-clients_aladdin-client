@@ -18,12 +18,12 @@ export class CurrentMultiplier extends ObserverComponent {
 
     onLoad() {
         super.onLoad();
-        this.setCurrentMultiplierVisibility(false);
+        this.setVisibility(false);
     }
 
     @render(gc.CrashMultiplier.MultiplierStore, (store) => store.multiplier, { fireImmediately: false })
     private setCurrentMultiplier(multiplier: number) {
-        this.setCurrentMultiplierVisibility(true);
+        this.setVisibility(true);
         this.lblCurrentMultiplier.string = `${multiplier}x`;
 
         let color: string;
@@ -38,14 +38,14 @@ export class CurrentMultiplier extends ObserverComponent {
         this.lblCurrentMultiplier.color = new Color().fromHEX(color);
     }
 
-    @render(gc.Rounds.RoundTimeStore, (store) => store.startNewRound)
-    hideCurrentMultiplier(startNewRound: boolean) {
-        if (!startNewRound) {
-            this.setCurrentMultiplierVisibility(false);
+    @render(gc.Rounds.RoundTimeStore, (store) => store.isPlacingBet)
+    hideCurrentMultiplier(isPlacingBet: boolean) {
+        if (isPlacingBet) {
+            this.setVisibility(false);
         }
     }
 
-    setCurrentMultiplierVisibility(status: boolean) {
+    setVisibility(status: boolean) {
         this.getComponent(UIOpacity).opacity = status ? 255 : 0;
     }
 }

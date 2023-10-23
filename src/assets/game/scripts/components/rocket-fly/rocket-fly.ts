@@ -1,75 +1,61 @@
 import gc from "@sg/game-client-base";
-import { _decorator, Node, sp, Tween, tween, v3 } from "cc";
+import { _decorator, Node, toDegree, tween, v3, Vec3 } from "cc";
 import Observer from "observer";
 
 import { ObserverComponent } from "../../../../../extensions/shared-components/assets/shared/common-components/observer-component/scripts/observer-component";
 import ColMultipliers from "../col-multipliers/col-multipliers";
+import { Rocket, RocketAnim } from "./rocket";
 
 const { ccclass, property } = _decorator;
 
 const { render, handle } = Observer;
 @ccclass
 export class RocketFly extends ObserverComponent {
-    @property(Node)
-    nodeRocketContainer: Node = null;
-
-    @property(Node)
-    nodeRocket: Node = null;
+    @property(Rocket)
+    cpnRocket: Rocket = null;
 
     @property(Node)
     nodeRocketLine: Node = null;
 
-    @property(sp.Skeleton)
-    skeExplosion: sp.Skeleton = null;
-
     @property(Node)
-    nodePoint1: Node = null;
+    startPoint: Node = null;
 
     @property(Node)
     nodeColMultiplier: Node = null;
 
-    private point1Position = v3(0, 0, 0);
-    private defaultAngle = -90;
-    private targetPoint: { x: number; y: number };
+    private readonly startRotation = -90;
+    private readonly diagramWidth = 1098;
+    private readonly diagramMaxX = 10;
+    private readonly speedRate = 2;
     private currentMultiplier = 0;
-    private defaultV = 0.04;
-    private defaultAcc = 0.4;
-    private rocketIntervalTime = 100;
     private deltaTime = 0;
     private isReady = false;
     private firstMultiplierRound = false;
-    private angleTween: Tween<Node>;
-    private flyTween: Tween<Node>;
-    private explositionTween: Tween<Node>;
-    private skeRocket: sp.Skeleton;
     private flyInterval;
     private receivedMultiplierTimes = 0;
     private cpnColMultipliers: ColMultipliers;
-    yMax = 449;
-    xMax = 1098;
-    crashTimeSeed = 4;
-    maxMutiplierFly = 10;
+    private prevRocketPosition: Vec3;
+    private startPosition: Vec3;
 
     onLoad() {
         super.onLoad();
         this.isReady = true;
-        this.nodeRocket.active = false;
-        this.skeExplosion.node.active = false;
+        this.startPosition = this.startPoint.position;
+        this.prevRocketPosition = this.startPosition;
+        this.cpnRocket.setRocketVisibility(false);
+        this.cpnRocket.setExplosionRocketVisibility(false);
+        this.cpnRocket.updatePosition(this.startPosition);
         this.nodeRocketLine.active = false;
-        this.skeRocket = this.nodeRocket.getComponent(sp.Skeleton);
         this.cpnColMultipliers = this.nodeColMultiplier.getComponent(ColMultipliers);
-        this.point1Position = this.nodePoint1.position;
-        this.targetPoint = { x: this.point1Position.x, y: this.point1Position.y };
-        this.updateRocketPosition(this.point1Position);
     }
 
     @render(gc.Rounds.RoundTimeStore, (store) => store.isStaringLocking)
     rotateRocketWhenStart(isStaringLocking: boolean) {
         if (isStaringLocking) {
-            tween(this.nodeRocketContainer)
-                .to(1, { eulerAngles: v3(0, 0, this.defaultAngle) }, { easing: "sineOut" })
+            tween(this.cpnRocket.node)
+                .to(1, { eulerAngles: v3(0, 0, this.startRotation) }, { easing: "sineOut" })
                 .call(() => {
-                    this.skeRocket.setAnimation(0, "rocket-start", true);
+                    this.cpnRocket.setRocketAnim(RocketAnim.START, true);
                 })
                 .start();
         }
@@ -90,12 +76,14 @@ export class RocketFly extends ObserverComponent {
         this.currentMultiplier = multiplier;
 
         if (!this.firstMultiplierRound) {
-            this.skeRocket.setAnimation(1, "rocket-fly", true);
+            this.cpnRocket.setRocketAnim(RocketAnim.FLY, true);
             this.flyInterval && clearInterval(this.flyInterval);
+            this.deltaTime = 0;
+            const rocketIntervalTime = 100;
             this.flyInterval = setInterval(() => {
-                this.deltaTime += this.rocketIntervalTime;
+                this.deltaTime += rocketIntervalTime;
                 this.animate();
-            }, this.rocketIntervalTime);
+            }, rocketIntervalTime);
         }
 
         this.firstMultiplierRound = true;
@@ -107,57 +95,20 @@ export class RocketFly extends ObserverComponent {
             return;
         }
 
-        this.explositionTween?.stop();
-        this.nodeRocketContainer.active = true;
+        this.cpnRocket.node.active = true;
+        this.cpnRocket.setRocketAnim(RocketAnim.IDLE, false);
+        this.cpnRocket.stopAnimation();
+        this.cpnRocket.setRocketVisibility(true);
+        this.cpnRocket.setExplosionRocketVisibility(false);
+        this.cpnRocket.updateRotation(0);
         this.nodeRocketLine.active = false;
-        this.setRocketVisibility(true);
         this.resetStartPosition();
-        this.updateRocketAngle(0);
-        this.cpnColMultipliers.initDefaultMultiplier();
-
-        this.skeRocket.setAnimation(0, "rocket-idle", false);
-    }
-
-    private setRocketVisibility(status: boolean) {
-        this.skeExplosion.node.active = !status;
-        this.nodeRocket.active = status;
-    }
-
-    private updateRocketAngle(angle: number, isAnimated = false, duration = 0.1) {
-        if (isAnimated) {
-            this.angleTween?.stop();
-            this.angleTween = tween(this.nodeRocketContainer)
-                .to(duration, { eulerAngles: v3(0, 0, angle) }, { easing: "linear" })
-                .start();
-        } else {
-            this.nodeRocketContainer.eulerAngles = v3(0, 0, angle);
-        }
-    }
-
-    private updateRocketPosition(targetPoint, isAnimated = false, duration = 0.1) {
-        if (isAnimated) {
-            this.flyTween?.stop();
-            this.flyTween = tween(this.nodeRocketContainer)
-                .to(duration, { position: v3(targetPoint.x, targetPoint.y, this.nodeRocketContainer.position.z) }, { easing: "linear" })
-                .start();
-            this.cpnColMultipliers.needScrollDown(this.nodeRocketContainer, this.currentMultiplier);
-        } else {
-            this.nodeRocketContainer.position = v3(targetPoint.x, targetPoint.y, this.nodeRocketContainer.position.z);
-        }
+        this.cpnColMultipliers.scrollUp();
     }
 
     private resetStartPosition() {
-        this.updateRocketPosition(this.point1Position);
-        this.nodeRocketContainer.position = v3(this.point1Position.x, this.point1Position.y, this.nodeRocketContainer.position.z);
-        this.targetPoint.x = this.point1Position.x;
-        this.targetPoint.y = this.point1Position.y;
-        this.deltaTime = 0;
-    }
-
-    calculateMultiplier(timeInMilliseconds): number {
-        const multiplier = timeInMilliseconds ** 2 / 16;
-
-        return +multiplier.toFixed(2);
+        this.cpnRocket.updatePosition(this.startPosition);
+        this.prevRocketPosition = this.startPosition;
     }
 
     private animate() {
@@ -165,30 +116,32 @@ export class RocketFly extends ObserverComponent {
             return;
         }
 
-        this.nodeRocket.active = true;
+        this.cpnRocket.setRocketVisibility(true);
 
-        if (this.nodeRocketContainer.position.x > this.xMax - 100 || this.nodeRocketContainer.position.y > this.yMax - 50) {
-            this.cpnColMultipliers.needScrollDown(this.nodeRocketContainer, this.currentMultiplier);
+        const time = this.deltaTime * this.getTimerRate();
 
+        const limitMaxX = this.diagramMaxX * 0.9;
+        const rawX = time / 1000;
+        if (rawX > limitMaxX) {
+            this.cpnColMultipliers.needScrollDown(this.cpnRocket.node, this.currentMultiplier);
             this.flyInterval && clearInterval(this.flyInterval);
             return;
         }
+        const rawY = Math.pow(rawX, 3) / 250; //equation: (x^3)/100
 
-        const x = this.deltaTime / 1000;
-        const y = this.calculateMultiplier(x);
+        const scale = this.diagramWidth / this.diagramMaxX;
+        const newPosition = v3(rawX * scale, rawY * scale);
+        const delta = {
+            x: newPosition.x - this.prevRocketPosition.x,
+            y: newPosition.y - this.prevRocketPosition.y,
+        };
+        const eulerAngle = this.startRotation + toDegree(Math.atan2(delta.y, delta.x));
 
-        const scaleX = this.xMax / 15;
-        const deltaX = x * scaleX;
-        const deltaY = y * scaleX;
-        const angle = this.defaultAngle + (Math.atan2(deltaY, deltaX) * 180) / Math.PI;
+        this.cpnRocket.updateRotation(eulerAngle, true);
+        this.cpnRocket.updatePosition(newPosition, true);
+        this.cpnColMultipliers.needScrollDown(this.cpnRocket.node, this.currentMultiplier);
 
-        const angleCalc = deltaY > 0 ? angle : this.defaultAngle;
-        this.updateRocketAngle(angleCalc, true, this.rocketIntervalTime / 1000);
-
-        this.targetPoint.x = deltaX;
-        this.targetPoint.y = deltaY;
-
-        this.updateRocketPosition(this.targetPoint, true);
+        this.prevRocketPosition = newPosition;
     }
 
     explodeRocket(isSMall: boolean) {
@@ -197,22 +150,19 @@ export class RocketFly extends ObserverComponent {
         }
 
         this.flyInterval && clearInterval(this.flyInterval);
-        this.flyTween?.stop();
-        this.angleTween?.stop();
-        this.explositionTween?.stop();
-        this.setRocketVisibility(false);
         this.nodeRocketLine.active = false;
         this.firstMultiplierRound = false;
-        this.cpnColMultipliers.stopScrollDown();
+        this.cpnRocket.stopAnimation();
+        this.cpnRocket.setRocketVisibility(false);
+        this.cpnRocket.setExplosionRocketVisibility(true);
+        this.cpnRocket.explode(isSMall);
+    }
 
-        const animName = isSMall ? "explosion-small" : "explosion-big";
-        const duration = this.skeExplosion.findAnimation(animName).duration;
-        this.skeExplosion.setAnimation(0, animName, false);
-        this.explositionTween = tween(this.nodeRocketContainer)
-            .delay(duration)
-            .call(() => {
-                this.skeExplosion.node.active = false;
-            })
-            .start();
+    getTimerRate() {
+        const time = this.deltaTime;
+        const rawX = time / 1000;
+        const x = rawX / this.diagramMaxX;
+        const baseSpeed = 1;
+        return Math.pow(1 - x, 4) * this.speedRate + baseSpeed;
     }
 }
