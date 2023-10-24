@@ -137,7 +137,7 @@ export class RocketFly extends ObserverComponent {
 
         this.cpnRocket.updateRotation(eulerAngle, true);
         this.cpnRocket.updatePosition(newPosition, true, 0.1);
-        this.cpnColMultipliers.needScrollDown(this.cpnRocket.node, this.currentMultiplier);
+        this.cpnColMultipliers.needScrollDown(this.cpnRocket.nodeRocketHead, this.currentMultiplier);
 
         this.prevRocketPosition = newPosition;
     }

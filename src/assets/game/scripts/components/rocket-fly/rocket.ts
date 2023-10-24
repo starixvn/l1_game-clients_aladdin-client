@@ -18,6 +18,9 @@ export class Rocket extends Component {
     @property(Node)
     explosion: Node = null;
 
+    @property(Node)
+    nodeRocketHead: Node = null;
+
     skeExplosion: sp.Skeleton = null;
     skeRocket: sp.Skeleton = null;
     private rotationTween: Tween<Node>;
