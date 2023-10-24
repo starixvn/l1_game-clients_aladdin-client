@@ -4,6 +4,7 @@ import Observer from "observer";
 import { ObserverComponent } from "../../../../../extensions/shared-components/assets/shared/common-components/observer-component/scripts/observer-component";
 import { EarlyBetUIHandlers } from "./early-bet-ui-handler";
 import { EarlyBetStore } from "./early-bet-store";
+import AutoCashOutStore from "../../../../../extensions/shared-components/assets/game/auto-cash-out/scripts/stores/auto-cash-out-store";
 const { handle, render } = Observer;
 const { property, ccclass } = _decorator;
 const { CrashBet, Bet, Rounds } = gc;
@@ -34,11 +35,25 @@ export default class EarlyBetButton extends ObserverComponent {
 
     private betAmountAccept = -1;
 
+    private isEnableAutoCashOut = false;
+
+    private valueAutoCashOut = 1.01;
+
     @render(Bet.BetStore, (store) => store.lastReceivedBet)
     updateBetValue(lastReceivedBet: any) {
         if (lastReceivedBet && lastReceivedBet.value >= 0) {
             this.betAmountAccept = lastReceivedBet.value;
         }
+    }
+
+    @render(AutoCashOutStore, (store) => store.enable)
+    updateStatusAutoCashOut(isEnable: boolean) {
+        this.isEnableAutoCashOut = isEnable;
+    }
+
+    @render(AutoCashOutStore, (store) => store.multiplier)
+    updateValueAutoCashOut(value: number) {
+        this.valueAutoCashOut = value;
     }
 
     @render(EarlyBetStore, (store) => store.earlyBet)
@@ -88,7 +103,7 @@ export default class EarlyBetButton extends ObserverComponent {
     @handle(CrashBet.CrashBetHandler, (handle, payload: { autoCashOut: number; amount: number }) => handle.handle(payload))
     autoPlaceBet() {
         this.enableCancelBet = false;
-        return { autoCashOut: undefined, amount: this.amount };
+        return { autoCashOut: this.isEnableAutoCashOut ? this.valueAutoCashOut : undefined, amount: this.amount };
     }
     setStatusEarlyBet(selected: boolean) {
         this.bgWaiting.node.active = this.sprWaiting.node.active = this.sprCancel.node.active = selected;

@@ -6,6 +6,8 @@ import { AutoPlayStore } from "../../../../../extensions/shared-components/asset
 import { BetInputStore } from "../../../../../extensions/shared-components/assets/game/bet-input/scripts/stores/bet-input-store";
 import { ObserverComponent } from "../../../../../extensions/shared-components/assets/shared/common-components/observer-component/scripts/observer-component";
 import { EarlyBetStore } from "./early-bet-store";
+import AutoCashOutStore from "../../../../../extensions/shared-components/assets/game/auto-cash-out/scripts/stores/auto-cash-out-store";
+import AutoCashOutHandler from "../../../../../extensions/shared-components/assets/game/auto-cash-out/scripts/handlers/auto-cash-out-handler";
 const { handle, render } = Observer;
 const { property, ccclass } = _decorator;
 const { CrashBet, Bet, Rounds } = gc;
@@ -58,20 +60,27 @@ export default class PlaceBetButton extends ObserverComponent {
             this.setStatusBet(true);
             this.isBetAccepted = true;
             this.placeBetNotice.active = true;
+            this.adjustMultiplier(false);
             setTimeout(() => {
                 this.placeBetNotice.active = false;
             }, 3000);
         }
     }
-    // @render(AutoCashOutStore, (store) => store.isEnable)
-    // updateStatusAutoCashOut(isEnable: boolean) {
-    //     this.isEnableAutoCashOut = isEnable;
-    // }
 
-    // @render(AutoCashOutStore, (store) => store.getMultiplier)
-    // updateValueAutoCashOut(value: number) {
-    //     this.valueAutoCashOut = value;
-    // }
+    @handle(AutoCashOutHandler, (handle, enable: boolean) => handle.handleEnable(enable))
+    adjustMultiplier(enable: boolean) {
+        return enable;
+    }
+
+    @render(AutoCashOutStore, (store) => store.enable)
+    updateStatusAutoCashOut(isEnable: boolean) {
+        this.isEnableAutoCashOut = isEnable;
+    }
+
+    @render(AutoCashOutStore, (store) => store.multiplier)
+    updateValueAutoCashOut(value: number) {
+        this.valueAutoCashOut = value;
+    }
     onClickPlaceBet() {
         if (!this.isBetAccepted) {
             this.sendBetRequest();
@@ -80,7 +89,7 @@ export default class PlaceBetButton extends ObserverComponent {
 
     @handle(CrashBet.CrashBetHandler, (handle, payload: { autoCashOut: number; amount: number }) => handle.handle(payload))
     sendBetRequest() {
-        return { autoCashOut: undefined, amount: this.amount };
+        return { autoCashOut: this.isEnableAutoCashOut ? this.valueAutoCashOut : undefined, amount: this.amount };
     }
 
     @render(Rounds.RoundTimeStore, (store) => ({
@@ -95,6 +104,7 @@ export default class PlaceBetButton extends ObserverComponent {
             this.isBetAccepted = false;
             this.node.active = false;
             this.setStatusBet(false);
+            this.adjustMultiplier(true);
         }
 
         if (isShowResult) {
