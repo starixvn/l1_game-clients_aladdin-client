@@ -16,12 +16,12 @@ export default class ColMultipliers extends Component {
 
     defaultMultiplierList = [1, 2, 3, 4, 8];
     multiplierList = [];
+    removedList = [];
     multiplierItemHeight = 178;
     scrollTween: Tween<Node>;
     multiplierBottom = 0;
     multiplierTop = 0;
-    multiplierIndex = 0;
-    currentMaxMultiplierCol: number;
+    multiplierTopIndex = 0;
     multiplierContainerSize: UITransform;
 
     onLoad() {
@@ -34,11 +34,12 @@ export default class ColMultipliers extends Component {
         this.nodeMultipliersContainer.destroyAllChildren();
         this.multiplierList = [];
         this.defaultMultiplierList.forEach((multiplier) => {
-            this.addMultiplierItem(multiplier);
+            this.addItem(multiplier);
         });
     }
 
-    addMultiplierItem(multiplier: number) {
+    addItem(multiplier: number) {
+        console.log("add multiplier: " + multiplier);
         const node = instantiate(this.prfMultiplierItem);
         node.name = multiplier.toString();
         node && this.nodeMultipliersContainer.addChild(node);
@@ -46,36 +47,44 @@ export default class ColMultipliers extends Component {
         const itemPosY = this.multiplierContainerSize.height;
         node.position = v3(0, itemPosY, 0);
         this.multiplierContainerSize.height = this.multiplierItemHeight + itemPosY;
-
+        // console.log(`multiplierContainerSize: ${this.multiplierContainerSize.height}`);
         const comp = node.getComponent(ColMultiplierItem);
         comp?.setMultiplier(multiplier);
         this.multiplierList.push(multiplier);
     }
 
     scrollDown(transitionY: number) {
+        console.log("scrollDown  : " + transitionY);
         this.scrollTween?.stop();
         this.scrollTween = tween(this.nodeMultipliersContainer)
             .by(0.1, {
                 position: v3(0, -transitionY, 0),
             })
-            .call(() => {
-                if (this.multiplierIndex > this.multiplierList.length - 1) {
-                    const removedNode = this.nodeMultipliersContainer.getChildByName(this.multiplierList[0].toString());
-                    this.nodeMultipliersContainer.removeChild(removedNode);
-                    this.multiplierList.shift();
-                    const nextMultiplier = this.multiplierList[this.multiplierList.length - 1];
-                    this.addMultiplierItem(nextMultiplier * 2);
-                }
-            })
             .start();
     }
 
-    scrollUp() {
-        this.initDefaultMultiplier();
+    private addNewMultiplier() {
+        const nextMultiplier = this.multiplierList[this.multiplierList.length - 1];
+        this.addItem(nextMultiplier * 2);
+    }
 
+    private removeFirstMultiplier() {
+        const firstMultiplier = this.multiplierList[0];
+        const removedNode = this.nodeMultipliersContainer.getChildByName(firstMultiplier.toString());
+        this.nodeMultipliersContainer.removeChild(removedNode);
+        this.multiplierList.shift();
+        this.removedList.push(firstMultiplier);
+    }
+
+    scrollUp() {
+        this.multiplierTopIndex = 0;
         this.scrollTween?.stop();
-        this.currentMaxMultiplierCol = this.defaultMultiplierList[this.defaultMultiplierList.length - 1];
         this.scrollTween = tween(this.nodeMultipliersContainer)
+            .call(() => {
+                this.initDefaultMultiplier();
+                this.removedList = [];
+            })
+            .delay(0.1)
             .to(
                 1,
                 {
@@ -87,11 +96,19 @@ export default class ColMultipliers extends Component {
     }
 
     calcMultipplierHeight(multiplier: number): number {
-        this.multiplierIndex = this.multiplierList.findIndex((element) => element > multiplier);
-        this.multiplierTop = +this.multiplierList[this.multiplierIndex];
-        this.multiplierBottom = +this.multiplierList[this.multiplierIndex - 1];
-        const deltaMultiplier = this.multiplierTop - this.multiplierBottom;
-        return (multiplier - this.multiplierBottom) * (this.multiplierItemHeight / deltaMultiplier);
+        const currentIndex = this.multiplierList.findIndex((element) => element > multiplier);
+
+        if (currentIndex != this.multiplierTopIndex) {
+            console.log(`change top index ${this.multiplierTopIndex}  ==> ${currentIndex}`);
+            if (currentIndex === this.multiplierList.length - 3) {
+                this.addNewMultiplier();
+            }
+            this.multiplierTopIndex = currentIndex;
+            this.multiplierTop = +this.multiplierList[this.multiplierTopIndex];
+            this.multiplierBottom = +this.multiplierList[this.multiplierTopIndex - 1];
+        }
+
+        return (multiplier - this.multiplierBottom) * (this.multiplierItemHeight / (this.multiplierTop - this.multiplierBottom));
     }
 
     convertWorldPosition(node: Node) {
@@ -101,10 +118,18 @@ export default class ColMultipliers extends Component {
         const convertRocketWorldPos = this.convertWorldPosition(rocket);
         const multiplierHeight = this.calcMultipplierHeight(multiplier);
         const multiplierBottomNode = this.nodeMultipliersContainer.getChildByName(`${this.multiplierBottom}`);
+        console.log(`multiplier ${multiplier} bottom ${multiplierBottomNode.name}`);
         const calcMultiplierPosY = this.convertWorldPosition(multiplierBottomNode)?.y + multiplierHeight;
 
+        let prefix = "";
         if (convertRocketWorldPos && calcMultiplierPosY > convertRocketWorldPos.y) {
             this.scrollDown(calcMultiplierPosY - convertRocketWorldPos.y);
+        } else {
+            prefix = "----";
         }
+
+        // console.log(
+        //     `${prefix} multiplier: ${multiplier},convertRocketWorldPos: ${convertRocketWorldPos.y}, calcMultiplierPosY: ${calcMultiplierPosY}`
+        // );
     }
 }

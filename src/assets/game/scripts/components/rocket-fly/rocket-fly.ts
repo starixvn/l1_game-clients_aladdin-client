@@ -124,7 +124,6 @@ export class RocketFly extends ObserverComponent {
         const rawX = time / 1000;
         if (rawX > limitMaxX) {
             this.cpnColMultipliers.needScrollDown(this.cpnRocket.node, this.currentMultiplier);
-            this.flyInterval && clearInterval(this.flyInterval);
             return;
         }
         const rawY = Math.pow(rawX, 3) / 250; //equation: (x^3)/100
@@ -138,7 +137,7 @@ export class RocketFly extends ObserverComponent {
         const eulerAngle = this.startRotation + toDegree(Math.atan2(delta.y, delta.x));
 
         this.cpnRocket.updateRotation(eulerAngle, true);
-        this.cpnRocket.updatePosition(newPosition, true);
+        this.cpnRocket.updatePosition(newPosition, true, 0.1);
         this.cpnColMultipliers.needScrollDown(this.cpnRocket.node, this.currentMultiplier);
 
         this.prevRocketPosition = newPosition;
@@ -163,6 +162,6 @@ export class RocketFly extends ObserverComponent {
         const rawX = time / 1000;
         const x = rawX / this.diagramMaxX;
         const baseSpeed = 1;
-        return Math.pow(1 - x, 4) * this.speedRate + baseSpeed;
+        return Math.pow(1 - x, 8) * this.speedRate + baseSpeed;
     }
 }
