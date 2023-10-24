@@ -5,6 +5,7 @@ import { ObserverComponent } from "../../../../../extensions/shared-components/a
 import { EarlyBetUIHandlers } from "./early-bet-ui-handler";
 import { EarlyBetStore } from "./early-bet-store";
 import AutoCashOutStore from "../../../../../extensions/shared-components/assets/game/auto-cash-out/scripts/stores/auto-cash-out-store";
+import AutoCashOutHandler from "../../../../../extensions/shared-components/assets/game/auto-cash-out/scripts/handlers/auto-cash-out-handler";
 const { handle, render } = Observer;
 const { property, ccclass } = _decorator;
 const { CrashBet, Bet, Rounds } = gc;
@@ -67,6 +68,11 @@ export default class EarlyBetButton extends ObserverComponent {
         this.amount = betAmount;
     }
 
+    @handle(AutoCashOutHandler, (handle, enable: boolean) => handle.handleDisableAuto(!enable))
+    enableAutoCashout() {
+        return true;
+    }
+
     @handle(EarlyBetUIHandlers, (handle, enable: boolean) => handle.handle(enable))
     onClickEarlyBet() {
         return !this.enableCancelBet;
@@ -91,11 +97,13 @@ export default class EarlyBetButton extends ObserverComponent {
             }
         } else if ((this.betAmountAccept < 1 && remaining <= 0) || (isShowResult && !this.enableCancelBet)) {
             this.node.active = true;
+            this.enableAutoCashout();
             this.setStatusEarlyBet(false);
             this.enableCancelBet = false;
             this.disableEarlyBet();
         } else if (isShowResult && this.enableCancelBet) {
             this.node.active = true;
+            this.enableAutoCashout();
             this.setStatusEarlyBet(true);
         }
     }
@@ -105,6 +113,7 @@ export default class EarlyBetButton extends ObserverComponent {
         this.enableCancelBet = false;
         return { autoCashOut: this.isEnableAutoCashOut ? this.valueAutoCashOut : undefined, amount: this.amount };
     }
+
     setStatusEarlyBet(selected: boolean) {
         this.bgWaiting.node.active = this.sprWaiting.node.active = this.sprCancel.node.active = selected;
         this.sprPlaceBet.node.active = this.bgPlaceBet.node.active = this.sprNextRound.node.active = !selected;

@@ -38,7 +38,7 @@ export default class ColMultipliers extends Component {
     }
 
     addItem(multiplier: number) {
-        console.log("add multiplier: " + multiplier);
+        //console.log("add multiplier: " + multiplier);
         const node = instantiate(this.prfMultiplierItem);
         node.name = multiplier.toString();
         node && this.nodeMultipliersContainer.addChild(node);
@@ -52,7 +52,7 @@ export default class ColMultipliers extends Component {
     }
 
     scrollDown(transitionY: number) {
-        console.log("scrollDown  : " + transitionY);
+        //console.log("scrollDown  : " + transitionY);
         this.scrollTween?.stop();
         this.scrollTween = tween(this.nodeMultipliersContainer)
             .by(0.1, {

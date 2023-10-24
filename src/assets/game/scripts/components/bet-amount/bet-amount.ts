@@ -6,7 +6,7 @@ import gc from "@sg/game-client-base";
 import { EarlyBetStore } from "../bet/early-bet-store";
 const { ccclass, property } = _decorator;
 const { handle, render } = Observer;
-const { Bet, Rounds } = gc;
+const { Bet } = gc;
 
 @ccclass
 export class BetAmount extends ObserverComponent {
@@ -19,7 +19,6 @@ export class BetAmount extends ObserverComponent {
 
     @render(AutoPlayStore, (store) => store.isAutoPlay)
     updateDisabledNode(autoPlay: boolean) {
-        console.log("updateDisabledNode");
         this.showHideDisabledNode(autoPlay);
     }
 
@@ -33,12 +32,5 @@ export class BetAmount extends ObserverComponent {
     @render(EarlyBetStore, (store) => store.earlyBet)
     withEarlyBet(early: boolean) {
         this.showHideDisabledNode(early);
-    }
-
-    @render(Rounds.RoundTimeStore, (store) => store.remaining)
-    withRocketFly(remaining: number) {
-        if (remaining <= 0) {
-            this.showHideDisabledNode(false);
-        }
     }
 }

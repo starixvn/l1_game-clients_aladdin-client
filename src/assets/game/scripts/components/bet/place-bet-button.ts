@@ -56,20 +56,22 @@ export default class PlaceBetButton extends ObserverComponent {
 
     @render(Bet.BetStore, (store) => store.lastReceivedBet)
     updateStatusPlaceBet(lastReceivedBet: any) {
-        if (lastReceivedBet && lastReceivedBet.value > 0) {
-            this.setStatusBet(true);
-            this.isBetAccepted = true;
-            this.placeBetNotice.active = true;
-            this.adjustMultiplier(false);
-            setTimeout(() => {
-                this.placeBetNotice.active = false;
-            }, 3000);
+        if (!lastReceivedBet || lastReceivedBet.value <= 0 || lastReceivedBet.value !== this.amount) {
+            return;
         }
+
+        this.setStatusBet(true);
+        this.isBetAccepted = true;
+        this.placeBetNotice.active = true;
+        this.disableAutoCashout(true);
+        setTimeout(() => {
+            this.placeBetNotice.active = false;
+        }, 3000);
     }
 
-    @handle(AutoCashOutHandler, (handle, enable: boolean) => handle.handleEnable(enable))
-    adjustMultiplier(enable: boolean) {
-        return enable;
+    @handle(AutoCashOutHandler, (handle, disable: boolean) => handle.handleDisableAuto(disable))
+    disableAutoCashout(disable: boolean) {
+        return disable;
     }
 
     @render(AutoCashOutStore, (store) => store.enable)
@@ -100,38 +102,40 @@ export default class PlaceBetButton extends ObserverComponent {
     }))
     showPlaceBet(data: { isPlacingBet: boolean; remaining: number; isLockingBet: boolean; isShowResult: boolean }) {
         const { isPlacingBet, remaining, isLockingBet, isShowResult } = data;
+
         if (remaining <= 0) {
-            this.isBetAccepted = false;
-            this.node.active = false;
-            this.setStatusBet(false);
-            this.adjustMultiplier(true);
-        }
-
-        if (isShowResult) {
+            this.handleNoRemaining();
+        } else if (isShowResult) {
             this.updateValueEndBet();
+        } else if (isPlacingBet) {
+            this.handlePlacingBet();
+        } else if (isLockingBet && !this.isBetAccepted) {
+            this.handleBlockBet(true);
         }
+    }
+    handleNoRemaining() {
+        this.isBetAccepted = false;
+        this.node.active = false;
+        this.setStatusBet(false);
+    }
 
-        if (isPlacingBet) {
-            this.node.active = true;
-            if (this.earlyBet || this.isBetAccepted) {
-                this.isBetAccepted = true;
-                this.setStatusBet(true);
-            } else this.setStatusBet(false);
-        }
-
-        if (isLockingBet && !this.isBetAccepted) {
-            this.lockBet(true);
+    handlePlacingBet() {
+        this.node.active = true;
+        if (this.earlyBet || this.isBetAccepted) {
             this.isBetAccepted = true;
+            this.setStatusBet(true);
+        } else {
+            this.setStatusBet(false);
         }
     }
 
     setStatusBet(selected: boolean) {
         this.bgWaiting.node.active = this.sprBetAccepted.node.active = selected;
         this.sprPlaceBet.node.active = this.bgPlaceBet.node.active = !selected;
-        this.lockBet(false);
+        this.handleBlockBet(false);
     }
 
-    lockBet(disable: boolean) {
+    handleBlockBet(disable: boolean) {
         this.bgDisable.node.active = disable;
     }
 
