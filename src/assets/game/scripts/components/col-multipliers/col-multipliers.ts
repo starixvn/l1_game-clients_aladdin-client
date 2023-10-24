@@ -38,7 +38,6 @@ export default class ColMultipliers extends Component {
     }
 
     addItem(multiplier: number) {
-        //console.log("add multiplier: " + multiplier);
         const node = instantiate(this.prfMultiplierItem);
         node.name = multiplier.toString();
         node && this.nodeMultipliersContainer.addChild(node);
@@ -51,14 +50,8 @@ export default class ColMultipliers extends Component {
         this.multiplierList.push(multiplier);
     }
 
-    scrollDown(transitionY: number) {
-        //console.log("scrollDown  : " + transitionY);
-        this.scrollTween?.stop();
-        this.scrollTween = tween(this.nodeMultipliersContainer)
-            .by(0.1, {
-                position: v3(0, -transitionY, 0),
-            })
-            .start();
+    private findMultiplierIndex(multiplier: number): number {
+        return this.multiplierList.findIndex((item) => item >= multiplier);
     }
 
     private addNewMultiplier() {
@@ -74,7 +67,18 @@ export default class ColMultipliers extends Component {
         this.removedList.push(firstMultiplier);
     }
 
+    scrollDown(transitionY: number) {
+        this.scrollTween?.stop();
+        this.scrollTween = tween(this.nodeMultipliersContainer)
+            .by(0.1, {
+                position: v3(0, -transitionY, 0),
+            })
+            .start();
+    }
+
     scrollUp() {
+        this.multiplierBottom = 0;
+        this.multiplierTop = 0;
         this.scrollTween?.stop();
         this.initDefaultMultiplier();
         this.scrollTween = tween(this.nodeMultipliersContainer)
@@ -88,27 +92,37 @@ export default class ColMultipliers extends Component {
             .start();
     }
 
-    calcMultipplierHeight(multiplier: number): number {
-        const currentIndex = this.multiplierList.findIndex((element) => element > multiplier);
+    handleMultiplier(multiplier: number) {
+        const currentIndex = this.findMultiplierIndex(multiplier);
         const multiplierTop = this.multiplierList[currentIndex];
 
         if (multiplierTop != this.multiplierTop) {
             if (currentIndex === this.multiplierList.length - 3) {
                 this.addNewMultiplier();
             }
+
+            if (this.findMultiplierIndex(this.multiplierBottom) > 2) {
+                this.removeFirstMultiplier();
+            }
+
             this.multiplierTop = this.multiplierList[currentIndex];
             this.multiplierBottom = this.multiplierList[currentIndex - 1];
         }
+    }
 
+    calcMultiplierHeight(multiplier: number): number {
         return (multiplier - this.multiplierBottom) * (this.multiplierItemHeight / (this.multiplierTop - this.multiplierBottom));
     }
 
     convertWorldPosition(node: Node) {
         return node?.getComponent(UITransform)?.convertToWorldSpaceAR(v3(0, 0, 0));
     }
+
     needScrollDown(rocket: Node, multiplier: number) {
+        this.handleMultiplier(multiplier);
+
         const convertRocketWorldPos = this.convertWorldPosition(rocket);
-        const multiplierHeight = this.calcMultipplierHeight(multiplier);
+        const multiplierHeight = this.calcMultiplierHeight(multiplier);
         const multiplierBottomNode = this.nodeMultipliersContainer.getChildByName(`${this.multiplierBottom}`);
         const calcMultiplierPosY = this.convertWorldPosition(multiplierBottomNode)?.y + multiplierHeight;
 

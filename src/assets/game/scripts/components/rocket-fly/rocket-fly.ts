@@ -45,7 +45,6 @@ export class RocketFly extends ObserverComponent {
         this.cpnRocket.setRocketVisibility(false);
         this.cpnRocket.setExplosionRocketVisibility(false);
         this.cpnRocket.updatePosition(this.startPosition);
-        this.nodeRocketLine.active = false;
         this.cpnColMultipliers = this.nodeColMultiplier.getComponent(ColMultipliers);
     }
 
@@ -100,7 +99,6 @@ export class RocketFly extends ObserverComponent {
         this.cpnRocket.setRocketVisibility(true);
         this.cpnRocket.setExplosionRocketVisibility(false);
         this.cpnRocket.updateRotation(0);
-        this.nodeRocketLine.active = false;
         this.resetStartPosition();
         this.cpnColMultipliers.scrollUp();
     }
@@ -122,7 +120,7 @@ export class RocketFly extends ObserverComponent {
         const limitMaxX = this.grapMaxX * 0.9;
         const rawX = time / 1000;
         if (rawX > limitMaxX) {
-            this.cpnColMultipliers.needScrollDown(this.cpnRocket.node, this.currentMultiplier);
+            this.cpnColMultipliers.needScrollDown(this.cpnRocket.nodeRocketHead, this.currentMultiplier);
             return;
         }
         const rawY = Math.pow(rawX, 3) / 250; //equation: (x^3)/100
@@ -148,7 +146,6 @@ export class RocketFly extends ObserverComponent {
         }
 
         this.flyInterval && clearInterval(this.flyInterval);
-        this.nodeRocketLine.active = false;
         this.firstMultiplierRound = false;
         this.cpnRocket.stopAnimation();
         this.cpnRocket.setRocketVisibility(false);
