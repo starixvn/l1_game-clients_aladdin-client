@@ -24,8 +24,8 @@ export class RocketFly extends ObserverComponent {
     nodeColMultiplier: Node = null;
 
     private readonly startRotation = -90;
-    private readonly diagramWidth = 1098;
-    private readonly diagramMaxX = 10;
+    private readonly grapWidth = 1098;
+    private readonly grapMaxX = 10;
     private readonly speedRate = 2;
     private currentMultiplier = 0;
     private deltaTime = 0;
@@ -119,7 +119,7 @@ export class RocketFly extends ObserverComponent {
 
         const time = this.deltaTime * this.getTimerRate();
 
-        const limitMaxX = this.diagramMaxX * 0.9;
+        const limitMaxX = this.grapMaxX * 0.9;
         const rawX = time / 1000;
         if (rawX > limitMaxX) {
             this.cpnColMultipliers.needScrollDown(this.cpnRocket.node, this.currentMultiplier);
@@ -127,7 +127,7 @@ export class RocketFly extends ObserverComponent {
         }
         const rawY = Math.pow(rawX, 3) / 250; //equation: (x^3)/100
 
-        const scale = this.diagramWidth / this.diagramMaxX;
+        const scale = this.grapWidth / this.grapMaxX;
         const newPosition = v3(rawX * scale, rawY * scale);
         const delta = {
             x: newPosition.x - this.prevRocketPosition.x,
@@ -159,7 +159,7 @@ export class RocketFly extends ObserverComponent {
     getTimerRate() {
         const time = this.deltaTime;
         const rawX = time / 1000;
-        const x = rawX / this.diagramMaxX;
+        const x = rawX / this.grapMaxX;
         const baseSpeed = 1;
         return Math.pow(1 - x, 4) * this.speedRate + baseSpeed;
     }

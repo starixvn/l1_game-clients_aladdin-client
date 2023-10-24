@@ -1,4 +1,3 @@
-import { AutoPlayHandler } from "./../../../../extensions/shared-components/assets/game/auto-play/scripts/handlers/auto-play-handler";
 import "./../../../resources/i18n";
 
 import gc from "@sg/game-client-base";
@@ -10,6 +9,7 @@ import Observer from "observer";
 
 import { siteConfigs } from "../../../scripts/site-configs";
 import { containerOptions, settings } from "../game-settings";
+import { AutoPlayHandler } from "./../../../../extensions/shared-components/assets/game/auto-play/scripts/handlers/auto-play-handler";
 import { RocketFly } from "./rocket-fly/rocket-fly";
 
 const { Settlements, Rounds, Translator } = gc;
@@ -35,8 +35,8 @@ export default class Game extends GameComponent {
 
     override namespace = settings.name;
     override containerOptions = containerOptions;
-    cpnRocketFly: RocketFly = null;
-    smallExplosion = 1.02;
+    private cpnRocketFly: RocketFly = null;
+    private readonly smallExplosion = 1.02;
 
     onLoad() {
         super.onLoad();
