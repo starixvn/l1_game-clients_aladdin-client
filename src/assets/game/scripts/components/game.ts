@@ -1,3 +1,4 @@
+import { AutoPlayHandler } from "./../../../../extensions/shared-components/assets/game/auto-play/scripts/handlers/auto-play-handler";
 import "./../../../resources/i18n";
 
 import gc from "@sg/game-client-base";
@@ -48,7 +49,11 @@ export default class Game extends GameComponent {
         if (!result) {
             return;
         }
+
         this.showResult(result, true).then(() => {
+            setTimeout(() => {
+                this.updateAutoPlayMode();
+            }, 2000);
             this.finishShowResult(result, settlementResult);
         });
         this.playSound(gc.Audios.AudioIds.RECEIVE_FINISH);
@@ -61,4 +66,7 @@ export default class Game extends GameComponent {
     finishShowResult(result: gc.GameServiceMessage.TResult, settlementResult: gc.GameServiceMessage.TSettlementResult) {
         super.finishShowResult(result, settlementResult);
     }
+
+    @handle(AutoPlayHandler, (handle) => handle.checkFinishedPlayMode())
+    updateAutoPlayMode() {}
 }
