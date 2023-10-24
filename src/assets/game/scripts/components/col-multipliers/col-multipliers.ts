@@ -39,7 +39,6 @@ export default class ColMultipliers extends Component {
     }
 
     addItem(multiplier: number) {
-        console.log("add multiplier: " + multiplier);
         const node = instantiate(this.prfMultiplierItem);
         node.name = multiplier.toString();
         node && this.nodeMultipliersContainer.addChild(node);
@@ -47,14 +46,12 @@ export default class ColMultipliers extends Component {
         const itemPosY = this.multiplierContainerSize.height;
         node.position = v3(0, itemPosY, 0);
         this.multiplierContainerSize.height = this.multiplierItemHeight + itemPosY;
-        // console.log(`multiplierContainerSize: ${this.multiplierContainerSize.height}`);
         const comp = node.getComponent(ColMultiplierItem);
         comp?.setMultiplier(multiplier);
         this.multiplierList.push(multiplier);
     }
 
     scrollDown(transitionY: number) {
-        console.log("scrollDown  : " + transitionY);
         this.scrollTween?.stop();
         this.scrollTween = tween(this.nodeMultipliersContainer)
             .by(0.1, {
@@ -85,13 +82,9 @@ export default class ColMultipliers extends Component {
                 this.removedList = [];
             })
             .delay(0.1)
-            .to(
-                1,
-                {
-                    position: v3(0, 0, 0),
-                },
-                { easing: "sineOut" }
-            )
+            .to(1, {
+                position: v3(0, 0, 0),
+            })
             .start();
     }
 
@@ -99,7 +92,6 @@ export default class ColMultipliers extends Component {
         const currentIndex = this.multiplierList.findIndex((element) => element > multiplier);
 
         if (currentIndex != this.multiplierTopIndex) {
-            console.log(`change top index ${this.multiplierTopIndex}  ==> ${currentIndex}`);
             if (currentIndex === this.multiplierList.length - 3) {
                 this.addNewMultiplier();
             }
@@ -118,7 +110,6 @@ export default class ColMultipliers extends Component {
         const convertRocketWorldPos = this.convertWorldPosition(rocket);
         const multiplierHeight = this.calcMultipplierHeight(multiplier);
         const multiplierBottomNode = this.nodeMultipliersContainer.getChildByName(`${this.multiplierBottom}`);
-        console.log(`multiplier ${multiplier} bottom ${multiplierBottomNode.name}`);
         const calcMultiplierPosY = this.convertWorldPosition(multiplierBottomNode)?.y + multiplierHeight;
 
         let prefix = "";

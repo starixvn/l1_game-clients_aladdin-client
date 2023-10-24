@@ -17,7 +17,7 @@ export class BackgroundControl extends ObserverComponent {
     @property(sp.Skeleton)
     skeBackground: sp.Skeleton = null;
 
-    private readonly maxMultiplierReach = 7;
+    private readonly maxMultiplierReach = 6;
     private isChangeAnim = false;
 
     @render(gc.CrashMultiplier.MultiplierStore, (store) => store.multiplier, { fireImmediately: false })

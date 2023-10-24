@@ -75,7 +75,7 @@ export class RocketFly extends ObserverComponent {
     private setCurrentMultiplier(multiplier: number) {
         this.currentMultiplier = multiplier;
 
-        if (!this.firstMultiplierRound) {
+        if (this.isReady && !this.firstMultiplierRound) {
             this.cpnRocket.setRocketAnim(RocketAnim.FLY, true);
             this.flyInterval && clearInterval(this.flyInterval);
             this.deltaTime = 0;
@@ -84,9 +84,8 @@ export class RocketFly extends ObserverComponent {
                 this.deltaTime += rocketIntervalTime;
                 this.animate();
             }, rocketIntervalTime);
+            this.firstMultiplierRound = true;
         }
-
-        this.firstMultiplierRound = true;
     }
 
     @render(gc.Rounds.RoundTimeStore, (store) => store.isStartRound)
@@ -162,6 +161,6 @@ export class RocketFly extends ObserverComponent {
         const rawX = time / 1000;
         const x = rawX / this.diagramMaxX;
         const baseSpeed = 1;
-        return Math.pow(1 - x, 8) * this.speedRate + baseSpeed;
+        return Math.pow(1 - x, 4) * this.speedRate + baseSpeed;
     }
 }
