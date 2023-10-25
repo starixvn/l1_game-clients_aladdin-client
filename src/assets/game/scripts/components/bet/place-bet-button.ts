@@ -1,13 +1,13 @@
 import gc from "@sg/game-client-base";
 import { Node, Sprite, _decorator } from "cc";
 import Observer from "observer";
+import AutoCashOutHandler from "../../../../../extensions/shared-components/assets/game/auto-cash-out/scripts/handlers/auto-cash-out-handler";
+import AutoCashOutStore from "../../../../../extensions/shared-components/assets/game/auto-cash-out/scripts/stores/auto-cash-out-store";
 import { AutoPlayHandler } from "../../../../../extensions/shared-components/assets/game/auto-play/scripts/handlers/auto-play-handler";
 import { AutoPlayStore } from "../../../../../extensions/shared-components/assets/game/auto-play/scripts/stores/auto-play-store";
 import { BetInputStore } from "../../../../../extensions/shared-components/assets/game/bet-input/scripts/stores/bet-input-store";
 import { ObserverComponent } from "../../../../../extensions/shared-components/assets/shared/common-components/observer-component/scripts/observer-component";
 import { EarlyBetStore } from "./early-bet-store";
-import AutoCashOutStore from "../../../../../extensions/shared-components/assets/game/auto-cash-out/scripts/stores/auto-cash-out-store";
-import AutoCashOutHandler from "../../../../../extensions/shared-components/assets/game/auto-cash-out/scripts/handlers/auto-cash-out-handler";
 const { handle, render } = Observer;
 const { property, ccclass } = _decorator;
 const { CrashBet, Bet, Rounds } = gc;
@@ -54,7 +54,7 @@ export default class PlaceBetButton extends ObserverComponent {
         this.earlyBet = enable;
     }
 
-    @render(Bet.BetStore, (store) => store.lastReceivedBet)
+    @render(Bet.BetStore, (store) => store.cashoutBet)
     updateStatusPlaceBet(lastReceivedBet: any) {
         if (!lastReceivedBet || lastReceivedBet.value <= 0 || lastReceivedBet.value !== this.amount) {
             return;
