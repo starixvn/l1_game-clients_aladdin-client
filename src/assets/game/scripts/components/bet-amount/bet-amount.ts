@@ -1,8 +1,8 @@
+import gc from "@sg/game-client-base";
 import { _decorator, Node } from "cc";
 import Observer from "observer";
 import { AutoPlayStore } from "../../../../../extensions/shared-components/assets/game/auto-play/scripts/stores/auto-play-store";
 import { ObserverComponent } from "../../../../../extensions/shared-components/assets/shared/common-components/observer-component/scripts/observer-component";
-import gc from "@sg/game-client-base";
 import { EarlyBetStore } from "../bet/early-bet-store";
 const { ccclass, property } = _decorator;
 const { handle, render } = Observer;
@@ -26,6 +26,8 @@ export class BetAmount extends ObserverComponent {
     withBetAccepted(lastReceivedBet: any) {
         if (lastReceivedBet && lastReceivedBet.value > 0) {
             this.showHideDisabledNode(true);
+        } else {
+            this.showHideDisabledNode(false);
         }
     }
 
