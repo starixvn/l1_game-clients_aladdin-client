@@ -33,9 +33,20 @@ export class CashOutButton extends ObserverComponent {
         }
     }
 
-    @render(Bet.BetStore, (store) => store.cashoutBet)
-    updateBetValue(lastReceivedBet: any) {
-        this.bet = CashOutComponent.getBetValue(lastReceivedBet);
+    @render(CrashCashOut.CrashCashoutStore, (store) => store.cashoutBet)
+    updateBetValue(cashoutBet: any) {
+        this.bet = CashOutComponent.getBetValue(cashoutBet);
+    }
+
+    @render(Bet.BetStore, (store) => store.lastReceivedBet)
+    assignCashoutBetValue(lastReceivedBet: any) {
+        this.updateCashoutBetValue(lastReceivedBet);
+    }
+    @handle(CrashCashOut.CrashCashOutUIHandlers, (cashOutHandler, cashOutBetValue: number) =>
+        cashOutHandler.updateCashoutBetValue(cashOutBetValue)
+    )
+    updateCashoutBetValue(lastReceivedBet: any) {
+        return CashOutComponent.getBetValue(lastReceivedBet);
     }
 
     @render(Rounds.RoundTimeStore, (store) => store.remaining)
