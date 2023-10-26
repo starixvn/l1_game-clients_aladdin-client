@@ -54,7 +54,7 @@ export default class PlaceBetButton extends ObserverComponent {
         this.earlyBet = enable;
     }
 
-    @render(Bet.BetStore, (store) => store.cashoutBet)
+    @render(Bet.BetStore, (store) => store.lastReceivedBet)
     updateStatusPlaceBet(lastReceivedBet: any) {
         if (!lastReceivedBet || lastReceivedBet.value <= 0 || lastReceivedBet.value !== this.amount) {
             return;
