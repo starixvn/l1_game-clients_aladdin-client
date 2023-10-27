@@ -35,6 +35,8 @@ export default class ColMultipliers extends Component {
         this.defaultMultiplierList.forEach((multiplier) => {
             this.addItem(multiplier);
         });
+        this.multiplierBottom = this.multiplierList[0];
+        this.multiplierTop = this.multiplierList[1];
     }
 
     addItem(multiplier: number) {
@@ -77,8 +79,6 @@ export default class ColMultipliers extends Component {
     }
 
     scrollUp() {
-        this.multiplierBottom = 0;
-        this.multiplierTop = 0;
         this.scrollTween?.stop();
         this.initDefaultMultiplier();
         this.scrollTween = tween(this.nodeMultipliersContainer)
@@ -96,7 +96,7 @@ export default class ColMultipliers extends Component {
         const currentIndex = this.findMultiplierIndex(multiplier);
         const multiplierTop = this.multiplierList[currentIndex];
 
-        if (multiplierTop != this.multiplierTop) {
+        if (multiplierTop != this.multiplierTop && currentIndex > 0) {
             if (currentIndex === this.multiplierList.length - 3) {
                 this.addNewMultiplier();
             }
