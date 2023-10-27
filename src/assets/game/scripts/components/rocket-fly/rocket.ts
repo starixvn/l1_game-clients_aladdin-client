@@ -21,8 +21,12 @@ export class Rocket extends Component {
     @property(Node)
     nodeRocketHead: Node = null;
 
+    @property(Node)
+    nodeSpaceMan: Node = null;
+
     skeExplosion: sp.Skeleton = null;
     skeRocket: sp.Skeleton = null;
+    skeSpaceMan: sp.Skeleton = null;
     private rotationTween: Tween<Node>;
     private positionTween: Tween<Node>;
     private explositionTween: Tween<Node>;
@@ -30,6 +34,12 @@ export class Rocket extends Component {
     onLoad() {
         this.skeRocket = this.rocket.getComponent(sp.Skeleton);
         this.skeExplosion = this.explosion.getComponent(sp.Skeleton);
+        this.skeSpaceMan = this.nodeSpaceMan.getComponent(sp.Skeleton);
+    }
+
+    setSpaceManVisibility(status: boolean) {
+        this.nodeSpaceMan.active = status;
+        status && this.skeSpaceMan.setAnimation(0, "action", false);
     }
 
     setRocketAnim(name: string, loop: boolean) {

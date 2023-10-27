@@ -36,7 +36,7 @@ export class RocketFly extends ObserverComponent {
     private cpnColMultipliers: ColMultipliers;
     private prevRocketPosition: Vec3;
     private startPosition: Vec3;
-    private maxTimeTopRocketFly = 12000; // seconds
+    private maxTimeTopRocketFly = 12000; //milliseconds
 
     onLoad() {
         super.onLoad();
@@ -52,12 +52,7 @@ export class RocketFly extends ObserverComponent {
     @render(gc.Rounds.RoundTimeStore, (store) => store.isStaringLocking)
     rotateRocketWhenStart(isStaringLocking: boolean) {
         if (isStaringLocking) {
-            tween(this.cpnRocket.node)
-                .to(2, { eulerAngles: v3(0, 0, this.startRotation) }, { easing: "sineOut" })
-                .call(() => {
-                    this.cpnRocket.setRocketAnim(RocketAnim.START, true);
-                })
-                .start();
+            this.cpnRocket.setRocketAnim(RocketAnim.START, true);
         }
     }
 
@@ -100,9 +95,24 @@ export class RocketFly extends ObserverComponent {
         this.cpnRocket.stopAnimation();
         this.cpnRocket.setRocketVisibility(true);
         this.cpnRocket.setExplosionRocketVisibility(false);
-        this.cpnRocket.updateRotation(0);
         this.resetStartPosition();
         this.cpnColMultipliers.scrollUp();
+
+        tween(this.cpnRocket.node)
+            .call(() => {
+                this.cpnRocket.updateRotation(0);
+            })
+            .delay(3)
+            .call(() => {
+                this.cpnRocket.setSpaceManVisibility(true);
+            })
+            .delay(2)
+            .call(() => {
+                this.cpnRocket.setSpaceManVisibility(false);
+            })
+            .to(2, { eulerAngles: v3(0, 0, this.startRotation) }, { easing: "sineOut" })
+            .union()
+            .start();
     }
 
     private resetStartPosition() {
