@@ -36,7 +36,7 @@ export class RocketFly extends ObserverComponent {
     private cpnColMultipliers: ColMultipliers;
     private prevRocketPosition: Vec3;
     private startPosition: Vec3;
-    private maxTimeTopRocketFly = 12; // seconds
+    private maxTimeTopRocketFly = 12000; // seconds
 
     onLoad() {
         super.onLoad();
@@ -53,7 +53,7 @@ export class RocketFly extends ObserverComponent {
     rotateRocketWhenStart(isStaringLocking: boolean) {
         if (isStaringLocking) {
             tween(this.cpnRocket.node)
-                .to(1, { eulerAngles: v3(0, 0, this.startRotation) }, { easing: "sineOut" })
+                .to(2, { eulerAngles: v3(0, 0, this.startRotation) }, { easing: "sineOut" })
                 .call(() => {
                     this.cpnRocket.setRocketAnim(RocketAnim.START, true);
                 })
@@ -69,6 +69,7 @@ export class RocketFly extends ObserverComponent {
 
         this.deltaTime = time;
         this.receivedMultiplierTimes += 1;
+        this.cpnColMultipliers.createDefaultMultiplierList(this.currentMultiplier);
     }
 
     @render(gc.CrashMultiplier.MultiplierStore, (store) => store.multiplier, { fireImmediately: false })
@@ -125,11 +126,10 @@ export class RocketFly extends ObserverComponent {
             acc = this.getTimerRate();
         }
 
-        console.log("time", acc);
         const time = this.deltaTime * acc;
         const rawX = time / 1400;
 
-        if (this.deltaTime / 1000 > this.maxTimeTopRocketFly) {
+        if (this.deltaTime > this.maxTimeTopRocketFly) {
             this.cpnColMultipliers.needScrollDown(this.cpnRocket.nodeRocketHead, this.currentMultiplier);
             return;
         }

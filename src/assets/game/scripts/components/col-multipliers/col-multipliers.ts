@@ -1,20 +1,21 @@
-import { _decorator, Component, instantiate, Node, Prefab, Tween, tween, UITransform, v3 } from "cc";
+import { _decorator, instantiate, Node, Prefab, Tween, tween, UITransform, v3 } from "cc";
 import Observer from "observer";
 
+import { ObserverComponent } from "../../../../../extensions/shared-components/assets/shared/common-components/observer-component/scripts/observer-component";
 import { ColMultiplierItem } from "./col-multiplier-item";
 
 const { ccclass, property } = _decorator;
 const { render, handle } = Observer;
 
 @ccclass
-export default class ColMultipliers extends Component {
+export default class ColMultipliers extends ObserverComponent {
     @property(Node)
     nodeMultipliersContainer: Node = null;
 
     @property(Prefab)
     prfMultiplierItem: Prefab = null;
 
-    defaultMultiplierList = [1, 2, 3, 4, 8];
+    startMultiplierList = [1, 2, 3, 4, 8];
     multiplierList = [];
     removedList = [];
     multiplierItemHeight = 178;
@@ -24,7 +25,16 @@ export default class ColMultipliers extends Component {
     multiplierContainerSize: UITransform;
 
     onLoad() {
+        super.onLoad();
         this.initDefaultMultiplier();
+    }
+
+    createDefaultMultiplierList(multiplier: number) {
+        multiplier = Math.floor(multiplier);
+        if (multiplier / 4 > 8) {
+            this.startMultiplierList = [multiplier / 4, multiplier / 2, multiplier, multiplier * 2, multiplier * 4];
+            this.initDefaultMultiplier();
+        }
     }
 
     initDefaultMultiplier() {
@@ -32,7 +42,7 @@ export default class ColMultipliers extends Component {
         this.multiplierContainerSize.height = 0;
         this.nodeMultipliersContainer.destroyAllChildren();
         this.multiplierList = [];
-        this.defaultMultiplierList.forEach((multiplier) => {
+        this.startMultiplierList.forEach((multiplier) => {
             this.addItem(multiplier);
         });
         this.multiplierBottom = this.multiplierList[0];
@@ -80,6 +90,7 @@ export default class ColMultipliers extends Component {
 
     scrollUp() {
         this.scrollTween?.stop();
+        this.startMultiplierList = [1, 2, 3, 4, 8];
         this.initDefaultMultiplier();
         this.scrollTween = tween(this.nodeMultipliersContainer)
             .to(
@@ -101,7 +112,7 @@ export default class ColMultipliers extends Component {
                 this.addNewMultiplier();
             }
 
-            if (this.findMultiplierIndex(this.multiplierBottom) > 2) {
+            if (this.findMultiplierIndex(this.multiplierBottom) > 3) {
                 this.removeFirstMultiplier();
             }
 

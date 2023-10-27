@@ -17,12 +17,12 @@ export class BackgroundControl extends ObserverComponent {
     @property(sp.Skeleton)
     skeBackground: sp.Skeleton = null;
 
-    private readonly maxMultiplierReach = 6;
+    private readonly maxTimeTopRocketFly = 12000;
     private isChangeAnim = false;
 
-    @render(gc.CrashMultiplier.MultiplierStore, (store) => store.multiplier, { fireImmediately: false })
-    changeActionAnim(multiplier) {
-        if (multiplier >= this.maxMultiplierReach && this.isChangeAnim === false) {
+    @render(gc.CrashMultiplier.MultiplierStore, (store) => store.time, { fireImmediately: false })
+    changeActionAnim(time) {
+        if (time >= this.maxTimeTopRocketFly && this.isChangeAnim === false) {
             this.skeBackground.setAnimation(0, BackgroundType.ACTION, true);
             this.isChangeAnim = true;
         }
