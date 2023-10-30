@@ -28,11 +28,16 @@ export class StatisticsBar extends ObserverComponent {
     sprCurrentRound: Sprite = null;
 
     protected rounds: CrashRoundHistory[] = [];
+    private isPlacingBet = false;
+    private isFirstLoad = false;
 
-    @render(gc.RoundHistories.RoundHistoryStore, (store) => store.histories)
+    @render(gc.RoundHistories.RoundHistoryStore, (store) => store.histories, { fireImmediately: false })
     setRoundsInfo(rounds: CrashRoundHistory[]) {
         this.rounds = [...rounds];
-        this.updateStatisticsBarInfo(this.rounds);
+        if (!this.isFirstLoad) {
+            this.updateStatisticsBarInfo(this.rounds);
+            this.isFirstLoad = true;
+        }
     }
 
     private updateStatisticsBarInfo(rounds: CrashRoundHistory[]) {
@@ -41,7 +46,7 @@ export class StatisticsBar extends ObserverComponent {
         }
         this.content.destroyAllChildren();
         rounds.forEach((round, index) => {
-            if (index < 1) {
+            if (index > 9) {
                 return;
             }
             const node = instantiate(this.prbStatisticsItem);
@@ -49,6 +54,13 @@ export class StatisticsBar extends ObserverComponent {
             control.setData(round);
             this.content.addChild(node);
         });
+    }
+
+    @render(gc.Rounds.RoundTimeStore, (store) => store.isPlacingBet)
+    updatePlacingBet(isPlacingBet: boolean) {
+        if (isPlacingBet) {
+            this.updateStatisticsBarInfo(this.rounds);
+        }
     }
 
     @render(gc.Rounds.RoundTimeStore, (store) => store.remaining)
