@@ -1,7 +1,7 @@
 import { Label, Node, Sprite } from "cc";
 export namespace CashOutComponent {
-    export const showHideNode = (node: Node, bet: number, remaining: number) => {
-        if (bet > 0 && remaining === 0) {
+    export const showHideNode = (node: Node, isRocketFlyWithCashout: boolean, isShowPlaceBetNextRound: boolean) => {
+        if (isRocketFlyWithCashout && !isShowPlaceBetNextRound) {
             node.active = true;
         } else {
             node.active = false;

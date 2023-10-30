@@ -2,13 +2,15 @@ import gc from "@sg/game-client-base";
 import { _decorator, Sprite } from "cc";
 import Observer from "observer";
 import { ObserverComponent } from "../../../../../extensions/shared-components/assets/shared/common-components/observer-component/scripts/observer-component";
-import { EarlyBetUIHandlers } from "./early-bet-ui-handler";
+import { EarlyBetUIHandlers } from "./early-bet-ui-handlers";
 import { EarlyBetStore } from "./early-bet-store";
 import AutoCashOutStore from "../../../../../extensions/shared-components/assets/game/auto-cash-out/scripts/stores/auto-cash-out-store";
 import AutoCashOutHandler from "../../../../../extensions/shared-components/assets/game/auto-cash-out/scripts/handlers/auto-cash-out-handler";
+import { PlayerActionHandlers } from "../player-actions/player-action-handlers";
+import { PlayerActionStore } from "../player-actions/player-action-store";
 const { handle, render } = Observer;
 const { property, ccclass } = _decorator;
-const { CrashBet, Bet, Rounds } = gc;
+const { CrashBet, Rounds } = gc;
 
 @ccclass
 export default class EarlyBetButton extends ObserverComponent {
@@ -32,20 +34,11 @@ export default class EarlyBetButton extends ObserverComponent {
 
     private amount: number;
 
-    private enableCancelBet = false;
-
-    private betAmountAccept = -1;
+    private isWaitingBet = false;
 
     private isEnableAutoCashOut = false;
 
     private valueAutoCashOut = 1.01;
-
-    @render(Bet.BetStore, (store) => store.lastReceivedBet)
-    updateBetValue(lastReceivedBet: any) {
-        if (lastReceivedBet && lastReceivedBet.value >= 0) {
-            this.betAmountAccept = lastReceivedBet.value;
-        }
-    }
 
     @render(AutoCashOutStore, (store) => store.enable)
     updateStatusAutoCashOut(isEnable: boolean) {
@@ -59,8 +52,8 @@ export default class EarlyBetButton extends ObserverComponent {
 
     @render(EarlyBetStore, (store) => store.earlyBet)
     updateStatusButton(isEarlyBet: boolean) {
-        this.setStatusEarlyBet(isEarlyBet);
-        this.enableCancelBet = isEarlyBet;
+        this.setStatusButtons(isEarlyBet);
+        this.setStatusWaiting(isEarlyBet);
     }
 
     @render(EarlyBetStore, (store) => store.betAmount)
@@ -75,7 +68,7 @@ export default class EarlyBetButton extends ObserverComponent {
 
     @handle(EarlyBetUIHandlers, (handle, enable: boolean) => handle.handle(enable))
     onClickEarlyBet() {
-        return !this.enableCancelBet;
+        return !this.isWaitingBet;
     }
 
     @handle(EarlyBetUIHandlers, (handle, enable: boolean) => handle.handle(enable))
@@ -83,39 +76,66 @@ export default class EarlyBetButton extends ObserverComponent {
         return false;
     }
 
+    @handle(PlayerActionHandlers, (handle, flag: boolean) => handle.handleWaitingBet(flag))
+    handleWaitingBet(flag: boolean) {
+        return flag;
+    }
+
     @render(Rounds.RoundTimeStore, (store) => ({
         isPlacingBet: store.isPlacingBet,
-        isShowResult: store.isShowResult,
-        remaining: store.remaining,
     }))
-    showHideEarlyBet(data: { isPlacingBet: boolean; isShowResult: boolean; remaining: number }) {
-        const { isShowResult, isPlacingBet, remaining } = data;
+    acceptedEarlyBet(data: { isPlacingBet: boolean }) {
+        const { isPlacingBet } = data;
         if (isPlacingBet) {
             this.node.active = false;
-            if (this.enableCancelBet) {
+            if (this.isWaitingBet) {
                 this.autoPlaceBet();
             }
-        } else if ((this.betAmountAccept < 1 && remaining <= 0) || (isShowResult && !this.enableCancelBet)) {
-            this.node.active = true;
-            this.enableAutoCashout();
-            this.setStatusEarlyBet(false);
-            this.enableCancelBet = false;
-            this.disableEarlyBet();
-        } else if (isShowResult && this.enableCancelBet) {
-            this.node.active = true;
-            this.enableAutoCashout();
-            this.setStatusEarlyBet(true);
         }
+    }
+
+    @render(PlayerActionStore, (store) => ({
+        rocketFlyWithoutCashout: store.rocketFlyWithoutCashout,
+        showPlaceBetNextRound: store.showPlaceBetNextRound,
+        showWaitingCancelBet: store.showWaitingCancelBet,
+    }))
+    showPlaceBetNextRound(data: { rocketFlyWithoutCashout: boolean; showPlaceBetNextRound: boolean; showWaitingCancelBet: boolean }) {
+        const { rocketFlyWithoutCashout, showPlaceBetNextRound, showWaitingCancelBet } = data;
+
+        if (rocketFlyWithoutCashout || showPlaceBetNextRound) {
+            this.handleRocketFly();
+        } else if (showWaitingCancelBet) {
+            this.handleWaitingCancelBet();
+        }
+    }
+
+    handleRocketFly() {
+        this.node.active = true;
+        this.enableAutoCashout();
+        this.setStatusButtons(false);
+        this.setStatusWaiting(false);
+        this.disableEarlyBet();
+    }
+
+    handleWaitingCancelBet() {
+        this.node.active = true;
+        this.enableAutoCashout();
+        this.setStatusButtons(true);
     }
 
     @handle(CrashBet.CrashBetHandler, (handle, payload: { autoCashOut: number; amount: number }) => handle.handle(payload))
     autoPlaceBet() {
-        this.enableCancelBet = false;
+        this.setStatusWaiting(false);
         return { autoCashOut: this.isEnableAutoCashOut ? this.valueAutoCashOut : undefined, amount: this.amount };
     }
 
-    setStatusEarlyBet(selected: boolean) {
+    setStatusButtons(selected: boolean) {
         this.bgWaiting.node.active = this.sprWaiting.node.active = this.sprCancel.node.active = selected;
         this.sprPlaceBet.node.active = this.bgPlaceBet.node.active = this.sprNextRound.node.active = !selected;
+    }
+
+    setStatusWaiting(status: boolean) {
+        this.isWaitingBet = status;
+        this.handleWaitingBet(status);
     }
 }

@@ -1,0 +1,39 @@
+import inversify from "inversify";
+import gc from "@sg/game-client-base";
+import { IHandler } from "observer";
+import { PlayerActionStore } from "./player-action-store";
+const { injectable, inject } = inversify;
+
+@injectable()
+export class PlayerActionHandlers implements IHandler<boolean> {
+    @inject(PlayerActionStore)
+    protected readonly playerActionStore: PlayerActionStore;
+
+    @inject(gc.Bet.BetStore)
+    protected readonly betStore: gc.Bet.BetStore;
+
+    @inject(gc.Rounds.RoundTimeStore)
+    protected readonly roundTimeStore: gc.Rounds.RoundTimeStore;
+
+    handle(flag: boolean) {}
+
+    handleStartShowCashOutNotice(flag: boolean) {
+        this.playerActionStore.startShowCashoutNotice = flag;
+        setTimeout(() => {
+            this.handleEndShowCashOutNotice(flag);
+            this.playerActionStore.startShowCashoutNotice = false;
+        }, 2500);
+    }
+
+    handleEndShowCashOutNotice(flag: boolean) {
+        this.playerActionStore.endShowCashoutNotice = flag;
+    }
+
+    handleCashoutBet(bet: number) {
+        this.playerActionStore.cashoutBet = bet;
+    }
+
+    handleWaitingBet(flag: boolean) {
+        this.playerActionStore.waitingBet = flag;
+    }
+}

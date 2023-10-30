@@ -3,6 +3,7 @@ import { _decorator, Label } from "cc";
 import Observer from "observer";
 import { ObserverComponent } from "../../../../../extensions/shared-components/assets/shared/common-components/observer-component/scripts/observer-component";
 import { ComponentUtils } from "../../../../../extensions/shared-components/assets/shared/utils";
+import { PlayerActionHandlers } from "../player-actions/player-action-handlers";
 const { ccclass, property } = _decorator;
 const { handle, render } = Observer;
 
@@ -28,12 +29,19 @@ export class CashOutNotice extends ObserverComponent {
         if (isShow) {
             this.node.active = true;
             ComponentUtils.autoDisappear(this.node, false);
+            this.showHideNotice(true);
         } else {
             this.node.active = false;
+            this.showHideNotice(false);
         }
     }
 
     updateCashOutAmount(amount: number) {
         this.lblCashOut.string = amount.toString();
+    }
+
+    @handle(PlayerActionHandlers, (handle, flag: boolean) => handle.handleStartShowCashOutNotice(flag))
+    showHideNotice(flag: boolean) {
+        return flag;
     }
 }

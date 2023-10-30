@@ -4,6 +4,7 @@ import { Label, Sprite, _decorator } from "cc";
 import Observer from "observer";
 import { ObserverComponent } from "../../../../../extensions/shared-components/assets/shared/common-components/observer-component/scripts/observer-component";
 import { CashOutComponent } from "./cash-out-component";
+import { PlayerActionStore } from "../player-actions/player-action-store";
 
 const { handle, render } = Observer;
 const { property, ccclass } = _decorator;
@@ -51,9 +52,19 @@ export class CashOutHalfButton extends ObserverComponent {
         return CashOutComponent.getBetValue(lastReceivedBet);
     }
 
-    @render(Rounds.RoundTimeStore, (store) => store.remaining)
+   /*  @render(Rounds.RoundTimeStore, (store) => store.remaining)
     updateCashoutButtonStatus(remaining: number) {
         CashOutComponent.showHideNode(this.node, this.bet, remaining);
+    } */
+
+    @render(PlayerActionStore, (store) => ({
+        isRocketFlyWithCashout: store.rocketFlyWithCashout,
+        isShowPlaceBetNextRound: store.showPlaceBetNextRound,
+    }))
+    
+    updateCashoutButtonStatus(data: { isRocketFlyWithCashout: boolean; isShowPlaceBetNextRound: boolean }) {
+        const { isRocketFlyWithCashout, isShowPlaceBetNextRound } = data;
+        CashOutComponent.showHideNode(this.node, isRocketFlyWithCashout, isShowPlaceBetNextRound);
     }
 
     @handle(CrashCashOut.CrashCashOutUIHandlers, (cashOutHandler, cashOutValue: number) => cashOutHandler.handle(cashOutValue, true))
