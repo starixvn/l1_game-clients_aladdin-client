@@ -37,7 +37,6 @@ export class StatisticsBar extends ObserverComponent {
             return;
         }
         this.content.destroyAllChildren();
-
         rounds.forEach((round, index) => {
             if (index < 1) {
                 return;
@@ -47,5 +46,43 @@ export class StatisticsBar extends ObserverComponent {
             control.setData(round);
             this.content.addChild(node);
         });
+    }
+
+    @render(gc.Rounds.RoundTimeStore, (store) => store.remaining)
+    showHideLabelText(remaining: number) {
+        const isShow = remaining === 0 ? false : true;
+        this.showHideNode(isShow);
+    }
+
+    @render(gc.Rounds.RoundTimeStore, (store) => ({
+        countdownTimer: store.countdownTimer,
+        isPlacingBet: store.isPlacingBet,
+        isLockingBet: store.isLocking,
+    }))
+    updateLabelText({
+        countdownTimer,
+        isPlacingBet,
+        isLockingBet,
+    }: {
+        countdownTimer: number;
+        isPlacingBet: boolean;
+        isLockingBet: boolean;
+    }) {
+        if (countdownTimer < 11 && countdownTimer > 0 && (isPlacingBet || isLockingBet)) {
+            this.updateValueLblCurrRound(countdownTimer, true);
+        }
+    }
+
+    showHideNode(isShow: boolean) {
+        this.lblValueCurrentRound.node.active = isShow;
+        this.sprCurrentRound.node.active = !isShow;
+    }
+
+    updateValueLblCurrRound(value: number, isCountDown: boolean) {
+        if (isCountDown) {
+            this.lblValueCurrentRound.string = `${value}s`;
+        } else {
+            this.lblValueCurrentRound.string = `${value}x`;
+        }
     }
 }

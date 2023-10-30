@@ -7,11 +7,13 @@ import { startGame } from "db://shared-components/shared/scripts/startup";
 import { AnimationUtils } from "db://shared-components/shared/utils";
 import Observer from "observer";
 
+import { BalanceEffectHandlers } from "../../../../extensions/shared-components/assets/game/balance-effect/scripts/handlers/balance-effect-handlers";
 import { siteConfigs } from "../../../scripts/site-configs";
 import { containerOptions, settings } from "../game-settings";
 import { AutoPlayHandler } from "./../../../../extensions/shared-components/assets/game/auto-play/scripts/handlers/auto-play-handler";
+import { CurrentMultiplier } from "./current-multiplier";
 import { RocketFly } from "./rocket-fly/rocket-fly";
-import { BalanceEffectHandlers } from "../../../../extensions/shared-components/assets/game/balance-effect/scripts/handlers/balance-effect-handlers";
+import { StatisticsBar } from "./statistics-bar/statistics-bar";
 
 const { Settlements, Auth, Rounds, Translator } = gc;
 
@@ -34,14 +36,24 @@ export default class Game extends GameComponent {
     @property(Node)
     rocketFly: Node = null;
 
+    @property(Node)
+    nodeStatisticsBar: Node = null;
+
+    @property(Node)
+    nodeCurrMultiplier: Node = null;
+
     override namespace = settings.name;
     override containerOptions = containerOptions;
     private cpnRocketFly: RocketFly = null;
     private readonly smallExplosion = 1.02;
+    private cpnStatisticsBar: StatisticsBar;
+    private cpnCurrMultiplier: CurrentMultiplier;
 
     onLoad() {
         super.onLoad();
         this.cpnRocketFly = this.rocketFly.getComponent(RocketFly);
+        this.cpnStatisticsBar = this.nodeStatisticsBar.getComponent(StatisticsBar);
+        this.cpnCurrMultiplier = this.nodeCurrMultiplier.getComponent(CurrentMultiplier);
     }
 
     @render(Settlements.SettlementStore, (store) => ({ result: store.result, settlementResult: store.settlementResult }))
@@ -61,7 +73,10 @@ export default class Game extends GameComponent {
     }
 
     async showResult(result: gc.GameServiceMessage.TResult, hasAnimation: boolean) {
-        this.cpnRocketFly?.explodeRocket(+result < this.smallExplosion);
+        const multiplier = +result;
+        this.cpnRocketFly?.explodeRocket(multiplier < this.smallExplosion);
+        this.updateStatisticsBar(multiplier);
+        this.updateCurrMultiplier(multiplier);
     }
 
     finishShowResult(result: gc.GameServiceMessage.TResult, settlementResult: gc.GameServiceMessage.TSettlementResult) {
@@ -92,4 +107,11 @@ export default class Game extends GameComponent {
 
     @handle(Auth.AuthHandlers.GetBalance)
     getBalance() {}
+    updateStatisticsBar(value: number) {
+        this.cpnStatisticsBar.updateValueLblCurrRound(value, false);
+    }
+
+    updateCurrMultiplier(value: number) {
+        this.cpnCurrMultiplier.setCurrMultiplierValue(value);
+    }
 }

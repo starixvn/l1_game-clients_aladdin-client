@@ -24,18 +24,7 @@ export class CurrentMultiplier extends ObserverComponent {
     @render(gc.CrashMultiplier.MultiplierStore, (store) => store.multiplier, { fireImmediately: false })
     private setCurrentMultiplier(multiplier: number) {
         this.setVisibility(true);
-        this.lblCurrentMultiplier.string = `${multiplier}x`;
-
-        let color: string;
-        if (multiplier <= this.level1Multiplier) {
-            color = this.levelColorList[0];
-        } else if (multiplier <= this.level2Multiplier) {
-            color = this.levelColorList[1];
-        } else {
-            color = this.levelColorList[2];
-        }
-
-        this.lblCurrentMultiplier.color = new Color().fromHEX(color);
+        this.setCurrMultiplierValue(multiplier);
     }
 
     @render(gc.Rounds.RoundTimeStore, (store) => store.isPlacingBet)
@@ -47,5 +36,19 @@ export class CurrentMultiplier extends ObserverComponent {
 
     setVisibility(status: boolean) {
         this.getComponent(UIOpacity).opacity = status ? 255 : 0;
+    }
+
+    setCurrMultiplierValue(multiplier: number) {
+        this.lblCurrentMultiplier.string = `${multiplier}x`;
+        let color: string;
+        if (multiplier <= this.level1Multiplier) {
+            color = this.levelColorList[0];
+        } else if (multiplier <= this.level2Multiplier) {
+            color = this.levelColorList[1];
+        } else {
+            color = this.levelColorList[2];
+        }
+
+        this.lblCurrentMultiplier.color = new Color().fromHEX(color);
     }
 }
