@@ -25,7 +25,7 @@ export class RocketFly extends ObserverComponent {
 
     private readonly startRotation = -90;
     private grapWidth = 1098;
-    private readonly grapMaxX = 10;
+    private readonly grapMaxX = 9;
     private readonly speedRate = 2;
     private currentMultiplier = 0;
     private deltaTime = 0;
@@ -36,7 +36,7 @@ export class RocketFly extends ObserverComponent {
     private cpnColMultipliers: ColMultipliers;
     private prevRocketPosition: Vec3;
     private startPosition: Vec3;
-    private maxTimeTopRocketFly = 12000; //milliseconds
+    private maxTimeTopRocketFly = 15000; //milliseconds
 
     onLoad() {
         super.onLoad();
@@ -47,13 +47,6 @@ export class RocketFly extends ObserverComponent {
         this.cpnRocket.setExplosionRocketVisibility(false);
         this.cpnRocket.updatePosition(this.startPosition);
         this.cpnColMultipliers = this.nodeColMultiplier.getComponent(ColMultipliers);
-    }
-
-    @render(gc.Rounds.RoundTimeStore, (store) => store.isStaringLocking)
-    rotateRocketWhenStart(isStaringLocking: boolean) {
-        if (isStaringLocking) {
-            this.cpnRocket.setRocketAnim(RocketAnim.START, true);
-        }
     }
 
     @render(gc.CrashMultiplier.MultiplierStore, (store) => store.time, { fireImmediately: false })
@@ -101,16 +94,15 @@ export class RocketFly extends ObserverComponent {
         tween(this.cpnRocket.node)
             .call(() => {
                 this.cpnRocket.updateRotation(0);
-            })
-            .delay(3)
-            .call(() => {
                 this.cpnRocket.setSpaceManVisibility(true);
             })
             .delay(2)
+            .to(2, { eulerAngles: v3(0, 0, this.startRotation) }, { easing: "sineOut" })
+            .delay(2)
             .call(() => {
                 this.cpnRocket.setSpaceManVisibility(false);
+                this.cpnRocket.setRocketAnim(RocketAnim.START, true);
             })
-            .to(2, { eulerAngles: v3(0, 0, this.startRotation) }, { easing: "sineOut" })
             .union()
             .start();
     }
@@ -131,13 +123,7 @@ export class RocketFly extends ObserverComponent {
     flyRocket() {
         this.cpnRocket.setRocketVisibility(true);
 
-        let acc = 1;
-        if (this.getTimerRate() > 1) {
-            acc = this.getTimerRate();
-        }
-
-        const time = this.deltaTime * acc;
-        const rawX = time / 1400;
+        const rawX = this.deltaTime / (1000 + this.deltaTime / 20);
 
         if (this.deltaTime > this.maxTimeTopRocketFly) {
             this.cpnColMultipliers.needScrollDown(this.cpnRocket.nodeRocketHead, this.currentMultiplier);

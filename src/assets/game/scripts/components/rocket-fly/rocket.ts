@@ -35,6 +35,7 @@ export class Rocket extends Component {
         this.skeRocket = this.rocket.getComponent(sp.Skeleton);
         this.skeExplosion = this.explosion.getComponent(sp.Skeleton);
         this.skeSpaceMan = this.nodeSpaceMan.getComponent(sp.Skeleton);
+        this.setSpaceManVisibility(false);
     }
 
     setSpaceManVisibility(status: boolean) {
