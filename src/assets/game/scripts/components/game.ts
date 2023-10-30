@@ -11,8 +11,9 @@ import { siteConfigs } from "../../../scripts/site-configs";
 import { containerOptions, settings } from "../game-settings";
 import { AutoPlayHandler } from "./../../../../extensions/shared-components/assets/game/auto-play/scripts/handlers/auto-play-handler";
 import { RocketFly } from "./rocket-fly/rocket-fly";
+import { BalanceEffectHandlers } from "../../../../extensions/shared-components/assets/game/balance-effect/scripts/handlers/balance-effect-handlers";
 
-const { Settlements, Rounds, Translator } = gc;
+const { Settlements, Auth, Rounds, Translator } = gc;
 
 const { movingNode, getPositionAtDestNode, playSpine, fadeOut, fadeIn } = AnimationUtils;
 
@@ -69,4 +70,26 @@ export default class Game extends GameComponent {
 
     @handle(AutoPlayHandler, (handle) => handle.checkFinishedPlayMode())
     updateAutoPlayMode() {}
+
+    @render(Settlements.SettlementStatusStore, (store) => store.settlementStatus)
+    showPayoutForMainPlayer(settlementStatus) {
+        if (settlementStatus?.win) {
+            this.mainPlayerIncreaseBalance(settlementStatus?.bet);
+            this.mainPlayerPlayWinningEffect();
+            this.getBalance();
+        }
+    }
+
+    @handle(BalanceEffectHandlers.MainPlayerIncreaseBalance)
+    mainPlayerIncreaseBalance(balance: number) {
+        return balance;
+    }
+
+    @handle(BalanceEffectHandlers.MainPlayerWinEffect)
+    mainPlayerPlayWinningEffect() {
+        return true;
+    }
+
+    @handle(Auth.AuthHandlers.GetBalance)
+    getBalance() {}
 }
