@@ -36,7 +36,6 @@ export class RocketFly extends ObserverComponent {
     private cpnColMultipliers: ColMultipliers;
     private prevRocketPosition: Vec3;
     private startPosition: Vec3;
-    private maxTimeTopRocketFly = 15000; //milliseconds
 
     onLoad() {
         super.onLoad();
@@ -122,10 +121,10 @@ export class RocketFly extends ObserverComponent {
 
     flyRocket() {
         this.cpnRocket.setRocketVisibility(true);
-        const v = 1000 + this.deltaTime / 20;
-        const rawX = this.deltaTime / v;
+        const time = this.deltaTime * this.getTimerRate();
+        const rawX = time / 2000;
 
-        if (this.deltaTime > this.maxTimeTopRocketFly || this.prevRocketPosition.x >= this.grapWidth) {
+        if (this.prevRocketPosition.x >= this.grapWidth - 50) {
             this.cpnColMultipliers.needScrollDown(this.cpnRocket.nodeRocketHead, this.currentMultiplier);
             return;
         }
@@ -159,6 +158,6 @@ export class RocketFly extends ObserverComponent {
 
     getTimerRate() {
         const x = this.deltaTime / (2000 * this.grapMaxX);
-        return (1 - x) * (1 - x) * this.speedRate;
+        return (1 - x) * (1 - x) * this.speedRate + 1;
     }
 }
