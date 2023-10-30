@@ -44,7 +44,7 @@ export class Rocket extends Component {
     }
 
     setRocketAnim(name: string, loop: boolean) {
-        this.skeRocket.setAnimation(0, name, true);
+        this.skeRocket?.setAnimation(0, name, true);
     }
 
     setRocketVisibility(status: boolean) {

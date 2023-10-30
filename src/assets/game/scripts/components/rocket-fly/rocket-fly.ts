@@ -122,10 +122,10 @@ export class RocketFly extends ObserverComponent {
 
     flyRocket() {
         this.cpnRocket.setRocketVisibility(true);
+        const v = 1000 + this.deltaTime / 20;
+        const rawX = this.deltaTime / v;
 
-        const rawX = this.deltaTime / (1000 + this.deltaTime / 20);
-
-        if (this.deltaTime > this.maxTimeTopRocketFly) {
+        if (this.deltaTime > this.maxTimeTopRocketFly || this.prevRocketPosition.x >= this.grapWidth) {
             this.cpnColMultipliers.needScrollDown(this.cpnRocket.nodeRocketHead, this.currentMultiplier);
             return;
         }
