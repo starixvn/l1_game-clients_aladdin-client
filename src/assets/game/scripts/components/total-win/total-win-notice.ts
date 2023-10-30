@@ -2,10 +2,11 @@ import gc from "@sg/game-client-base";
 import { _decorator, Label } from "cc";
 import Observer from "observer";
 import { ObserverComponent } from "../../../../../extensions/shared-components/assets/shared/common-components/observer-component/scripts/observer-component";
+import { ComponentUtils } from "../../../../../extensions/shared-components/assets/shared/utils";
 const { ccclass, property } = _decorator;
 const { render } = Observer;
 
-const { Settlements, Rounds } = gc;
+const { Settlements } = gc;
 
 @ccclass
 export class TotalWinNotice extends ObserverComponent {
@@ -21,13 +22,9 @@ export class TotalWinNotice extends ObserverComponent {
     updateCashoutAmount(settlementStatus: any) {
         if (settlementStatus?.win) {
             this.showNotice(true);
+            ComponentUtils.autoDisappear(this.node, false);
             this.updateTotalWinAmount(settlementStatus?.bet);
         }
-    }
-
-    @render(Rounds.RoundTimeStore, (store) => store.isStartRound)
-    hideNotice() {
-        this.showNotice(false);
     }
 
     showNotice(isShow: boolean) {
