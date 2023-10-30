@@ -19,7 +19,10 @@ export class StatisticsBar extends ObserverComponent {
     content: Node = null;
 
     @property(Label)
-    lblValueCurrentRound: Label = null;
+    lblCountdown: Label = null;
+
+    @property(Label)
+    lblMultiplier: Label = null;
 
     @property(Sprite)
     sprCurrentRound: Sprite = null;
@@ -50,8 +53,9 @@ export class StatisticsBar extends ObserverComponent {
 
     @render(gc.Rounds.RoundTimeStore, (store) => store.remaining)
     showHideLabelText(remaining: number) {
-        const isShow = remaining === 0 ? false : true;
-        this.showHideNode(isShow);
+        if (remaining === 0) {
+            this.showHideNode(false, false, true);
+        }
     }
 
     @render(gc.Rounds.RoundTimeStore, (store) => ({
@@ -69,20 +73,23 @@ export class StatisticsBar extends ObserverComponent {
         isLockingBet: boolean;
     }) {
         if (countdownTimer < 11 && countdownTimer > 0 && (isPlacingBet || isLockingBet)) {
-            this.updateValueLblCurrRound(countdownTimer, true);
+            this.updateCountDownValue(countdownTimer);
         }
     }
 
-    showHideNode(isShow: boolean) {
-        this.lblValueCurrentRound.node.active = isShow;
-        this.sprCurrentRound.node.active = !isShow;
+    showHideNode(isShowMultiplier: boolean, isShowCountDown: boolean, isShowSprInPlay: boolean) {
+        this.lblMultiplier.node.active = isShowMultiplier;
+        this.lblCountdown.node.active = isShowCountDown;
+        this.sprCurrentRound.node.active = isShowSprInPlay;
     }
 
-    updateValueLblCurrRound(value: number, isCountDown: boolean) {
-        if (isCountDown) {
-            this.lblValueCurrentRound.string = `${value}s`;
-        } else {
-            this.lblValueCurrentRound.string = `${value}x`;
-        }
+    updateCountDownValue(value: number) {
+        this.lblCountdown.string = `${value}s`;
+        this.showHideNode(false, true, false);
+    }
+
+    updateMultiplierValue(value: number) {
+        this.lblMultiplier.string = `${value}x`;
+        this.showHideNode(true, false, false);
     }
 }

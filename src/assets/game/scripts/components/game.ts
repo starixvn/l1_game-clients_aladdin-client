@@ -108,7 +108,7 @@ export default class Game extends GameComponent {
     @handle(Auth.AuthHandlers.GetBalance)
     getBalance() {}
     updateStatisticsBar(value: number) {
-        this.cpnStatisticsBar.updateValueLblCurrRound(value, false);
+        this.cpnStatisticsBar.updateMultiplierValue(value);
     }
 
     updateCurrMultiplier(value: number) {
