@@ -55,6 +55,7 @@ export class RocketFly extends ObserverComponent {
         }
 
         this.deltaTime = time;
+        this.flyRocket();
         this.receivedMultiplierTimes += 1;
         this.cpnColMultipliers.createDefaultMultiplierList(this.currentMultiplier);
     }

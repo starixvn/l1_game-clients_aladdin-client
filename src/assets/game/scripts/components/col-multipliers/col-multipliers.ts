@@ -112,7 +112,7 @@ export default class ColMultipliers extends ObserverComponent {
                 this.addNewMultiplier();
             }
 
-            if (this.findMultiplierIndex(this.multiplierBottom) > 3) {
+            if (this.findMultiplierIndex(this.multiplierBottom) > 4) {
                 this.removeFirstMultiplier();
             }
 
