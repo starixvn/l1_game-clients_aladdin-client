@@ -9,7 +9,7 @@ const { render, handle } = Observer;
 
 const BackgroundType = {
     IDLE: "idle",
-    ACTION: "action",
+    PLANETS: "planets",
 };
 
 @ccclass("background_control")
@@ -22,7 +22,7 @@ export class BackgroundControl extends ObserverComponent {
     @render(gc.CrashMultiplier.MultiplierStore, (store) => store.multiplier, { fireImmediately: false })
     changeActionAnim(multiplier) {
         if (this.isChangeAnim === false) {
-            this.skeBackground.setAnimation(0, BackgroundType.ACTION, false);
+            this.skeBackground.setAnimation(0, BackgroundType.PLANETS, false);
             this.isChangeAnim = true;
         }
     }
