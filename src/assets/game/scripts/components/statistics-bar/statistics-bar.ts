@@ -6,6 +6,8 @@ import { StatisticsButton } from "./statistics-button";
 const { ccclass, property } = _decorator;
 const { render } = Observer;
 
+const { FormatUtils } = gc;
+
 export interface CrashRoundHistory extends gc.RoundHistories.RoundHistory {
     md5Result: any;
 }
@@ -101,7 +103,7 @@ export class StatisticsBar extends ObserverComponent {
     }
 
     updateMultiplierValue(value: number) {
-        this.lblMultiplier.string = `${value}x`;
+        this.lblMultiplier.string = `${FormatUtils.numberWithCommas(value, 2, false)}x`;
         this.showHideNode(true, false, false);
     }
 }

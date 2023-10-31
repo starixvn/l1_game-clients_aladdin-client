@@ -6,6 +6,7 @@ import { ObserverComponent } from "../../../../extensions/shared-components/asse
 
 const { ccclass, property } = _decorator;
 const { render } = Observer;
+const { FormatUtils } = gc;
 
 @ccclass("current_multiplier")
 export class CurrentMultiplier extends ObserverComponent {
@@ -39,7 +40,7 @@ export class CurrentMultiplier extends ObserverComponent {
     }
 
     setCurrMultiplierValue(multiplier: number) {
-        this.lblCurrentMultiplier.string = `${multiplier}x`;
+        this.lblCurrentMultiplier.string = `${FormatUtils.numberWithCommas(multiplier, 2, false)}x`;
         let color: string;
         if (multiplier <= this.level1Multiplier) {
             color = this.levelColorList[0];

@@ -2,9 +2,9 @@ import gc from "@sg/game-client-base";
 import { Label, Sprite, _decorator } from "cc";
 import Observer from "observer";
 import { ObserverComponent } from "../../../../../extensions/shared-components/assets/shared/common-components/observer-component/scripts/observer-component";
-import { CashOutComponent } from "./cash-out-component";
-import { PlayerActionStore } from "../player-actions/player-action-store";
 import { PlayerActionHandlers } from "../player-actions/player-action-handlers";
+import { PlayerActionStore } from "../player-actions/player-action-store";
+import { CashOutComponent } from "./cash-out-component";
 
 const { handle, render } = Observer;
 const { property, ccclass } = _decorator;
@@ -51,11 +51,6 @@ export class CashOutButton extends ObserverComponent {
     updateCashoutBetValue(lastReceivedBet: any) {
         return CashOutComponent.getBetValue(lastReceivedBet);
     }
-
-    /*    @render(Rounds.RoundTimeStore, (store) => store.remaining)
-    updateCashoutButtonStatus(remaining: number) {
-        CashOutComponent.showHideNode(this.node, this.bet, remaining);
-    } */
 
     @handle(PlayerActionHandlers, (handle, value: number) => handle.handleCashoutBet(value))
     setCashoutBetValue(cashoutBet: number) {

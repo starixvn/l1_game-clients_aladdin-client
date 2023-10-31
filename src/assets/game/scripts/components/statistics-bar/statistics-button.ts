@@ -1,6 +1,7 @@
+import gc from "@sg/game-client-base";
 import { Component, Label, Sprite, SpriteAtlas, _decorator } from "cc";
 const { ccclass, property } = _decorator;
-
+const { FormatUtils } = gc;
 @ccclass
 export class StatisticsButton extends Component {
     @property(Sprite)
@@ -16,7 +17,7 @@ export class StatisticsButton extends Component {
 
     setData(data: any) {
         const multiplier = data.result;
-        this.lblMultiplier.string = `${multiplier}x`;
+        this.lblMultiplier.string = `${FormatUtils.numberWithCommas(+multiplier, 2, false)}x`;
         this.setSpriteBg(+multiplier);
     }
 
