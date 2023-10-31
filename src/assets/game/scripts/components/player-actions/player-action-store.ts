@@ -33,12 +33,22 @@ export class PlayerActionStore {
 
     private _waitingBet = false;
 
+    private _autoPlay = false;
+
     get startShowCashoutNotice(): boolean {
         return this._startShowCashoutNotice;
     }
 
     set startShowCashoutNotice(flag: boolean) {
         this._startShowCashoutNotice = flag;
+    }
+
+    get autoPlay(): boolean {
+        return this._autoPlay;
+    }
+
+    set autoPlay(flag: boolean) {
+        this._autoPlay = flag;
     }
 
     get cashoutAll(): boolean {
@@ -58,8 +68,7 @@ export class PlayerActionStore {
     }
 
     get showPlaceBetNextRound(): boolean {
-        console.log("isShowPlaceBetNextRound", this.waitingBet);
-        return (this.endShowCashoutNotice && this.cashoutAll) || (!this.waitingBet && this.roundTimeStore.isShowResult);
+        return this.endShowCashoutNotice && this.cashoutAll;
     }
 
     get showWaitingCancelBet(): boolean {
@@ -88,9 +97,12 @@ export class PlayerActionStore {
     }
 
     get rocketFlyWithCashout(): boolean {
-        return this.cashoutBet > 0 && this.roundTimeStore.remaining <= 0;
+        return (this.cashoutBet > 0 && this.roundTimeStore.remaining <= 0) || (this.roundTimeStore.isShowResult && this.withoutCashoutAll);
     }
 
+    get withoutCashoutAll() {
+        return !this.cashoutAll && this.cashoutBet > 0;
+    }
     get waitingBet(): boolean {
         return this._waitingBet;
     }

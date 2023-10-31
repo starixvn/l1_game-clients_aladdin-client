@@ -8,6 +8,7 @@ import { AutoPlayStore } from "../../../../../extensions/shared-components/asset
 import { BetInputStore } from "../../../../../extensions/shared-components/assets/game/bet-input/scripts/stores/bet-input-store";
 import { ObserverComponent } from "../../../../../extensions/shared-components/assets/shared/common-components/observer-component/scripts/observer-component";
 import { EarlyBetStore } from "./early-bet-store";
+import { PlayerActionStore } from "../player-actions/player-action-store";
 const { handle, render } = Observer;
 const { property, ccclass } = _decorator;
 const { CrashBet, Bet, Rounds } = gc;
@@ -44,6 +45,8 @@ export default class PlaceBetButton extends ObserverComponent {
 
     private isAutoPlayMode = false;
 
+    private autoPlay = false;
+
     @render(BetInputStore, (store) => store.betAmount)
     updateBetAmount(betAmount: number) {
         this.amount = betAmount;
@@ -52,6 +55,13 @@ export default class PlaceBetButton extends ObserverComponent {
     @render(EarlyBetStore, (store) => store.earlyBet)
     enableEarlyBet(enable: boolean) {
         this.earlyBet = enable;
+    }
+
+    @render(Rounds.RoundStore, (store) => store.resultHash)
+    updateEndBetReceive(resultHash: any) {
+        if (resultHash && resultHash?.hashValue) {
+            this.updateValueEndBet();
+        }
     }
 
     @render(Bet.BetStore, (store) => store.lastReceivedBet)
@@ -98,16 +108,16 @@ export default class PlaceBetButton extends ObserverComponent {
         isPlacingBet: store.isPlacingBet,
         remaining: store.remaining,
         isLockingBet: store.isLocking,
-        isShowResult: store.isShowResult,
+        isShowResult: store.isShowAnimationResult,
     }))
     showPlaceBet(data: { isPlacingBet: boolean; remaining: number; isLockingBet: boolean; isShowResult: boolean }) {
         const { isPlacingBet, remaining, isLockingBet, isShowResult } = data;
 
         if (remaining <= 0) {
             this.handleNoRemaining();
-        } else if (isShowResult) {
+        } /* else if (isShowResult) {
             this.updateValueEndBet();
-        } else if (isPlacingBet) {
+        } */ else if (isPlacingBet) {
             this.handlePlacingBet();
         } else if (isLockingBet && !this.isBetAccepted) {
             this.handleBlockBet(true);
@@ -149,9 +159,14 @@ export default class PlaceBetButton extends ObserverComponent {
         this.isAutoPlayMode = isAutoPlay;
     }
 
+    @render(PlayerActionStore, (store) => store.autoPlay)
+    updateStatusAutoPlay(autoPlay: boolean) {
+        this.autoPlay = autoPlay;
+    }
+
     @render(Rounds.RoundTimeStore, (store) => store.isPlacingBet)
     renderPlacingBet(isPlacingBet: boolean) {
-        if (isPlacingBet && this.isAutoPlayMode) {
+        if (isPlacingBet && this.isAutoPlayMode && !this.autoPlay) {
             this.onClickPlaceBet();
             this.decreaseAutoPlayRounds();
         }

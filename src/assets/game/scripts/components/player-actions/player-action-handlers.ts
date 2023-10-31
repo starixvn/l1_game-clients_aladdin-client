@@ -22,7 +22,7 @@ export class PlayerActionHandlers implements IHandler<boolean> {
         setTimeout(() => {
             this.handleEndShowCashOutNotice(flag);
             this.playerActionStore.startShowCashoutNotice = false;
-        }, 2500);
+        }, 3000);
     }
 
     handleEndShowCashOutNotice(flag: boolean) {
@@ -35,5 +35,9 @@ export class PlayerActionHandlers implements IHandler<boolean> {
 
     handleWaitingBet(flag: boolean) {
         this.playerActionStore.waitingBet = flag;
+    }
+
+    handleAutoPlay(flag: boolean) {
+        this.playerActionStore.autoPlay = flag;
     }
 }

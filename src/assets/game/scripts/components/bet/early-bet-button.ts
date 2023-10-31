@@ -8,6 +8,8 @@ import AutoCashOutStore from "../../../../../extensions/shared-components/assets
 import AutoCashOutHandler from "../../../../../extensions/shared-components/assets/game/auto-cash-out/scripts/handlers/auto-cash-out-handler";
 import { PlayerActionHandlers } from "../player-actions/player-action-handlers";
 import { PlayerActionStore } from "../player-actions/player-action-store";
+import { AutoPlayHandler } from "../../../../../extensions/shared-components/assets/game/auto-play/scripts/handlers/auto-play-handler";
+import { AutoPlayStore } from "../../../../../extensions/shared-components/assets/game/auto-play/scripts/stores/auto-play-store";
 const { handle, render } = Observer;
 const { property, ccclass } = _decorator;
 const { CrashBet, Rounds } = gc;
@@ -39,6 +41,8 @@ export default class EarlyBetButton extends ObserverComponent {
     private isEnableAutoCashOut = false;
 
     private valueAutoCashOut = 1.01;
+
+    private isAutoPlayMode = false;
 
     @render(AutoCashOutStore, (store) => store.enable)
     updateStatusAutoCashOut(isEnable: boolean) {
@@ -98,14 +102,22 @@ export default class EarlyBetButton extends ObserverComponent {
         rocketFlyWithoutCashout: store.rocketFlyWithoutCashout,
         showPlaceBetNextRound: store.showPlaceBetNextRound,
         showWaitingCancelBet: store.showWaitingCancelBet,
+        withoutCashoutAll: store.withoutCashoutAll,
     }))
-    showPlaceBetNextRound(data: { rocketFlyWithoutCashout: boolean; showPlaceBetNextRound: boolean; showWaitingCancelBet: boolean }) {
-        const { rocketFlyWithoutCashout, showPlaceBetNextRound, showWaitingCancelBet } = data;
+    showPlaceBetNextRound(data: {
+        rocketFlyWithoutCashout: boolean;
+        showPlaceBetNextRound: boolean;
+        showWaitingCancelBet: boolean;
+        withoutCashoutAll: boolean;
+    }) {
+        const { rocketFlyWithoutCashout, showPlaceBetNextRound, showWaitingCancelBet, withoutCashoutAll } = data;
 
-        if (rocketFlyWithoutCashout || showPlaceBetNextRound) {
+        if (rocketFlyWithoutCashout || (showPlaceBetNextRound && !this.isWaitingBet)) {
             this.handleRocketFly();
         } else if (showWaitingCancelBet) {
             this.handleWaitingCancelBet();
+        } else if (withoutCashoutAll) {
+            this.disableEarlyBet();
         }
     }
 
@@ -115,6 +127,9 @@ export default class EarlyBetButton extends ObserverComponent {
         this.setStatusButtons(false);
         this.setStatusWaiting(false);
         this.disableEarlyBet();
+        setTimeout(() => {
+            this.autoClickEarlyBet();
+        }, 1000);
     }
 
     handleWaitingCancelBet() {
@@ -137,5 +152,33 @@ export default class EarlyBetButton extends ObserverComponent {
     setStatusWaiting(status: boolean) {
         this.isWaitingBet = status;
         this.handleWaitingBet(status);
+    }
+
+    @render(AutoPlayStore, (store) => store.isAutoPlay)
+    updateAutoPlayMode(isAutoPlay: boolean) {
+        this.isAutoPlayMode = isAutoPlay;
+    }
+
+    autoClickEarlyBet() {
+        if (this.isAutoPlayMode) {
+            this.onClickEarlyBet();
+            this.decreaseAutoPlayRounds();
+            this.applyAutoPlay(true);
+        }
+    }
+
+    @handle(AutoPlayHandler, (handle) => handle.decreaseAutoPlayRounds())
+    decreaseAutoPlayRounds() {}
+
+    @render(Rounds.RoundTimeStore, (store) => store.isLocking)
+    renderPlacingBet(isLocking: boolean) {
+        if (isLocking) {
+            this.applyAutoPlay(false);
+        }
+    }
+
+    @handle(PlayerActionHandlers, (handle, flag: boolean) => handle.handleAutoPlay(flag))
+    applyAutoPlay(flag: boolean) {
+        return flag;
     }
 }
