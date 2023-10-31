@@ -110,6 +110,8 @@ export class RocketFly extends ObserverComponent {
     private resetStartPosition() {
         this.cpnRocket.updatePosition(this.startPosition);
         this.prevRocketPosition = this.startPosition;
+        // this.nodeRocketLine.position = v3(108, -11, 0);
+        // this.nodeRocketLine.eulerAngles = v3(0, 0, 0);
     }
 
     private animate() {
@@ -125,7 +127,7 @@ export class RocketFly extends ObserverComponent {
         const time = this.deltaTime * this.getTimerRate();
         const rawX = time / 2000;
 
-        if (this.prevRocketPosition.x >= this.grapWidth - 50) {
+        if (this.prevRocketPosition.x >= this.grapWidth - 100) {
             this.cpnColMultipliers.needScrollDown(this.cpnRocket.nodeRocketHead, this.currentMultiplier);
             return;
         }
@@ -142,6 +144,11 @@ export class RocketFly extends ObserverComponent {
         this.cpnRocket.updatePosition(newPosition, true, 0.1);
         this.cpnColMultipliers.needScrollDown(this.cpnRocket.nodeRocketHead, this.currentMultiplier);
         this.prevRocketPosition = newPosition;
+
+        // if (this.deltaTime > 2000 && this.deltaTime < 4000) {
+        //     this.nodeRocketLine.position = v3(-newPosition.x, -newPosition.y, 0);
+        //     this.nodeRocketLine.eulerAngles = v3(0, 0, -toDegree(Math.atan2(delta.y, delta.x)));
+        // }
     }
 
     explodeRocket(isSMall: boolean) {

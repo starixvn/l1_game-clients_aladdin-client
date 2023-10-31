@@ -18,7 +18,7 @@ export default class ColMultipliers extends ObserverComponent {
     startMultiplierList = [1, 2, 3, 4, 8];
     multiplierList = [];
     removedList = [];
-    multiplierItemHeight = 178;
+    multiplierItemHeight = 151;
     scrollTween: Tween<Node>;
     multiplierBottom = 0;
     multiplierTop = 0;
@@ -112,7 +112,7 @@ export default class ColMultipliers extends ObserverComponent {
                 this.addNewMultiplier();
             }
 
-            if (this.findMultiplierIndex(this.multiplierBottom) > 4) {
+            if (this.findMultiplierIndex(this.multiplierBottom) > 10) {
                 this.removeFirstMultiplier();
             }
 
