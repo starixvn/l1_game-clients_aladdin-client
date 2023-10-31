@@ -18,7 +18,7 @@ export default class ColMultipliers extends ObserverComponent {
     startMultiplierList = [1, 2, 3, 4, 8];
     multiplierList = [];
     removedList = [];
-    multiplierItemHeight = 151;
+    multiplierItemHeight = 178;
     scrollTween: Tween<Node>;
     multiplierBottom = 0;
     multiplierTop = 0;
