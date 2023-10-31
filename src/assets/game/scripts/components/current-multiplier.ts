@@ -13,6 +13,9 @@ export class CurrentMultiplier extends ObserverComponent {
     @property(Label)
     lblCurrentMultiplier: Label = null;
 
+    @property(Label)
+    lblMultiplierStroke: Label = null;
+
     levelColorList = ["#47d4fa", "#dba923", "#f6214c"];
     level1Multiplier = 5;
     level2Multiplier = 10;
@@ -40,7 +43,7 @@ export class CurrentMultiplier extends ObserverComponent {
     }
 
     setCurrMultiplierValue(multiplier: number) {
-        this.lblCurrentMultiplier.string = `${FormatUtils.numberWithCommas(multiplier, 2, false)}x`;
+        this.lblCurrentMultiplier.string = this.lblMultiplierStroke.string = `${FormatUtils.numberWithCommas(multiplier, 2, false)}x`;
         let color: string;
         if (multiplier <= this.level1Multiplier) {
             color = this.levelColorList[0];
