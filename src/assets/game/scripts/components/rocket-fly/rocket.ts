@@ -1,6 +1,11 @@
-import { _decorator, Component, Node, sp, Tween, tween, v3, Vec3 } from "cc";
+import gc from "@sg/game-client-base";
+import { _decorator, Node, sp, Tween, tween, v3, Vec3 } from "cc";
+import Observer from "observer";
+
+import { ObserverComponent } from "../../../../../extensions/shared-components/assets/shared/common-components/observer-component/scripts/observer-component";
 
 const { ccclass, property } = _decorator;
+const { render } = Observer;
 
 export const RocketAnim = {
     START: "rocket-start",
@@ -11,7 +16,7 @@ export const RocketAnim = {
 };
 
 @ccclass()
-export class Rocket extends Component {
+export class Rocket extends ObserverComponent {
     @property(Node)
     rocket: Node = null;
 
@@ -47,6 +52,7 @@ export class Rocket extends Component {
         this.skeRocket?.setAnimation(0, name, true);
     }
 
+    @render(gc.Rounds.RoundTimeStore, (store) => store.isPlacingBet)
     setRocketVisibility(status: boolean) {
         this.rocket.active = status;
     }

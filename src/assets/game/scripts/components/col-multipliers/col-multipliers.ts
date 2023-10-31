@@ -15,7 +15,8 @@ export default class ColMultipliers extends ObserverComponent {
     @property(Prefab)
     prfMultiplierItem: Prefab = null;
 
-    startMultiplierList = [1, 2, 3, 4, 8];
+    defaultMultiplierList = [1, 2, 3, 4, 8];
+    startMultiplierList = [];
     multiplierList = [];
     removedList = [];
     multiplierItemHeight = 178;
@@ -26,6 +27,7 @@ export default class ColMultipliers extends ObserverComponent {
 
     onLoad() {
         super.onLoad();
+        this.startMultiplierList = this.defaultMultiplierList;
         this.initDefaultMultiplier();
     }
 
@@ -90,7 +92,7 @@ export default class ColMultipliers extends ObserverComponent {
 
     scrollUp() {
         this.scrollTween?.stop();
-        this.startMultiplierList = [1, 2, 3, 4, 8];
+        this.startMultiplierList = this.defaultMultiplierList;
         this.initDefaultMultiplier();
         this.scrollTween = tween(this.nodeMultipliersContainer)
             .to(

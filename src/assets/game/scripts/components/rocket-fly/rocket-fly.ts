@@ -8,7 +8,7 @@ import { Rocket, RocketAnim } from "./rocket";
 
 const { ccclass, property } = _decorator;
 
-const { render, handle } = Observer;
+const { render } = Observer;
 @ccclass
 export class RocketFly extends ObserverComponent {
     @property(Rocket)
@@ -55,9 +55,9 @@ export class RocketFly extends ObserverComponent {
         }
 
         this.deltaTime = time;
-        this.flyRocket();
-        this.receivedMultiplierTimes += 1;
         this.cpnColMultipliers.createDefaultMultiplierList(this.currentMultiplier);
+        this.flyRocket(true);
+        this.receivedMultiplierTimes += 1;
     }
 
     @render(gc.CrashMultiplier.MultiplierStore, (store) => store.multiplier, { fireImmediately: false })
@@ -122,19 +122,25 @@ export class RocketFly extends ObserverComponent {
         this.flyRocket();
     }
 
-    flyRocket() {
+    flyRocket(isJoinInPlaceBetTime = false) {
         this.cpnRocket.setRocketVisibility(true);
-        const time = this.deltaTime * this.getTimerRate();
-        const rawX = time / 2000;
+        const limitX = this.grapWidth - 50;
 
-        if (this.prevRocketPosition.x >= this.grapWidth - 100) {
+        if (this.cpnRocket.node.position.x >= limitX) {
             this.cpnColMultipliers.needScrollDown(this.cpnRocket.nodeRocketHead, this.currentMultiplier);
             return;
         }
 
-        const rawY = (0.1 * Math.pow(rawX, 4)) / 190; //equation: 0.1*(x^4)/190
         const scale = this.grapWidth / this.grapMaxX;
-        const newPosition = v3(rawX * scale, rawY * scale);
+        let rawX = (this.deltaTime * this.getTimerRate()) / 2000;
+
+        if (isJoinInPlaceBetTime && rawX * scale >= limitX) {
+            rawX = limitX / scale;
+        }
+
+        let rawY = (0.1 * Math.pow(rawX, 4)) / 190; //equation: 0.1*(x^4)/190
+        let newPosition = v3(rawX * scale, rawY * scale);
+
         const delta = {
             x: newPosition.x - this.prevRocketPosition.x,
             y: newPosition.y - this.prevRocketPosition.y,
