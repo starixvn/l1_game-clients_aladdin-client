@@ -15,7 +15,7 @@ import { CurrentMultiplier } from "./current-multiplier";
 import { RocketFly } from "./rocket-fly/rocket-fly";
 import { StatisticsBar } from "./statistics-bar/statistics-bar";
 
-const { Settlements, Auth, Rounds, Translator } = gc;
+const { Settlements, Auth, Rounds, Translator, CrashCashOut } = gc;
 
 const { movingNode, getPositionAtDestNode, playSpine, fadeOut, fadeIn } = AnimationUtils;
 
@@ -69,6 +69,7 @@ export default class Game extends GameComponent {
             }, 2000);
             this.finishShowResult(result, settlementResult);
         });
+        this.resetValueCashout();
         this.playSound(gc.Audios.AudioIds.RECEIVE_FINISH);
     }
 
@@ -114,4 +115,7 @@ export default class Game extends GameComponent {
     updateCurrMultiplier(value: number) {
         this.cpnCurrMultiplier.setCurrMultiplierValue(value);
     }
+
+    @handle(CrashCashOut.CrashCashOutUIHandlers, (handle) => handle.resetCashoutVaue())
+    resetValueCashout() {}
 }
