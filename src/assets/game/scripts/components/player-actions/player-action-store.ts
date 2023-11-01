@@ -1,7 +1,8 @@
+import gc from "@sg/game-client-base";
 import inversify from "inversify";
 import mobx from "mobx";
-import gc from "@sg/game-client-base";
-import { AutoPlayStore } from "../../../../../extensions/shared-components/assets/game/auto-play/scripts/stores/auto-play-store";
+
+import { AutoPlayStore } from "../../../../../extensions/shared-components/assets/game-crash/auto-play/scripts/stores/auto-play-store";
 import { EarlyBetStore } from "../bet/early-bet-store";
 
 const { injectable, inject } = inversify;

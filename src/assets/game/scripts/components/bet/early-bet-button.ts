@@ -1,15 +1,17 @@
 import gc from "@sg/game-client-base";
 import { _decorator, Sprite } from "cc";
 import Observer from "observer";
+
+import AutoCashOutHandler from "../../../../../extensions/shared-components/assets/game-crash/auto-cash-out/scripts/handlers/auto-cash-out-handler";
+import AutoCashOutStore from "../../../../../extensions/shared-components/assets/game-crash/auto-cash-out/scripts/stores/auto-cash-out-store";
+import { AutoPlayHandler } from "../../../../../extensions/shared-components/assets/game-crash/auto-play/scripts/handlers/auto-play-handler";
+import { AutoPlayStore } from "../../../../../extensions/shared-components/assets/game-crash/auto-play/scripts/stores/auto-play-store";
 import { ObserverComponent } from "../../../../../extensions/shared-components/assets/shared/common-components/observer-component/scripts/observer-component";
-import { EarlyBetUIHandlers } from "./early-bet-ui-handlers";
-import { EarlyBetStore } from "./early-bet-store";
-import AutoCashOutStore from "../../../../../extensions/shared-components/assets/game/auto-cash-out/scripts/stores/auto-cash-out-store";
-import AutoCashOutHandler from "../../../../../extensions/shared-components/assets/game/auto-cash-out/scripts/handlers/auto-cash-out-handler";
 import { PlayerActionHandlers } from "../player-actions/player-action-handlers";
 import { PlayerActionStore } from "../player-actions/player-action-store";
-import { AutoPlayHandler } from "../../../../../extensions/shared-components/assets/game/auto-play/scripts/handlers/auto-play-handler";
-import { AutoPlayStore } from "../../../../../extensions/shared-components/assets/game/auto-play/scripts/stores/auto-play-store";
+import { EarlyBetStore } from "./early-bet-store";
+import { EarlyBetUIHandlers } from "./early-bet-ui-handlers";
+
 const { handle, render } = Observer;
 const { property, ccclass } = _decorator;
 const { CrashBet, Rounds } = gc;

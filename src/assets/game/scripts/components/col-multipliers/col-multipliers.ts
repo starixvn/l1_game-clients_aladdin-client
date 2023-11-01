@@ -35,8 +35,8 @@ export default class ColMultipliers extends ObserverComponent {
         multiplier = Math.floor(multiplier);
         if (multiplier / 4 > 8) {
             this.startMultiplierList = [
-                multiplier / 4,
-                multiplier / 2,
+                Math.round(multiplier / 3),
+                Math.round(multiplier / 1.5),
                 multiplier,
                 Math.round(multiplier * 1.5),
                 Math.round(multiplier * 3),

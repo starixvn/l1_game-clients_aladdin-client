@@ -7,10 +7,10 @@ import { startGame } from "db://shared-components/shared/scripts/startup";
 import { AnimationUtils } from "db://shared-components/shared/utils";
 import Observer from "observer";
 
+import { AutoPlayHandler } from "../../../../extensions/shared-components/assets/game-crash/auto-play/scripts/handlers/auto-play-handler";
 import { BalanceEffectHandlers } from "../../../../extensions/shared-components/assets/game/balance-effect/scripts/handlers/balance-effect-handlers";
 import { siteConfigs } from "../../../scripts/site-configs";
 import { containerOptions, settings } from "../game-settings";
-import { AutoPlayHandler } from "./../../../../extensions/shared-components/assets/game/auto-play/scripts/handlers/auto-play-handler";
 import { CurrentMultiplier } from "./current-multiplier";
 import { RocketFly } from "./rocket-fly/rocket-fly";
 import { StatisticsBar } from "./statistics-bar/statistics-bar";

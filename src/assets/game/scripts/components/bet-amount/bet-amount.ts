@@ -1,9 +1,11 @@
 import gc from "@sg/game-client-base";
 import { _decorator, Node } from "cc";
 import Observer from "observer";
-import { AutoPlayStore } from "../../../../../extensions/shared-components/assets/game/auto-play/scripts/stores/auto-play-store";
+
+import { AutoPlayStore } from "../../../../../extensions/shared-components/assets/game-crash/auto-play/scripts/stores/auto-play-store";
 import { ObserverComponent } from "../../../../../extensions/shared-components/assets/shared/common-components/observer-component/scripts/observer-component";
 import { EarlyBetStore } from "../bet/early-bet-store";
+
 const { ccclass, property } = _decorator;
 const { handle, render } = Observer;
 const { Bet } = gc;
