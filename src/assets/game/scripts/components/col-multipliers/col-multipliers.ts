@@ -34,7 +34,13 @@ export default class ColMultipliers extends ObserverComponent {
     createDefaultMultiplierList(multiplier: number) {
         multiplier = Math.floor(multiplier);
         if (multiplier / 4 > 8) {
-            this.startMultiplierList = [multiplier / 4, multiplier / 2, multiplier, multiplier * 2, multiplier * 4];
+            this.startMultiplierList = [
+                multiplier / 4,
+                multiplier / 2,
+                multiplier,
+                Math.round(multiplier * 1.5),
+                Math.round(multiplier * 3),
+            ];
             this.initDefaultMultiplier();
         }
     }
@@ -70,7 +76,7 @@ export default class ColMultipliers extends ObserverComponent {
 
     private addNewMultiplier() {
         const nextMultiplier = this.multiplierList[this.multiplierList.length - 1];
-        this.addItem(nextMultiplier * 2);
+        this.addItem(Math.round(nextMultiplier * 1.5));
     }
 
     private removeFirstMultiplier() {
