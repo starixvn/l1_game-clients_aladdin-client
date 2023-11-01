@@ -17,14 +17,6 @@ export class PlayerActionHandlers implements IHandler<boolean> {
 
     handle(flag: boolean) {}
 
-    handleStartShowCashOutNotice(flag: boolean) {
-        this.playerActionStore.startShowCashoutNotice = flag;
-        setTimeout(() => {
-            this.handleEndShowCashOutNotice(flag);
-            this.playerActionStore.startShowCashoutNotice = false;
-        }, 3000);
-    }
-
     handleEndShowCashOutNotice(flag: boolean) {
         this.playerActionStore.endShowCashoutNotice = flag;
     }

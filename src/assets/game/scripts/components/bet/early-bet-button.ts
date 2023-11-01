@@ -111,7 +111,6 @@ export default class EarlyBetButton extends ObserverComponent {
         withoutCashoutAll: boolean;
     }) {
         const { rocketFlyWithoutCashout, showPlaceBetNextRound, showWaitingCancelBet, withoutCashoutAll } = data;
-
         if (rocketFlyWithoutCashout || (showPlaceBetNextRound && !this.isWaitingBet)) {
             this.handleRocketFly();
         } else if (showWaitingCancelBet) {

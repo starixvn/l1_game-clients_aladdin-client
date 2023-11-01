@@ -7,7 +7,7 @@ import { PlayerActionHandlers } from "../player-actions/player-action-handlers";
 const { ccclass, property } = _decorator;
 const { handle, render } = Observer;
 
-const { CrashCashOut } = gc;
+const { CrashCashOut, Rounds } = gc;
 
 @ccclass
 export class CashOutNotice extends ObserverComponent {
@@ -29,10 +29,11 @@ export class CashOutNotice extends ObserverComponent {
         if (isShow) {
             this.node.active = true;
             ComponentUtils.autoDisappear(this.node, false);
-            this.showHideNotice(true);
+            setTimeout(() => {
+                this.showHideNotice(true);
+            }, 3000);
         } else {
             this.node.active = false;
-            this.showHideNotice(false);
         }
     }
 
@@ -40,8 +41,15 @@ export class CashOutNotice extends ObserverComponent {
         this.lblCashOut.string = amount.toString();
     }
 
-    @handle(PlayerActionHandlers, (handle, flag: boolean) => handle.handleStartShowCashOutNotice(flag))
+    @handle(PlayerActionHandlers, (handle, flag: boolean) => handle.handleEndShowCashOutNotice(flag))
     showHideNotice(flag: boolean) {
         return flag;
+    }
+
+    @render(Rounds.RoundTimeStore, (store) => store.isPlacingBet)
+    hideNotice(isPlacingBet: boolean) {
+        if (isPlacingBet) {
+            this.showHideNotice(false);
+        }
     }
 }

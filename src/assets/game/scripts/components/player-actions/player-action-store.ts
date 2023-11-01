@@ -23,8 +23,6 @@ export class PlayerActionStore {
     @inject(gc.Rounds.RoundTimeStore)
     protected readonly roundTimeStore: gc.Rounds.RoundTimeStore;
 
-    private _startShowCashoutNotice = false;
-
     private _endShowCashoutNotice = false;
 
     private _showTotalWin = false;
@@ -34,14 +32,6 @@ export class PlayerActionStore {
     private _waitingBet = false;
 
     private _autoPlay = false;
-
-    get startShowCashoutNotice(): boolean {
-        return this._startShowCashoutNotice;
-    }
-
-    set startShowCashoutNotice(flag: boolean) {
-        this._startShowCashoutNotice = flag;
-    }
 
     get autoPlay(): boolean {
         return this._autoPlay;
