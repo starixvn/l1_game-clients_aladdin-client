@@ -16,9 +16,8 @@ export class StatisticsButton extends Component {
     public roundInfo = null;
 
     setData(data: any) {
-        const multiplier = data.result;
-        this.lblMultiplier.string = `${FormatUtils.numberWithCommas(+multiplier, 2, false)}x`;
-        this.setSpriteBg(+multiplier);
+        this.lblMultiplier.string = `${FormatUtils.numberWithCommas(+data, 2, false)}x`;
+        this.setSpriteBg(+data);
     }
 
     setSpriteBg(multiplier: number) {

@@ -1,5 +1,5 @@
 import gc from "@sg/game-client-base";
-import { Label, Node, Prefab, Sprite, _decorator, instantiate } from "cc";
+import { Label, Node, Prefab, SpriteAtlas, _decorator, instantiate } from "cc";
 import Observer from "observer";
 import { ObserverComponent } from "../../../../../extensions/shared-components/assets/shared/common-components/observer-component/scripts/observer-component";
 import { StatisticsButton } from "./statistics-button";
@@ -23,14 +23,16 @@ export class StatisticsBar extends ObserverComponent {
     @property(Label)
     lblCountdown: Label = null;
 
-    @property(Label)
-    lblMultiplier: Label = null;
+    @property(Node)
+    nodeMultiplier: Node = null;
 
-    @property(Sprite)
-    sprCurrentRound: Sprite = null;
+    @property(Node)
+    nodeInPlay: Node = null;
+
+    @property(SpriteAtlas)
+    mainAtlas: SpriteAtlas = null;
 
     protected rounds: CrashRoundHistory[] = [];
-    private isPlacingBet = false;
     private isFirstLoad = false;
 
     @render(gc.RoundHistories.RoundHistoryStore, (store) => store.histories, { fireImmediately: false })
@@ -53,7 +55,8 @@ export class StatisticsBar extends ObserverComponent {
             }
             const node = instantiate(this.prbStatisticsItem);
             const control = node.getComponent(StatisticsButton);
-            control.setData(round);
+            const result = round.result;
+            control.setData(result);
             this.content.addChild(node);
         });
     }
@@ -92,9 +95,9 @@ export class StatisticsBar extends ObserverComponent {
     }
 
     showHideNode(isShowMultiplier: boolean, isShowCountDown: boolean, isShowSprInPlay: boolean) {
-        this.lblMultiplier.node.active = isShowMultiplier;
+        this.nodeMultiplier.active = isShowMultiplier;
         this.lblCountdown.node.active = isShowCountDown;
-        this.sprCurrentRound.node.active = isShowSprInPlay;
+        this.nodeInPlay.active = isShowSprInPlay;
     }
 
     updateCountDownValue(value: number) {
@@ -103,7 +106,8 @@ export class StatisticsBar extends ObserverComponent {
     }
 
     updateMultiplierValue(value: number) {
-        this.lblMultiplier.string = `${FormatUtils.numberWithCommas(value, 2, false)}x`;
+        const statisticsBtn = this.nodeMultiplier.getComponent(StatisticsButton);
+        statisticsBtn.setData(value);
         this.showHideNode(true, false, false);
     }
 }
