@@ -1,6 +1,6 @@
 {
 "skeleton": {
-	"hash": "VC5SVhW/yJvszBkkCOAK7uhZ6F0=",
+	"hash": "V3IoDqFeZn9vDEJNAdv6fGiyltk=",
 	"spine": "3.8.75",
 	"x": -81.96,
 	"y": -183.74,
@@ -14,7 +14,7 @@
 	{ "name": "1", "parent": "rocket" },
 	{ "name": "rocket1", "parent": "1", "rotation": 55.78 },
 	{ "name": "tenlua", "parent": "rocket1" },
-	{ "name": "than", "parent": "tenlua", "rotation": 0.02 },
+	{ "name": "than", "parent": "tenlua", "rotation": 0.02, "scaleX": 0.5, "scaleY": 0.5 },
 	{ "name": "canhbay", "parent": "tenlua" },
 	{ "name": "vaytrai", "parent": "canhbay", "x": -38.69, "y": -1.32 },
 	{ "name": "vayphai", "parent": "canhbay", "rotation": 0.02, "x": -19.87, "y": -34.71 },
@@ -30,7 +30,6 @@
 		"scaleX": 1.3,
 		"scaleY": 1.3
 	},
-	{ "name": "duoitenlua", "parent": "rocket1", "rotation": 0.02 },
 	{ "name": "domsang", "parent": "rocket1", "rotation": 0.02 },
 	{ "name": "vaysau", "parent": "canhbay", "rotation": 3.96, "x": 7.1, "y": 6.93 },
 	{
@@ -42,7 +41,6 @@
 		"scaleX": 1.5,
 		"scaleY": 1.5
 	},
-	{ "name": "rocket-full", "parent": "rocket1", "rotation": -50.14 },
 	{ "name": "particle", "parent": "rocket", "x": -0.83, "y": -52.05, "scaleX": 0.5, "scaleY": 0.5 },
 	{ "name": "bone", "parent": "rocket" },
 	{ "name": "vongtron", "parent": "rocket", "y": 35.39, "scaleX": 0.2074, "scaleY": 0.2894 }
@@ -52,13 +50,11 @@
 	{ "name": "rocket1", "bone": "rocket1" },
 	{ "name": "jpg/1", "bone": "vfx", "attachment": "jpg/8", "blend": "screen" },
 	{ "name": "vaysau", "bone": "vaysau", "attachment": "vaysau" },
-	{ "name": "duoitenlua", "bone": "duoitenlua" },
 	{ "name": "duoitenlua2", "bone": "duoitenlua2", "attachment": "duoitenlua" },
 	{ "name": "vayphai", "bone": "vayphai", "attachment": "vayphai" },
 	{ "name": "than", "bone": "than", "attachment": "than" },
 	{ "name": "vaytrai", "bone": "vaytrai4", "attachment": "vaytrai" },
 	{ "name": "domsang", "bone": "domsang", "attachment": "domsang", "blend": "screen" },
-	{ "name": "rocket-full", "bone": "rocket-full" },
 	{ "name": "vongtron", "bone": "vongtron" }
 ],
 "skins": [
@@ -117,8 +113,8 @@
 					"vertices": [ 26.52, 20.93, 26.86, 21.01, 28.87, 19.51, 28.87, 18.18, 17.49, -1.75, 4.97, -9.09, -21.03, -16.86, -26.52, -16.8, -27.6, -13.36, -14.27, 4.37, 18.02, 9.05, 7.16, 0.31, -0.79, -3.67, -9.01, -8.17, -18.28, -11.35, -12.98, -2.87, -3.71, 2.43, 6.89, 7.99 ],
 					"hull": 10,
 					"edges": [ 0, 18, 0, 2, 2, 4, 4, 6, 6, 8, 8, 10, 10, 12, 12, 14, 14, 16, 16, 18 ],
-					"width": 58,
-					"height": 39
+					"width": 116,
+					"height": 78
 				}
 			},
 			"vaytrai": {
@@ -134,13 +130,7 @@
 				}
 			},
 			"than": {
-				"than": { "x": -2, "y": -0.5, "width": 84, "height": 64 }
-			},
-			"duoitenlua": {
-				"duoitenlua": { "x": -42.2, "y": -26.85, "width": 41, "height": 60 }
-			},
-			"rocket-full": {
-				"rocket-full": { "x": 2.06, "y": -8.48, "width": 56, "height": 113 }
+				"than": { "x": -2, "y": -0.5, "width": 168, "height": 128 }
 			},
 			"vaysau": {
 				"vaysau": { "x": -27.62, "y": -16.76, "width": 56, "height": 35 }
@@ -151,20 +141,6 @@
 "animations": {
 	"rocket-fly": {
 		"slots": {
-			"duoitenlua": {
-				"color": [
-					{ "color": "ffffffff" },
-					{ "time": 2, "color": "c9fffaff" },
-					{ "time": 3, "color": "d9c4f9ff" },
-					{ "time": 4, "color": "ccfafcff" },
-					{ "time": 6, "color": "ffffffff" }
-				]
-			},
-			"rocket-full": {
-				"color": [
-					{ "color": "ffffff00" }
-				]
-			},
 			"duoitenlua2": {
 				"color": [
 					{ "time": 3.2, "color": "ffffffff" },
@@ -270,43 +246,6 @@
 					{ "time": 6, "x": -1.19, "y": -1.79 }
 				]
 			},
-			"duoitenlua": {
-				"translate": [
-					{ "x": 5.29, "y": 3.53 },
-					{ "time": 0.2, "x": 1.76, "y": 0.44 },
-					{ "time": 0.4, "x": 5.29, "y": 3.53 },
-					{ "time": 0.5667, "x": 1.76, "y": 0.44 },
-					{ "time": 0.7667, "x": 5.29, "y": 3.53 },
-					{ "time": 0.9667, "x": 1.76, "y": 0.44 },
-					{ "time": 1.1667, "x": 5.29, "y": 3.53 },
-					{ "time": 1.3333, "x": 1.76, "y": 0.44 },
-					{ "time": 1.5, "x": 5.29, "y": 3.53 },
-					{ "time": 1.7, "x": 1.76, "y": 0.44 },
-					{ "time": 1.9, "x": 5.29, "y": 3.53 },
-					{ "time": 2.0667, "x": 1.76, "y": 0.44 },
-					{ "time": 2.2667, "x": 5.29, "y": 3.53 },
-					{ "time": 2.4667, "x": 1.76, "y": 0.44 },
-					{ "time": 2.6667, "x": 5.29, "y": 3.53 },
-					{ "time": 2.8333, "x": 1.76, "y": 0.44 },
-					{ "time": 3, "x": 5.29, "y": 3.53 },
-					{ "time": 3.2, "x": 1.76, "y": 0.44 },
-					{ "time": 3.4, "x": 5.29, "y": 3.53 },
-					{ "time": 3.5667, "x": 1.76, "y": 0.44 },
-					{ "time": 3.7667, "x": 5.29, "y": 3.53 },
-					{ "time": 3.9667, "x": 1.76, "y": 0.44 },
-					{ "time": 4.1667, "x": 5.29, "y": 3.53 },
-					{ "time": 4.3333, "x": 1.76, "y": 0.44 },
-					{ "time": 4.5, "x": 5.29, "y": 3.53 },
-					{ "time": 4.7, "x": 1.76, "y": 0.44 },
-					{ "time": 4.9, "x": 5.29, "y": 3.53 },
-					{ "time": 5.0667, "x": 1.76, "y": 0.44 },
-					{ "time": 5.2667, "x": 5.29, "y": 3.53 },
-					{ "time": 5.4667, "x": 1.76, "y": 0.44 },
-					{ "time": 5.6667, "x": 5.29, "y": 3.53 },
-					{ "time": 5.8333, "x": 1.76, "y": 0.44 },
-					{ "time": 6, "x": 5.29, "y": 3.53 }
-				]
-			},
 			"duoitenlua2": {
 				"scale": [
 					{},
@@ -388,52 +327,6 @@
 	},
 	"rocket-idle": {
 		"slots": {
-			"duoitenlua": {
-				"color": [
-					{ "color": "ffffff00" }
-				]
-			},
-			"rocket-full": {
-				"attachment": [
-					{ "name": "rocket-full" }
-				]
-			},
-			"duoitenlua2": {
-				"color": [
-					{ "color": "ffffff00" }
-				]
-			},
-			"domsang": {
-				"color": [
-					{ "color": "ffffff00" }
-				]
-			},
-			"vaytrai": {
-				"color": [
-					{ "color": "ffffff00" }
-				]
-			},
-			"vaysau": {
-				"color": [
-					{ "color": "ffffff00" }
-				]
-			},
-			"than": {
-				"color": [
-					{ "color": "ffffff00" }
-				],
-				"attachment": [
-					{ "name": null }
-				]
-			},
-			"jpg/1": {
-				"color": [
-					{ "color": "ffffff00" }
-				],
-				"attachment": [
-					{ "name": null }
-				]
-			},
 			"firespark/2018": {
 				"color": [
 					{ "color": "b1fbff00", "curve": "stepped" },
@@ -456,34 +349,9 @@
 					{ "time": 7.3, "name": null }
 				]
 			},
-			"vayphai": {
-				"color": [
-					{ "color": "ffffff00" }
-				]
-			}
-		},
-		"bones": {
-			"rocket1": {
-				"rotate": [
-					{ "angle": -5.78 }
-				]
-			}
-		}
-	},
-	"rocket-start": {
-		"slots": {
-			"duoitenlua": {
-				"color": [
-					{ "color": "ffffff00", "curve": "stepped" },
-					{ "time": 2.2667, "color": "ffffff00" },
-					{ "time": 2.3333, "color": "ffffffff" }
-				]
-			},
 			"duoitenlua2": {
 				"color": [
-					{ "color": "ffffff00", "curve": "stepped" },
-					{ "time": 3.4667, "color": "ffffff00" },
-					{ "time": 3.5667, "color": "ffffffff" }
+					{ "color": "ffffff00" }
 				]
 			},
 			"domsang": {
@@ -498,7 +366,11 @@
 				"attachment": [
 					{ "name": null }
 				]
-			},
+			}
+		}
+	},
+	"rocket-start": {
+		"slots": {
 			"firespark/2018": {
 				"color": [
 					{ "color": "b1fbff00" },
@@ -563,6 +435,26 @@
 					{ "time": 4.0667, "name": "firespark/2045" },
 					{ "time": 4.1667, "name": null }
 				]
+			},
+			"duoitenlua2": {
+				"color": [
+					{ "color": "ffffff00", "curve": "stepped" },
+					{ "time": 1.0667, "color": "ffffff00" },
+					{ "time": 1.1333, "color": "ffffffff" }
+				]
+			},
+			"domsang": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			},
+			"jpg/1": {
+				"color": [
+					{ "color": "ffffff00" }
+				],
+				"attachment": [
+					{ "name": null }
+				]
 			}
 		},
 		"bones": {
@@ -576,8 +468,13 @@
 					{ "time": 5, "angle": 1.84 }
 				],
 				"translate": [
-					{ "time": 2 },
-					{ "time": 4.3667, "x": -0.21, "y": 3.52 }
+					{},
+					{ "time": 3, "x": -16.95, "y": 7.74 },
+					{ "time": 5 }
+				],
+				"scale": [
+					{},
+					{ "time": 3, "x": 0.915, "y": 0.915 }
 				]
 			},
 			"vayphai": {
@@ -587,44 +484,55 @@
 					{ "time": 5 }
 				]
 			},
-			"rocket-full": {
-				"rotate": [
-					{ "time": 1.0667 },
-					{ "time": 1.3, "angle": -3.31 },
-					{ "time": 1.5 },
-					{ "time": 1.6667, "angle": 3 },
-					{ "time": 1.8667 }
-				],
-				"translate": [
-					{ "x": 1.71, "y": 1.16, "curve": "stepped" },
-					{ "time": 2.3333, "x": 1.71, "y": 1.16 },
-					{ "time": 2.4667, "x": 2.56, "y": 1.74 },
-					{ "time": 2.5333, "x": 1.71, "y": 1.16 },
-					{ "time": 2.6667, "x": 2.56, "y": 1.74 },
-					{ "time": 2.7333, "x": 1.71, "y": 1.16 },
-					{ "time": 2.8, "x": 2.56, "y": 1.74 },
-					{ "time": 2.9333, "x": 1.71, "y": 1.16 },
-					{ "time": 3.0333, "x": 2.56, "y": 1.74 },
-					{ "time": 3.1667, "x": 1.71, "y": 1.16 },
-					{ "time": 3.2333, "x": 2.56, "y": 1.74 },
-					{ "time": 3.3667, "x": 1.71, "y": 1.16 },
-					{ "time": 3.4, "x": 2.56, "y": 1.74 }
-				]
-			},
 			"duoitenlua2": {
 				"scale": [
 					{ "x": 0.785, "y": 0.785, "curve": "stepped" },
-					{ "time": 3.4667, "x": 0.785, "y": 0.785 },
-					{ "time": 3.5333, "x": 0.873, "y": 0.873 },
-					{ "time": 3.6, "x": 0.785, "y": 0.785 },
-					{ "time": 3.6667, "x": 0.873, "y": 0.873 },
-					{ "time": 3.7333, "x": 0.785, "y": 0.785 },
-					{ "time": 3.8, "x": 0.873, "y": 0.873 },
-					{ "time": 3.8667, "x": 0.785, "y": 0.785 },
-					{ "time": 3.9333, "x": 0.873, "y": 0.873 },
-					{ "time": 4, "x": 0.785, "y": 0.785 },
-					{ "time": 4.0667, "x": 0.833, "y": 0.833 },
-					{ "time": 4.1333 },
+					{ "time": 1.1333, "x": 0.785, "y": 0.785 },
+					{ "time": 1.2, "x": 0.873, "y": 0.873 },
+					{ "time": 1.2667, "x": 0.785, "y": 0.785 },
+					{ "time": 1.3333, "x": 0.873, "y": 0.873 },
+					{ "time": 1.4, "x": 0.785, "y": 0.785 },
+					{ "time": 1.4667, "x": 0.873, "y": 0.873 },
+					{ "time": 1.5333, "x": 0.785, "y": 0.785 },
+					{ "time": 1.6, "x": 0.873, "y": 0.873 },
+					{ "time": 1.6667, "x": 0.785, "y": 0.785 },
+					{ "time": 1.7333, "x": 0.833, "y": 0.833 },
+					{ "time": 1.8 },
+					{ "time": 1.8667, "x": 0.833, "y": 0.833 },
+					{ "time": 1.9333 },
+					{ "time": 2, "x": 0.785, "y": 0.785 },
+					{ "time": 2.0667, "x": 0.873, "y": 0.873 },
+					{ "time": 2.1333, "x": 0.785, "y": 0.785 },
+					{ "time": 2.2, "x": 0.873, "y": 0.873 },
+					{ "time": 2.2667, "x": 0.785, "y": 0.785 },
+					{ "time": 2.3333, "x": 0.873, "y": 0.873 },
+					{ "time": 2.4, "x": 0.785, "y": 0.785 },
+					{ "time": 2.4667, "x": 0.873, "y": 0.873 },
+					{ "time": 2.5333, "x": 0.785, "y": 0.785 },
+					{ "time": 2.6, "x": 0.833, "y": 0.833 },
+					{ "time": 2.6667 },
+					{ "time": 2.7333, "x": 1.167, "y": 1.167 },
+					{ "time": 2.8, "x": 1.084, "y": 1.084 },
+					{ "time": 2.8667, "x": 1.167, "y": 1.167 },
+					{ "time": 2.9333, "x": 1.084, "y": 1.084 },
+					{ "time": 3, "x": 1.167, "y": 1.167 },
+					{ "time": 3.0667, "x": 1.084, "y": 1.084 },
+					{ "time": 3.1333, "x": 1.167, "y": 1.167 },
+					{ "time": 3.2, "x": 1.084, "y": 1.084 },
+					{ "time": 3.2667, "x": 1.167, "y": 1.167 },
+					{ "time": 3.3333, "x": 1.084, "y": 1.084 },
+					{ "time": 3.4, "x": 1.167, "y": 1.167 },
+					{ "time": 3.4667, "x": 1.084, "y": 1.084 },
+					{ "time": 3.5333, "x": 1.167, "y": 1.167 },
+					{ "time": 3.6, "x": 1.084, "y": 1.084 },
+					{ "time": 3.6667, "x": 1.167, "y": 1.167 },
+					{ "time": 3.7333, "x": 1.084, "y": 1.084 },
+					{ "time": 3.8, "x": 1.167, "y": 1.167 },
+					{ "time": 3.8667, "x": 1.084, "y": 1.084 },
+					{ "time": 3.9333, "x": 1.167, "y": 1.167 },
+					{ "time": 4, "x": 1.084, "y": 1.084 },
+					{ "time": 4.0667, "x": 1.167, "y": 1.167 },
+					{ "time": 4.1333, "x": 1.084, "y": 1.084 },
 					{ "time": 4.2, "x": 1.167, "y": 1.167 },
 					{ "time": 4.2667, "x": 1.084, "y": 1.084 },
 					{ "time": 4.3333, "x": 1.167, "y": 1.167 },
@@ -640,13 +548,6 @@
 					{ "time": 5, "x": 1.167, "y": 1.167 }
 				]
 			},
-			"duoitenlua": {
-				"translate": [
-					{ "x": 1.74, "y": -2.56, "curve": "stepped" },
-					{ "time": 2.3333, "x": 1.74, "y": -2.56 },
-					{ "time": 2.4667, "x": 6.38, "y": 0.59 }
-				]
-			},
 			"tenlua": {
 				"rotate": [
 					{ "time": 1.0667 },
@@ -654,15 +555,12 @@
 					{ "time": 1.5667 },
 					{ "time": 1.8, "angle": -1 },
 					{ "time": 2.0667 }
-				],
-				"translate": [
-					{ "x": 1.71, "y": 1.16 }
 				]
 			},
 			"vaytrai": {
 				"translate": [
 					{},
-					{ "time": 3, "x": 3.08, "y": -3.68 },
+					{ "time": 3, "x": 4.68, "y": -8.02 },
 					{ "time": 5 }
 				]
 			},
