@@ -56,7 +56,8 @@ export class StatisticsBar extends ObserverComponent {
             const node = instantiate(this.prbStatisticsItem);
             const control = node.getComponent(StatisticsButton);
             const result = round.result;
-            control.setData(result);
+            control.setData(round);
+            control.setMultiplier(+result);
             this.content.addChild(node);
         });
     }
@@ -107,7 +108,7 @@ export class StatisticsBar extends ObserverComponent {
 
     updateMultiplierValue(value: number) {
         const statisticsBtn = this.nodeMultiplier.getComponent(StatisticsButton);
-        statisticsBtn.setData(value);
+        statisticsBtn.setMultiplier(value);
         this.showHideNode(true, false, false);
     }
 }
