@@ -74,8 +74,14 @@ export default class EarlyBetButton extends ObserverComponent {
 
     @handle(EarlyBetUIHandlers, (handle, enable: boolean) => handle.handle(enable))
     onClickEarlyBet() {
+        if (this.isWaitingBet) {
+            this.cancelAutoPlay();
+        }
         return !this.isWaitingBet;
     }
+
+    @handle(AutoPlayHandler, (handle, enable: boolean) => handle.cancelAutoPlay())
+    cancelAutoPlay() {}
 
     @handle(EarlyBetUIHandlers, (handle, enable: boolean) => handle.handle(enable))
     disableEarlyBet() {
