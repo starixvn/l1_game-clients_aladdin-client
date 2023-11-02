@@ -38,7 +38,11 @@ export class CashOutButton extends ObserverComponent {
     @render(CrashCashOut.CrashCashoutStore, (store) => store.cashoutBet)
     updateBetValue(cashoutBet: any) {
         this.bet = CashOutComponent.getBetValue(cashoutBet);
-        this.setCashoutBetValue(cashoutBet);
+    }
+
+    @render(Bet.BetStore, (store) => store.isReceivedBet)
+    updateStatusReceivedBet(isReceivedBet: boolean) {
+        this.setCashoutBetValue(isReceivedBet);
     }
 
     @render(Bet.BetStore, (store) => store.lastReceivedBet)
@@ -52,9 +56,9 @@ export class CashOutButton extends ObserverComponent {
         return CashOutComponent.getBetValue(lastReceivedBet);
     }
 
-    @handle(PlayerActionHandlers, (handle, value: number) => handle.handleCashoutBet(value))
-    setCashoutBetValue(cashoutBet: number) {
-        return CashOutComponent.getBetValue(cashoutBet);
+    @handle(PlayerActionHandlers, (handle, isReceived: boolean) => handle.handleReceivedBet(isReceived))
+    setCashoutBetValue(isReceived: boolean) {
+        return isReceived;
     }
 
     @render(PlayerActionStore, (store) => ({

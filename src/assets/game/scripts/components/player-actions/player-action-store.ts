@@ -26,9 +26,7 @@ export class PlayerActionStore {
 
     private _endShowCashoutNotice = false;
 
-    private _showTotalWin = false;
-
-    private _cashoutBet: number;
+    private _isReceivedBet: boolean;
 
     private _waitingBet = false;
 
@@ -66,33 +64,23 @@ export class PlayerActionStore {
         return this.waitingBet && this.roundTimeStore.isShowResult;
     }
 
-    get betAccepted(): number {
-        if (this.betStore.lastReceivedBet && this.betStore.lastReceivedBet.value >= 0) {
-            return this.betStore.lastReceivedBet.value;
-        }
-        return 0;
+    get isReceivedBet(): boolean {
+        return this._isReceivedBet;
     }
 
-    get cashoutBet(): number {
-        if (this._cashoutBet && this._cashoutBet > 0) {
-            return this._cashoutBet;
-        }
-        return 0;
-    }
-
-    set cashoutBet(value: number) {
-        this._cashoutBet = value;
+    set isReceivedBet(isReceived: boolean) {
+        this._isReceivedBet = isReceived;
     }
     get rocketFlyWithoutCashout(): boolean {
-        return this.betAccepted < 1 && this.roundTimeStore.remaining <= 0;
+        return !this.isReceivedBet && this.roundTimeStore.remaining <= 0;
     }
 
     get rocketFlyWithCashout(): boolean {
-        return (this.cashoutBet > 0 && this.roundTimeStore.remaining <= 0) || (this.roundTimeStore.isShowResult && this.withoutCashoutAll);
+        return (this.isReceivedBet && this.roundTimeStore.remaining <= 0) || (this.roundTimeStore.isShowResult && this.withoutCashoutAll);
     }
 
     get withoutCashoutAll() {
-        return !this.cashoutAll && this.cashoutBet > 0;
+        return !this.cashoutAll && this.isReceivedBet;
     }
     get waitingBet(): boolean {
         return this._waitingBet;

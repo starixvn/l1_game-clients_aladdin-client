@@ -59,13 +59,6 @@ export default class PlaceBetButton extends ObserverComponent {
         this.earlyBet = enable;
     }
 
-    @render(Rounds.RoundStore, (store) => store.resultHash)
-    updateEndBetReceive(resultHash: any) {
-        if (resultHash && resultHash?.hashValue) {
-            this.updateValueEndBet();
-        }
-    }
-
     @render(Bet.BetStore, (store) => store.lastReceivedBet)
     updateStatusPlaceBet(lastReceivedBet: any) {
         if (!lastReceivedBet || lastReceivedBet.value <= 0 || lastReceivedBet.value !== this.amount) {
@@ -110,16 +103,14 @@ export default class PlaceBetButton extends ObserverComponent {
         isPlacingBet: store.isPlacingBet,
         remaining: store.remaining,
         isLockingBet: store.isLocking,
-        isShowResult: store.isShowAnimationResult,
+        isStartPlacingBet: store.isStartPlacingBet,
     }))
     showPlaceBet(data: { isPlacingBet: boolean; remaining: number; isLockingBet: boolean; isShowResult: boolean }) {
-        const { isPlacingBet, remaining, isLockingBet, isShowResult } = data;
+        const { isPlacingBet, remaining, isLockingBet } = data;
 
         if (remaining <= 0) {
             this.handleNoRemaining();
-        } /* else if (isShowResult) {
-            this.updateValueEndBet();
-        } */ else if (isPlacingBet) {
+        } else if (isPlacingBet) {
             this.handlePlacingBet();
         } else if (isLockingBet && !this.isBetAccepted) {
             this.handleBlockBet(true);
@@ -149,11 +140,6 @@ export default class PlaceBetButton extends ObserverComponent {
 
     handleBlockBet(disable: boolean) {
         this.bgDisable.node.active = disable;
-    }
-
-    @handle(Bet.BetResponseHandlers, (handle, value: number) => handle.handleBetResponse(value))
-    updateValueEndBet() {
-        return 0;
     }
 
     @render(AutoPlayStore, (store) => store.isAutoPlay)

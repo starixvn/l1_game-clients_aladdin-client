@@ -21,8 +21,8 @@ export class PlayerActionHandlers implements IHandler<boolean> {
         this.playerActionStore.endShowCashoutNotice = flag;
     }
 
-    handleCashoutBet(bet: number) {
-        this.playerActionStore.cashoutBet = bet;
+    handleReceivedBet(isReceived: boolean) {
+        this.playerActionStore.isReceivedBet = isReceived;
     }
 
     handleWaitingBet(flag: boolean) {

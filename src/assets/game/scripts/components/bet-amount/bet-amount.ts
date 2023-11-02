@@ -8,12 +8,14 @@ import { EarlyBetStore } from "../bet/early-bet-store";
 
 const { ccclass, property } = _decorator;
 const { handle, render } = Observer;
-const { Bet } = gc;
+const { Bet, Rounds } = gc;
 
 @ccclass
 export class BetAmount extends ObserverComponent {
     @property(Node)
     nodeDisabledBetAmount: Node = null;
+
+    private placeBetTime = false;
 
     showHideDisabledNode(isShow: boolean) {
         this.nodeDisabledBetAmount.active = isShow;
@@ -24,17 +26,20 @@ export class BetAmount extends ObserverComponent {
         this.showHideDisabledNode(autoPlay);
     }
 
-    @render(Bet.BetStore, (store) => store.lastReceivedBet)
-    withBetAccepted(lastReceivedBet: any) {
-        if (lastReceivedBet && lastReceivedBet.value > 0) {
-            this.showHideDisabledNode(true);
-        } else {
-            this.showHideDisabledNode(false);
-        }
+    @render(Bet.BetStore, (store) => store.isReceivedBet)
+    withBetAccepted(isReceivedBet: boolean) {
+        this.showHideDisabledNode(isReceivedBet);
+    }
+
+    @render(Rounds.RoundTimeStore, (store) => store.isPlacingBet)
+    setTimePlaceBet(isPlacingBet: boolean) {
+        this.placeBetTime = isPlacingBet;
     }
 
     @render(EarlyBetStore, (store) => store.earlyBet)
     withEarlyBet(early: boolean) {
-        this.showHideDisabledNode(early);
+        if (!this.placeBetTime) {
+            this.showHideDisabledNode(early);
+        }
     }
 }
