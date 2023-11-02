@@ -1,12 +1,16 @@
 import gc from "@sg/game-client-base";
-import { _decorator } from "cc";
+import { _decorator, Label } from "cc";
 import { BaseResultBodyItem } from "db://shared-components/game/bet-history/scripts/components/bet-history-body-item";
-import { ServiceCard } from "db://shared-components/game/poker-cards/scripts/poker-card";
 
 const { ccclass } = _decorator;
 const { property } = _decorator;
-
+const { FormatUtils } = gc;
 @ccclass
 export default class ResultBodyItem extends BaseResultBodyItem {
-    setData(result: gc.BetHistory.DynamicObject<ServiceCard>, settlementResult: gc.BetHistory.DynamicObject<boolean>) {}
+    @property(Label)
+    lblResult: Label = null;
+
+    setData(result: gc.BetHistory.DynamicObject<object>, settlementResult: gc.BetHistory.DynamicObject<boolean>) {
+        this.lblResult.string = `${FormatUtils.numberWithCommas(+result, 2, false)}x`;
+    }
 }
