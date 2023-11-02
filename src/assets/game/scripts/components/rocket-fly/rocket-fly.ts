@@ -1,11 +1,11 @@
 import gc from "@sg/game-client-base";
 import { Node, UITransform, Vec3, _decorator, toDegree, tween, v3 } from "cc";
+import { AnimationUtils } from "db://shared-components/shared/utils";
 import Observer from "observer";
-
 import { ObserverComponent } from "../../../../../extensions/shared-components/assets/shared/common-components/observer-component/scripts/observer-component";
 import ColMultipliers from "../col-multipliers/col-multipliers";
 import { Rocket, RocketAnim } from "./rocket";
-
+const { fadeOut, fadeIn, getUiOpacity } = AnimationUtils;
 const { ccclass, property } = _decorator;
 
 const { render } = Observer;
@@ -37,7 +37,11 @@ export class RocketFly extends ObserverComponent {
     private prevRocketPosition: Vec3;
     private startPosition: Vec3;
 
+    private tailNodes: Node[] = [];
+
     onLoad() {
+        this.tailNodes.push(...this.transformRocketTail.node.children);
+
         super.onLoad();
         this.isReady = true;
         this.startPosition = this.startPoint.position;
@@ -75,6 +79,33 @@ export class RocketFly extends ObserverComponent {
             }, rocketIntervalTime);
             this.firstMultiplierRound = true;
         }
+        this.checkSwapRocketTail(multiplier);
+    }
+
+    checkSwapRocketTail(multiplier: number) {
+        const multipliers = [0, 5, 10];
+        let next = 0;
+        for (let index = 0; index < multipliers.length; index++) {
+            const m = multipliers[index];
+            if (multiplier < m) {
+                break;
+            }
+            next = index;
+        }
+
+        const current = next - 1;
+        if (current < 0 || this.tailNodes[next].active) {
+            return;
+        }
+
+        this.swapRocketTail(next, current);
+    }
+
+    private swapRocketTail(next: number, current: number) {
+        const duration = 1;
+        this.tailNodes[next].active = true;
+        fadeIn(this.tailNodes[next], duration);
+        fadeOut(this.tailNodes[current], duration);
     }
 
     @render(gc.Rounds.RoundTimeStore, (store) => store.isStartRound)
@@ -108,9 +139,18 @@ export class RocketFly extends ObserverComponent {
     }
 
     private resetStartPosition() {
-        this.updateRocketTail(0);
+        this.updateRocketTailWidth(0);
+        this.resetRocketTailNodes();
         this.cpnRocket.updatePosition(this.startPosition);
         this.prevRocketPosition = this.startPosition;
+    }
+
+    private resetRocketTailNodes() {
+        this.tailNodes.forEach((node, index) => {
+            const show = index === 0;
+            node.active = show;
+            getUiOpacity(node).opacity = show ? 255 : 1;
+        });
     }
 
     private animate() {
@@ -144,7 +184,7 @@ export class RocketFly extends ObserverComponent {
             x: newPosition.x - this.prevRocketPosition.x,
             y: newPosition.y - this.prevRocketPosition.y,
         };
-        this.updateRocketTail(newPosition.x);
+        this.updateRocketTailWidth(newPosition.x);
         const eulerAngle = this.startRotation + toDegree(Math.atan2(delta.y, delta.x));
         this.cpnRocket.updateRotation(eulerAngle, true);
         this.cpnRocket.updatePosition(newPosition, true, 0.1);
@@ -152,7 +192,7 @@ export class RocketFly extends ObserverComponent {
         this.prevRocketPosition = newPosition;
     }
 
-    private updateRocketTail(width: number) {
+    private updateRocketTailWidth(width: number) {
         this.showRocketTail();
         this.transformRocketTail.width = width;
     }
