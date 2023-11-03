@@ -24,10 +24,12 @@ export class BackgroundControl extends ObserverComponent {
     private isBgMoving = false;
     private isPlanetsMoving = false;
     private readonly movingBackgroundDuration = 40;
+    private readonly backgroundMoveY = -500;
 
     @render(gc.CrashMultiplier.MultiplierStore, (store) => store.time, { fireImmediately: false })
     renderRocketTime(time: number) {
         if (!this.isBgMoving) {
+            this.initNodeBackgroundWithTime(time);
             this.startMovingBackground();
         }
         if (!this.isPlanetsMoving) {
@@ -61,12 +63,18 @@ export class BackgroundControl extends ObserverComponent {
         this.planetSkeleton.timeScale = 0;
     }
 
+    initNodeBackgroundWithTime(time: number) {
+        const rate = time / (this.movingBackgroundDuration * 1000);
+        this.nodeBackground.scale = v3(1, 1).multiplyScalar(1 - rate);
+        this.nodeBackground.position = v3(0, this.backgroundMoveY * rate);
+    }
+
     startMovingBackground() {
         this.isBgMoving = true;
         tween(this.nodeBackground)
             .to(this.movingBackgroundDuration, {
                 scale: v3(0),
-                position: v3(0, -500),
+                position: v3(0, this.backgroundMoveY),
             })
             .start();
     }
