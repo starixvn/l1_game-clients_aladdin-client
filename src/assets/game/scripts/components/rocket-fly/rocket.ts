@@ -1,5 +1,4 @@
-import gc from "@sg/game-client-base";
-import { _decorator, Node, sp, Tween, tween, v3, Vec3 } from "cc";
+import { _decorator, Node, ParticleSystem2D, sp, Tween, tween, v3, Vec3 } from "cc";
 import Observer from "observer";
 
 import { ObserverComponent } from "../../../../../extensions/shared-components/assets/shared/common-components/observer-component/scripts/observer-component";
@@ -29,20 +28,27 @@ export class Rocket extends ObserverComponent {
     @property(Node)
     nodeSpaceMan: Node = null;
 
-    skeExplosion: sp.Skeleton = null;
-    skeRocket: sp.Skeleton = null;
-    skeSpaceMan: sp.Skeleton = null;
+    @property(ParticleSystem2D)
+    particleFire: ParticleSystem2D = null;
+
+    get skeExplosion(): sp.Skeleton {
+        return this.explosion.getComponent(sp.Skeleton);
+    }
+    get skeRocket(): sp.Skeleton {
+        return this.rocket.getComponent(sp.Skeleton);
+    }
+
+    get skeSpaceMan(): sp.Skeleton {
+        return this.nodeSpaceMan.getComponent(sp.Skeleton);
+    }
     private rotationTween: Tween<Node>;
     private positionTween: Tween<Node>;
     private explositionTween: Tween<Node>;
 
     onLoad() {
-        this.skeRocket = this.rocket.getComponent(sp.Skeleton);
-        this.skeExplosion = this.explosion.getComponent(sp.Skeleton);
-        this.skeSpaceMan = this.nodeSpaceMan.getComponent(sp.Skeleton);
+        super.onLoad();
         this.setSpaceManVisibility(false);
     }
-
     setSpaceManVisibility(status: boolean) {
         this.nodeSpaceMan.active = status;
         status && this.skeSpaceMan.setAnimation(0, "action", false);
@@ -52,7 +58,15 @@ export class Rocket extends ObserverComponent {
         this.skeRocket?.setAnimation(0, name, true);
     }
 
-    @render(gc.Rounds.RoundTimeStore, (store) => store.isPlacingBet)
+    setFireParticleVisibility(visible: boolean) {
+        this.particleFire.node.active = visible;
+    }
+
+    setFireParticleSpeed(time: number) {
+        const seconds = time / 1000;
+        this.particleFire.speed = seconds < 1 ? 50 : 200;
+    }
+
     setRocketVisibility(status: boolean) {
         this.rocket.active = status;
     }
@@ -81,8 +95,35 @@ export class Rocket extends ObserverComponent {
         }
     }
 
-    explode(isSMall: boolean) {
-        const animName = isSMall ? RocketAnim.EXPLOSION_SMALL : RocketAnim.EXPLOSION_BIG;
+    prepareRocket(startRotation: number) {
+        this.node.active = true;
+        this.setRocketAnim(RocketAnim.IDLE, false);
+        this.stopAnimation();
+        this.setRocketVisibility(true);
+        this.setExplosionRocketVisibility(false);
+        tween(this.node)
+            .call(() => {
+                this.updateRotation(0);
+                this.setSpaceManVisibility(true);
+            })
+            .delay(2)
+            .to(2, { eulerAngles: v3(0, 0, startRotation) }, { easing: "sineOut" })
+            .delay(2)
+            .call(() => {
+                this.setSpaceManVisibility(false);
+                this.setRocketAnim(RocketAnim.START, true);
+            })
+            .union()
+            .start();
+    }
+
+    explode(smallExplosion: boolean) {
+        this.stopAnimation();
+        this.setRocketVisibility(false);
+        this.setExplosionRocketVisibility(true);
+        this.setFireParticleVisibility(false);
+
+        const animName = smallExplosion ? RocketAnim.EXPLOSION_SMALL : RocketAnim.EXPLOSION_BIG;
         const duration = this.skeExplosion.findAnimation(animName).duration;
         this.skeExplosion.setAnimation(0, animName, false);
         this.explositionTween = tween(this.node)

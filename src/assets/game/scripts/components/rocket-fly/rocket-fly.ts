@@ -1,5 +1,5 @@
 import gc from "@sg/game-client-base";
-import { Node, UITransform, Vec3, _decorator, toDegree, tween, v3 } from "cc";
+import { Node, UITransform, Vec3, _decorator, toDegree, v3 } from "cc";
 import { AnimationUtils } from "db://shared-components/shared/utils";
 import Observer from "observer";
 import { ObserverComponent } from "../../../../../extensions/shared-components/assets/shared/common-components/observer-component/scripts/observer-component";
@@ -30,54 +30,59 @@ export class RocketFly extends ObserverComponent {
     private readonly speedRate = 2;
     private currentMultiplier = 0;
     private deltaTime = 0;
-    private isReady = false;
     private firstMultiplierRound = false;
     private flyInterval;
     private receivedMultiplierTimes = 0;
     private cpnColMultipliers: ColMultipliers;
     private prevRocketPosition: Vec3;
-    private startPosition: Vec3;
+    private get startPosition(): Vec3 {
+        return this.startPoint.position;
+    }
+
+    private readonly smallExplosionMultiplier = 1.02;
 
     private tailNodes: Node[] = [];
 
     onLoad() {
         this.tailNodes.push(...this.transformRocketTail.node.children);
-
-        super.onLoad();
-        this.isReady = true;
-        this.startPosition = this.startPoint.position;
         this.prevRocketPosition = this.startPosition;
+        this.cpnColMultipliers = this.nodeColMultiplier.getComponent(ColMultipliers);
         this.cpnRocket.setRocketVisibility(false);
         this.cpnRocket.setExplosionRocketVisibility(false);
         this.cpnRocket.updatePosition(this.startPosition);
-        this.cpnColMultipliers = this.nodeColMultiplier.getComponent(ColMultipliers);
+
+        super.onLoad();
+    }
+
+    @render(gc.Settlements.SettlementStore, (store) => ({ result: store.result, settlementResult: store.settlementResult }), {
+        fireImmediately: false,
+    })
+    renderRocketExplosion(data: { result: gc.GameServiceMessage.TResult; settlementResult: gc.GameServiceMessage.TSettlementResult }) {
+        const { result } = data;
+        if (result) {
+            this.explodeRocket(+result < this.smallExplosionMultiplier);
+        }
     }
 
     @render(GameCrash.CrashMultiplier.MultiplierStore, (store) => store.time, { fireImmediately: false })
     setTimeByMultiplier(time: number) {
-        if (!this.isReady || this.receivedMultiplierTimes > 0) {
-            return;
+        if (time - this.deltaTime > 150) {
+            this.flyRocket(time - 100, false);
         }
-
         this.deltaTime = time;
-        this.cpnColMultipliers.createDefaultMultiplierList(this.currentMultiplier);
-        this.flyRocket(true);
-        this.receivedMultiplierTimes += 1;
+        this.flyRocket(this.deltaTime);
+        this.cpnColMultipliers.needScrollDown(this.cpnRocket.nodeRocketHead, this.currentMultiplier, true);
+        this.cpnRocket.setFireParticleSpeed(time);
+        this.cpnRocket.setFireParticleVisibility(true);
     }
 
     @render(GameCrash.CrashMultiplier.MultiplierStore, (store) => store.multiplier, { fireImmediately: false })
     private setCurrentMultiplier(multiplier: number) {
         this.currentMultiplier = multiplier;
+        this.cpnColMultipliers.createDefaultMultiplierList(this.currentMultiplier);
 
-        if (this.isReady && !this.firstMultiplierRound) {
+        if (!this.firstMultiplierRound) {
             this.cpnRocket.setRocketAnim(RocketAnim.FLY, true);
-            this.flyInterval && clearInterval(this.flyInterval);
-            this.deltaTime = 0;
-            const rocketIntervalTime = 100;
-            this.flyInterval = setInterval(() => {
-                this.deltaTime += rocketIntervalTime;
-                this.animate();
-            }, rocketIntervalTime);
             this.firstMultiplierRound = true;
         }
         this.checkSwapRocketTail(multiplier);
@@ -115,33 +120,14 @@ export class RocketFly extends ObserverComponent {
             return;
         }
 
-        this.cpnRocket.node.active = true;
-        this.cpnRocket.setRocketAnim(RocketAnim.IDLE, false);
-        this.cpnRocket.stopAnimation();
-        this.cpnRocket.setRocketVisibility(true);
-        this.cpnRocket.setExplosionRocketVisibility(false);
-        this.resetStartPosition();
+        this.prepareForRocket();
         this.cpnColMultipliers.scrollUp();
-
-        tween(this.cpnRocket.node)
-            .call(() => {
-                this.cpnRocket.updateRotation(0);
-                this.cpnRocket.setSpaceManVisibility(true);
-            })
-            .delay(2)
-            .to(2, { eulerAngles: v3(0, 0, this.startRotation) }, { easing: "sineOut" })
-            .delay(2)
-            .call(() => {
-                this.cpnRocket.setSpaceManVisibility(false);
-                this.cpnRocket.setRocketAnim(RocketAnim.START, true);
-            })
-            .union()
-            .start();
     }
 
-    private resetStartPosition() {
+    private prepareForRocket() {
         this.updateRocketTailWidth(0);
         this.resetRocketTailNodes();
+        this.cpnRocket.prepareRocket(this.startRotation);
         this.cpnRocket.updatePosition(this.startPosition);
         this.prevRocketPosition = this.startPosition;
     }
@@ -154,32 +140,22 @@ export class RocketFly extends ObserverComponent {
         });
     }
 
-    private animate() {
-        if (!this.isReady) {
-            return;
-        }
-
-        this.flyRocket();
-    }
-
-    flyRocket(isJoinInPlaceBetTime = false) {
+    flyRocket(time: number, animated = true) {
         this.cpnRocket.setRocketVisibility(true);
         const limitX = this.grapWidth - 50;
-
         if (this.cpnRocket.node.position.x >= limitX) {
-            this.cpnColMultipliers.needScrollDown(this.cpnRocket.nodeRocketHead, this.currentMultiplier);
             return;
         }
 
         const scale = this.grapWidth / this.grapMaxX;
-        let rawX = (this.deltaTime * this.getTimerRate()) / 2000;
+        let rawX = (time * this.getTimerRate()) / 2000;
 
-        if (isJoinInPlaceBetTime && rawX * scale >= limitX) {
-            rawX = limitX / scale;
+        const rawY = Math.pow(rawX, 4) / 1900;
+        const newPosition = v3(rawX * scale, rawY * scale);
+
+        if (newPosition.x >= limitX) {
+            return;
         }
-
-        let rawY = (0.1 * Math.pow(rawX, 4)) / 190; //equation: 0.1*(x^4)/190
-        let newPosition = v3(rawX * scale, rawY * scale);
 
         const delta = {
             x: newPosition.x - this.prevRocketPosition.x,
@@ -187,9 +163,8 @@ export class RocketFly extends ObserverComponent {
         };
         this.updateRocketTailWidth(newPosition.x);
         const eulerAngle = this.startRotation + toDegree(Math.atan2(delta.y, delta.x));
-        this.cpnRocket.updateRotation(eulerAngle, true);
-        this.cpnRocket.updatePosition(newPosition, true, 0.1);
-        this.cpnColMultipliers.needScrollDown(this.cpnRocket.nodeRocketHead, this.currentMultiplier);
+        this.cpnRocket.updateRotation(eulerAngle, animated);
+        this.cpnRocket.updatePosition(newPosition, animated, 0.1);
         this.prevRocketPosition = newPosition;
     }
 
@@ -199,16 +174,8 @@ export class RocketFly extends ObserverComponent {
     }
 
     explodeRocket(isSMall: boolean) {
-        if (!this.isReady) {
-            return;
-        }
-
         this.hideRocketTail();
-        this.flyInterval && clearInterval(this.flyInterval);
         this.firstMultiplierRound = false;
-        this.cpnRocket.stopAnimation();
-        this.cpnRocket.setRocketVisibility(false);
-        this.cpnRocket.setExplosionRocketVisibility(true);
         this.cpnRocket.explode(isSMall);
     }
 

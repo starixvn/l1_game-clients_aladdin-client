@@ -25,6 +25,7 @@ export default class ColMultipliers extends ObserverComponent {
     multiplierTop = 0;
     multiplierContainerSize: UITransform;
 
+    private createdDefaultMultiplierList = false;
     onLoad() {
         super.onLoad();
         this.startMultiplierList = this.defaultMultiplierList;
@@ -32,6 +33,10 @@ export default class ColMultipliers extends ObserverComponent {
     }
 
     createDefaultMultiplierList(multiplier: number) {
+        if (this.createdDefaultMultiplierList) {
+            return;
+        }
+        this.createdDefaultMultiplierList = true;
         multiplier = Math.floor(multiplier);
         if (multiplier / 4 > 8) {
             this.startMultiplierList = [
@@ -87,13 +92,17 @@ export default class ColMultipliers extends ObserverComponent {
         this.removedList.push(firstMultiplier);
     }
 
-    scrollDown(transitionY: number) {
-        this.scrollTween?.stop();
-        this.scrollTween = tween(this.nodeMultipliersContainer)
-            .by(0.1, {
-                position: v3(0, -transitionY, 0),
-            })
-            .start();
+    scrollDown(transitionY: number, animated: boolean) {
+        if (animated) {
+            this.scrollTween?.stop();
+            this.scrollTween = tween(this.nodeMultipliersContainer)
+                .by(0.1, {
+                    position: v3(0, -transitionY, 0),
+                })
+                .start();
+        } else {
+            this.nodeMultipliersContainer.position.add(v3(0, -transitionY, 0));
+        }
     }
 
     scrollUp() {
@@ -137,7 +146,7 @@ export default class ColMultipliers extends ObserverComponent {
         return node?.getComponent(UITransform)?.convertToWorldSpaceAR(v3(0, 0, 0));
     }
 
-    needScrollDown(rocket: Node, multiplier: number) {
+    needScrollDown(rocket: Node, multiplier: number, animated: boolean) {
         this.handleMultiplier(multiplier);
 
         const convertRocketWorldPos = this.convertWorldPosition(rocket);
@@ -146,7 +155,7 @@ export default class ColMultipliers extends ObserverComponent {
         const calcMultiplierPosY = this.convertWorldPosition(multiplierBottomNode)?.y + multiplierHeight;
 
         if (convertRocketWorldPos && calcMultiplierPosY > convertRocketWorldPos.y) {
-            this.scrollDown(calcMultiplierPosY - convertRocketWorldPos.y);
+            this.scrollDown(calcMultiplierPosY - convertRocketWorldPos.y, animated);
         }
     }
 }

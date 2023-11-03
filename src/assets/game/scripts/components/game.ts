@@ -12,7 +12,6 @@ import { BalanceEffectHandlers } from "../../../../extensions/shared-components/
 import { siteConfigs } from "../../../scripts/site-configs";
 import { containerOptions, settings } from "../game-settings";
 import { CurrentMultiplier } from "./current-multiplier";
-import { RocketFly } from "./rocket-fly/rocket-fly";
 import { StatisticsBar } from "./statistics-bar/statistics-bar";
 
 const { Settlements, Auth, Rounds, Translator, GameCrash } = gc;
@@ -34,9 +33,6 @@ export default class Game extends GameComponent {
     lblMaxBet: Label = null;
 
     @property(Node)
-    rocketFly: Node = null;
-
-    @property(Node)
     nodeStatisticsBar: Node = null;
 
     @property(Node)
@@ -44,43 +40,24 @@ export default class Game extends GameComponent {
 
     override namespace = settings.name;
     override containerOptions = containerOptions;
-    private cpnRocketFly: RocketFly = null;
-    private readonly smallExplosion = 1.02;
+
     private cpnStatisticsBar: StatisticsBar;
     private cpnCurrMultiplier: CurrentMultiplier;
 
     onLoad() {
         super.onLoad();
-        this.cpnRocketFly = this.rocketFly.getComponent(RocketFly);
         this.cpnStatisticsBar = this.nodeStatisticsBar.getComponent(StatisticsBar);
         this.cpnCurrMultiplier = this.nodeCurrMultiplier.getComponent(CurrentMultiplier);
     }
 
-    @render(Settlements.SettlementStore, (store) => ({ result: store.result, settlementResult: store.settlementResult }))
-    handleResult(data: { result: gc.GameServiceMessage.TResult; settlementResult: gc.GameServiceMessage.TSettlementResult }) {
-        const { result, settlementResult } = data;
-        if (!result) {
-            return;
-        }
-
-        this.showResult(result, true).then(() => {
-            setTimeout(() => {
-                this.updateAutoPlayMode();
-            }, 2000);
-            this.finishShowResult(result, settlementResult);
-        });
-        this.resetValueCashout();
-        this.playSound(gc.Audios.AudioIds.RECEIVE_FINISH);
-    }
-
-    async showResult(result: gc.GameServiceMessage.TResult, hasAnimation: boolean) {
+    finishShowResult(result: gc.GameServiceMessage.TResult, settlementResult: gc.GameServiceMessage.TSettlementResult) {
         const multiplier = +result;
-        this.cpnRocketFly?.explodeRocket(multiplier < this.smallExplosion);
         this.updateStatisticsBar(multiplier);
         this.updateCurrMultiplier(multiplier);
-    }
-
-    finishShowResult(result: gc.GameServiceMessage.TResult, settlementResult: gc.GameServiceMessage.TSettlementResult) {
+        setTimeout(() => {
+            this.updateAutoPlayMode();
+        }, 2000);
+        this.resetValueCashout();
         super.finishShowResult(result, settlementResult);
     }
 
