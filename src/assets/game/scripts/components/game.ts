@@ -15,7 +15,7 @@ import { CurrentMultiplier } from "./current-multiplier";
 import { RocketFly } from "./rocket-fly/rocket-fly";
 import { StatisticsBar } from "./statistics-bar/statistics-bar";
 
-const { Settlements, Auth, Rounds, Translator, CrashCashOut } = gc;
+const { Settlements, Auth, Rounds, Translator, GameCrash } = gc;
 
 const { movingNode, getPositionAtDestNode, playSpine, fadeOut, fadeIn } = AnimationUtils;
 
@@ -116,6 +116,6 @@ export default class Game extends GameComponent {
         this.cpnCurrMultiplier.setCurrMultiplierValue(value);
     }
 
-    @handle(CrashCashOut.CrashCashOutUIHandlers, (handle) => handle.resetCashoutVaue())
+    @handle(GameCrash.CrashCashOut.CrashCashOutUIHandlers, (handle) => handle.resetCashoutVaue())
     resetValueCashout() {}
 }

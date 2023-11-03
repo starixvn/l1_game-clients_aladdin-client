@@ -13,7 +13,7 @@ import { EarlyBetStore } from "./early-bet-store";
 
 const { handle, render } = Observer;
 const { property, ccclass } = _decorator;
-const { CrashBet, Bet, Rounds } = gc;
+const { GameCrash, Bet, Rounds } = gc;
 
 @ccclass
 export default class PlaceBetButton extends ObserverComponent {
@@ -94,7 +94,7 @@ export default class PlaceBetButton extends ObserverComponent {
         }
     }
 
-    @handle(CrashBet.CrashBetHandler, (handle, payload: { autoCashOut: number; amount: number }) => handle.handle(payload))
+    @handle(GameCrash.CrashBet.CrashBetHandler, (handle, payload: { autoCashOut: number; amount: number }) => handle.handle(payload))
     sendBetRequest() {
         return { autoCashOut: this.isEnableAutoCashOut ? this.valueAutoCashOut : undefined, amount: this.amount };
     }

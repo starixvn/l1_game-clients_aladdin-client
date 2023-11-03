@@ -9,6 +9,7 @@ const { fadeOut, fadeIn, getUiOpacity } = AnimationUtils;
 const { ccclass, property } = _decorator;
 
 const { render } = Observer;
+const { GameCrash } = gc;
 @ccclass
 export class RocketFly extends ObserverComponent {
     @property(Rocket)
@@ -52,7 +53,7 @@ export class RocketFly extends ObserverComponent {
         this.cpnColMultipliers = this.nodeColMultiplier.getComponent(ColMultipliers);
     }
 
-    @render(gc.CrashMultiplier.MultiplierStore, (store) => store.time, { fireImmediately: false })
+    @render(GameCrash.CrashMultiplier.MultiplierStore, (store) => store.time, { fireImmediately: false })
     setTimeByMultiplier(time: number) {
         if (!this.isReady || this.receivedMultiplierTimes > 0) {
             return;
@@ -64,7 +65,7 @@ export class RocketFly extends ObserverComponent {
         this.receivedMultiplierTimes += 1;
     }
 
-    @render(gc.CrashMultiplier.MultiplierStore, (store) => store.multiplier, { fireImmediately: false })
+    @render(GameCrash.CrashMultiplier.MultiplierStore, (store) => store.multiplier, { fireImmediately: false })
     private setCurrentMultiplier(multiplier: number) {
         this.currentMultiplier = multiplier;
 

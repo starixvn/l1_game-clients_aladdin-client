@@ -22,4 +22,5 @@ export const containerOptions: gc.IContainerOptions = {
         container.bind(gc.GameConfigs.GameSetting).toConstantValue(settings);
         container.bind(LogStore).to(LogStore);
     },
+    features: [...gc.defaultFeatures, gc.GameCrash]
 };

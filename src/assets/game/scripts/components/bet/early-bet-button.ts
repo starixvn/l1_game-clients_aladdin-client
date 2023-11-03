@@ -14,7 +14,7 @@ import { EarlyBetUIHandlers } from "./early-bet-ui-handlers";
 
 const { handle, render } = Observer;
 const { property, ccclass } = _decorator;
-const { CrashBet, Rounds } = gc;
+const { GameCrash, Rounds } = gc;
 
 @ccclass
 export default class EarlyBetButton extends ObserverComponent {
@@ -145,7 +145,7 @@ export default class EarlyBetButton extends ObserverComponent {
         this.setStatusButtons(true);
     }
 
-    @handle(CrashBet.CrashBetHandler, (handle, payload: { autoCashOut: number; amount: number }) => handle.handle(payload))
+    @handle(GameCrash.CrashBet.CrashBetHandler, (handle, payload: { autoCashOut: number; amount: number }) => handle.handle(payload))
     autoPlaceBet() {
         this.setStatusWaiting(false);
         return { autoCashOut: this.isEnableAutoCashOut ? this.valueAutoCashOut : undefined, amount: this.amount };

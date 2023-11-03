@@ -6,7 +6,7 @@ import { ObserverComponent } from "../../../../extensions/shared-components/asse
 
 const { ccclass, property } = _decorator;
 const { render } = Observer;
-const { FormatUtils } = gc;
+const { FormatUtils, GameCrash } = gc;
 
 @ccclass("current_multiplier")
 export class CurrentMultiplier extends ObserverComponent {
@@ -25,7 +25,7 @@ export class CurrentMultiplier extends ObserverComponent {
         this.setVisibility(false);
     }
 
-    @render(gc.CrashMultiplier.MultiplierStore, (store) => store.multiplier, { fireImmediately: false })
+    @render(GameCrash.CrashMultiplier.MultiplierStore, (store) => store.multiplier, { fireImmediately: false })
     private setCurrentMultiplier(multiplier: number) {
         this.setVisibility(true);
         this.setCurrMultiplierValue(multiplier);

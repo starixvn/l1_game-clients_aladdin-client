@@ -8,7 +8,7 @@ import { CashOutComponent } from "./cash-out-component";
 
 const { handle, render } = Observer;
 const { property, ccclass } = _decorator;
-const { CrashMultiplier, Rounds, CrashCashOut, Bet } = gc;
+const { GameCrash, Rounds, Bet } = gc;
 
 @ccclass
 export class CashOutButton extends ObserverComponent {
@@ -21,13 +21,13 @@ export class CashOutButton extends ObserverComponent {
     private bet = 0;
     private isCashedOut = false;
 
-    @render(CrashCashOut.CrashCashoutStore, (store) => store.isCashedOutFull)
+    @render(GameCrash.CrashCashOut.CrashCashoutStore, (store) => store.isCashedOutFull)
     updateCashOutFullButton(isCashedOut: boolean) {
         CashOutComponent.updateCashOutButton(isCashedOut, this.sprDisabled);
         this.isCashedOut = isCashedOut;
     }
 
-    @render(CrashMultiplier.MultiplierStore, (store) => store.multiplier)
+    @render(GameCrash.CrashMultiplier.MultiplierStore, (store) => store.multiplier)
     updateCashOut(multiplier: number) {
         if (!this.isCashedOut) {
             let cashOutValue = multiplier * this.bet;
@@ -35,7 +35,7 @@ export class CashOutButton extends ObserverComponent {
         }
     }
 
-    @render(CrashCashOut.CrashCashoutStore, (store) => store.cashoutBet)
+    @render(GameCrash.CrashCashOut.CrashCashoutStore, (store) => store.cashoutBet)
     updateBetValue(cashoutBet: any) {
         this.bet = CashOutComponent.getBetValue(cashoutBet);
     }
@@ -49,7 +49,7 @@ export class CashOutButton extends ObserverComponent {
     assignCashoutBetValue(lastReceivedBet: any) {
         this.updateCashoutBetValue(lastReceivedBet);
     }
-    @handle(CrashCashOut.CrashCashOutUIHandlers, (cashOutHandler, cashOutBetValue: number) =>
+    @handle(GameCrash.CrashCashOut.CrashCashOutUIHandlers, (cashOutHandler, cashOutBetValue: number) =>
         cashOutHandler.updateCashoutBetValue(cashOutBetValue)
     )
     updateCashoutBetValue(lastReceivedBet: any) {
@@ -70,12 +70,12 @@ export class CashOutButton extends ObserverComponent {
         CashOutComponent.showHideNode(this.node, isRocketFlyWithCashout, isShowPlaceBetNextRound);
     }
 
-    @handle(CrashCashOut.CrashCashOutUIHandlers, (cashOutHandler, cashOutValue: number) => cashOutHandler.handle(cashOutValue, false))
+    @handle(GameCrash.CrashCashOut.CrashCashOutUIHandlers, (cashOutHandler, cashOutValue: number) => cashOutHandler.handle(cashOutValue, false))
     onClickCashOut() {
         CashOutComponent.getCashOutValue(this.lblCashOut);
     }
 
-    @render(CrashCashOut.CrashCashoutStore, (store) => store.cashoutAmount)
+    @render(GameCrash.CrashCashOut.CrashCashoutStore, (store) => store.cashoutAmount)
     updateValueCashOut(cashOutValue: number) {
         CashOutComponent.updateValueCashOut(cashOutValue, this.lblCashOut);
     }

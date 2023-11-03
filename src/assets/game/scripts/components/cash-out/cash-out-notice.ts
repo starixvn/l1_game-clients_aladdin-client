@@ -7,7 +7,7 @@ import { PlayerActionHandlers } from "../player-actions/player-action-handlers";
 const { ccclass, property } = _decorator;
 const { handle, render } = Observer;
 
-const { CrashCashOut, Rounds } = gc;
+const { GameCrash, Rounds } = gc;
 
 @ccclass
 export class CashOutNotice extends ObserverComponent {
@@ -19,7 +19,7 @@ export class CashOutNotice extends ObserverComponent {
         this.node.active = false;
     }
 
-    @render(CrashCashOut.CrashCashoutStore, (store) => store.cashOutNotice, { fireImmediately: false })
+    @render(GameCrash.CrashCashOut.CrashCashoutStore, (store) => store.cashOutNotice, { fireImmediately: false })
     updateCashoutAmount(amount: any) {
         this.showNotice(true);
         this.updateCashOutAmount(amount.value);

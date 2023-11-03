@@ -6,11 +6,10 @@ import { AutoPlayStore } from "../../../../../extensions/shared-components/asset
 import { EarlyBetStore } from "../bet/early-bet-store";
 
 const { injectable, inject } = inversify;
-
 @injectable()
 export class PlayerActionStore {
-    @inject(gc.CrashCashOut.CrashCashoutStore)
-    protected readonly crashCashoutStore: gc.CrashCashOut.CrashCashoutStore;
+    @inject(gc.GameCrash.CrashCashOut.CrashCashoutStore)
+    protected readonly crashCashoutStore: gc.GameCrash.CrashCashOut.CrashCashoutStore;
 
     @inject(AutoPlayStore)
     protected readonly autoPlayStore: AutoPlayStore;

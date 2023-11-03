@@ -1,7 +1,7 @@
 import gc from "@sg/game-client-base";
 import { Node, Tween, _decorator, sp, tween, v3 } from "cc";
 import Observer from "observer";
-const { Settlements } = gc;
+const { Settlements, GameCrash } = gc;
 
 import { ObserverComponent } from "../../../../extensions/shared-components/assets/shared/common-components/observer-component/scripts/observer-component";
 
@@ -26,7 +26,7 @@ export class BackgroundControl extends ObserverComponent {
     private readonly movingBackgroundDuration = 40;
     private readonly backgroundMoveY = -500;
 
-    @render(gc.CrashMultiplier.MultiplierStore, (store) => store.time, { fireImmediately: false })
+    @render(GameCrash.CrashMultiplier.MultiplierStore, (store) => store.time, { fireImmediately: false })
     renderRocketTime(time: number) {
         if (!this.isBgMoving) {
             this.initNodeBackgroundWithTime(time);
