@@ -4,7 +4,7 @@ import { random } from "lodash-es";
 import Observer from "observer";
 import { ObserverComponent } from "../../../../../extensions/shared-components/assets/shared/common-components/observer-component/scripts/observer-component";
 const { ccclass, property } = _decorator;
-const { Settlements } = gc;
+const { Settlements, GameCrash } = gc;
 const { render, handle } = Observer;
 @ccclass
 export class PlanetsFly extends ObserverComponent {
@@ -23,7 +23,7 @@ export class PlanetsFly extends ObserverComponent {
         super.onLoad();
     }
 
-    @render(gc.CrashMultiplier.MultiplierStore, (store) => store.time, { fireImmediately: false })
+    @render(GameCrash.CrashMultiplier.MultiplierStore, (store) => store.time, { fireImmediately: false })
     renderRocketTime(time: number) {
         if (!this.startPlanetFlying && time > 12000) {
             this.startPlanetFlying = true;
