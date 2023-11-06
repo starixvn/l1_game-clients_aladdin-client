@@ -46,8 +46,12 @@ export class Rocket extends ObserverComponent {
     private explositionTween: Tween<Node>;
 
     onLoad() {
-        super.onLoad();
+        this.setRocketVisibility(false);
+        this.setExplosionRocketVisibility(false);
         this.setSpaceManVisibility(false);
+        this.setFireParticleVisibility(false);
+        this.setFireParticleSpeed(0);
+        super.onLoad();
     }
     setSpaceManVisibility(status: boolean) {
         this.nodeSpaceMan.active = status;
@@ -101,6 +105,7 @@ export class Rocket extends ObserverComponent {
         this.stopAnimation();
         this.setRocketVisibility(true);
         this.setExplosionRocketVisibility(false);
+        this.setFireParticleSpeed(0);
         tween(this.node)
             .call(() => {
                 this.updateRotation(0);

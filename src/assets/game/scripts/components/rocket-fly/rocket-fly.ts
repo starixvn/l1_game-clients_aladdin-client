@@ -25,31 +25,29 @@ export class RocketFly extends ObserverComponent {
     nodeColMultiplier: Node = null;
 
     private readonly startRotation = -90;
-    private grapWidth = 1098;
+    private readonly grapWidth = 1098;
     private readonly grapMaxX = 9;
     private readonly speedRate = 2;
+    private readonly graphScale = this.grapWidth / this.grapMaxX;
+    private readonly limitX = this.grapWidth - 50;
+    private readonly rawLimitX = this.limitX / this.graphScale;
+    private readonly smallExplosionMultiplier = 1.02;
     private currentMultiplier = 0;
     private deltaTime = 0;
     private firstMultiplierRound = false;
-    private flyInterval;
-    private receivedMultiplierTimes = 0;
+    private reachedLimitX = false;
     private cpnColMultipliers: ColMultipliers;
-    private prevRocketPosition: Vec3;
     private get startPosition(): Vec3 {
         return this.startPoint.position;
     }
-
-    private readonly smallExplosionMultiplier = 1.02;
 
     private tailNodes: Node[] = [];
 
     onLoad() {
         this.tailNodes.push(...this.transformRocketTail.node.children);
-        this.prevRocketPosition = this.startPosition;
         this.cpnColMultipliers = this.nodeColMultiplier.getComponent(ColMultipliers);
-        this.cpnRocket.setRocketVisibility(false);
-        this.cpnRocket.setExplosionRocketVisibility(false);
-        this.cpnRocket.updatePosition(this.startPosition);
+
+        this.cpnRocket.updatePosition(this.startPosition, false);
 
         super.onLoad();
     }
@@ -70,7 +68,7 @@ export class RocketFly extends ObserverComponent {
             this.flyRocket(time - 100, false);
         }
         this.deltaTime = time;
-        this.flyRocket(this.deltaTime);
+        !this.reachedLimitX && this.flyRocket(this.deltaTime);
         this.cpnColMultipliers.needScrollDown(this.cpnRocket.nodeRocketHead, this.currentMultiplier, true);
         this.cpnRocket.setFireParticleSpeed(time);
         this.cpnRocket.setFireParticleVisibility(true);
@@ -129,7 +127,7 @@ export class RocketFly extends ObserverComponent {
         this.resetRocketTailNodes();
         this.cpnRocket.prepareRocket(this.startRotation);
         this.cpnRocket.updatePosition(this.startPosition);
-        this.prevRocketPosition = this.startPosition;
+        this.reachedLimitX = false;
     }
 
     private resetRocketTailNodes() {
@@ -140,32 +138,35 @@ export class RocketFly extends ObserverComponent {
         });
     }
 
+    calculateRocketPosition(rawX: number, scale: number) {
+        const rawY = Math.pow(rawX, 4) / 1900;
+        return v3(rawX * scale, rawY * scale);
+    }
+
     flyRocket(time: number, animated = true) {
         this.cpnRocket.setRocketVisibility(true);
-        const limitX = this.grapWidth - 50;
-        if (this.cpnRocket.node.position.x >= limitX) {
-            return;
+
+        const scale = this.graphScale;
+        const rawLimitX = this.rawLimitX;
+
+        let rawX = time * this.getTimerRate();
+
+        if (rawX >= rawLimitX) {
+            rawX = rawLimitX;
+            this.reachedLimitX = true;
         }
-
-        const scale = this.grapWidth / this.grapMaxX;
-        let rawX = (time * this.getTimerRate()) / 2000;
-
         const rawY = Math.pow(rawX, 4) / 1900;
         const newPosition = v3(rawX * scale, rawY * scale);
 
-        if (newPosition.x >= limitX) {
-            return;
-        }
-
+        const prevRocketPosition = this.calculateRocketPosition(rawX - 0.05, scale);
         const delta = {
-            x: newPosition.x - this.prevRocketPosition.x,
-            y: newPosition.y - this.prevRocketPosition.y,
+            x: newPosition.x - prevRocketPosition.x,
+            y: newPosition.y - prevRocketPosition.y,
         };
         this.updateRocketTailWidth(newPosition.x);
         const eulerAngle = this.startRotation + toDegree(Math.atan2(delta.y, delta.x));
         this.cpnRocket.updateRotation(eulerAngle, animated);
-        this.cpnRocket.updatePosition(newPosition, animated, 0.1);
-        this.prevRocketPosition = newPosition;
+        this.cpnRocket.updatePosition(newPosition, animated);
     }
 
     private updateRocketTailWidth(width: number) {
@@ -189,6 +190,7 @@ export class RocketFly extends ObserverComponent {
 
     getTimerRate() {
         const x = this.deltaTime / (2000 * this.grapMaxX);
-        return (1 - x) * (1 - x) * this.speedRate + 1;
+        const result = (1 - x) * (1 - x) * this.speedRate + 1;
+        return result / 2000;
     }
 }
