@@ -1,10 +1,6 @@
-import { _decorator, Node, ParticleSystem2D, sp, Tween, tween, v3, Vec3 } from "cc";
-import Observer from "observer";
-
-import { ObserverComponent } from "../../../../../extensions/shared-components/assets/shared/common-components/observer-component/scripts/observer-component";
+import { Component, Node, ParticleSystem2D, Tween, Vec3, _decorator, sp, tween, v3 } from "cc";
 
 const { ccclass, property } = _decorator;
-const { render } = Observer;
 
 export const RocketAnim = {
     START: "rocket-start",
@@ -15,7 +11,7 @@ export const RocketAnim = {
 };
 
 @ccclass()
-export class Rocket extends ObserverComponent {
+export class Rocket extends Component {
     @property(Node)
     rocket: Node = null;
 
@@ -51,7 +47,6 @@ export class Rocket extends ObserverComponent {
         this.setSpaceManVisibility(false);
         this.setFireParticleVisibility(false);
         this.setFireParticleSpeed(0);
-        super.onLoad();
     }
     setSpaceManVisibility(status: boolean) {
         this.nodeSpaceMan.active = status;
