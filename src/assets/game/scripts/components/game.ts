@@ -50,6 +50,11 @@ export default class Game extends GameComponent {
         this.cpnCurrMultiplier = this.nodeCurrMultiplier.getComponent(CurrentMultiplier);
     }
 
+    override isValidResult(result: gc.GameServiceMessage.TResult, settlementResult: gc.GameServiceMessage.TSettlementResult) {
+        return result;
+    }
+
+    @handle(Settlements.SettlementUIHandlers.FinishedShowResult)
     finishShowResult(result: gc.GameServiceMessage.TResult, settlementResult: gc.GameServiceMessage.TSettlementResult) {
         const multiplier = +result;
         this.updateStatisticsBar(multiplier);
