@@ -6,13 +6,9 @@ import CrashGameBetDetailLogItem from "db://shared-components/game-crash/bet-his
 
 const { ccclass } = _decorator;
 
-type SpaceFlightBetDetailLogItemType = BetDetailLogItemType & {
-    result: gc.BetHistory.DynamicObject<null>;
-};
-
 @ccclass("BetDetailBodyItem")
 export default class BetDetailBodyItem extends CrashGameBetDetailLogItem {
-    setData(data: SpaceFlightBetDetailLogItemType) {
+    setData(data: BetDetailLogItemType) {
         super.setData(data);
     }
 }
