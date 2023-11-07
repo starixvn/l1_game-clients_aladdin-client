@@ -8,11 +8,11 @@ import { AnimationUtils } from "db://shared-components/shared/utils";
 import Observer from "observer";
 
 import { AutoPlayHandler } from "../../../../extensions/shared-components/assets/game-crash/auto-play/scripts/handlers/auto-play-handler";
+import { CurrentMultiplier } from "../../../../extensions/shared-components/assets/game-crash/current-multiplier";
+import { StatisticsBar } from "../../../../extensions/shared-components/assets/game-crash/statistics-bar/statistics-bar";
 import { BalanceEffectHandlers } from "../../../../extensions/shared-components/assets/game/balance-effect/scripts/handlers/balance-effect-handlers";
 import { siteConfigs } from "../../../scripts/site-configs";
 import { containerOptions, settings } from "../game-settings";
-import { CurrentMultiplier } from "./current-multiplier";
-import { StatisticsBar } from "./statistics-bar/statistics-bar";
 
 const { Settlements, Auth, Rounds, Translator, GameCrash } = gc;
 
