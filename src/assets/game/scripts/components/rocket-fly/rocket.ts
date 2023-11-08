@@ -1,4 +1,4 @@
-import { Component, Node, Tween, Vec3, _decorator, sp, tween, v3 } from "cc";
+import { Component, Node, ParticleSystem2D, Tween, Vec3, _decorator, sp, tween, v3 } from "cc";
 import { AnimationUtils } from "db://shared-components/shared/utils";
 const { fadeOut, fadeIn, getUiOpacity } = AnimationUtils;
 const { ccclass, property } = _decorator;
@@ -31,6 +31,9 @@ export class Rocket extends Component {
     @property(Node)
     nodeTailStart: Node = null;
 
+    @property(ParticleSystem2D)
+    flyParticle: ParticleSystem2D = null;
+
     get skeExplosion(): sp.Skeleton {
         return this.explosion.getComponent(sp.Skeleton);
     }
@@ -51,6 +54,14 @@ export class Rocket extends Component {
         this.setSpaceManVisibility(false);
     }
 
+    startFly() {
+        this.setRocketAnim(RocketAnim.FLY, true);
+        this.flyParticle.stopSystem();
+        this.flyParticle.speed = 0;
+        this.flyParticle.resetSystem();
+        tween(this.flyParticle).to(1, { speed: 100 }).start();
+    }
+
     setSpaceManVisibility(status: boolean) {
         this.nodeSpaceMan.active = status;
         status && this.skeSpaceMan.setAnimation(0, "action", false);
@@ -64,6 +75,9 @@ export class Rocket extends Component {
     updateTailVisibility(name: string) {
         this.nodeTailStart.active = name === RocketAnim.START;
         this.nodeRocketTail.active = name === RocketAnim.FLY;
+        if (name === RocketAnim.IDLE) {
+            this.flyParticle.stopSystem();
+        }
     }
 
     setRocketVisibility(status: boolean) {

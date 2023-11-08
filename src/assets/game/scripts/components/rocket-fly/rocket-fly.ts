@@ -4,7 +4,7 @@ import { AnimationUtils } from "db://shared-components/shared/utils";
 import Observer from "observer";
 import ColMultipliers from "../../../../../extensions/shared-components/assets/game-crash/col-multipliers/col-multipliers";
 import { ObserverComponent } from "../../../../../extensions/shared-components/assets/shared/common-components/observer-component/scripts/observer-component";
-import { Rocket, RocketAnim } from "./rocket";
+import { Rocket } from "./rocket";
 import { RocketTail } from "./rocket-tail";
 const { fadeOut, fadeIn, getUiOpacity } = AnimationUtils;
 const { ccclass, property } = _decorator;
@@ -38,7 +38,7 @@ export class RocketFly extends ObserverComponent {
     private readonly smallExplosionMultiplier = 1.02;
     private currentMultiplier = 0;
     private deltaTime = 0;
-    private firstMultiplierRound = false;
+    private startedRocketFlying = false;
     private reachedLimitX = false;
     private cpnColMultipliers: ColMultipliers;
     private get startPosition(): Vec3 {
@@ -83,9 +83,9 @@ export class RocketFly extends ObserverComponent {
         this.currentMultiplier = multiplier;
         this.cpnColMultipliers.createDefaultMultiplierList(this.currentMultiplier);
 
-        if (!this.firstMultiplierRound) {
-            this.cpnRocket.setRocketAnim(RocketAnim.FLY, true);
-            this.firstMultiplierRound = true;
+        if (!this.startedRocketFlying) {
+            this.cpnRocket.startFly();
+            this.startedRocketFlying = true;
         }
         this.checkSwapRocketTail(multiplier);
     }
@@ -175,7 +175,7 @@ export class RocketFly extends ObserverComponent {
             this.reachedLimitX = true;
         }
         const newPosition = this.calculateRocketPosition(rawX, scale);
-        const prevRocketPosition = this.calculateRocketPosition(rawX - 0.05, scale);
+        const prevRocketPosition = this.calculateRocketPosition(rawX - 0.1, scale);
         const delta = {
             x: newPosition.x - prevRocketPosition.x,
             y: newPosition.y - prevRocketPosition.y,
@@ -195,7 +195,7 @@ export class RocketFly extends ObserverComponent {
 
     explodeRocket(isSMall: boolean) {
         this.hideRocketTail();
-        this.firstMultiplierRound = false;
+        this.startedRocketFlying = false;
         this.cpnRocket.explode(isSMall);
     }
 
