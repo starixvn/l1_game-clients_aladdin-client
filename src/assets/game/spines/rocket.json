@@ -1,6 +1,6 @@
 {
 "skeleton": {
-	"hash": "4wf1kygQbjY7QimnAfQcd+hFKJs=",
+	"hash": "IQpBQpX0z47U+LOd2uGD+mUErso=",
 	"spine": "3.8.75",
 	"x": -81.96,
 	"y": -183.74,
@@ -11,9 +11,9 @@
 },
 "bones": [
 	{ "name": "rocket", "rotation": -0.04 },
-	{ "name": "1", "parent": "rocket" },
-	{ "name": "rocket1", "parent": "1", "rotation": 55.78 },
-	{ "name": "tenlua", "parent": "rocket1" },
+	{ "name": "tenlua-full", "parent": "rocket" },
+	{ "name": "anhsang", "parent": "tenlua-full", "rotation": 55.78 },
+	{ "name": "tenlua", "parent": "anhsang" },
 	{ "name": "than", "parent": "tenlua", "rotation": 0.02, "scaleX": 0.5, "scaleY": 0.5 },
 	{ "name": "canhbay", "parent": "tenlua" },
 	{ "name": "vaytrai", "parent": "canhbay", "x": -38.69, "y": -1.32 },
@@ -23,39 +23,34 @@
 	{ "name": "vaytrai4", "parent": "vaytrai2", "length": 10.68, "rotation": 52.02, "x": -5.27, "y": 27.28 },
 	{
 		"name": "vfx",
-		"parent": "rocket1",
+		"parent": "anhsang",
 		"rotation": 31.6,
 		"x": -43.59,
 		"y": -25.81,
 		"scaleX": 1.3,
 		"scaleY": 1.3
 	},
-	{ "name": "domsang", "parent": "rocket1", "rotation": 0.02 },
+	{ "name": "domsang", "parent": "tenlua-full", "rotation": 90.1 },
 	{ "name": "vaysau", "parent": "canhbay", "rotation": 3.96, "x": 7.1, "y": 6.93 },
 	{
-		"name": "duoitenlua2",
-		"parent": "1",
+		"name": "rocket-wings",
+		"parent": "tenlua-full",
 		"rotation": 2.18,
-		"x": 2.37,
-		"y": -19.55,
+		"x": -1.26,
+		"y": -54.86,
 		"scaleX": 1.5,
 		"scaleY": 1.5
-	},
-	{ "name": "particle", "parent": "rocket", "x": -0.83, "y": -52.05, "scaleX": 0.5, "scaleY": 0.5 },
-	{ "name": "bone", "parent": "rocket" },
-	{ "name": "vongtron", "parent": "rocket", "y": 35.39, "scaleX": 0.2074, "scaleY": 0.2894 }
+	}
 ],
 "slots": [
-	{ "name": "firespark/2018", "bone": "particle", "color": "b1fbffff", "attachment": "firespark/2045", "blend": "screen" },
-	{ "name": "rocket1", "bone": "rocket1" },
+	{ "name": "anhsang", "bone": "anhsang" },
 	{ "name": "jpg/1", "bone": "vfx", "attachment": "jpg/8", "blend": "screen" },
 	{ "name": "vaysau", "bone": "vaysau", "attachment": "vaysau" },
-	{ "name": "duoitenlua2", "bone": "duoitenlua2", "attachment": "duoitenlua" },
+	{ "name": "rocket-wings", "bone": "rocket-wings", "attachment": "rocket-wings" },
 	{ "name": "vayphai", "bone": "vayphai", "attachment": "vayphai" },
 	{ "name": "than", "bone": "than", "attachment": "than" },
 	{ "name": "vaytrai", "bone": "vaytrai4", "attachment": "vaytrai" },
-	{ "name": "domsang", "bone": "domsang", "attachment": "domsang", "blend": "screen" },
-	{ "name": "vongtron", "bone": "vongtron" }
+	{ "name": "domsang", "bone": "domsang", "attachment": "domsangmoi" }
 ],
 "skins": [
 	{
@@ -72,38 +67,7 @@
 				"jpg/8": { "y": 0.5, "width": 200, "height": 111 }
 			},
 			"domsang": {
-				"domsang": { "x": -9.7, "y": 11.56, "width": 31, "height": 32 }
-			},
-			"duoitenlua2": {
-				"duoitenlua": { "x": -1.12, "y": -17.37, "width": 41, "height": 60 }
-			},
-			"firespark/2018": {
-				"firespark/2019": { "y": 0.5, "width": 60, "height": 61 },
-				"firespark/2020": { "x": -0.15, "y": 1, "width": 60, "height": 61 },
-				"firespark/2021": { "x": -0.15, "y": 1, "width": 60, "height": 61 },
-				"firespark/2022": { "x": -0.15, "y": 1, "width": 60, "height": 61 },
-				"firespark/2023": { "x": -0.15, "y": 1, "width": 60, "height": 61 },
-				"firespark/2024": { "x": -0.15, "y": 1, "width": 60, "height": 61 },
-				"firespark/2025": { "x": -0.15, "y": 1, "width": 60, "height": 61 },
-				"firespark/2027": { "x": -0.15, "y": 1, "width": 60, "height": 61 },
-				"firespark/2028": { "x": -0.15, "y": 1, "width": 60, "height": 61 },
-				"firespark/2029": { "x": -0.15, "y": 1, "width": 60, "height": 61 },
-				"firespark/2030": { "x": -0.15, "y": 1, "width": 60, "height": 61 },
-				"firespark/2031": { "x": -0.15, "y": 1, "width": 60, "height": 61 },
-				"firespark/2032": { "x": -0.15, "y": 1, "width": 60, "height": 61 },
-				"firespark/2033": { "x": -0.15, "y": 1, "width": 60, "height": 61 },
-				"firespark/2034": { "x": -0.15, "y": 1, "width": 60, "height": 61 },
-				"firespark/2035": { "x": -0.15, "y": 1, "width": 60, "height": 61 },
-				"firespark/2036": { "x": -0.15, "y": 1, "width": 60, "height": 61 },
-				"firespark/2037": { "x": -0.15, "y": 1, "width": 60, "height": 61 },
-				"firespark/2038": { "x": -0.15, "y": 1, "width": 60, "height": 61 },
-				"firespark/2039": { "x": -0.15, "y": 1, "width": 60, "height": 61 },
-				"firespark/2040": { "x": -0.15, "y": 1, "width": 60, "height": 61 },
-				"firespark/2041": { "x": -0.15, "y": 1, "width": 60, "height": 61 },
-				"firespark/2042": { "x": -0.15, "y": 1, "width": 60, "height": 61 },
-				"firespark/2043": { "x": -0.15, "y": 1, "width": 60, "height": 61 },
-				"firespark/2044": { "x": -0.15, "y": 1, "width": 60, "height": 61 },
-				"firespark/2045": { "x": -0.15, "y": 1, "width": 60, "height": 61 }
+				"domsangmoi": { "x": 0.28, "y": -0.41, "rotation": -55.8, "width": 37, "height": 38 }
 			},
 			"vayphai": {
 				"vayphai": {
@@ -116,6 +80,9 @@
 					"width": 116,
 					"height": 78
 				}
+			},
+			"rocket-wings": {
+				"rocket-wings": { "x": 0.5, "width": 41, "height": 60 }
 			},
 			"vaytrai": {
 				"vaytrai": {
@@ -152,8 +119,8 @@
 			"jpg/1": {
 				"attachment": [
 					{ "name": "jpg/1" },
-					{ "time": 0.1333, "name": "jpg/2" },
-					{ "time": 0.2667, "name": "jpg/3" },
+					{ "time": 0.1667, "name": "jpg/2" },
+					{ "time": 0.3, "name": "jpg/3" },
 					{ "time": 0.4, "name": "jpg/4" },
 					{ "time": 0.5333, "name": "jpg/5" },
 					{ "time": 0.6667, "name": "jpg/6" },
@@ -198,13 +165,6 @@
 					{ "time": 5.8667, "name": "jpg/5" },
 					{ "time": 6, "name": "jpg/6" }
 				]
-			},
-			"duoitenlua2": {
-				"color": [
-					{ "time": 3.2, "color": "ffffffff" },
-					{ "time": 4, "color": "ccfafcff" },
-					{ "time": 4.8, "color": "ffffffff" }
-				]
 			}
 		},
 		"bones": {
@@ -241,12 +201,12 @@
 			},
 			"domsang": {
 				"translate": [
-					{ "x": -1.19, "y": -1.79 },
-					{ "time": 2.9333, "x": 11.38, "y": -17.1 },
-					{ "time": 6, "x": -1.19, "y": -1.79 }
+					{ "x": -7.79, "y": 7.87 },
+					{ "time": 2.9333, "x": 5.09, "y": -7.87 },
+					{ "time": 6, "x": -7.79, "y": 7.87 }
 				]
 			},
-			"duoitenlua2": {
+			"rocket-wings": {
 				"scale": [
 					{},
 					{ "time": 0.1333, "x": 1.167, "y": 1.167 },
@@ -340,31 +300,22 @@
 					{ "name": null }
 				]
 			},
-			"firespark/2018": {
-				"color": [
-					{ "color": "b1fbff00", "curve": "stepped" },
-					{ "time": 2, "color": "b1fbff00" },
-					{ "time": 2.1667, "color": "b1fbffff", "curve": "stepped" },
-					{ "time": 7.3, "color": "b1fbffff" },
-					{ "time": 7.4333, "color": "b1fbff00" }
-				],
-				"attachment": [
-					{ "time": 2, "name": null },
-					{ "time": 2.1667, "name": "firespark/2019" },
-					{ "time": 2.2667, "name": "firespark/2020" },
-					{ "time": 2.4, "name": "firespark/2021" },
-					{ "time": 2.5, "name": "firespark/2022" },
-					{ "time": 2.6, "name": "firespark/2023" },
-					{ "time": 2.7333, "name": "firespark/2024" },
-					{ "time": 2.8333, "name": "firespark/2025" },
-					{ "time": 2.9333, "name": "firespark/2027" },
-					{ "time": 3, "name": "firespark/2028" },
-					{ "time": 7.3, "name": null }
-				]
-			},
-			"duoitenlua2": {
+			"rocket-wings": {
 				"color": [
 					{ "color": "ffffff00" }
+				],
+				"attachment": [
+					{ "name": null }
+				]
+			}
+		},
+		"bones": {
+			"rocket-wings": {
+				"translate": [
+					{ "x": -2.37, "y": 19.55 }
+				],
+				"scale": [
+					{ "x": 0, "y": 0 }
 				]
 			}
 		}
@@ -378,82 +329,21 @@
 			},
 			"jpg/1": {
 				"color": [
-					{ "color": "ffffff00" }
-				],
-				"attachment": [
-					{ "name": null }
-				]
-			},
-			"firespark/2018": {
-				"color": [
-					{ "color": "b1fbff00" },
-					{ "time": 0.1667, "color": "b1fbffff", "curve": "stepped" },
-					{ "time": 4.8667, "color": "b1fbffff" },
-					{ "time": 5.0667, "color": "b1fbff00" }
+					{ "color": "ffffff00", "curve": "stepped" },
+					{ "time": 4.6667, "color": "ffffff00" },
+					{ "time": 6, "color": "ffffffff" }
 				],
 				"attachment": [
 					{ "name": null },
-					{ "time": 0.0667, "name": "firespark/2019" },
-					{ "time": 0.1667, "name": "firespark/2020" },
-					{ "time": 0.2333, "name": "firespark/2021" },
-					{ "time": 0.3667, "name": "firespark/2022" },
-					{ "time": 0.4, "name": "firespark/2023" },
-					{ "time": 0.5667, "name": "firespark/2024" },
-					{ "time": 0.6333, "name": "firespark/2025" },
-					{ "time": 0.7333, "name": "firespark/2027" },
-					{ "time": 0.8333, "name": "firespark/2028" },
-					{ "time": 0.9333, "name": "firespark/2029" },
-					{ "time": 0.9667, "name": "firespark/2030" },
-					{ "time": 1.0667, "name": "firespark/2031" },
-					{ "time": 1.1667, "name": "firespark/2032" },
-					{ "time": 1.2333, "name": "firespark/2033" },
-					{ "time": 1.3333, "name": "firespark/2034" },
-					{ "time": 1.4, "name": "firespark/2035" },
-					{ "time": 1.4667, "name": "firespark/2036" },
-					{ "time": 1.6333, "name": "firespark/2037" },
-					{ "time": 1.7, "name": "firespark/2038" },
-					{ "time": 1.8, "name": "firespark/2039" },
-					{ "time": 1.8667, "name": "firespark/2040" },
-					{ "time": 2, "name": "firespark/2041" },
-					{ "time": 2.0333, "name": "firespark/2042" },
-					{ "time": 2.1667, "name": "firespark/2043" },
-					{ "time": 2.2333, "name": "firespark/2044" },
-					{ "time": 2.3, "name": "firespark/2045" },
-					{ "time": 2.4, "name": null },
-					{ "time": 2.6, "name": "firespark/2019" },
-					{ "time": 2.7, "name": "firespark/2020" },
-					{ "time": 2.8, "name": "firespark/2021" },
-					{ "time": 2.8667, "name": "firespark/2022" },
-					{ "time": 3, "name": "firespark/2023" },
-					{ "time": 3.0667, "name": "firespark/2024" },
-					{ "time": 3.1667, "name": "firespark/2025" },
-					{ "time": 3.2333, "name": "firespark/2027" },
-					{ "time": 3.3667, "name": "firespark/2028" },
-					{ "time": 3.4333, "name": "firespark/2029" },
-					{ "time": 3.5, "name": "firespark/2030" },
-					{ "time": 3.6, "name": "firespark/2031" },
-					{ "time": 3.6667, "name": "firespark/2032" },
-					{ "time": 3.8333, "name": "firespark/2033" },
-					{ "time": 3.8667, "name": "firespark/2034" },
-					{ "time": 4, "name": "firespark/2035" },
-					{ "time": 4.0333, "name": "firespark/2036" },
-					{ "time": 4.2, "name": "firespark/2037" },
-					{ "time": 4.2333, "name": "firespark/2038" },
-					{ "time": 4.3667, "name": "firespark/2039" },
-					{ "time": 4.4333, "name": "firespark/2040" },
-					{ "time": 4.5, "name": "firespark/2041" },
-					{ "time": 4.6, "name": "firespark/2042" },
-					{ "time": 4.6667, "name": "firespark/2043" },
-					{ "time": 4.8333, "name": "firespark/2044" },
-					{ "time": 4.8667, "name": "firespark/2045" },
-					{ "time": 5, "name": null }
+					{ "time": 4.6667, "name": "jpg/1" },
+					{ "time": 6, "name": null }
 				]
 			},
-			"duoitenlua2": {
+			"rocket-wings": {
 				"color": [
 					{ "color": "ffffff00", "curve": "stepped" },
-					{ "time": 1.2667, "color": "ffffff00" },
-					{ "time": 1.3667, "color": "ffffffff" }
+					{ "time": 2.0667, "color": "ffffff00" },
+					{ "time": 2.1333, "color": "ffffffff" }
 				]
 			}
 		},
@@ -484,9 +374,11 @@
 					{ "time": 6 }
 				]
 			},
-			"duoitenlua2": {
+			"rocket-wings": {
 				"scale": [
-					{ "x": 0.785, "y": 0.785, "curve": "stepped" },
+					{ "x": 0, "y": 0, "curve": "stepped" },
+					{ "time": 1.2667, "x": 0, "y": 0 },
+					{ "time": 1.3333, "x": 0.785, "y": 0.785, "curve": "stepped" },
 					{ "time": 1.3667, "x": 0.785, "y": 0.785 },
 					{ "time": 1.4333, "x": 0.873, "y": 0.873 },
 					{ "time": 1.5333, "x": 0.785, "y": 0.785 },
@@ -564,7 +456,7 @@
 					{ "time": 6 }
 				]
 			},
-			"rocket1": {
+			"anhsang": {
 				"scale": [
 					{ "time": 4.6333 },
 					{ "time": 4.7, "x": 1.01, "y": 1.01 },

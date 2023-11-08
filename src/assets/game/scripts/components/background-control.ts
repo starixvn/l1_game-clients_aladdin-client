@@ -32,9 +32,9 @@ export class BackgroundControl extends ObserverComponent {
             this.initNodeBackgroundWithTime(time);
             this.startMovingBackground();
         }
-        if (!this.isPlanetsMoving) {
-            this.startPlanetsAnimation();
-        }
+        // if (!this.isPlanetsMoving) {
+        //     this.startPlanetsAnimation();
+        // }
     }
 
     private startPlanetsAnimation() {

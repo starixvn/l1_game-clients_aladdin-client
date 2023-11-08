@@ -1,5 +1,6 @@
-import { Component, Node, ParticleSystem2D, Tween, Vec3, _decorator, sp, tween, v3 } from "cc";
-
+import { Component, Node, Tween, Vec3, _decorator, sp, tween, v3 } from "cc";
+import { AnimationUtils } from "db://shared-components/shared/utils";
+const { fadeOut, fadeIn, getUiOpacity } = AnimationUtils;
 const { ccclass, property } = _decorator;
 
 export const RocketAnim = {
@@ -22,16 +23,19 @@ export class Rocket extends Component {
     nodeRocketHead: Node = null;
 
     @property(Node)
+    nodeRocketTail: Node = null;
+
+    @property(Node)
     nodeSpaceMan: Node = null;
 
-    @property(ParticleSystem2D)
-    particleFire: ParticleSystem2D = null;
+    @property(Node)
+    nodeTailStart: Node = null;
 
     get skeExplosion(): sp.Skeleton {
         return this.explosion.getComponent(sp.Skeleton);
     }
     get skeRocket(): sp.Skeleton {
-        return this.rocket.getComponent(sp.Skeleton);
+        return this.rocket.getComponentInChildren(sp.Skeleton);
     }
 
     get skeSpaceMan(): sp.Skeleton {
@@ -45,9 +49,8 @@ export class Rocket extends Component {
         this.setRocketVisibility(false);
         this.setExplosionRocketVisibility(false);
         this.setSpaceManVisibility(false);
-        this.setFireParticleVisibility(false);
-        this.setFireParticleSpeed(0);
     }
+
     setSpaceManVisibility(status: boolean) {
         this.nodeSpaceMan.active = status;
         status && this.skeSpaceMan.setAnimation(0, "action", false);
@@ -55,15 +58,12 @@ export class Rocket extends Component {
 
     setRocketAnim(name: string, loop: boolean) {
         this.skeRocket?.setAnimation(0, name, true);
+        this.updateTailVisibility(name);
     }
 
-    setFireParticleVisibility(visible: boolean) {
-        this.particleFire.node.active = visible;
-    }
-
-    setFireParticleSpeed(time: number) {
-        const seconds = time / 1000;
-        this.particleFire.speed = seconds < 1 ? 50 : 200;
+    updateTailVisibility(name: string) {
+        this.nodeTailStart.active = name === RocketAnim.START;
+        this.nodeRocketTail.active = name === RocketAnim.FLY;
     }
 
     setRocketVisibility(status: boolean) {
@@ -100,7 +100,6 @@ export class Rocket extends Component {
         this.stopAnimation();
         this.setRocketVisibility(true);
         this.setExplosionRocketVisibility(false);
-        this.setFireParticleSpeed(0);
         tween(this.node)
             .call(() => {
                 this.updateRotation(0);
@@ -121,7 +120,6 @@ export class Rocket extends Component {
         this.stopAnimation();
         this.setRocketVisibility(false);
         this.setExplosionRocketVisibility(true);
-        this.setFireParticleVisibility(false);
 
         const animName = smallExplosion ? RocketAnim.EXPLOSION_SMALL : RocketAnim.EXPLOSION_BIG;
         const duration = this.skeExplosion.findAnimation(animName).duration;
