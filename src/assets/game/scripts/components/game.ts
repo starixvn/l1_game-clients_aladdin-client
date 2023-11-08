@@ -1,3 +1,4 @@
+import { Md5Popup } from "./../../../../extensions/shared-components/assets/game-crash/md5-popup/scripts/components/md5-popup";
 import "./../../../resources/i18n";
 
 import gc from "@sg/game-client-base";
@@ -9,6 +10,7 @@ import Observer from "observer";
 
 import { AutoPlayHandler } from "../../../../extensions/shared-components/assets/game-crash/auto-play/scripts/handlers/auto-play-handler";
 import { CurrentMultiplier } from "../../../../extensions/shared-components/assets/game-crash/current-multiplier";
+import { Md5PopupHandler } from "../../../../extensions/shared-components/assets/game-crash/md5-popup/scripts/handlers/md5-popup-handlers";
 import { StatisticsBar } from "../../../../extensions/shared-components/assets/game-crash/statistics-bar/statistics-bar";
 import { BalanceEffectHandlers } from "../../../../extensions/shared-components/assets/game/balance-effect/scripts/handlers/balance-effect-handlers";
 import { siteConfigs } from "../../../scripts/site-configs";
@@ -38,16 +40,21 @@ export default class Game extends GameComponent {
     @property(Node)
     nodeCurrMultiplier: Node = null;
 
+    @property(Node)
+    nodeMd5Popup: Node = null;
+
     override namespace = settings.name;
     override containerOptions = containerOptions;
 
     private cpnStatisticsBar: StatisticsBar;
     private cpnCurrMultiplier: CurrentMultiplier;
+    private cpnMd5Popup: Md5Popup;
 
     onLoad() {
         super.onLoad();
         this.cpnStatisticsBar = this.nodeStatisticsBar.getComponent(StatisticsBar);
         this.cpnCurrMultiplier = this.nodeCurrMultiplier.getComponent(CurrentMultiplier);
+        this.cpnMd5Popup = this.nodeMd5Popup.getComponent(Md5Popup);
     }
 
     override isValidResult(result: gc.GameServiceMessage.TResult, settlementResult: gc.GameServiceMessage.TSettlementResult) {
@@ -59,6 +66,7 @@ export default class Game extends GameComponent {
         const multiplier = +result;
         this.updateStatisticsBar(multiplier);
         this.updateCurrMultiplier(multiplier);
+        this.updateMultiplierMd5Popup(multiplier);
         setTimeout(() => {
             this.updateAutoPlayMode();
         }, 2000);
@@ -99,6 +107,16 @@ export default class Game extends GameComponent {
         this.cpnCurrMultiplier.showHideBottomText(true);
     }
 
+    updateMultiplierMd5Popup(value: number) {
+        this.cpnMd5Popup.setMultiplierValue(value);
+        this.updateIsCurrentRound();
+    }
+
     @handle(GameCrash.CrashCashOut.CrashCashOutUIHandlers, (handle) => handle.resetCashoutVaue())
     resetValueCashout() {}
+
+    @handle(Md5PopupHandler, (handle, isCurrRound: boolean) => handle.handleCurrentRound(isCurrRound))
+    updateIsCurrentRound() {
+        return false;
+    }
 }
