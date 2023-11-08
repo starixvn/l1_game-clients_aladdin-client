@@ -96,6 +96,7 @@ export default class Game extends GameComponent {
 
     updateCurrMultiplier(value: number) {
         this.cpnCurrMultiplier.setCurrMultiplierValue(value);
+        this.cpnCurrMultiplier.showHideBottomText(true);
     }
 
     @handle(GameCrash.CrashCashOut.CrashCashOutUIHandlers, (handle) => handle.resetCashoutVaue())
