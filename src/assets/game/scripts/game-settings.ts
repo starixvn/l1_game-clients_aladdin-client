@@ -5,7 +5,7 @@ import { sharedContainer } from "../../scripts/shared-container";
 
 export const settings = {
     id: 73,
-    name: "SpaceFlight",
+    name: "Spaceflight",
     durations: {
         wholeRound: 14,
         lockingBet: 3,
@@ -22,5 +22,5 @@ export const containerOptions: gc.IContainerOptions = {
         container.bind(gc.GameConfigs.GameSetting).toConstantValue(settings);
         container.bind(LogStore).to(LogStore);
     },
-    features: [...gc.defaultFeatures, gc.GameCrash]
+    features: [...gc.defaultFeatures, gc.GameCrash],
 };

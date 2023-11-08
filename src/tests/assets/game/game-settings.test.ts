@@ -12,7 +12,7 @@ describe("settings", () => {
         // Assert
         expect(settings).toStrictEqual({
             id: 73,
-            name: "SpaceFlight",
+            name: "Spaceflight",
             durations: {
                 wholeRound: 41,
                 lockingBet: 5,

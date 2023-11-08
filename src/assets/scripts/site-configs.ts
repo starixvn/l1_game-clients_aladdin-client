@@ -23,7 +23,7 @@ const defaultConfig: gc.Configs.SiteConfigs = {
         proxyPath: "spaceflight",
         route: "spaceflight",
     },
-    mainObserverNamespace: "SpaceFlight",
+    mainObserverNamespace: "Spaceflight",
     tolgeeUrl: "",
 };
 
@@ -33,7 +33,7 @@ let configDev = {
     serverDomainMapper: defaultConfig.serverDomainMapper,
     notificationServiceUrlDev: defaultConfig.notificationServiceUrlDev,
 };
- 
+
 if (window.envConfig) {
     configDev = {
         isDev: undefined,
