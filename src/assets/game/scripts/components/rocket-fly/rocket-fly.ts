@@ -1,5 +1,5 @@
 import gc from "@sg/game-client-base";
-import { Node, UITransform, Vec3, _decorator, toDegree, v3 } from "cc";
+import { Node, Tween, UITransform, Vec3, _decorator, toDegree, tween, v3 } from "cc";
 import { AnimationUtils } from "db://shared-components/shared/utils";
 import Observer from "observer";
 import ColMultipliers from "../../../../../extensions/shared-components/assets/game-crash/col-multipliers/col-multipliers";
@@ -30,7 +30,7 @@ export class RocketFly extends ObserverComponent {
     private readonly speedRate = 2;
     private readonly graphScale = this.grapWidth / this.grapMaxX;
     private readonly limitX = this.grapWidth - 50;
-    private readonly rawLimitX = this.limitX / this.graphScale;
+    private readonly rawLimitX = 6.5; //this.limitX / this.graphScale;
     private readonly smallExplosionMultiplier = 1.02;
     private currentMultiplier = 0;
     private deltaTime = 0;
@@ -65,10 +65,15 @@ export class RocketFly extends ObserverComponent {
     @render(GameCrash.CrashMultiplier.MultiplierStore, (store) => store.time, { fireImmediately: false })
     setTimeByMultiplier(time: number) {
         if (time - this.deltaTime > 150) {
-            this.flyRocket(time - 100, false);
+            const timePoint = time - 100;
+            this.flyRocket(timePoint, false);
+            this.movingRocketContainer(timePoint, false);
         }
         this.deltaTime = time;
-        !this.reachedLimitX && this.flyRocket(this.deltaTime);
+        if (!this.reachedLimitX) {
+            this.flyRocket(this.deltaTime);
+            this.movingRocketContainer(this.deltaTime, true);
+        }
         this.cpnColMultipliers.needScrollDown(this.cpnRocket.nodeRocketHead, this.currentMultiplier, true);
         this.cpnRocket.setFireParticleSpeed(time);
         this.cpnRocket.setFireParticleVisibility(true);
@@ -127,6 +132,7 @@ export class RocketFly extends ObserverComponent {
         this.resetRocketTailNodes();
         this.cpnRocket.prepareRocket(this.startRotation);
         this.cpnRocket.updatePosition(this.startPosition);
+        this.resetRocketContainer();
         this.reachedLimitX = false;
     }
 
@@ -139,8 +145,27 @@ export class RocketFly extends ObserverComponent {
     }
 
     calculateRocketPosition(rawX: number, scale: number) {
-        const rawY = Math.pow(rawX, 4) / 1900;
+        const rawY = Math.pow(rawX, 4) / 600;
         return v3(rawX * scale, rawY * scale);
+    }
+
+    movingRocketContainer(time: number, animated: boolean) {
+        const container = this.cpnRocket.node.parent;
+        const ratio = Math.min(time / 8000, 1);
+        const destX = 200 * ratio;
+
+        const destPosition = v3(destX, container.position.y);
+        if (animated) {
+            Tween.stopAllByTarget(container);
+            tween(container).to(0.1, { position: destPosition }).start();
+        } else {
+            container.position = destPosition;
+        }
+    }
+
+    resetRocketContainer() {
+        const container = this.cpnRocket.node.parent;
+        container.position = v3(0, container.position.y);
     }
 
     flyRocket(time: number, animated = true) {
@@ -155,9 +180,7 @@ export class RocketFly extends ObserverComponent {
             rawX = rawLimitX;
             this.reachedLimitX = true;
         }
-        const rawY = Math.pow(rawX, 4) / 1900;
-        const newPosition = v3(rawX * scale, rawY * scale);
-
+        const newPosition = this.calculateRocketPosition(rawX, scale);
         const prevRocketPosition = this.calculateRocketPosition(rawX - 0.05, scale);
         const delta = {
             x: newPosition.x - prevRocketPosition.x,
