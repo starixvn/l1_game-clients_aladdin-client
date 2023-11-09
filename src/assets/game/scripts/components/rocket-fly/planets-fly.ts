@@ -16,17 +16,28 @@ export class PlanetsFly extends ObserverComponent {
 
     private startPlanetFlying = false;
 
+    private planetSpritesDict = {};
+    private lastSelectIndex = -1;
+
     onLoad() {
+        this.resetPlanetSpriteDict();
         for (let i = 0; i < this.planetsCount; i++) {
             this.createNewPlanets(i);
         }
         super.onLoad();
     }
 
+    resetPlanetSpriteDict() {
+        for (let i = 0; i < 12; i++) {
+            this.planetSpritesDict[i] = false;
+        }
+    }
+
     @render(GameCrash.CrashMultiplier.MultiplierStore, (store) => store.time, { fireImmediately: false })
     renderRocketTime(time: number) {
         if (!this.startPlanetFlying && time > 12000) {
             this.startPlanetFlying = true;
+            this.resetPlanetSpriteDict();
             this.startMoving();
         }
     }
@@ -45,7 +56,7 @@ export class PlanetsFly extends ObserverComponent {
     }
 
     startMoving() {
-        this.node.children.forEach((node) => this.changePlanet(node));
+        this.node.children.forEach((node) => this.movePlanet(node));
     }
 
     createNewPlanets(index: number) {
@@ -63,20 +74,23 @@ export class PlanetsFly extends ObserverComponent {
         this.resetPlanetPosition(node);
     }
 
+    getRandomMovingDuration() {
+        return random(4, 6);
+    }
+
     movePlanet(node: Node) {
         const transform = this.node.getComponent(UITransform);
         const maxX = transform.width * 0.5;
 
-        const destPos = v3(-1.1 * maxX, node.position.y);
+        const destPos = v3(-1.5 * maxX, node.position.y);
         tween(node)
-            .to(random(5, 10), {
+            .to(this.getRandomMovingDuration(), {
                 position: destPos,
                 scale: v3(1, 1).multiplyScalar(0.3),
             })
-
             .call(() => {
                 this.resetPlanet(node);
-                this.changePlanet(node);
+                this.movePlanet(node);
             })
             .start();
     }
@@ -90,25 +104,28 @@ export class PlanetsFly extends ObserverComponent {
         const fromY = (lineIndex / this.planetsCount) * transform.height;
         const toY = ((lineIndex + 1) / this.planetsCount) * transform.height;
         const randomY = -maxY + random(fromY, toY);
-        const startPos = v3(1.5 * maxX, randomY);
+        const startPos = v3(2 * maxX, randomY);
 
         node.position = startPos;
         node.scale = v3(1, 1);
     }
 
-    changePlanet(node: Node) {
-        tween(node)
-            .delay(random(1, 5))
-            .call(() => {
-                this.movePlanet(node);
-            })
-            .start();
-    }
-
     randomPlanetSprite(node: Node) {
         const sprite = node.getComponent(Sprite);
-
-        const index = random(0, 12);
+        let unselecteds = this.getUnSelectedSprites();
+        if (unselecteds.length === 0) {
+            this.resetPlanetSpriteDict();
+            this.planetSpritesDict[this.lastSelectIndex] = true;
+            unselecteds = this.getUnSelectedSprites();
+        }
+        const randomId = random(0, unselecteds.length);
+        const index = unselecteds[randomId];
+        this.planetSpritesDict[index] = true;
+        this.lastSelectIndex = +index;
         sprite.spriteFrame = this.mainAtlas.getSpriteFrame(`${this.spritePrefix}-${index}`);
+    }
+
+    getUnSelectedSprites(): string[] {
+        return Object.keys(this.planetSpritesDict).filter((key) => !this.planetSpritesDict[key]);
     }
 }
