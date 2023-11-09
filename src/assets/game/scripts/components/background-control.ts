@@ -1,5 +1,5 @@
 import gc from "@sg/game-client-base";
-import { Node, Tween, _decorator, sp, tween, v3 } from "cc";
+import { Node, Tween, _decorator, tween, v3 } from "cc";
 import Observer from "observer";
 const { Settlements, GameCrash } = gc;
 
@@ -18,11 +18,7 @@ export class BackgroundControl extends ObserverComponent {
     @property(Node)
     nodeBackground: Node = null;
 
-    @property(sp.Skeleton)
-    planetSkeleton: sp.Skeleton = null;
-
     private isBgMoving = false;
-    private isPlanetsMoving = false;
     private readonly movingBackgroundDuration = 40;
     private readonly backgroundMoveY = -500;
 
@@ -32,35 +28,18 @@ export class BackgroundControl extends ObserverComponent {
             this.initNodeBackgroundWithTime(time);
             this.startMovingBackground();
         }
-        // if (!this.isPlanetsMoving) {
-        //     this.startPlanetsAnimation();
-        // }
-    }
-
-    private startPlanetsAnimation() {
-        this.isPlanetsMoving = true;
-        this.planetSkeleton.timeScale = 1;
-        this.planetSkeleton.setAnimation(0, AnimationName.PLANETS_FLY, false);
     }
 
     @render(gc.Rounds.RoundTimeStore, (store) => store.isStartRound)
     changeIdleAnim(isStartRound) {
         if (isStartRound) {
             this.resetBackground();
-            this.resetPlanetsAnimation();
         }
-    }
-
-    private resetPlanetsAnimation() {
-        this.planetSkeleton.timeScale = 1;
-        this.planetSkeleton.setAnimation(0, AnimationName.PLANETS_IDLE, true);
-        this.isPlanetsMoving = false;
     }
 
     @render(Settlements.SettlementStore, (store) => ({ result: store.result, settlementResult: store.settlementResult }))
     renderSettle() {
         Tween.stopAllByTarget(this.nodeBackground);
-        this.planetSkeleton.timeScale = 0;
     }
 
     initNodeBackgroundWithTime(time: number) {
