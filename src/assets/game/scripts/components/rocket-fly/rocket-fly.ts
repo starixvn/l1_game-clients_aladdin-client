@@ -40,6 +40,7 @@ export class RocketFly extends ObserverComponent {
     private deltaTime = 0;
     private startedRocketFlying = false;
     private reachedLimitX = false;
+    private preparingRocket = false;
     private cpnColMultipliers: ColMultipliers;
     private get startPosition(): Vec3 {
         return this.startPoint.position;
@@ -60,6 +61,7 @@ export class RocketFly extends ObserverComponent {
         const { result } = data;
         if (result) {
             this.explodeRocket(+result < this.smallExplosionMultiplier);
+            this.preparingRocket = false;
         }
     }
 
@@ -113,8 +115,15 @@ export class RocketFly extends ObserverComponent {
         this.rocketTails.forEach((tail) => tail.swapRocketTail(next));
     }
 
+    @render(gc.Rounds.RoundTimeStore, (store) => store.isInRoundTime)
+    renderInRoundTime(isInRoundTime: boolean) {
+        if (isInRoundTime && !this.preparingRocket) {
+            this.prepareForRocket();
+        }
+    }
+
     @render(gc.Rounds.RoundTimeStore, (store) => store.isStartRound)
-    private startNewRound(isStartRound: boolean) {
+    startNewRound(isStartRound: boolean) {
         if (!isStartRound) {
             return;
         }
@@ -124,6 +133,7 @@ export class RocketFly extends ObserverComponent {
     }
 
     private prepareForRocket() {
+        this.preparingRocket = true;
         this.updateRocketTailWidth(0);
         this.resetRocketTailNodes();
         this.cpnRocket.prepareRocket(this.startRotation);

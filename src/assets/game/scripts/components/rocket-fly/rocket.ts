@@ -108,12 +108,20 @@ export class Rocket extends Component {
         }
     }
 
-    prepareRocket(startRotation: number) {
+    prepareRocket(startRotation: number, animated = true) {
         this.node.active = true;
         this.setRocketAnim(RocketAnim.IDLE, false);
         this.stopAnimation();
         this.setRocketVisibility(true);
         this.setExplosionRocketVisibility(false);
+        const onFinished = () => {
+            this.setSpaceManVisibility(false);
+            this.setRocketAnim(RocketAnim.START, true);
+        };
+        if (!animated) {
+            onFinished();
+            return;
+        }
         tween(this.node)
             .call(() => {
                 this.updateRotation(0);
@@ -123,8 +131,7 @@ export class Rocket extends Component {
             .to(2, { eulerAngles: v3(0, 0, startRotation) }, { easing: "sineOut" })
             .delay(2)
             .call(() => {
-                this.setSpaceManVisibility(false);
-                this.setRocketAnim(RocketAnim.START, true);
+                onFinished();
             })
             .union()
             .start();
