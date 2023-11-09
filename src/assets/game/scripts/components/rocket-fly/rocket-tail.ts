@@ -5,11 +5,9 @@ const { ccclass, property } = _decorator;
 
 @ccclass()
 export class RocketTail extends Component {
-    private tailNodes: Node[] = [];
     currentIndex = 0;
-
-    onLoad() {
-        this.tailNodes.push(...this.node.children);
+    private get tailNodes(): Node[] {
+        return this.node.children;
     }
 
     async swapRocketTail(current: number) {
