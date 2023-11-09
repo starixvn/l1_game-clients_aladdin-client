@@ -118,7 +118,7 @@ export class RocketFly extends ObserverComponent {
     @render(gc.Rounds.RoundTimeStore, (store) => store.isInRoundTime)
     renderInRoundTime(isInRoundTime: boolean) {
         if (isInRoundTime && !this.preparingRocket) {
-            this.prepareForRocket();
+            this.prepareForRocket(false);
         }
     }
 
@@ -128,15 +128,15 @@ export class RocketFly extends ObserverComponent {
             return;
         }
 
-        this.prepareForRocket();
+        this.prepareForRocket(true);
         this.cpnColMultipliers.scrollUp();
     }
 
-    private prepareForRocket() {
+    private prepareForRocket(animated: boolean) {
         this.preparingRocket = true;
         this.updateRocketTailWidth(0);
         this.resetRocketTailNodes();
-        this.cpnRocket.prepareRocket(this.startRotation);
+        this.cpnRocket.prepareRocket(this.startRotation, animated);
         this.cpnRocket.updatePosition(this.startPosition);
         this.resetRocketContainer();
         this.reachedLimitX = false;
