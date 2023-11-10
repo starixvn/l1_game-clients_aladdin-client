@@ -33,8 +33,7 @@ export class RocketFly extends ObserverComponent {
     private readonly grapMaxX = 9;
     private readonly speedRate = 2;
     private readonly graphScale = this.grapWidth / this.grapMaxX;
-    private readonly limitX = this.grapWidth - 50;
-    private readonly rawLimitX = 6.5; //this.limitX / this.graphScale;
+    private readonly rawLimitX = 6.5;
     private readonly smallExplosionMultiplier = 1.02;
     private currentMultiplier = 0;
     private deltaTime = 0;
@@ -217,8 +216,9 @@ export class RocketFly extends ObserverComponent {
     }
 
     getTimerRate() {
-        const x = this.deltaTime / (2000 * this.grapMaxX);
-        const result = (1 - x) * (1 - x) * this.speedRate + 1;
+        const duration = 20 * 1000;
+        const x = this.deltaTime / duration;
+        const result = (1 - x) * (1 - x) * 1 + 0.5;
         return result / 2000;
     }
 }
