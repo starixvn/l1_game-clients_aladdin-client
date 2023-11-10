@@ -77,13 +77,12 @@ export class RocketFly extends ObserverComponent {
             this.flyRocket(this.deltaTime);
             this.movingRocketContainer(this.deltaTime, true);
         }
-        this.cpnColMultipliers.needScrollDown(this.cpnRocket.nodeRocketHead, this.currentMultiplier, true);
     }
 
     @render(GameCrash.CrashMultiplier.MultiplierStore, (store) => store.multiplier, { fireImmediately: false })
     private setCurrentMultiplier(multiplier: number) {
         this.currentMultiplier = multiplier;
-        this.cpnColMultipliers.createDefaultMultiplierList(this.currentMultiplier);
+        this.cpnColMultipliers.handleScroll(this.cpnRocket.nodeRocketHead, this.currentMultiplier, true);
 
         if (!this.startedRocketFlying) {
             this.cpnRocket.startFly();
