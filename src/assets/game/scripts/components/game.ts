@@ -1,4 +1,3 @@
-import { Md5Popup } from "./../../../../extensions/shared-components/assets/game-crash/md5-popup/scripts/components/md5-popup";
 import "./../../../resources/i18n";
 
 import gc from "@sg/game-client-base";
@@ -10,7 +9,6 @@ import Observer from "observer";
 
 import { AutoPlayHandler } from "../../../../extensions/shared-components/assets/game-crash/auto-play/scripts/handlers/auto-play-handler";
 import { CurrentMultiplier } from "../../../../extensions/shared-components/assets/game-crash/current-multiplier";
-import { StatisticsBar } from "../../../../extensions/shared-components/assets/game-crash/statistics-bar/statistics-bar";
 import { BalanceEffectHandlers } from "../../../../extensions/shared-components/assets/game/balance-effect/scripts/handlers/balance-effect-handlers";
 import { siteConfigs } from "../../../scripts/site-configs";
 import { containerOptions, settings } from "../game-settings";
@@ -34,26 +32,16 @@ export default class Game extends GameComponent {
     lblMaxBet: Label = null;
 
     @property(Node)
-    nodeStatisticsBar: Node = null;
-
-    @property(Node)
     nodeCurrMultiplier: Node = null;
-
-    @property(Node)
-    nodeMd5Popup: Node = null;
 
     override namespace = settings.name;
     override containerOptions = containerOptions;
 
-    private cpnStatisticsBar: StatisticsBar;
     private cpnCurrMultiplier: CurrentMultiplier;
-    private cpnMd5Popup: Md5Popup;
 
     onLoad() {
         super.onLoad();
-        this.cpnStatisticsBar = this.nodeStatisticsBar.getComponent(StatisticsBar);
         this.cpnCurrMultiplier = this.nodeCurrMultiplier.getComponent(CurrentMultiplier);
-        this.cpnMd5Popup = this.nodeMd5Popup.getComponent(Md5Popup);
     }
 
     override isValidResult(result: gc.GameServiceMessage.TResult, settlementResult: gc.GameServiceMessage.TSettlementResult) {
@@ -64,7 +52,6 @@ export default class Game extends GameComponent {
     finishShowResult(result: gc.GameServiceMessage.TResult, settlementResult: gc.GameServiceMessage.TSettlementResult) {
         const multiplier = +result;
         this.updateCurrMultiplier(multiplier);
-        //this.updateMultiplierMd5Popup(multiplier);
         setTimeout(() => {
             this.updateAutoPlayMode();
         }, 2000);
@@ -101,10 +88,6 @@ export default class Game extends GameComponent {
         this.cpnCurrMultiplier.setCurrMultiplierValue(value);
         this.cpnCurrMultiplier.showHideBottomText(true);
     }
-
-    // updateMultiplierMd5Popup(value: number) {
-    //     this.cpnMd5Popup.setMultiplierValue(value);
-    // }
 
     @handle(GameCrash.CrashCashOut.CrashCashOutUIHandlers, (handle) => handle.resetCashoutVaue())
     resetValueCashout() {}
