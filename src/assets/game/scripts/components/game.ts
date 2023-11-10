@@ -10,7 +10,6 @@ import Observer from "observer";
 
 import { AutoPlayHandler } from "../../../../extensions/shared-components/assets/game-crash/auto-play/scripts/handlers/auto-play-handler";
 import { CurrentMultiplier } from "../../../../extensions/shared-components/assets/game-crash/current-multiplier";
-import { Md5PopupHandler } from "../../../../extensions/shared-components/assets/game-crash/md5-popup/scripts/handlers/md5-popup-handlers";
 import { StatisticsBar } from "../../../../extensions/shared-components/assets/game-crash/statistics-bar/statistics-bar";
 import { BalanceEffectHandlers } from "../../../../extensions/shared-components/assets/game/balance-effect/scripts/handlers/balance-effect-handlers";
 import { siteConfigs } from "../../../scripts/site-configs";
@@ -64,9 +63,8 @@ export default class Game extends GameComponent {
     @handle(Settlements.SettlementUIHandlers.FinishedShowResult)
     finishShowResult(result: gc.GameServiceMessage.TResult, settlementResult: gc.GameServiceMessage.TSettlementResult) {
         const multiplier = +result;
-        this.updateStatisticsBar(multiplier);
         this.updateCurrMultiplier(multiplier);
-        this.updateMultiplierMd5Popup(multiplier);
+        //this.updateMultiplierMd5Popup(multiplier);
         setTimeout(() => {
             this.updateAutoPlayMode();
         }, 2000);
@@ -98,25 +96,16 @@ export default class Game extends GameComponent {
 
     @handle(Auth.AuthHandlers.GetBalance)
     getBalance() {}
-    updateStatisticsBar(value: number) {
-        this.cpnStatisticsBar.updateMultiplierValue(value);
-    }
 
     updateCurrMultiplier(value: number) {
         this.cpnCurrMultiplier.setCurrMultiplierValue(value);
         this.cpnCurrMultiplier.showHideBottomText(true);
     }
 
-    updateMultiplierMd5Popup(value: number) {
-        this.cpnMd5Popup.setMultiplierValue(value);
-        this.updateIsCurrentRound();
-    }
+    // updateMultiplierMd5Popup(value: number) {
+    //     this.cpnMd5Popup.setMultiplierValue(value);
+    // }
 
     @handle(GameCrash.CrashCashOut.CrashCashOutUIHandlers, (handle) => handle.resetCashoutVaue())
     resetValueCashout() {}
-
-    @handle(Md5PopupHandler, (handle, isCurrRound: boolean) => handle.handleCurrentRound(isCurrRound))
-    updateIsCurrentRound() {
-        return false;
-    }
 }
