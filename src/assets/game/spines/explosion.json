@@ -1,11 +1,11 @@
 {
 "skeleton": {
-	"hash": "DmHOXW25x+7MwsGEdsmt5gvyjw4=",
+	"hash": "FRhsF4UIACsO3c6UoG5s0nPoEyo=",
 	"spine": "3.8.75",
-	"x": -1330.11,
-	"y": -726.31,
-	"width": 2400,
-	"height": 1700,
+	"x": -166.9,
+	"y": -162.14,
+	"width": 328,
+	"height": 328,
 	"images": "",
 	"audio": ""
 },
@@ -85,34 +85,6 @@
 "animations": {
 	"explosion-big": {
 		"slots": {
-			"explosion2/explosion-effects464": {
-				"color": [
-					{ "time": 1, "color": "ffffffff" },
-					{ "time": 2.7, "color": "ffffff00" }
-				],
-				"attachment": [
-					{ "name": "explosion2/explosion-effects464" },
-					{ "time": 0.1333, "name": "explosion2/explosion-effects465" },
-					{ "time": 0.2667, "name": "explosion2/explosion-effects467" },
-					{ "time": 0.4333, "name": "explosion2/explosion-effects468" },
-					{ "time": 0.5667, "name": "explosion2/explosion-effects469" },
-					{ "time": 0.7, "name": "explosion2/explosion-effects470" },
-					{ "time": 0.8333, "name": "explosion2/explosion-effects471" },
-					{ "time": 0.9667, "name": "explosion2/explosion-effects472" },
-					{ "time": 1.1333, "name": "explosion2/explosion-effects474" },
-					{ "time": 1.2667, "name": "explosion2/explosion-effects475" },
-					{ "time": 1.4, "name": "explosion2/explosion-effects476" },
-					{ "time": 1.5333, "name": "explosion2/explosion-effects478" },
-					{ "time": 1.6667, "name": "explosion2/explosion-effects479" },
-					{ "time": 1.8333, "name": "explosion2/explosion-effects480" },
-					{ "time": 1.9667, "name": "explosion2/explosion-effects481" },
-					{ "time": 2.1, "name": "explosion2/explosion-effects482" },
-					{ "time": 2.2333, "name": "explosion2/explosion-effects483" },
-					{ "time": 2.3667, "name": "explosion2/explosion-effects485" },
-					{ "time": 2.5333, "name": "explosion2/explosion-effects487" },
-					{ "time": 2.6667, "name": "explosion2/explosion-effects489" }
-				]
-			},
 			"boom3/1": {
 				"color": [
 					{ "time": 1, "color": "ffffffff" },
@@ -135,6 +107,41 @@
 					{ "time": 1.3, "name": "boom3/14" },
 					{ "time": 1.4, "name": null }
 				]
+			},
+			"explosion2/explosion-effects464": {
+				"color": [
+					{ "time": 1, "color": "ffffffff" },
+					{ "time": 2.3, "color": "ffffff00" }
+				],
+				"attachment": [
+					{ "name": "explosion2/explosion-effects464" },
+					{ "time": 0.1, "name": "explosion2/explosion-effects465" },
+					{ "time": 0.2, "name": "explosion2/explosion-effects467" },
+					{ "time": 0.3, "name": "explosion2/explosion-effects468" },
+					{ "time": 0.4, "name": "explosion2/explosion-effects469" },
+					{ "time": 0.5, "name": "explosion2/explosion-effects470" },
+					{ "time": 0.6, "name": "explosion2/explosion-effects471" },
+					{ "time": 0.7, "name": "explosion2/explosion-effects472" },
+					{ "time": 0.8, "name": "explosion2/explosion-effects474" },
+					{ "time": 0.9, "name": "explosion2/explosion-effects475" },
+					{ "time": 1, "name": "explosion2/explosion-effects476" },
+					{ "time": 1.1, "name": "explosion2/explosion-effects478" },
+					{ "time": 1.2, "name": "explosion2/explosion-effects479" },
+					{ "time": 1.3, "name": "explosion2/explosion-effects480" },
+					{ "time": 1.4, "name": "explosion2/explosion-effects481" },
+					{ "time": 1.5, "name": "explosion2/explosion-effects482" },
+					{ "time": 1.6, "name": "explosion2/explosion-effects483" },
+					{ "time": 1.7, "name": "explosion2/explosion-effects485" },
+					{ "time": 1.8, "name": "explosion2/explosion-effects487" },
+					{ "time": 1.9, "name": "explosion2/explosion-effects489" },
+					{ "time": 2, "name": "explosion2/explosion-effects490" },
+					{ "time": 2.1, "name": "explosion2/explosion-effects492" },
+					{ "time": 2.2, "name": "explosion2/explosion-effects493" },
+					{ "time": 2.3, "name": "explosion2/explosion-effects495" },
+					{ "time": 2.4, "name": "explosion2/explosion-effects496" },
+					{ "time": 2.5, "name": "explosion2/explosion-effects498" },
+					{ "time": 2.6, "name": null }
+				]
 			}
 		},
 		"bones": {
@@ -145,15 +152,6 @@
 				"scale": [
 					{ "time": 0.4333 },
 					{ "time": 2.2333, "x": 0.833, "y": 0.833 }
-				]
-			},
-			"boom2": {
-				"translate": [
-					{ "time": 4 }
-				],
-				"scale": [
-					{ "time": 1 },
-					{ "time": 2.7, "x": 1.667, "y": 1.667 }
 				]
 			}
 		}
