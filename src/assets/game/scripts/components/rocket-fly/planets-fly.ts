@@ -12,10 +12,8 @@ export class PlanetsFly extends ObserverComponent {
     mainAtlas: SpriteAtlas = null;
 
     private readonly spritePrefix = "planet";
-    private readonly planetsCount = 5;
-
+    private readonly planetsCount = 3;
     private startPlanetFlying = false;
-
     private planetSpritesDict = {};
     private lastSelectIndex = -1;
 
@@ -28,7 +26,7 @@ export class PlanetsFly extends ObserverComponent {
     }
 
     resetPlanetSpriteDict() {
-        for (let i = 0; i < 12; i++) {
+        for (let i = 0; i < 11; i++) {
             this.planetSpritesDict[i] = false;
         }
     }
@@ -74,17 +72,20 @@ export class PlanetsFly extends ObserverComponent {
         this.resetPlanetPosition(node);
     }
 
-    getRandomMovingDuration() {
-        return random(4, 6);
+    getRandomMovingDuration(distance: number) {
+        const speeds = [200, 400, 600];
+        const speed = speeds[random(0, speeds.length - 1)];
+        return distance / speed;
     }
 
     movePlanet(node: Node) {
-        const transform = this.node.getComponent(UITransform);
-        const maxX = transform.width * 0.5;
-
-        const destPos = v3(-1.5 * maxX, node.position.y);
+        const transformContainer = this.node.getComponent(UITransform);
+        const maxX = transformContainer.width * 0.5;
+        const transformNode = node.getComponent(UITransform);
+        const destPos = v3(-maxX - transformNode.width, node.position.y);
+        const distance = v3(node.position).subtract(destPos).length();
         tween(node)
-            .to(this.getRandomMovingDuration(), {
+            .to(this.getRandomMovingDuration(distance), {
                 position: destPos,
                 scale: v3(1, 1).multiplyScalar(0.3),
             })
@@ -96,15 +97,17 @@ export class PlanetsFly extends ObserverComponent {
     }
 
     private resetPlanetPosition(node: Node) {
-        const transform = this.node.getComponent(UITransform);
-        const maxX = transform.width * 0.5;
-        const maxY = transform.height * 0.5;
+        const transformContainer = this.node.getComponent(UITransform);
+        const maxX = transformContainer.width * 0.5;
+        const maxY = transformContainer.height * 0.5;
 
+        const transformNode = node.getComponent(UITransform);
         const lineIndex = +node.name;
-        const fromY = (lineIndex / this.planetsCount) * transform.height;
-        const toY = ((lineIndex + 1) / this.planetsCount) * transform.height;
+        const fromY = (lineIndex / this.planetsCount) * transformContainer.height;
+        const toY = ((lineIndex + 1) / this.planetsCount) * transformContainer.height;
         const randomY = -maxY + random(fromY, toY);
-        const startPos = v3(2 * maxX, randomY);
+
+        const startPos = v3(maxX + transformNode.width, randomY);
 
         node.position = startPos;
         node.scale = v3(1, 1);
