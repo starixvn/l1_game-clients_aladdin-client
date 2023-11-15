@@ -60,6 +60,7 @@ unit_test_js:
   before_script:
     - npm set registry http://npm.lumigame.com
     - cd ./game-client-base
+    - npm install
     - npm run build
     - cd ..
     - cd ./src
