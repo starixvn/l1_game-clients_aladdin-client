@@ -5,7 +5,6 @@ import Observer from "observer";
 import ColMultipliers from "../../../../../extensions/shared-components/assets/game-crash/col-multipliers/col-multipliers";
 import { ObserverComponent } from "../../../../../extensions/shared-components/assets/shared/common-components/observer-component/scripts/observer-component";
 import { Rocket } from "./rocket";
-import { RocketTail } from "./rocket-tail";
 const { fadeOut, fadeIn, getUiOpacity } = AnimationUtils;
 const { ccclass, property } = _decorator;
 
@@ -24,10 +23,6 @@ export class RocketFly extends ObserverComponent {
 
     @property(Node)
     nodeColMultiplier: Node = null;
-
-    @property({ type: RocketTail })
-    rocketTails: RocketTail[] = [];
-
     private readonly startRotation = -90;
     private readonly grapWidth = 1098;
     private readonly grapMaxX = 9;
@@ -87,30 +82,6 @@ export class RocketFly extends ObserverComponent {
             this.cpnRocket.startFly();
             this.startedRocketFlying = true;
         }
-        this.checkSwapRocketTail(multiplier);
-    }
-
-    checkSwapRocketTail(multiplier: number) {
-        const multipliers = [0, 5, 10];
-        let next = 0;
-        for (let index = 0; index < multipliers.length; index++) {
-            const m = multipliers[index];
-            if (multiplier < m) {
-                break;
-            }
-            next = index;
-        }
-
-        const current = next - 1;
-        if (current < 0 || this.rocketTails[0].currentIndex === next) {
-            return;
-        }
-
-        this.swapRocketTail(next);
-    }
-
-    private swapRocketTail(next: number) {
-        this.rocketTails.forEach((tail) => tail.swapRocketTail(next));
     }
 
     @render(gc.Rounds.RoundTimeStore, (store) => store.isInRoundTime)
@@ -133,17 +104,10 @@ export class RocketFly extends ObserverComponent {
     private prepareForRocket(animated: boolean) {
         this.preparingRocket = true;
         this.updateRocketTailWidth(0);
-        this.resetRocketTailNodes();
         this.cpnRocket.prepareRocket(this.startRotation, animated);
         this.cpnRocket.updatePosition(this.startPosition);
         this.resetRocketContainer();
         this.reachedLimitX = false;
-    }
-
-    private resetRocketTailNodes() {
-        this.rocketTails.forEach((rocketTail) => {
-            rocketTail.resetRocketTailNodes();
-        });
     }
 
     calculateRocketPosition(rawX: number, scale: number) {
