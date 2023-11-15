@@ -59,6 +59,9 @@ unit_test_js:
     - docker
   before_script:
     - npm set registry http://npm.lumigame.com
+    - cd ./game-client-base
+    - npm run build
+    - cd ..
     - cd ./src
     - npm run install-dependencies
   script:
