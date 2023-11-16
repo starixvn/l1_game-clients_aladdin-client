@@ -1,5 +1,8 @@
-import { Component, Node, ParticleSystem2D, Tween, Vec3, _decorator, sp, tween, v3 } from "cc";
+import { _decorator, Component, Node, ParticleSystem2D, sp, Tween, tween, v3, Vec3 } from "cc";
 import { AnimationUtils } from "db://shared-components/shared/utils";
+
+import { SpaceManList } from "./space-man-list";
+
 const { fadeOut, fadeIn, getUiOpacity } = AnimationUtils;
 const { ccclass, property } = _decorator;
 
@@ -25,8 +28,8 @@ export class Rocket extends Component {
     @property(Node)
     nodeRocketTail: Node = null;
 
-    @property(Node)
-    nodeSpaceMan: Node = null;
+    @property(SpaceManList)
+    cpnSpaceManList: SpaceManList = null;
 
     @property(Node)
     nodeTailStart: Node = null;
@@ -41,9 +44,6 @@ export class Rocket extends Component {
         return this.rocket.getComponentInChildren(sp.Skeleton);
     }
 
-    get skeSpaceMan(): sp.Skeleton {
-        return this.nodeSpaceMan.getComponent(sp.Skeleton);
-    }
     private rotationTween: Tween<Node>;
     private positionTween: Tween<Node>;
     private explositionTween: Tween<Node>;
@@ -63,8 +63,9 @@ export class Rocket extends Component {
     }
 
     setSpaceManVisibility(status: boolean) {
-        this.nodeSpaceMan.active = status;
-        status && this.skeSpaceMan.setAnimation(0, "action", false);
+        this.cpnSpaceManList.node.active = status;
+        status && this.cpnSpaceManList.setVisibility(status);
+        // status && this.skeSpaceMan.setAnimation(0, "action", false);
     }
 
     setRocketAnim(name: string, loop: boolean) {
