@@ -129,6 +129,8 @@ export const languages = {
         "crash": "Nổ",
         "crashed": "ĐÃ NỔ",
         "current_multiplier": "Số Nhân Hiện Tại",
+        "game_icon_name": "PHI THUYỀN KHÔNG GIAN",
+        "game_name": "Phi Thuyền Không Gian",
         "glossary_bet": "Cược",
         "glossary_crash_point": "Điểm Nổ",
         "glossary_option": "Lựa Chọn",
