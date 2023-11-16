@@ -10,6 +10,10 @@ const { ccclass, property } = _decorator;
 
 const { render } = Observer;
 const { GameCrash } = gc;
+
+type TweenDeltaTime = {
+    deltaTime: number;
+};
 @ccclass
 export class RocketFly extends ObserverComponent {
     @property(Rocket)
@@ -24,25 +28,26 @@ export class RocketFly extends ObserverComponent {
     @property(Node)
     nodeColMultiplier: Node = null;
     private readonly startRotation = -90;
-    private readonly grapWidth = 1098;
-    private readonly grapMaxX = 9;
-    private readonly speedRate = 2;
+    private readonly grapWidth = 900;
+    private readonly grapMaxX = 30;
     private readonly graphScale = this.grapWidth / this.grapMaxX;
-    private readonly rawLimitX = 6.5;
+    private readonly rawLimitX = 25;
     private readonly smallExplosionMultiplier = 1.02;
-    private currentMultiplier = 0;
     private deltaTime = 0;
     private startedRocketFlying = false;
     private reachedLimitX = false;
     private preparingRocket = false;
     private cpnColMultipliers: ColMultipliers;
+    private readonly graphTranslateX = 200;
+    private readonly graphTranslateDuration = 10000;
+    private tweenDeltaTime: Tween<TweenDeltaTime>;
+
     private get startPosition(): Vec3 {
         return this.startPoint.position;
     }
 
     onLoad() {
         this.cpnColMultipliers = this.nodeColMultiplier.getComponent(ColMultipliers);
-
         this.cpnRocket.updatePosition(this.startPosition, false);
 
         super.onLoad();
@@ -63,25 +68,44 @@ export class RocketFly extends ObserverComponent {
     setTimeByMultiplier(time: number) {
         if (time - this.deltaTime > 150) {
             const timePoint = time - 100;
-            this.flyRocket(timePoint, false);
-            this.movingRocketContainer(timePoint, false);
+            this.updateDeltaTime(timePoint);
         }
-        this.deltaTime = time;
-        if (!this.reachedLimitX) {
-            this.flyRocket(this.deltaTime);
-            this.movingRocketContainer(this.deltaTime, true);
-        }
-    }
-
-    @render(GameCrash.CrashMultiplier.MultiplierStore, (store) => store.multiplier, { fireImmediately: false })
-    private setCurrentMultiplier(multiplier: number) {
-        this.currentMultiplier = multiplier;
-        this.cpnColMultipliers.handleScroll(this.cpnRocket.nodeRocketHead, this.currentMultiplier, true);
+        this.cpnRocket.setRocketVisibility(true);
+        const tweenObject = {
+            deltaTime: this.deltaTime,
+        };
+        this.tweenDeltaTime?.stop();
+        this.tweenDeltaTime = tween(tweenObject)
+            .to(
+                0.1,
+                {
+                    deltaTime: time,
+                },
+                {
+                    onUpdate: () => {
+                        this.updateDeltaTime(tweenObject.deltaTime);
+                    },
+                }
+            )
+            .start();
 
         if (!this.startedRocketFlying) {
             this.cpnRocket.startFly();
             this.startedRocketFlying = true;
         }
+    }
+
+    private updateDeltaTime(deltaTime: number) {
+        this.deltaTime = deltaTime;
+        if (!this.reachedLimitX) {
+            this.flyRocket(this.deltaTime, false);
+            this.movingRocketContainer(this.deltaTime, false);
+        }
+        this.cpnColMultipliers.handleScroll(
+            this.cpnRocket.nodeRocketHead,
+            this.calculateMultiplier(this.getTimeInSeconds(this.deltaTime)),
+            false
+        );
     }
 
     @render(gc.Rounds.RoundTimeStore, (store) => store.isInRoundTime)
@@ -108,17 +132,25 @@ export class RocketFly extends ObserverComponent {
         this.cpnRocket.updatePosition(this.startPosition);
         this.resetRocketContainer();
         this.reachedLimitX = false;
+        this.deltaTime = 0;
     }
 
     calculateRocketPosition(rawX: number, scale: number) {
-        const rawY = Math.pow(rawX, 4) / 600;
+        const rawY = this.calculateMultiplier(rawX) - 1;
         return v3(rawX * scale, rawY * scale);
+    }
+
+    calculateMultiplier(time: number) {
+        const a = 0.04;
+        const b = 0.66;
+        const c = 1 - Math.pow(b, 5);
+        return Math.pow(a * time + b, 5) + c;
     }
 
     movingRocketContainer(time: number, animated: boolean) {
         const container = this.cpnRocket.node.parent;
-        const ratio = Math.min(time / 8000, 1);
-        const destX = 200 * ratio;
+        const ratio = Math.min(time / this.graphTranslateDuration, 1);
+        const destX = this.graphTranslateX * ratio;
 
         const destPosition = v3(destX, container.position.y);
         if (animated) {
@@ -134,13 +166,15 @@ export class RocketFly extends ObserverComponent {
         container.position = v3(0, container.position.y);
     }
 
-    flyRocket(time: number, animated = true) {
-        this.cpnRocket.setRocketVisibility(true);
+    getTimeInSeconds(time: number) {
+        return time / 1000;
+    }
 
+    flyRocket(time: number, animated = true) {
         const scale = this.graphScale;
         const rawLimitX = this.rawLimitX;
 
-        let rawX = time * this.getTimerRate();
+        let rawX = this.getTimeInSeconds(time) * this.getTimerRate();
 
         if (rawX >= rawLimitX) {
             rawX = rawLimitX;
@@ -166,6 +200,7 @@ export class RocketFly extends ObserverComponent {
     }
 
     explodeRocket(isSMall: boolean) {
+        this.tweenDeltaTime?.stop();
         this.hideRocketTail();
         this.startedRocketFlying = false;
         this.cpnRocket.explode(isSMall);
@@ -180,9 +215,7 @@ export class RocketFly extends ObserverComponent {
     }
 
     getTimerRate() {
-        const duration = 20 * 1000;
-        const x = this.deltaTime / duration;
-        const result = (1 - x) * (1 - x) * 1 + 0.5;
-        return result / 2000;
+        const x = Math.min(1, this.deltaTime / this.graphTranslateDuration);
+        return (1 - x) * (1 - x) + 1;
     }
 }
