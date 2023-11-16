@@ -139,7 +139,7 @@ export const languages = {
         "in_play": "IN PLAY",
         "invalid_cashout": "Cash Out Failed",
         "invalid_value_cashout": "Auto Cashout value is invalid.",
-        "message_bet_is_accepted": "Bet is accepted ",
+        "message_bet_is_accepted": "Bet Accepted ",
         "multiplier": "Multiplier",
         "next_round": "(Next Round)",
         "place_bet": "PLACE BET",
