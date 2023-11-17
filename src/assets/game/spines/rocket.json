@@ -1,6 +1,6 @@
 {
 "skeleton": {
-	"hash": "IQpBQpX0z47U+LOd2uGD+mUErso=",
+	"hash": "/FrlnNeG48I4sxNDCCTpeVdIvqA=",
 	"spine": "3.8.75",
 	"x": -81.96,
 	"y": -183.74,
@@ -21,15 +21,6 @@
 	{ "name": "vaytrai3", "parent": "vaytrai", "length": 12.79, "rotation": 139.67, "x": 4.67, "y": -4.02 },
 	{ "name": "vaytrai2", "parent": "vaytrai3", "length": 9.3, "rotation": -22.59, "x": -2.19, "y": -12.48 },
 	{ "name": "vaytrai4", "parent": "vaytrai2", "length": 10.68, "rotation": 52.02, "x": -5.27, "y": 27.28 },
-	{
-		"name": "vfx",
-		"parent": "anhsang",
-		"rotation": 31.6,
-		"x": -43.59,
-		"y": -25.81,
-		"scaleX": 1.3,
-		"scaleY": 1.3
-	},
 	{ "name": "domsang", "parent": "tenlua-full", "rotation": 90.1 },
 	{ "name": "vaysau", "parent": "canhbay", "rotation": 3.96, "x": 7.1, "y": 6.93 },
 	{
@@ -44,7 +35,6 @@
 ],
 "slots": [
 	{ "name": "anhsang", "bone": "anhsang" },
-	{ "name": "jpg/1", "bone": "vfx", "attachment": "jpg/8", "blend": "screen" },
 	{ "name": "vaysau", "bone": "vaysau", "attachment": "vaysau" },
 	{ "name": "rocket-wings", "bone": "rocket-wings", "attachment": "rocket-wings" },
 	{ "name": "vayphai", "bone": "vayphai", "attachment": "vayphai" },
@@ -56,16 +46,6 @@
 	{
 		"name": "default",
 		"attachments": {
-			"jpg/1": {
-				"jpg/1": { "y": 0.5, "width": 200, "height": 111 },
-				"jpg/2": { "y": 0.5, "width": 200, "height": 111 },
-				"jpg/3": { "y": 0.5, "width": 200, "height": 111 },
-				"jpg/4": { "y": 0.5, "width": 200, "height": 111 },
-				"jpg/5": { "y": 0.5, "width": 200, "height": 111 },
-				"jpg/6": { "y": 0.5, "width": 200, "height": 111 },
-				"jpg/7": { "y": 0.5, "width": 200, "height": 111 },
-				"jpg/8": { "y": 0.5, "width": 200, "height": 111 }
-			},
 			"domsang": {
 				"domsangmoi": { "x": 0.28, "y": -0.41, "rotation": -55.8, "width": 37, "height": 38 }
 			},
@@ -88,7 +68,7 @@
 				"vaytrai": {
 					"type": "mesh",
 					"uvs": [ 1, 0.0259, 1, 0.09272, 0.41621, 0.91364, 0.30113, 0.9316, 0, 0.97859, 0, 0.89314, 0.36765, 0.27801, 0.59176, 0.02678, 0.20029, 0.81884, 0.36021, 0.561, 0.53383, 0.31749, 0.75314, 0.18857, 0.46986, 0.58965, 0.36935, 0.7687 ],
-					"triangles": [ 9, 8, 6, 10, 12, 6, 12, 9, 6, 2, 11, 1, 11, 12, 10, 10, 7, 11, 10, 6, 7, 1, 11, 0, 11, 7, 0, 4, 8, 3, 4, 5, 8, 3, 13, 2, 3, 8, 13, 11, 2, 12, 2, 13, 12, 8, 5, 6, 8, 9, 13, 13, 9, 12 ],
+					"triangles": [ 12, 9, 6, 10, 12, 6, 9, 8, 6, 11, 7, 0, 1, 11, 0, 10, 6, 7, 10, 7, 11, 11, 12, 10, 2, 11, 1, 13, 9, 12, 8, 9, 13, 8, 5, 6, 2, 13, 12, 11, 2, 12, 3, 8, 13, 3, 13, 2, 4, 5, 8, 4, 8, 3 ],
 					"vertices": [ 1, 9, 3.55, -18.96, 1, 1, 9, 1.35, -17.83, 1, 2, 10, -3.99, 3.25, 0.95491, 8, -1.65, 15.6, 0.04509, 1, 10, 2.44, 5.17, 1, 1, 10, 19.26, 10.18, 1, 1, 10, 19.86, 7.08, 1, 4, 10, 3.23, -19.31, 0.00735, 9, 11.93, 17.94, 0.00824, 8, 15.72, -0.5, 0.9722, 6, -6.99, 6.54, 0.01222, 3, 9, 14.29, 2.14, 0.88583, 8, 11.83, -16, 0.00885, 6, 6.01, 15.83, 0.10532, 1, 10, 8.97, 2.18, 1, 2, 10, 1.67, -8.95, 0.41787, 8, 9.27, 7.76, 0.58213, 3, 9, 6.25, 10.03, 0.27935, 8, 7.43, -5.63, 0.08529, 6, 2.65, 5.08, 0.63536, 1, 9, 4.7, -3.47, 1, 2, 10, -4.78, -9.11, 0.19341, 8, 3.74, 4.45, 0.80659, 2, 10, -0.31, -1.5, 0.91801, 8, 3.89, 13.27, 0.08199 ],
 					"hull": 8,
 					"edges": [ 0, 14, 0, 2, 2, 4, 8, 10, 10, 12, 12, 14, 4, 6, 6, 8 ],
@@ -114,56 +94,6 @@
 					{ "time": 1.1, "color": "ffffff32", "curve": "stepped" },
 					{ "time": 5.0333, "color": "ffffff32" },
 					{ "time": 6, "color": "ffffffff" }
-				]
-			},
-			"jpg/1": {
-				"attachment": [
-					{ "name": "jpg/1" },
-					{ "time": 0.1667, "name": "jpg/2" },
-					{ "time": 0.3, "name": "jpg/3" },
-					{ "time": 0.4, "name": "jpg/4" },
-					{ "time": 0.5333, "name": "jpg/5" },
-					{ "time": 0.6667, "name": "jpg/6" },
-					{ "time": 0.8, "name": "jpg/7" },
-					{ "time": 0.9333, "name": "jpg/8" },
-					{ "time": 1.0667, "name": "jpg/1" },
-					{ "time": 1.2, "name": "jpg/2" },
-					{ "time": 1.3333, "name": "jpg/3" },
-					{ "time": 1.4667, "name": "jpg/4" },
-					{ "time": 1.6, "name": "jpg/5" },
-					{ "time": 1.7333, "name": "jpg/6" },
-					{ "time": 1.8667, "name": "jpg/7" },
-					{ "time": 2, "name": "jpg/8" },
-					{ "time": 2.1333, "name": "jpg/1" },
-					{ "time": 2.2667, "name": "jpg/2" },
-					{ "time": 2.4, "name": "jpg/3" },
-					{ "time": 2.5333, "name": "jpg/4" },
-					{ "time": 2.6667, "name": "jpg/5" },
-					{ "time": 2.8, "name": "jpg/6" },
-					{ "time": 2.9333, "name": "jpg/7" },
-					{ "time": 3.0667, "name": "jpg/8" },
-					{ "time": 3.2, "name": "jpg/1" },
-					{ "time": 3.3333, "name": "jpg/2" },
-					{ "time": 3.4667, "name": "jpg/3" },
-					{ "time": 3.6, "name": "jpg/4" },
-					{ "time": 3.7333, "name": "jpg/5" },
-					{ "time": 3.8667, "name": "jpg/6" },
-					{ "time": 4, "name": "jpg/7" },
-					{ "time": 4.1333, "name": "jpg/8" },
-					{ "time": 4.2667, "name": "jpg/1" },
-					{ "time": 4.4, "name": "jpg/2" },
-					{ "time": 4.5333, "name": "jpg/3" },
-					{ "time": 4.6667, "name": "jpg/4" },
-					{ "time": 4.8, "name": "jpg/5" },
-					{ "time": 4.9333, "name": "jpg/6" },
-					{ "time": 5.0667, "name": "jpg/7" },
-					{ "time": 5.2, "name": "jpg/8" },
-					{ "time": 5.3333, "name": "jpg/1" },
-					{ "time": 5.4667, "name": "jpg/2" },
-					{ "time": 5.6, "name": "jpg/3" },
-					{ "time": 5.7333, "name": "jpg/4" },
-					{ "time": 5.8667, "name": "jpg/5" },
-					{ "time": 6, "name": "jpg/6" }
 				]
 			}
 		},
@@ -292,14 +222,6 @@
 					{ "color": "ffffff00" }
 				]
 			},
-			"jpg/1": {
-				"color": [
-					{ "color": "ffffff00" }
-				],
-				"attachment": [
-					{ "name": null }
-				]
-			},
 			"rocket-wings": {
 				"color": [
 					{ "color": "ffffff00" }
@@ -325,18 +247,6 @@
 			"domsang": {
 				"color": [
 					{ "color": "ffffff00" }
-				]
-			},
-			"jpg/1": {
-				"color": [
-					{ "color": "ffffff00", "curve": "stepped" },
-					{ "time": 4.6667, "color": "ffffff00" },
-					{ "time": 6, "color": "ffffffff" }
-				],
-				"attachment": [
-					{ "name": null },
-					{ "time": 4.6667, "name": "jpg/1" },
-					{ "time": 6, "name": null }
 				]
 			},
 			"rocket-wings": {

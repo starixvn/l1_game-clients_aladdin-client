@@ -37,6 +37,9 @@ export class Rocket extends Component {
     @property(ParticleSystem2D)
     flyParticle: ParticleSystem2D = null;
 
+    @property(Node)
+    nodeRocketHeadEffect: Node = null;
+
     get skeExplosion(): sp.Skeleton {
         return this.explosion.getComponent(sp.Skeleton);
     }
@@ -65,12 +68,12 @@ export class Rocket extends Component {
     setSpaceManVisibility(status: boolean) {
         this.cpnSpaceManList.node.active = status;
         status && this.cpnSpaceManList.setVisibility(status);
-        // status && this.skeSpaceMan.setAnimation(0, "action", false);
     }
 
     setRocketAnim(name: string, loop: boolean) {
         this.skeRocket?.setAnimation(0, name, true);
         this.updateTailVisibility(name);
+        this.nodeRocketHeadEffect.active = name === RocketAnim.FLY;
     }
 
     updateTailVisibility(name: string) {
