@@ -85,6 +85,7 @@ export default class Game extends GameComponent {
     getBalance() {}
 
     updateCurrMultiplier(value: number) {
+        this.cpnCurrMultiplier.setVisibility(true);
         this.cpnCurrMultiplier.setCurrMultiplierValue(value);
         this.cpnCurrMultiplier.showHideBottomText(true);
     }
