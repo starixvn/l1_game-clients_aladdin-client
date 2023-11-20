@@ -1,14 +1,13 @@
 import "./../../../resources/i18n";
 
 import gc from "@sg/game-client-base";
-import { _decorator, Label, Node } from "cc";
+import { _decorator, Label } from "cc";
 import GameComponent from "db://shared-components/game/scripts/components/game-component";
 import { startGame } from "db://shared-components/shared/scripts/startup";
 import { AnimationUtils } from "db://shared-components/shared/utils";
 import Observer from "observer";
 
 import { AutoPlayHandler } from "../../../../extensions/shared-components/assets/game-crash/auto-play/scripts/handlers/auto-play-handler";
-import { CurrentMultiplier } from "../../../../extensions/shared-components/assets/game-crash/current-multiplier";
 import { BalanceEffectHandlers } from "../../../../extensions/shared-components/assets/game/balance-effect/scripts/handlers/balance-effect-handlers";
 import { siteConfigs } from "../../../scripts/site-configs";
 import { containerOptions, settings } from "../game-settings";
@@ -31,17 +30,11 @@ export default class Game extends GameComponent {
     @property({ type: Label, override: true, visible: false })
     lblMaxBet: Label = null;
 
-    @property(Node)
-    nodeCurrMultiplier: Node = null;
-
     override namespace = settings.name;
     override containerOptions = containerOptions;
 
-    private cpnCurrMultiplier: CurrentMultiplier;
-
     onLoad() {
         super.onLoad();
-        this.cpnCurrMultiplier = this.nodeCurrMultiplier.getComponent(CurrentMultiplier);
     }
 
     override isValidResult(result: gc.GameServiceMessage.TResult, settlementResult: gc.GameServiceMessage.TSettlementResult) {
@@ -84,10 +77,9 @@ export default class Game extends GameComponent {
     @handle(Auth.AuthHandlers.GetBalance)
     getBalance() {}
 
+    @handle(GameCrash.CrashMultiplier.MultiplierHandlers, (handle, multiplier: number) => handle.handleMultiplierCrashed(multiplier))
     updateCurrMultiplier(value: number) {
-        this.cpnCurrMultiplier.setVisibility(true);
-        this.cpnCurrMultiplier.setCurrMultiplierValue(value);
-        this.cpnCurrMultiplier.showHideBottomText(true);
+        return value;
     }
 
     @handle(GameCrash.CrashCashOut.CrashCashOutUIHandlers, (handle) => handle.resetCashoutVaue())
