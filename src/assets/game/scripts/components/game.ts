@@ -8,6 +8,7 @@ import { AnimationUtils } from "db://shared-components/shared/utils";
 import Observer from "observer";
 
 import { AutoPlayHandler } from "../../../../extensions/shared-components/assets/game-crash/auto-play/scripts/handlers/auto-play-handler";
+import { PopupsHandlers } from "../../../../extensions/shared-components/assets/game-crash/popups/popups-handlers";
 import { BalanceEffectHandlers } from "../../../../extensions/shared-components/assets/game/balance-effect/scripts/handlers/balance-effect-handlers";
 import { siteConfigs } from "../../../scripts/site-configs";
 import { containerOptions, settings } from "../game-settings";
@@ -84,4 +85,7 @@ export default class Game extends GameComponent {
 
     @handle(GameCrash.CrashCashOut.CrashCashOutUIHandlers, (handle) => handle.resetCashoutVaue())
     resetValueCashout() {}
+
+    @handle(PopupsHandlers, (handle) => handle.closeAllPopups())
+    closeAllPopups() {}
 }
