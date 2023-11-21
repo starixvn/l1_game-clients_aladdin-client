@@ -38,8 +38,8 @@ export class RocketFly extends ObserverComponent {
     private reachedLimitX = false;
     private preparingRocket = false;
     private cpnColMultipliers: ColMultipliers;
-    private readonly graphTranslateX = 200;
-    private readonly graphTranslateDuration = 10000;
+    private readonly graphTranslateX = 250;
+    private readonly graphTranslateDuration = 15000;
     private tweenDeltaTime: Tween<TweenDeltaTime>;
 
     private get startPosition(): Vec3 {

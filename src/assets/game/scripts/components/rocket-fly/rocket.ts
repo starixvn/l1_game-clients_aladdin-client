@@ -44,7 +44,7 @@ export class Rocket extends Component {
         return this.explosion.getComponent(sp.Skeleton);
     }
     get skeRocket(): sp.Skeleton {
-        return this.rocket.getComponentInChildren(sp.Skeleton);
+        return this.rocket.getChildByName("skeleton").getComponent(sp.Skeleton);
     }
 
     private rotationTween: Tween<Node>;

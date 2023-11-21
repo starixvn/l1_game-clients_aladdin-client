@@ -603,7 +603,7 @@
     },
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": -67,
+      "x": -56,
       "y": -45,
       "z": 0
     },
@@ -694,8 +694,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 895,
-      "height": 422
+      "width": 812,
+      "height": 391
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -736,7 +736,7 @@
     },
     "_type": 0,
     "_fillType": 0,
-    "_sizeMode": 1,
+    "_sizeMode": 2,
     "_fillCenter": {
       "__type__": "cc.Vec2",
       "x": 0,
@@ -744,7 +744,7 @@
     },
     "_fillStart": 0,
     "_fillRange": 0,
-    "_isTrimmedMode": true,
+    "_isTrimmedMode": false,
     "_useGrayscale": false,
     "_atlas": null,
     "_id": ""
@@ -830,8 +830,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 895,
-      "height": 422
+      "width": 812,
+      "height": 391
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -872,7 +872,7 @@
     },
     "_type": 0,
     "_fillType": 0,
-    "_sizeMode": 1,
+    "_sizeMode": 2,
     "_fillCenter": {
       "__type__": "cc.Vec2",
       "x": 0,
@@ -880,7 +880,7 @@
     },
     "_fillStart": 0,
     "_fillRange": 0,
-    "_isTrimmedMode": true,
+    "_isTrimmedMode": false,
     "_useGrayscale": false,
     "_atlas": null,
     "_id": ""
@@ -966,8 +966,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 895,
-      "height": 422
+      "width": 812,
+      "height": 391
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1008,7 +1008,7 @@
     },
     "_type": 0,
     "_fillType": 0,
-    "_sizeMode": 1,
+    "_sizeMode": 2,
     "_fillCenter": {
       "__type__": "cc.Vec2",
       "x": 0,
@@ -1016,7 +1016,7 @@
     },
     "_fillStart": 0,
     "_fillRange": 0,
-    "_isTrimmedMode": true,
+    "_isTrimmedMode": false,
     "_useGrayscale": false,
     "_atlas": null,
     "_id": ""
@@ -1624,7 +1624,7 @@
     "life": 0.6,
     "lifeVar": 0,
     "angle": -90,
-    "angleVar": 15,
+    "angleVar": 10,
     "startSize": 10,
     "startSizeVar": 10,
     "endSize": 5,
@@ -1640,14 +1640,14 @@
     },
     "posVar": {
       "__type__": "cc.Vec2",
-      "x": 0,
+      "x": 2,
       "y": 0
     },
     "emitterMode": 0,
     "gravity": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": -10
+      "y": 10
     },
     "speed": 0,
     "speedVar": 50,
@@ -2054,10 +2054,10 @@
     },
     "duration": -1,
     "emissionRate": 50,
-    "life": 0.6,
+    "life": 0.4,
     "lifeVar": 0,
     "angle": -90,
-    "angleVar": 15,
+    "angleVar": 5,
     "startSize": 20,
     "startSizeVar": 10,
     "endSize": 10,
@@ -2073,14 +2073,14 @@
     },
     "posVar": {
       "__type__": "cc.Vec2",
-      "x": 0,
+      "x": 2,
       "y": 0
     },
     "emitterMode": 0,
     "gravity": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": -10
+      "y": -5
     },
     "speed": 100,
     "speedVar": 50,
@@ -2163,7 +2163,7 @@
       "__id__": 81
     },
     "_children": [],
-    "_active": false,
+    "_active": true,
     "_components": [
       {
         "__id__": 89
@@ -2487,10 +2487,10 @@
     },
     "duration": -1,
     "emissionRate": 50,
-    "life": 0.6,
+    "life": 0.4,
     "lifeVar": 0,
     "angle": -90,
-    "angleVar": 15,
+    "angleVar": 5,
     "startSize": 20,
     "startSizeVar": 10,
     "endSize": 10,
@@ -2506,7 +2506,7 @@
     },
     "posVar": {
       "__type__": "cc.Vec2",
-      "x": 0,
+      "x": 2,
       "y": 0
     },
     "emitterMode": 0,
@@ -2596,7 +2596,7 @@
       "__id__": 97
     },
     "_children": [],
-    "_active": false,
+    "_active": true,
     "_components": [
       {
         "__id__": 105
@@ -3162,8 +3162,8 @@
     },
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": 1.298,
-      "y": -8.657,
+      "x": 1.46,
+      "y": -4.309,
       "z": 0
     },
     "_lrot": {
@@ -3244,7 +3244,7 @@
     "life": 0.3,
     "lifeVar": 0,
     "angle": -90,
-    "angleVar": 20,
+    "angleVar": 10,
     "startSize": 10,
     "startSizeVar": 10,
     "endSize": 10,
