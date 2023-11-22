@@ -1,14 +1,16 @@
 import gc from "@sg/game-client-base";
-import { Node, Tween, UITransform, Vec3, _decorator, toDegree, tween, v3 } from "cc";
+import { _decorator, Node, toDegree, Tween, tween, UITransform, v3, Vec3 } from "cc";
 import { AnimationUtils } from "db://shared-components/shared/utils";
 import Observer from "observer";
+
 import ColMultipliers from "../../../../../extensions/shared-components/assets/game-crash/col-multipliers/col-multipliers";
 import { ObserverComponent } from "../../../../../extensions/shared-components/assets/shared/common-components/observer-component/scripts/observer-component";
 import { Rocket } from "./rocket";
+
 const { fadeOut, fadeIn, getUiOpacity } = AnimationUtils;
 const { ccclass, property } = _decorator;
 
-const { render } = Observer;
+const { handle, render } = Observer;
 const { GameCrash } = gc;
 
 type TweenDeltaTime = {
@@ -53,15 +55,22 @@ export class RocketFly extends ObserverComponent {
         super.onLoad();
     }
 
-    @render(gc.Settlements.SettlementStore, (store) => ({ result: store.result, settlementResult: store.settlementResult }), {
+    @render(gc.Settlements.SettlementStore, (store) => ({ result: store.result }), {
         fireImmediately: false,
     })
-    renderRocketExplosion(data: { result: gc.GameServiceMessage.TResult; settlementResult: gc.GameServiceMessage.TSettlementResult }) {
+    async renderRocketExplosion(data: { result: gc.GameServiceMessage.TResult }) {
         const { result } = data;
         if (result) {
-            this.explodeRocket(+result < this.smallExplosionMultiplier);
             this.preparingRocket = false;
+            +result < this.smallExplosionMultiplier && (await AnimationUtils.delayTime(0.5));
+            this.updateIsCrashed(true);
+            this.explodeRocket(+result < this.smallExplosionMultiplier);
         }
+    }
+
+    @handle(GameCrash.CrashMultiplier.MultiplierHandlers, (handle, isCrashed: boolean) => handle.handleIsCrashed(isCrashed))
+    updateIsCrashed(isCrashed: boolean) {
+        return isCrashed;
     }
 
     @render(GameCrash.CrashMultiplier.MultiplierStore, (store) => store.time, { fireImmediately: false })
@@ -120,7 +129,6 @@ export class RocketFly extends ObserverComponent {
         if (!isStartRound) {
             return;
         }
-
         this.prepareForRocket(true);
         this.cpnColMultipliers.scrollUp();
     }
