@@ -13,14 +13,26 @@ const AnimationName = {
     PLANETS_FLY: "planets",
 };
 
+export const BG_CLOSING_TRANSITION_DURATION = 1;
+
 @ccclass("background_control")
 export class BackgroundControl extends ObserverComponent {
     @property(Node)
     nodeBackground: Node = null;
+    @property(Node)
+    nodeTransitionTop: Node = null;
+    @property(Node)
+    nodeTransitionBottom: Node = null;
 
     private isBgMoving = false;
     private readonly movingBackgroundDuration = 40;
     private readonly backgroundMoveY = -500;
+    private readonly transitionY = 400;
+
+    onLoad() {
+        this.resetBackgroundTransition();
+        super.onLoad();
+    }
 
     @render(GameCrash.CrashMultiplier.MultiplierStore, (store) => store.time, { fireImmediately: false })
     renderRocketTime(time: number) {
@@ -30,11 +42,47 @@ export class BackgroundControl extends ObserverComponent {
         }
     }
 
-    @render(gc.Rounds.RoundTimeStore, (store) => store.isStartRound)
+    @render(gc.Rounds.RoundTimeStore, (store) => store.isStartRound, { fireImmediately: false })
     changeIdleAnim(isStartRound) {
         if (isStartRound) {
-            this.resetBackground();
+            this.playBackgroundTransition().then(() => {
+                this.resetBackground();
+            });
         }
+    }
+
+    playTransition(node: Node) {
+        const gapTime = 0.1;
+        const duration = (BG_CLOSING_TRANSITION_DURATION - gapTime) / 2;
+        return new Promise((resolve) => {
+            tween(node)
+                .to(
+                    duration,
+                    {
+                        position: v3(0, 0, 0),
+                    },
+                    { easing: "sineOut" }
+                )
+                .call(resolve)
+                .delay(gapTime)
+                .to(
+                    duration,
+                    {
+                        position: v3(0, this.transitionY, 0),
+                    },
+                    { easing: "sineIn" }
+                )
+                .start();
+        });
+    }
+
+    resetBackgroundTransition() {
+        this.nodeTransitionTop.position = v3(0, this.transitionY, 0);
+        this.nodeTransitionBottom.position = v3(0, this.transitionY, 0);
+    }
+
+    async playBackgroundTransition() {
+        await Promise.all([this.playTransition(this.nodeTransitionTop), this.playTransition(this.nodeTransitionBottom)]);
     }
 
     @render(Settlements.SettlementStore, (store) => ({ result: store.result, settlementResult: store.settlementResult }))

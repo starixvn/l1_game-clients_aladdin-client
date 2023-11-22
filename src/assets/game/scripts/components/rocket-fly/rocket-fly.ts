@@ -5,6 +5,7 @@ import Observer from "observer";
 
 import ColMultipliers from "../../../../../extensions/shared-components/assets/game-crash/col-multipliers/col-multipliers";
 import { ObserverComponent } from "../../../../../extensions/shared-components/assets/shared/common-components/observer-component/scripts/observer-component";
+import { BG_CLOSING_TRANSITION_DURATION } from "../background-control";
 import { Rocket } from "./rocket";
 
 const { fadeOut, fadeIn, getUiOpacity } = AnimationUtils;
@@ -16,6 +17,7 @@ const { GameCrash } = gc;
 type TweenDeltaTime = {
     deltaTime: number;
 };
+
 @ccclass
 export class RocketFly extends ObserverComponent {
     @property(Rocket)
@@ -129,8 +131,10 @@ export class RocketFly extends ObserverComponent {
         if (!isStartRound) {
             return;
         }
-        this.prepareForRocket(true);
-        this.cpnColMultipliers.scrollUp();
+        this.scheduleOnce(() => {
+            this.prepareForRocket(true);
+            this.cpnColMultipliers.scrollUp();
+        }, BG_CLOSING_TRANSITION_DURATION);
     }
 
     private prepareForRocket(animated: boolean) {
@@ -140,6 +144,7 @@ export class RocketFly extends ObserverComponent {
         this.cpnRocket.updatePosition(this.startPosition);
         this.resetRocketContainer();
         this.reachedLimitX = false;
+        this.cpnRocket.stopShaking();
         this.deltaTime = 0;
     }
 
@@ -187,6 +192,7 @@ export class RocketFly extends ObserverComponent {
         if (rawX >= rawLimitX) {
             rawX = rawLimitX;
             this.reachedLimitX = true;
+            this.cpnRocket.shake();
         }
         const newPosition = this.calculateRocketPosition(rawX, scale);
         const prevRocketPosition = this.calculateRocketPosition(rawX - 0.1, scale);

@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, ParticleSystem2D, sp, Tween, tween, v3, Vec3 } from "cc";
+import { _decorator, Animation, Component, Node, ParticleSystem2D, sp, Tween, tween, v3, Vec3 } from "cc";
 import { AnimationUtils } from "db://shared-components/shared/utils";
 
 import { SpaceManList } from "./space-man-list";
@@ -45,6 +45,10 @@ export class Rocket extends Component {
     }
     get skeRocket(): sp.Skeleton {
         return this.rocket.getChildByName("skeleton").getComponent(sp.Skeleton);
+    }
+
+    get rocketAnimation(): Animation {
+        return this.rocket.getComponent(Animation);
     }
 
     private rotationTween: Tween<Node>;
@@ -161,5 +165,13 @@ export class Rocket extends Component {
         this.rotationTween?.stop();
         this.positionTween?.stop();
         this.explositionTween?.stop();
+    }
+
+    shake() {
+        this.rocketAnimation?.play("shake");
+    }
+
+    stopShaking() {
+        this.rocketAnimation?.play("idle");
     }
 }
