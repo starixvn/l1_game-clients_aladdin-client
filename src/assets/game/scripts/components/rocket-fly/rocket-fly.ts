@@ -38,7 +38,7 @@ export class RocketFly extends ObserverComponent {
     private reachedLimitX = false;
     private preparingRocket = false;
     private cpnColMultipliers: ColMultipliers;
-    private readonly graphTranslateX = 550;
+    private readonly graphTranslateX = 630;
     private readonly graphTranslateDuration = (this.rawLimitX + 4) * 1000;
     private tweenDeltaTime: Tween<TweenDeltaTime>;
 
