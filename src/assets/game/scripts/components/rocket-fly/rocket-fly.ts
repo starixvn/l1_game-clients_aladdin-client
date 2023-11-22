@@ -28,18 +28,18 @@ export class RocketFly extends ObserverComponent {
     @property(Node)
     nodeColMultiplier: Node = null;
     private readonly startRotation = -90;
-    private readonly grapWidth = 900;
-    private readonly grapMaxX = 30;
+    private readonly grapWidth = 500;
+    private readonly grapMaxX = 32;
+    private readonly rawLimitX = 30;
     private readonly graphScale = this.grapWidth / this.grapMaxX;
-    private readonly rawLimitX = 25;
     private readonly smallExplosionMultiplier = 1.02;
     private deltaTime = 0;
     private startedRocketFlying = false;
     private reachedLimitX = false;
     private preparingRocket = false;
     private cpnColMultipliers: ColMultipliers;
-    private readonly graphTranslateX = 250;
-    private readonly graphTranslateDuration = 15000;
+    private readonly graphTranslateX = 550;
+    private readonly graphTranslateDuration = (this.rawLimitX + 4) * 1000;
     private tweenDeltaTime: Tween<TweenDeltaTime>;
 
     private get startPosition(): Vec3 {
@@ -216,6 +216,6 @@ export class RocketFly extends ObserverComponent {
 
     getTimerRate() {
         const x = Math.min(1, this.deltaTime / this.graphTranslateDuration);
-        return (1 - x) * (1 - x) + 1;
+        return Math.pow(1 - x, 2) + 1;
     }
 }
