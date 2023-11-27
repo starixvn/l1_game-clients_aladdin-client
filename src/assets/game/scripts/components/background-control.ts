@@ -77,11 +77,17 @@ export class BackgroundControl extends ObserverComponent {
     }
 
     resetBackgroundTransition() {
+        if (!this.nodeTransitionTop) {
+            return;
+        }
         this.nodeTransitionTop.position = v3(0, this.transitionY, 0);
         this.nodeTransitionBottom.position = v3(0, this.transitionY, 0);
     }
 
     async playBackgroundTransition() {
+        if (!this.nodeTransitionTop) {
+            return;
+        }
         await Promise.all([this.playTransition(this.nodeTransitionTop), this.playTransition(this.nodeTransitionBottom)]);
     }
 
@@ -110,7 +116,6 @@ export class BackgroundControl extends ObserverComponent {
         Tween.stopAllByTarget(this.nodeBackground);
         this.nodeBackground.scale = v3(1, 1, 1);
         this.nodeBackground.position = v3(0);
-
         this.isBgMoving = false;
     }
 }
