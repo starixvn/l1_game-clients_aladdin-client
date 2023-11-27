@@ -134,7 +134,7 @@ export class RocketFly extends ObserverComponent {
         this.scheduleOnce(() => {
             this.prepareForRocket(true);
             this.cpnColMultipliers.scrollUp();
-        }, BG_CLOSING_TRANSITION_DURATION);
+        }, BG_CLOSING_TRANSITION_DURATION / 2);
     }
 
     private prepareForRocket(animated: boolean) {

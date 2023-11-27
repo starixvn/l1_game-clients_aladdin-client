@@ -13,7 +13,7 @@ const AnimationName = {
     PLANETS_FLY: "planets",
 };
 
-export const BG_CLOSING_TRANSITION_DURATION = 1;
+export const BG_CLOSING_TRANSITION_DURATION = 2;
 
 @ccclass("background_control")
 export class BackgroundControl extends ObserverComponent {

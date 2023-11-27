@@ -130,18 +130,15 @@ export class Rocket extends Component {
             onFinished();
             return;
         }
+        this.updateRotation(0);
+        this.setSpaceManVisibility(true);
         tween(this.node)
-            .call(() => {
-                this.updateRotation(0);
-                this.setSpaceManVisibility(true);
-            })
             .delay(2)
             .to(2, { eulerAngles: v3(0, 0, startRotation) }, { easing: "sineOut" })
             .delay(2)
             .call(() => {
                 onFinished();
             })
-            .union()
             .start();
     }
 
