@@ -56,6 +56,11 @@ export class RocketFly extends ObserverComponent {
         super.onLoad();
     }
 
+    onDestroy(): void {
+        super.onDestroy();
+        this.tweenDeltaTime?.stop();
+    }
+
     @render(gc.Settlements.SettlementStore, (store) => ({ result: store.result }), {
         fireImmediately: false,
     })
@@ -93,7 +98,7 @@ export class RocketFly extends ObserverComponent {
                 },
                 {
                     onUpdate: () => {
-                        this.updateDeltaTime(tweenObject.deltaTime);
+                        this.node.isValid && this.updateDeltaTime(tweenObject.deltaTime);
                     },
                 }
             )
