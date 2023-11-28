@@ -124,6 +124,7 @@ export const languages = {
         "bet_accepted": "Đã Nhận Cược",
         "bet_amount": "TIỀN CƯỢC",
         "cancel_bet": "(Hủy Cược)",
+        "cashed_out": "ĐÃ RÚT TIỀN",
         "cashout": "Rút Tiền",
         "cashout_50%": "Rút Tiền 50%",
         "crash": "Nổ",
