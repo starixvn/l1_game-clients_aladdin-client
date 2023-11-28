@@ -121,11 +121,11 @@ export const languages = {
         "Start_in ": "Start in ",
         "auto_cashout": "AUTO CASHOUT",
         "auto_play": "AUTO-PLAY",
-        "bet_accepted": "BET ACCEPTED",
+        "bet_accepted": "Bet Accepted",
         "bet_amount": "BET AMOUNT",
         "cancel_bet": "(Cancel Bet)",
-        "cashout": "CASHOUT",
-        "cashout_50%": "CASHOUT 50%",
+        "cashout": "Cashout",
+        "cashout_50%": "Cashout 50%",
         "crash": "Crash",
         "crashed": "CRASHED",
         "current_multiplier": "Current Multiplier",
@@ -144,7 +144,9 @@ export const languages = {
         "next_round": "(Next Round)",
         "place_bet": "PLACE BET",
         "reach_max_win": "Reach the Max Win",
-        "waiting": "WAITING..."
+        "stop_auto_play": "STOP AUTO-PLAY",
+        "waiting": "WAITING...",
+        "you_reach_max_win": "You reached the Max Win"
     }
 };
 

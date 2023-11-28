@@ -144,7 +144,9 @@ export const languages = {
         "next_round": "(下一轮)",
         "place_bet": "下注",
         "reach_max_win": "达到最大胜利",
-        "waiting": "等待..."
+        "stop_auto_play": "停止自动游戏",
+        "waiting": "等待...",
+        "you_reach_max_win": "您达到了最大胜利"
     }
 };
 

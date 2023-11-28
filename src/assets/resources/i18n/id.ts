@@ -121,11 +121,11 @@ export const languages = {
         "Start_in ": "Mulai masuk",
         "auto_cashout": "CASHOUT OTOMATIS",
         "auto_play": "MAINKAN OTOMATIS",
-        "bet_accepted": "TARUHAN DITERIMA",
+        "bet_accepted": "Taruhan diterima",
         "bet_amount": "JUMLAH TARUHAN",
         "cancel_bet": "(Batalkan Taruhan)",
-        "cashout": "CASHOUT",
-        "cashout_50%": "CASHOUT 50%",
+        "cashout": "Cashout",
+        "cashout_50%": "Cashout 50%",
         "crash": "Jatuh",
         "crashed": "TERJATUH",
         "current_multiplier": "Pengganda Saat Ini",
@@ -144,7 +144,9 @@ export const languages = {
         "next_round": "(Ronde Selanjutnya)",
         "place_bet": "Pasang Taruhan",
         "reach_max_win": "Raih Kemenangan Maksimal",
-        "waiting": "MENUNGGU..."
+        "stop_auto_play": "HENTIKAN MAINKAN OTOMATIS",
+        "waiting": "MENUNGGU...",
+        "you_reach_max_win": "Anda mencapai Maksimal Menang"
     }
 };
 

@@ -121,11 +121,11 @@ export const languages = {
         "Start_in ": "Bắt đầu sau",
         "auto_cashout": "TỰ ĐỘNG RÚT TIỀN",
         "auto_play": "CHƠI TỰ ĐỘNG",
-        "bet_accepted": "ĐÃ NHẬN CƯỢC",
+        "bet_accepted": "Đã Nhận Cược",
         "bet_amount": "TIỀN CƯỢC",
         "cancel_bet": "(Hủy Cược)",
-        "cashout": "RÚT TIỀN",
-        "cashout_50%": "RÚT TIỀN 50%",
+        "cashout": "Rút Tiền",
+        "cashout_50%": "Rút Tiền 50%",
         "crash": "Nổ",
         "crashed": "ĐÃ NỔ",
         "current_multiplier": "Số Nhân Hiện Tại",
@@ -144,7 +144,9 @@ export const languages = {
         "next_round": "(Phiên Kế)",
         "place_bet": "ĐẶT CƯỢC",
         "reach_max_win": "Đạt mức tiền thắng tối đa",
-        "waiting": "ĐANG CHỜ..."
+        "stop_auto_play": "DỪNG CHƠI TỰ ĐỘNG",
+        "waiting": "ĐANG CHỜ...",
+        "you_reach_max_win": "Bạn Đã Đạt Mức Tiền Thắng Tối Đa"
     }
 };
 

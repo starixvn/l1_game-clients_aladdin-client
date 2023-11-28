@@ -144,7 +144,9 @@ export const languages = {
         "next_round": "(รอบต่อไป)",
         "place_bet": "วางเดิมพัน",
         "reach_max_win": "เข้าถึงชัยชนะสูงสุด",
-        "waiting": "กำลังรอ..."
+        "stop_auto_play": "หยุดเล่นอัตโนมัติ",
+        "waiting": "กำลังรอ...",
+        "you_reach_max_win": "คุณถึงยอดชนะสูงสุด"
     }
 };
 
