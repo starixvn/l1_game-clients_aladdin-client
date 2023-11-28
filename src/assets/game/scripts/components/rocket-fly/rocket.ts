@@ -1,9 +1,7 @@
-import { _decorator, Animation, Component, Node, ParticleSystem2D, sp, Tween, tween, v3, Vec3 } from "cc";
-import { AnimationUtils } from "db://shared-components/shared/utils";
+import { _decorator, Component, Node, ParticleSystem2D, sp, Tween, tween, v3, Vec3 } from "cc";
 
 import { SpaceManList } from "./space-man-list";
 
-const { fadeOut, fadeIn, getUiOpacity } = AnimationUtils;
 const { ccclass, property } = _decorator;
 
 export const RocketAnim = {
@@ -12,6 +10,7 @@ export const RocketAnim = {
     IDLE: "rocket-idle",
     EXPLOSION_BIG: "explosion-big",
     EXPLOSION_SMALL: "explosion-small",
+    SHAKEN: "shaken",
 };
 
 @ccclass()
@@ -45,10 +44,6 @@ export class Rocket extends Component {
     }
     get skeRocket(): sp.Skeleton {
         return this.rocket.getChildByName("skeleton").getComponent(sp.Skeleton);
-    }
-
-    get rocketAnimation(): Animation {
-        return this.rocket.getComponent(Animation);
     }
 
     private rotationTween: Tween<Node>;
@@ -162,13 +157,5 @@ export class Rocket extends Component {
         this.rotationTween?.stop();
         this.positionTween?.stop();
         this.explositionTween?.stop();
-    }
-
-    shake() {
-        this.rocketAnimation?.play("shake");
-    }
-
-    stopShaking() {
-        this.rocketAnimation?.play("idle");
     }
 }

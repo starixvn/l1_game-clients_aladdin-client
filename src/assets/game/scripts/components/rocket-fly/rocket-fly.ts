@@ -6,9 +6,8 @@ import Observer from "observer";
 import ColMultipliers from "../../../../../extensions/shared-components/assets/game-crash/col-multipliers/col-multipliers";
 import { ObserverComponent } from "../../../../../extensions/shared-components/assets/shared/common-components/observer-component/scripts/observer-component";
 import { BG_CLOSING_TRANSITION_DURATION } from "../background-control";
-import { Rocket } from "./rocket";
+import { Rocket, RocketAnim } from "./rocket";
 
-const { fadeOut, fadeIn, getUiOpacity } = AnimationUtils;
 const { ccclass, property } = _decorator;
 
 const { handle, render } = Observer;
@@ -144,7 +143,6 @@ export class RocketFly extends ObserverComponent {
         this.cpnRocket.updatePosition(this.startPosition);
         this.resetRocketContainer();
         this.reachedLimitX = false;
-        this.cpnRocket.stopShaking();
         this.deltaTime = 0;
     }
 
@@ -192,7 +190,7 @@ export class RocketFly extends ObserverComponent {
         if (rawX >= rawLimitX) {
             rawX = rawLimitX;
             this.reachedLimitX = true;
-            this.cpnRocket.shake();
+            this.cpnRocket.skeRocket?.setAnimation(0, RocketAnim.SHAKEN, true);
         }
         const newPosition = this.calculateRocketPosition(rawX, scale);
         const prevRocketPosition = this.calculateRocketPosition(rawX - 0.1, scale);
