@@ -14,13 +14,13 @@ describe("settings", () => {
             id: 73,
             name: "Spaceflight",
             durations: {
-                wholeRound: 41,
-                lockingBet: 5,
-                placingBet: 30,
-                generatingResult: 3,
-                startRound: 2,
+                wholeRound: 14,
+                lockingBet: 3,
+                placingBet: 10,
+                generatingResult: 0,
+                startRound: 1,
             },
-            numberOfRoundHistory: 102,
+            numberOfRoundHistory: 11,
         });
     });
 });
