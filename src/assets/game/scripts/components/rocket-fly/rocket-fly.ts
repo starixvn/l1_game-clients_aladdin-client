@@ -61,11 +61,10 @@ export class RocketFly extends ObserverComponent {
         this.tweenDeltaTime?.stop();
     }
 
-    @render(gc.Settlements.SettlementStore, (store) => ({ result: store.result }), {
+    @render(gc.Settlements.SettlementStore, (store) => store.result, {
         fireImmediately: false,
     })
-    async renderRocketExplosion(data: { result: gc.GameServiceMessage.TResult }) {
-        const { result } = data;
+    async renderRocketExplosion(result: gc.GameServiceMessage.TResult) {
         if (result) {
             this.preparingRocket = false;
             +result < this.smallExplosionMultiplier && (await AnimationUtils.delayTime(0.5));
