@@ -185,7 +185,7 @@ export class RocketFly extends ObserverComponent {
         return time / 1000;
     }
 
-    flyRocket(time: number, animated = true) {
+    async flyRocket(time: number, animated = true) {
         const scale = this.graphScale;
         const rawLimitX = this.rawLimitX;
 
@@ -194,7 +194,7 @@ export class RocketFly extends ObserverComponent {
         if (rawX >= rawLimitX) {
             rawX = rawLimitX;
             this.reachedLimitX = true;
-            this.cpnRocket.skeRocket?.setAnimation(0, RocketAnim.SHAKEN, true);
+            this.startShakeRocketAnimation();
         }
         const newPosition = this.calculateRocketPosition(rawX, scale);
         const prevRocketPosition = this.calculateRocketPosition(rawX - 0.1, scale);
@@ -207,6 +207,18 @@ export class RocketFly extends ObserverComponent {
         const eulerAngle = this.startRotation + toDegree(Math.atan2(delta.y, delta.x));
         this.cpnRocket.updateRotation(eulerAngle, animated);
         this.cpnRocket.updatePosition(newPosition, animated);
+    }
+
+    protected startShakeRocketAnimation() {
+        this.cpnRocket.skeRocket?.setAnimation(0, RocketAnim.SHAKEN_STRONG, true);
+        const duration = this.cpnRocket?.skeRocket?.findAnimation(RocketAnim.SHAKEN_STRONG).duration;
+        duration > 0 &&
+            tween(this.node)
+                .delay(duration)
+                .call(() => {
+                    this.cpnRocket?.skeRocket?.setAnimation(0, RocketAnim.SHAKEN_WEAK, true);
+                })
+                .start();
     }
 
     private updateRocketTailWidth(width: number) {

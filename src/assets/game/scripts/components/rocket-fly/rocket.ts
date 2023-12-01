@@ -10,7 +10,8 @@ export const RocketAnim = {
     IDLE: "rocket-idle",
     EXPLOSION_BIG: "explosion-big",
     EXPLOSION_SMALL: "explosion-small",
-    SHAKEN: "shaken",
+    SHAKEN_STRONG: "shaken",
+    SHAKEN_WEAK: "shaken2",
 };
 
 @ccclass()
