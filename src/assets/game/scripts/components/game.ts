@@ -45,8 +45,13 @@ export default class Game extends GameComponent {
     finishShowResult(result: gc.GameServiceMessage.TResult, settlementResult: gc.GameServiceMessage.TSettlementResult) {
         const multiplier = +result;
         this.updateCurrMultiplier(multiplier);
-        this.resetValueCashout();
         super.finishShowResult(result, settlementResult);
+    }
+
+    @render(Rounds.RoundTimeStore, (store) => store.isStartRound)
+    startNewRound(isStartRound: boolean) {
+        super.startNewRound(isStartRound);
+        this.resetValueCashOut();
     }
 
     @render(Settlements.SettlementStatusStore, (store) => store.settlementStatus)
@@ -77,7 +82,7 @@ export default class Game extends GameComponent {
     }
 
     @handle(GameCrash.CrashCashOut.CrashCashOutUIHandlers, (handle) => handle.resetCashoutVaue())
-    resetValueCashout() {}
+    resetValueCashOut() {}
 
     @handle(PopupsHandlers, (handle) => handle.closeAllPopups())
     closeAllPopups() {}
