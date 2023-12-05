@@ -1,18 +1,12 @@
 import gc from "@sg/game-client-base";
-import { Node, Tween, _decorator, sp, tween, v3 } from "cc";
+import { Node, Tween, _decorator, tween, v3 } from "cc";
 import Observer from "observer";
 const { Settlements, GameCrash } = gc;
 
 import { ObserverComponent } from "../../../../extensions/shared-components/assets/shared/common-components/observer-component/scripts/observer-component";
-import { AnimationUtils } from "../../../../extensions/shared-components/assets/shared/utils";
 
 const { ccclass, property } = _decorator;
-const { render, handle } = Observer;
-
-const AnimationName = {
-    PLANETS_IDLE: "idle",
-    PLANETS_FLY: "planets",
-};
+const { render } = Observer;
 
 export const BG_CLOSING_TRANSITION_DURATION = 2;
 
@@ -20,8 +14,6 @@ export const BG_CLOSING_TRANSITION_DURATION = 2;
 export class BackgroundControl extends ObserverComponent {
     @property(Node)
     nodeBackground: Node = null;
-    @property(sp.Skeleton)
-    spine: sp.Skeleton = null;
 
     private isBgMoving = false;
     private readonly backgroundMoveY = -500;
@@ -38,14 +30,8 @@ export class BackgroundControl extends ObserverComponent {
     @render(gc.Rounds.RoundTimeStore, (store) => store.isStartRound, { fireImmediately: false })
     changeIdleAnim(isStartRound: boolean) {
         if (isStartRound) {
-            this.playBackgroundTransition().then(() => {
-                this.resetBackground();
-            });
+            this.resetBackground();
         }
-    }
-
-    async playBackgroundTransition() {
-        this.spine && (await AnimationUtils.playSpine(this.spine, "transition"));
     }
 
     @render(Settlements.SettlementStore, (store) => ({ result: store.result, settlementResult: store.settlementResult }))

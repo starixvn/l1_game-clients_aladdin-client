@@ -1,5 +1,6 @@
 import { _decorator, Component, Node, ParticleSystem2D, sp, Tween, tween, v3, Vec3 } from "cc";
 
+import { AnimationUtils } from "db://shared-components/shared/utils";
 import { SpaceManList } from "./space-man-list";
 
 const { ccclass, property } = _decorator;
@@ -39,6 +40,9 @@ export class Rocket extends Component {
 
     @property(Node)
     nodeRocketHeadEffect: Node = null;
+
+    @property(sp.Skeleton)
+    spineBackground: sp.Skeleton = null;
 
     get skeExplosion(): sp.Skeleton {
         return this.explosion.getComponent(sp.Skeleton);
@@ -150,6 +154,7 @@ export class Rocket extends Component {
             .delay(duration)
             .call(() => {
                 this.explosion.active = false;
+                this.playBackgroundTransition();
             })
             .start();
     }
@@ -158,5 +163,9 @@ export class Rocket extends Component {
         this.rotationTween?.stop();
         this.positionTween?.stop();
         this.explositionTween?.stop();
+    }
+
+    async playBackgroundTransition() {
+        this.spineBackground && (await AnimationUtils.playSpine(this.spineBackground, "transition"));
     }
 }
