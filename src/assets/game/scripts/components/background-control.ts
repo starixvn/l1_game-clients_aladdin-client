@@ -1,9 +1,10 @@
 import gc from "@sg/game-client-base";
-import { Node, Tween, _decorator, tween, v3 } from "cc";
+import { Node, Tween, _decorator, sp, tween, v3 } from "cc";
 import Observer from "observer";
 const { Settlements, GameCrash } = gc;
 
 import { ObserverComponent } from "../../../../extensions/shared-components/assets/shared/common-components/observer-component/scripts/observer-component";
+import { AnimationUtils } from "../../../../extensions/shared-components/assets/shared/utils";
 
 const { ccclass, property } = _decorator;
 const { render, handle } = Observer;
@@ -19,20 +20,12 @@ export const BG_CLOSING_TRANSITION_DURATION = 2;
 export class BackgroundControl extends ObserverComponent {
     @property(Node)
     nodeBackground: Node = null;
-    @property(Node)
-    nodeTransitionTop: Node = null;
-    @property(Node)
-    nodeTransitionBottom: Node = null;
+    @property(sp.Skeleton)
+    spine: sp.Skeleton = null;
 
     private isBgMoving = false;
-    private readonly movingBackgroundDuration = 40;
     private readonly backgroundMoveY = -500;
-    private readonly transitionY = 400;
-
-    onLoad() {
-        this.resetBackgroundTransition();
-        super.onLoad();
-    }
+    private readonly movingBackgroundDuration = 40;
 
     @render(GameCrash.CrashMultiplier.MultiplierStore, (store) => store.time, { fireImmediately: false })
     renderRocketTime(time: number) {
@@ -43,7 +36,7 @@ export class BackgroundControl extends ObserverComponent {
     }
 
     @render(gc.Rounds.RoundTimeStore, (store) => store.isStartRound, { fireImmediately: false })
-    changeIdleAnim(isStartRound) {
+    changeIdleAnim(isStartRound: boolean) {
         if (isStartRound) {
             this.playBackgroundTransition().then(() => {
                 this.resetBackground();
@@ -51,44 +44,8 @@ export class BackgroundControl extends ObserverComponent {
         }
     }
 
-    playTransition(node: Node) {
-        const gapTime = 0.1;
-        const duration = (BG_CLOSING_TRANSITION_DURATION - gapTime) / 2;
-        return new Promise((resolve) => {
-            tween(node)
-                .to(
-                    duration,
-                    {
-                        position: v3(0, 0, 0),
-                    },
-                    { easing: "sineOut" }
-                )
-                .call(resolve)
-                .delay(gapTime)
-                .to(
-                    duration,
-                    {
-                        position: v3(0, this.transitionY, 0),
-                    },
-                    { easing: "sineIn" }
-                )
-                .start();
-        });
-    }
-
-    resetBackgroundTransition() {
-        if (!this.nodeTransitionTop) {
-            return;
-        }
-        this.nodeTransitionTop.position = v3(0, this.transitionY, 0);
-        this.nodeTransitionBottom.position = v3(0, this.transitionY, 0);
-    }
-
     async playBackgroundTransition() {
-        if (!this.nodeTransitionTop) {
-            return;
-        }
-        await Promise.all([this.playTransition(this.nodeTransitionTop), this.playTransition(this.nodeTransitionBottom)]);
+        this.spine && (await AnimationUtils.playSpine(this.spine, "transition"));
     }
 
     @render(Settlements.SettlementStore, (store) => ({ result: store.result, settlementResult: store.settlementResult }))
