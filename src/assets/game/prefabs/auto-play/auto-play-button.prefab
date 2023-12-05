@@ -536,6 +536,8 @@
       "__id__": 0
     },
     "fileId": "ff23bgBHxHcqHv+t0q0RbD",
+    "instance": null,
+    "targetOverrides": null,
     "nestedPrefabInstanceRoots": null
   },
   {
@@ -606,7 +608,7 @@
     "_lpos": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": -50.732,
+      "y": -68.964,
       "z": 0
     },
     "_lrot": {
@@ -646,13 +648,13 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 139,
-      "height": 28
+      "width": 141,
+      "height": 43
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
       "x": 0.5,
-      "y": 0.5
+      "y": 0
     },
     "_id": ""
   },
@@ -682,10 +684,13 @@
       "b": 255,
       "a": 255
     },
-    "_spriteFrame": null,
+    "_spriteFrame": {
+      "__uuid__": "24cde592-abec-44b7-87d4-a55740b5ff06@6880c",
+      "__expectedType__": "cc.SpriteFrame"
+    },
     "_type": 0,
     "_fillType": 0,
-    "_sizeMode": 1,
+    "_sizeMode": 2,
     "_fillCenter": {
       "__type__": "cc.Vec2",
       "x": 0,
@@ -693,7 +698,7 @@
     },
     "_fillStart": 0,
     "_fillRange": 0,
-    "_isTrimmedMode": true,
+    "_isTrimmedMode": false,
     "_useGrayscale": false,
     "_atlas": null,
     "_id": ""
@@ -703,7 +708,7 @@
     "fileId": "4ecHVHgRlIEYMsaD2O7KCg"
   },
   {
-    "__type__": "bde97ZsJaRDf7RJ+auROTFs",
+    "__type__": "a67896fTUBMjqsMU4DLBJx4",
     "_name": "",
     "_objFlags": 0,
     "__editorExtras__": {},
@@ -715,15 +720,17 @@
       "__id__": 30
     },
     "spriteList": [],
-    "bundleName": "resources",
-    "path": "images/i18n",
-    "frameName": "btn-text-autoplay",
-    "pathType": 0,
+    "atlas": {
+      "__uuid__": "24cde592-abec-44b7-87d4-a55740b5ff06",
+      "__expectedType__": "cc.SpriteAtlas"
+    },
+    "prefix": "btn_text_autoplay",
+    "defaultLocalized": "en",
     "_id": ""
   },
   {
     "__type__": "cc.CompPrefabInfo",
-    "fileId": "a9mq5uw85CUakNDST4SHyE"
+    "fileId": "9777nlcCVBuJIZqfxbmAy4"
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -765,7 +772,7 @@
     "_lpos": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": -48.545,
+      "y": -68.965,
       "z": 0
     },
     "_lrot": {
@@ -805,13 +812,13 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 131,
-      "height": 42
+      "width": 141,
+      "height": 43
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
       "x": 0.5,
-      "y": 0.5
+      "y": 0
     },
     "_id": ""
   },
@@ -841,10 +848,13 @@
       "b": 255,
       "a": 255
     },
-    "_spriteFrame": null,
+    "_spriteFrame": {
+      "__uuid__": "24cde592-abec-44b7-87d4-a55740b5ff06@af625",
+      "__expectedType__": "cc.SpriteFrame"
+    },
     "_type": 0,
     "_fillType": 0,
-    "_sizeMode": 1,
+    "_sizeMode": 2,
     "_fillCenter": {
       "__type__": "cc.Vec2",
       "x": 0,
@@ -852,7 +862,7 @@
     },
     "_fillStart": 0,
     "_fillRange": 0,
-    "_isTrimmedMode": true,
+    "_isTrimmedMode": false,
     "_useGrayscale": false,
     "_atlas": null,
     "_id": ""
@@ -862,7 +872,7 @@
     "fileId": "91y62JjIFDVLC/1C6eNZTf"
   },
   {
-    "__type__": "bde97ZsJaRDf7RJ+auROTFs",
+    "__type__": "a67896fTUBMjqsMU4DLBJx4",
     "_name": "",
     "_objFlags": 0,
     "__editorExtras__": {},
@@ -874,15 +884,17 @@
       "__id__": 38
     },
     "spriteList": [],
-    "bundleName": "resources",
-    "path": "images/i18n",
-    "frameName": "text-stop-autoplay",
-    "pathType": 0,
+    "atlas": {
+      "__uuid__": "24cde592-abec-44b7-87d4-a55740b5ff06",
+      "__expectedType__": "cc.SpriteAtlas"
+    },
+    "prefix": "btn_text_stop_autoplay",
+    "defaultLocalized": "en",
     "_id": ""
   },
   {
     "__type__": "cc.CompPrefabInfo",
-    "fileId": "bdb/G3AQ5EE4O8BgiABOzn"
+    "fileId": "79b2T+O9xF7KC/m2rU6lZh"
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -1012,10 +1024,6 @@
     },
     "sprIconAutoPlay": {
       "__id__": 18
-    },
-    "prfAutoPlayPopup": {
-      "__uuid__": "64c8c760-d297-4cfc-a5f6-1e6ab1a2dc97",
-      "__expectedType__": "cc.Prefab"
     },
     "nodeTextAutoPlay": {
       "__id__": 24
