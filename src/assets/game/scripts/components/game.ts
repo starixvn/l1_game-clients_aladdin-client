@@ -51,7 +51,12 @@ export default class Game extends GameComponent {
     @render(Rounds.RoundTimeStore, (store) => store.isStartRound)
     startNewRound(isStartRound: boolean) {
         super.startNewRound(isStartRound);
-        this.resetValueCashOut();
+        this.resetValueCashOutLeaderBoard();
+    }
+
+    @render(Rounds.RoundTimeStore, (store) => store.isStartPlacingBet)
+    handleStartPlacingBet(isStartPlacingBet: boolean) {
+        isStartPlacingBet && this.resetValueCashOutBetList();
     }
 
     @render(Settlements.SettlementStatusStore, (store) => store.settlementStatus)
@@ -82,7 +87,10 @@ export default class Game extends GameComponent {
     }
 
     @handle(GameCrash.CrashCashOut.CrashCashOutUIHandlers, (handle) => handle.resetCashoutVaue())
-    resetValueCashOut() {}
+    resetValueCashOutLeaderBoard() {}
+
+    @handle(GameCrash.CrashBetList.CrashBetListHandlers, (handler) => handler.resetMainPlayer())
+    resetValueCashOutBetList() {}
 
     @handle(PopupsHandlers, (handle) => handle.closeAllPopups())
     closeAllPopups() {}
