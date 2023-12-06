@@ -33,6 +33,8 @@ export default class Game extends GameComponent {
     override namespace = settings.name;
     override containerOptions = containerOptions;
 
+    private countDownSound = "count_down";
+
     onLoad() {
         super.onLoad();
     }
@@ -94,4 +96,11 @@ export default class Game extends GameComponent {
 
     @handle(PopupsHandlers, (handle) => handle.closeAllPopups())
     closeAllPopups() {}
+
+    @render(Rounds.RoundTimeStore, (store) => store.remaining)
+    addSoundCountDown(remaining: number) {
+        if (remaining > 0 && remaining < 11) {
+            this.playSound(this.countDownSound);
+        }
+    }
 }
