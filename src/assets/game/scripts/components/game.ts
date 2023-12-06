@@ -86,7 +86,7 @@ export default class Game extends GameComponent {
         return value;
     }
 
-    @handle(GameCrash.CrashCashOut.CrashCashOutUIHandlers, (handle) => handle.resetCashoutVaue())
+    @handle(GameCrash.CrashCashOut.CrashCashOutUIHandlers, (handle) => handle.resetCashOutValue())
     resetValueCashOutLeaderBoard() {}
 
     @handle(GameCrash.CrashBetList.CrashBetListHandlers, (handler) => handler.resetMainPlayer())
