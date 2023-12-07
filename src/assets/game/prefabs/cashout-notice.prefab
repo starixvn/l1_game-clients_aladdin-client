@@ -31,17 +31,17 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 32
-      },
-      {
         "__id__": 34
       },
       {
         "__id__": 36
+      },
+      {
+        "__id__": 38
       }
     ],
     "_prefab": {
-      "__id__": 38
+      "__id__": 40
     },
     "_lpos": {
       "__type__": "cc.Vec3",
@@ -622,10 +622,13 @@
       },
       {
         "__id__": 29
+      },
+      {
+        "__id__": 31
       }
     ],
     "_prefab": {
-      "__id__": 31
+      "__id__": 33
     },
     "_lpos": {
       "__type__": "cc.Vec3",
@@ -670,8 +673,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 371.5224609375,
-      "height": 22.68
+      "width": 4,
+      "height": 26.68
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -701,18 +704,18 @@
     "_dstBlendFactor": 4,
     "_color": {
       "__type__": "cc.Color",
-      "r": 255,
+      "r": 252,
       "g": 255,
-      "b": 255,
+      "b": 0,
       "a": 255
     },
     "_string": "",
     "_horizontalAlign": 1,
     "_verticalAlign": 1,
     "_actualFontSize": 18,
-    "_fontSize": 18,
+    "_fontSize": 17,
     "_fontFamily": "Arial",
-    "_lineHeight": 18,
+    "_lineHeight": 17,
     "_overflow": 0,
     "_enableWrapText": true,
     "_font": {
@@ -731,6 +734,32 @@
   {
     "__type__": "cc.CompPrefabInfo",
     "fileId": "ba7x47XrZGUrLH500qLOTb"
+  },
+  {
+    "__type__": "cc.LabelOutline",
+    "_name": "",
+    "_objFlags": 0,
+    "__editorExtras__": {},
+    "node": {
+      "__id__": 26
+    },
+    "_enabled": true,
+    "__prefab": {
+      "__id__": 32
+    },
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 16,
+      "g": 33,
+      "b": 199,
+      "a": 255
+    },
+    "_width": 2,
+    "_id": ""
+  },
+  {
+    "__type__": "cc.CompPrefabInfo",
+    "fileId": "3cbx+siIpGD7SMFbh5lB59"
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -755,7 +784,7 @@
     },
     "_enabled": true,
     "__prefab": {
-      "__id__": 33
+      "__id__": 35
     },
     "_contentSize": {
       "__type__": "cc.Size",
@@ -783,7 +812,7 @@
     },
     "_enabled": true,
     "__prefab": {
-      "__id__": 35
+      "__id__": 37
     },
     "lblCashOut": {
       "__id__": 20
@@ -811,7 +840,7 @@
     },
     "_enabled": true,
     "__prefab": {
-      "__id__": 37
+      "__id__": 39
     },
     "_opacity": 255,
     "_id": ""

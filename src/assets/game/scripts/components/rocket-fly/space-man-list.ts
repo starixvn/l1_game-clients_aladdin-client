@@ -1,11 +1,15 @@
-import { _decorator, Component, instantiate, Prefab } from "cc";
+import gc from "@sg/game-client-base";
+import { _decorator, instantiate, Prefab } from "cc";
+import Observer from "observer";
 
+import { ObserverComponent } from "../../../../../extensions/shared-components/assets/shared/common-components/observer-component/scripts/observer-component";
 import { SpaceMan } from "./space-man";
 
 const { ccclass, property } = _decorator;
+const { handle, render } = Observer;
 
 @ccclass
-export class SpaceManList extends Component {
+export class SpaceManList extends ObserverComponent {
     @property(Prefab)
     prfSpaceMan: Prefab = null;
 
@@ -16,8 +20,10 @@ export class SpaceManList extends Component {
     spaceManDistance = 40;
 
     private readonly firstSpaceManPosX = 120;
+    private walkedSound = "walking_man";
 
     onLoad() {
+        super.onLoad();
         this.initSpaceManList();
     }
 
@@ -25,6 +31,7 @@ export class SpaceManList extends Component {
         this.node.active = status;
 
         if (status) {
+            this.playSoundWalkingMan();
             this.node.getComponentsInChildren(SpaceMan).forEach((spaceMan) => {
                 spaceMan.walk();
             });
@@ -40,5 +47,10 @@ export class SpaceManList extends Component {
             const posX = this.firstSpaceManPosX + i * this.spaceManDistance;
             spaceManComp.defaultPosX = posX;
         }
+    }
+
+    @handle(gc.Audios.AudioHandler, (handle, id: string) => handle.playSFX(id))
+    playSoundWalkingMan() {
+        return this.walkedSound;
     }
 }

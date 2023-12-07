@@ -97,9 +97,9 @@ export default class Game extends GameComponent {
     @handle(PopupsHandlers, (handle) => handle.closeAllPopups())
     closeAllPopups() {}
 
-    @render(Rounds.RoundTimeStore, (store) => store.remaining)
-    addSoundCountDown(remaining: number) {
-        if (remaining > 0 && remaining < 11) {
+    @render(Rounds.RoundTimeStore, (store) => store.roundTime)
+    playSoundCountDown(roundTime: number) {
+        if (roundTime > 0 && roundTime < 11) {
             this.playSound(this.countDownSound);
         }
     }
