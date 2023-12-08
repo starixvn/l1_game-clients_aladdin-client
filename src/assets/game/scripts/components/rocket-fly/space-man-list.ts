@@ -20,7 +20,7 @@ export class SpaceManList extends ObserverComponent {
     spaceManDistance = 40;
 
     private readonly firstSpaceManPosX = 120;
-    private walkedSound = "walking_man";
+    private readonly walkedSound = "walking_man";
 
     onLoad() {
         super.onLoad();

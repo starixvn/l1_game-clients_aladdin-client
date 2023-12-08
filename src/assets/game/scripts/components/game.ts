@@ -33,7 +33,7 @@ export default class Game extends GameComponent {
     override namespace = settings.name;
     override containerOptions = containerOptions;
 
-    private countDownSound = "count_down";
+    private readonly countDownSound = "count_down";
 
     onLoad() {
         super.onLoad();
