@@ -123,7 +123,7 @@ export const languages = {
         "Start_in ": "Mulai masuk",
         "auto_cashout": "CASHOUT OTOMATIS",
         "auto_play": "AUTO-PLAY",
-        "bet_accepted": "Taruhan Diterima",
+        "bet_accepted": "Taruhan diterima",
         "bet_amount": "JUMLAH TARUHAN",
         "cancel_bet": "(Batalkan Taruhan)",
         "cashout": "Cashout",
