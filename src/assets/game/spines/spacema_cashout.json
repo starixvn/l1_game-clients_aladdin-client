@@ -1,21 +1,24 @@
 {
 "skeleton": {
-	"hash": "pKhcU9wHSPO8v3ivEs/Hdb8Q3kY=",
+	"hash": "GrL7kQKh1zEvfyKvUxLskEOhKvo=",
 	"spine": "3.8.75",
-	"x": -217.19,
-	"y": -331.37,
-	"width": 1398,
-	"height": 786,
+	"x": -9.4,
+	"y": -1.32,
+	"width": 143,
+	"height": 64.12,
 	"images": "D:\\crashgame\\ui\\astronautilus-color-re\\spaceman_cashout",
 	"audio": ""
 },
 "bones": [
 	{ "name": "spacema_cashout" },
 	{ "name": "bone2", "parent": "spacema_cashout", "scaleX": 0.2, "scaleY": 0.2 },
-	{ "name": "spaceman", "parent": "bone2" }
+	{ "name": "spaceman", "parent": "bone2" },
+	{ "name": "bone3", "parent": "spacema_cashout", "x": 62.4, "y": 30.68, "scaleX": 0.2, "scaleY": 0.2 },
+	{ "name": "spaceman2", "parent": "bone3" }
 ],
 "slots": [
-	{ "name": "spaceman/Layer 1", "bone": "spaceman", "attachment": "spaceman_new/9" }
+	{ "name": "spaceman/Layer 1", "bone": "spaceman", "attachment": "spaceman_new/9" },
+	{ "name": "spaceman/Layer 2", "bone": "spaceman2", "attachment": "spaceman-chinhchu/t9" }
 ],
 "skins": [
 	{
@@ -52,13 +55,149 @@
 				"spaceman_new/28": { "x": 309, "y": 154, "width": 712, "height": 320 },
 				"spaceman_new/29": { "x": 309, "y": 154, "width": 712, "height": 320 },
 				"spaceman_new/30": { "x": 309, "y": 154, "width": 712, "height": 320 }
+			},
+			"spaceman/Layer 2": {
+				"spaceman-chinhchu/t1": { "width": 712, "height": 320 },
+				"spaceman-chinhchu/t2": { "width": 712, "height": 320 },
+				"spaceman-chinhchu/t3": { "width": 712, "height": 320 },
+				"spaceman-chinhchu/t4": { "width": 712, "height": 320 },
+				"spaceman-chinhchu/t5": { "width": 712, "height": 320 },
+				"spaceman-chinhchu/t6": { "width": 712, "height": 320 },
+				"spaceman-chinhchu/t7": { "width": 712, "height": 320 },
+				"spaceman-chinhchu/t8": { "width": 712, "height": 320 },
+				"spaceman-chinhchu/t9": { "width": 712, "height": 320 },
+				"spaceman-chinhchu/t10": { "width": 712, "height": 320 },
+				"spaceman-chinhchu/t11": { "width": 712, "height": 320 },
+				"spaceman-chinhchu/t12": { "width": 712, "height": 320 },
+				"spaceman-chinhchu/t13": { "width": 712, "height": 320 },
+				"spaceman-chinhchu/t14": { "width": 712, "height": 320 },
+				"spaceman-chinhchu/t15": { "width": 712, "height": 320 },
+				"spaceman-chinhchu/t16": { "width": 712, "height": 320 },
+				"spaceman-chinhchu/t17": { "width": 712, "height": 320 },
+				"spaceman-chinhchu/t18": { "width": 712, "height": 320 },
+				"spaceman-chinhchu/t19": { "width": 712, "height": 320 },
+				"spaceman-chinhchu/t20": { "width": 712, "height": 320 },
+				"spaceman-chinhchu/t21": { "width": 712, "height": 320 },
+				"spaceman-chinhchu/t22": { "width": 712, "height": 320 },
+				"spaceman-chinhchu/t23": { "width": 712, "height": 320 },
+				"spaceman-chinhchu/t24": { "width": 712, "height": 320 },
+				"spaceman-chinhchu/t25": { "width": 712, "height": 320 },
+				"spaceman-chinhchu/t26": { "width": 712, "height": 320 },
+				"spaceman-chinhchu/t27": { "width": 712, "height": 320 },
+				"spaceman-chinhchu/t28": { "width": 712, "height": 320 },
+				"spaceman-chinhchu/t29": { "width": 712, "height": 320 },
+				"spaceman-chinhchu/t30": { "width": 712, "height": 320 }
 			}
 		}
 	}
 ],
 "animations": {
-	"animation": {
+	"main": {
 		"slots": {
+			"spaceman/Layer 2": {
+				"color": [
+					{ "time": 1.7667, "color": "ffffffff" },
+					{ "time": 2.0667, "color": "ffffff00" }
+				],
+				"attachment": [
+					{ "name": "spaceman-chinhchu/t1" },
+					{ "time": 0.0667, "name": "spaceman-chinhchu/t2" },
+					{ "time": 0.1333, "name": "spaceman-chinhchu/t3" },
+					{ "time": 0.2, "name": "spaceman-chinhchu/t4" },
+					{ "time": 0.2667, "name": "spaceman-chinhchu/t5" },
+					{ "time": 0.3333, "name": "spaceman-chinhchu/t6" },
+					{ "time": 0.4, "name": "spaceman-chinhchu/t7" },
+					{ "time": 0.4667, "name": "spaceman-chinhchu/t8" },
+					{ "time": 0.5333, "name": "spaceman-chinhchu/t9" },
+					{ "time": 0.6, "name": "spaceman-chinhchu/t10" },
+					{ "time": 0.6667, "name": "spaceman-chinhchu/t11" },
+					{ "time": 0.7667, "name": "spaceman-chinhchu/t12" },
+					{ "time": 0.8333, "name": "spaceman-chinhchu/t13" },
+					{ "time": 0.9, "name": "spaceman-chinhchu/t14" },
+					{ "time": 0.9667, "name": "spaceman-chinhchu/t15" },
+					{ "time": 1.0333, "name": "spaceman-chinhchu/t16" },
+					{ "time": 1.1333, "name": "spaceman-chinhchu/t17" },
+					{ "time": 1.2, "name": "spaceman-chinhchu/t18" },
+					{ "time": 1.2667, "name": "spaceman-chinhchu/t19" },
+					{ "time": 1.3333, "name": "spaceman-chinhchu/t20" },
+					{ "time": 1.4, "name": "spaceman-chinhchu/t21" },
+					{ "time": 1.5, "name": "spaceman-chinhchu/t22" },
+					{ "time": 1.5667, "name": "spaceman-chinhchu/t23" },
+					{ "time": 1.6333, "name": "spaceman-chinhchu/t24" },
+					{ "time": 1.7, "name": "spaceman-chinhchu/t25" },
+					{ "time": 1.7667, "name": "spaceman-chinhchu/t26" },
+					{ "time": 1.8333, "name": "spaceman-chinhchu/t27" },
+					{ "time": 1.9333, "name": "spaceman-chinhchu/t28" },
+					{ "time": 2, "name": "spaceman-chinhchu/t29" },
+					{ "time": 2.0667, "name": "spaceman-chinhchu/t30" }
+				]
+			},
+			"spaceman/Layer 1": {
+				"color": [
+					{ "color": "ffffff00" }
+				],
+				"attachment": [
+					{ "name": "spaceman_new/1" },
+					{ "time": 0.0667, "name": "spaceman_new/2" },
+					{ "time": 0.1333, "name": "spaceman_new/3" },
+					{ "time": 0.2, "name": "spaceman_new/4" },
+					{ "time": 0.2667, "name": "spaceman_new/5" },
+					{ "time": 0.3333, "name": "spaceman_new/6" },
+					{ "time": 0.4, "name": "spaceman_new/7" },
+					{ "time": 0.4667, "name": "spaceman_new/8" },
+					{ "time": 0.5333, "name": "spaceman_new/9" },
+					{ "time": 0.6, "name": "spaceman_new/10" },
+					{ "time": 0.6667, "name": "spaceman_new/11" },
+					{ "time": 0.7333, "name": "spaceman_new/12" },
+					{ "time": 0.8, "name": "spaceman_new/13" },
+					{ "time": 0.8667, "name": "spaceman_new/14" },
+					{ "time": 0.9333, "name": "spaceman_new/15" },
+					{ "time": 1, "name": "spaceman_new/16" },
+					{ "time": 1.0667, "name": "spaceman_new/17" },
+					{ "time": 1.1333, "name": "spaceman_new/18" },
+					{ "time": 1.2, "name": "spaceman_new/19" },
+					{ "time": 1.2667, "name": "spaceman_new/20" },
+					{ "time": 1.3333, "name": "spaceman_new/21" },
+					{ "time": 1.4, "name": "spaceman_new/22" },
+					{ "time": 1.4667, "name": "spaceman_new/23" },
+					{ "time": 1.5333, "name": "spaceman_new/24" },
+					{ "time": 1.6, "name": "spaceman_new/25" },
+					{ "time": 1.6667, "name": "spaceman_new/26" },
+					{ "time": 1.7333, "name": "spaceman_new/27" },
+					{ "time": 1.8, "name": "spaceman_new/28" },
+					{ "time": 1.8667, "name": "spaceman_new/29" },
+					{ "time": 1.9333, "name": "spaceman_new/30" }
+				]
+			}
+		},
+		"bones": {
+			"spaceman": {
+				"translate": [
+					{ "x": 7.8 },
+					{ "time": 1.3333 },
+					{ "time": 2, "x": 3.57, "y": -3.12 }
+				]
+			},
+			"spaceman2": {
+				"translate": [
+					{ "time": 1.3333 },
+					{ "time": 2, "x": 3.57, "y": -3.12 }
+				]
+			},
+			"bone2": {
+				"translate": [
+					{ "x": -1.56 }
+				]
+			}
+		}
+	},
+	"user": {
+		"slots": {
+			"spaceman/Layer 2": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			},
 			"spaceman/Layer 1": {
 				"color": [
 					{ "time": 1.7667, "color": "ffffffff" },
@@ -100,6 +239,12 @@
 		},
 		"bones": {
 			"spaceman": {
+				"translate": [
+					{ "time": 1.3333 },
+					{ "time": 2, "x": 3.57, "y": -3.12 }
+				]
+			},
+			"spaceman2": {
 				"translate": [
 					{ "time": 1.3333 },
 					{ "time": 2, "x": 3.57, "y": -3.12 }
