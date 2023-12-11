@@ -34,8 +34,11 @@ export class BackgroundControl extends ObserverComponent {
         }
     }
 
-    @render(Settlements.SettlementStore, (store) => ({ result: store.result, settlementResult: store.settlementResult }))
-    renderSettle() {
+    @render(Settlements.SettlementStore, (store) => store.result)
+    renderSettle(result) {
+        if (!result) {
+            return;
+        }
         Tween.stopAllByTarget(this.nodeBackground);
     }
 
@@ -56,9 +59,10 @@ export class BackgroundControl extends ObserverComponent {
     }
 
     resetBackground() {
-        Tween.stopAllByTarget(this.nodeBackground);
-        this.nodeBackground.scale = v3(1, 1, 1);
-        this.nodeBackground.position = v3(0);
         this.isBgMoving = false;
+        Tween.stopAllByTarget(this.nodeBackground);
+        tween(this.nodeBackground)
+            .to(1, { scale: v3(1, 1, 1), position: v3(0, 0, 0) }, { easing: "sineIn" })
+            .start();
     }
 }
