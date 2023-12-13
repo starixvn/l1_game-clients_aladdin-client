@@ -11,6 +11,7 @@ import { PopupsHandlers } from "../../../../extensions/shared-components/assets/
 import { BalanceEffectHandlers } from "../../../../extensions/shared-components/assets/game/balance-effect/scripts/handlers/balance-effect-handlers";
 import { siteConfigs } from "../../../scripts/site-configs";
 import { containerOptions, settings } from "../game-settings";
+import { BetInputHandler } from "../../../../extensions/shared-components/assets/game-crash/bet-input/scripts/handlers/bet-input-handlers";
 
 const { Settlements, Auth, Rounds, Translator, GameCrash } = gc;
 
@@ -37,7 +38,12 @@ export default class Game extends GameComponent {
 
     onLoad() {
         super.onLoad();
+        this.initBetAmount();
     }
+
+    
+    @handle(BetInputHandler, (handle) => handle.setBetAmount())
+    initBetAmount() {}
 
     override isValidResult(result: gc.GameServiceMessage.TResult, settlementResult: gc.GameServiceMessage.TSettlementResult) {
         return result;
