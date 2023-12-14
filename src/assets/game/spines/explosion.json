@@ -1,93 +1,27 @@
 {
 "skeleton": {
-	"hash": "mJgbbXXhz1aG/qH4o+78HqGGkH0=",
+	"hash": "7raAakJFmx+HZH90FyQp/ouc3mM=",
 	"spine": "3.8.75",
-	"x": -300,
-	"y": -225,
-	"width": 600,
-	"height": 450,
+	"x": -1398.96,
+	"y": -661.77,
+	"width": 2400,
+	"height": 1700,
 	"images": "",
 	"audio": ""
 },
 "bones": [
 	{ "name": "explosion" },
-	{ "name": "boom", "parent": "explosion" },
-	{ "name": "boom3", "parent": "explosion", "scaleX": 3, "scaleY": 3 }
+	{ "name": "boom3", "parent": "explosion", "scaleX": 1.5, "scaleY": 1.6 }
 ],
 "slots": [
 	{ "name": "light-thang5", "bone": "explosion" },
-	{ "name": "boom3/1", "bone": "boom", "blend": "screen" },
 	{ "name": "1211/Supernova0", "bone": "boom3", "attachment": "1211/Supernova99", "blend": "screen" }
 ],
 "skins": [
 	{
 		"name": "default",
 		"attachments": {
-			"boom3/1": {
-				"boom3/1": { "x": -2.33, "y": 1.86, "width": 328, "height": 328 },
-				"boom3/2": { "x": -2.33, "y": 1.86, "width": 328, "height": 328 },
-				"boom3/3": { "x": -2.33, "y": 1.86, "width": 328, "height": 328 },
-				"boom3/4": { "x": -2.33, "y": 1.86, "width": 328, "height": 328 },
-				"boom3/5": { "x": -2.33, "y": 1.86, "width": 328, "height": 328 },
-				"boom3/6": { "x": -2.33, "y": 1.86, "width": 328, "height": 328 },
-				"boom3/7": { "x": -2.33, "y": 1.86, "width": 328, "height": 328 },
-				"boom3/8": { "x": -2.33, "y": 1.86, "width": 328, "height": 328 },
-				"boom3/9": { "x": -2.9, "y": 1.86, "width": 328, "height": 328 },
-				"boom3/10": { "x": -2.33, "y": 1.86, "width": 328, "height": 328 },
-				"boom3/11": { "x": -2.33, "y": 1.86, "width": 328, "height": 328 },
-				"boom3/12": { "x": -2.33, "y": 1.86, "width": 328, "height": 328 },
-				"boom3/13": { "x": -2.33, "y": 1.86, "width": 328, "height": 328 },
-				"boom3/14": { "x": -2.33, "y": 1.86, "width": 328, "height": 328 }
-			},
 			"1211/Supernova0": {
-				"1211/Supernova0": { "width": 480, "height": 360 },
-				"1211/Supernova1": { "width": 480, "height": 360 },
-				"1211/Supernova2": { "width": 480, "height": 360 },
-				"1211/Supernova3": { "width": 480, "height": 360 },
-				"1211/Supernova4": { "width": 480, "height": 360 },
-				"1211/Supernova5": { "width": 480, "height": 360 },
-				"1211/Supernova6": { "width": 480, "height": 360 },
-				"1211/Supernova7": { "width": 480, "height": 360 },
-				"1211/Supernova8": { "width": 480, "height": 360 },
-				"1211/Supernova9": { "width": 480, "height": 360 },
-				"1211/Supernova10": { "width": 480, "height": 360 },
-				"1211/Supernova11": { "width": 480, "height": 360 },
-				"1211/Supernova12": { "width": 480, "height": 360 },
-				"1211/Supernova13": { "width": 480, "height": 360 },
-				"1211/Supernova14": { "width": 480, "height": 360 },
-				"1211/Supernova15": { "width": 480, "height": 360 },
-				"1211/Supernova16": { "width": 480, "height": 360 },
-				"1211/Supernova17": { "width": 480, "height": 360 },
-				"1211/Supernova18": { "width": 480, "height": 360 },
-				"1211/Supernova19": { "width": 480, "height": 360 },
-				"1211/Supernova20": { "width": 480, "height": 360 },
-				"1211/Supernova21": { "width": 480, "height": 360 },
-				"1211/Supernova22": { "width": 480, "height": 360 },
-				"1211/Supernova23": { "width": 480, "height": 360 },
-				"1211/Supernova24": { "width": 480, "height": 360 },
-				"1211/Supernova25": { "width": 480, "height": 360 },
-				"1211/Supernova26": { "width": 480, "height": 360 },
-				"1211/Supernova27": { "width": 480, "height": 360 },
-				"1211/Supernova28": { "width": 480, "height": 360 },
-				"1211/Supernova29": { "width": 480, "height": 360 },
-				"1211/Supernova30": { "width": 480, "height": 360 },
-				"1211/Supernova31": { "width": 480, "height": 360 },
-				"1211/Supernova32": { "width": 480, "height": 360 },
-				"1211/Supernova33": { "width": 480, "height": 360 },
-				"1211/Supernova34": { "width": 480, "height": 360 },
-				"1211/Supernova35": { "width": 480, "height": 360 },
-				"1211/Supernova36": { "width": 480, "height": 360 },
-				"1211/Supernova37": { "width": 480, "height": 360 },
-				"1211/Supernova38": { "width": 480, "height": 360 },
-				"1211/Supernova39": { "width": 480, "height": 360 },
-				"1211/Supernova40": { "width": 480, "height": 360 },
-				"1211/Supernova41": { "width": 480, "height": 360 },
-				"1211/Supernova42": { "width": 480, "height": 360 },
-				"1211/Supernova43": { "width": 480, "height": 360 },
-				"1211/Supernova44": { "width": 480, "height": 360 },
-				"1211/Supernova45": { "width": 480, "height": 360 },
-				"1211/Supernova46": { "width": 480, "height": 360 },
-				"1211/Supernova47": { "width": 480, "height": 360 },
 				"1211/Supernova48": { "width": 200, "height": 150 },
 				"1211/Supernova49": { "width": 200, "height": 150 },
 				"1211/Supernova50": { "width": 200, "height": 150 },
@@ -374,39 +308,40 @@
 	},
 	"explosion-small": {
 		"slots": {
-			"boom3/1": {
+			"1211/Supernova0": {
 				"color": [
-					{ "time": 0.3333, "color": "ffffffff" },
-					{ "time": 1.4667, "color": "ffffff00" }
+					{ "time": 1.4, "color": "ffffffff" },
+					{ "time": 1.7333, "color": "ffffff00", "curve": "stepped" },
+					{ "time": 3.6667, "color": "ffffff00" }
 				],
 				"attachment": [
-					{ "time": 0.0333, "name": "boom3/1" },
-					{ "time": 0.0667, "name": "boom3/2" },
-					{ "time": 0.1, "name": "boom3/3" },
-					{ "time": 0.1333, "name": "boom3/4" },
-					{ "time": 0.1667, "name": "boom3/5" },
-					{ "time": 0.2, "name": "boom3/6" },
-					{ "time": 0.2333, "name": "boom3/7" },
-					{ "time": 0.2667, "name": "boom3/8" },
-					{ "time": 0.3, "name": "boom3/9" },
-					{ "time": 0.3333, "name": "boom3/10" },
-					{ "time": 0.3667, "name": "boom3/11" },
-					{ "time": 0.4, "name": "boom3/12" },
-					{ "time": 0.4333, "name": "boom3/13" },
-					{ "time": 0.4667, "name": "boom3/14" }
-				]
-			},
-			"1211/Supernova0": {
-				"attachment": [
-					{ "name": null }
-				]
-			}
-		},
-		"bones": {
-			"boom": {
-				"scale": [
-					{ "time": 0.3333 },
-					{ "time": 1.6667, "x": 0.833, "y": 0.833 }
+					{ "name": "1211/Supernova57" },
+					{ "time": 0.0667, "name": "1211/Supernova58" },
+					{ "time": 0.1333, "name": "1211/Supernova59" },
+					{ "time": 0.2, "name": "1211/Supernova60" },
+					{ "time": 0.2667, "name": "1211/Supernova61" },
+					{ "time": 0.3333, "name": "1211/Supernova62" },
+					{ "time": 0.4, "name": "1211/Supernova63" },
+					{ "time": 0.4667, "name": "1211/Supernova64" },
+					{ "time": 0.5333, "name": "1211/Supernova65" },
+					{ "time": 0.6, "name": "1211/Supernova66" },
+					{ "time": 0.6667, "name": "1211/Supernova67" },
+					{ "time": 0.7333, "name": "1211/Supernova68" },
+					{ "time": 0.8, "name": "1211/Supernova69" },
+					{ "time": 0.8667, "name": "1211/Supernova70" },
+					{ "time": 0.9333, "name": "1211/Supernova71" },
+					{ "time": 1, "name": "1211/Supernova72" },
+					{ "time": 1.0667, "name": "1211/Supernova73" },
+					{ "time": 1.1333, "name": "1211/Supernova74" },
+					{ "time": 1.2, "name": "1211/Supernova75" },
+					{ "time": 1.2667, "name": "1211/Supernova76" },
+					{ "time": 1.3333, "name": "1211/Supernova77" },
+					{ "time": 1.4, "name": "1211/Supernova78" },
+					{ "time": 1.4667, "name": "1211/Supernova79" },
+					{ "time": 1.5333, "name": "1211/Supernova80" },
+					{ "time": 1.6, "name": "1211/Supernova81" },
+					{ "time": 1.6667, "name": "1211/Supernova82" },
+					{ "time": 1.7333, "name": "1211/Supernova83" }
 				]
 			}
 		}
