@@ -1,12 +1,12 @@
 {
 "skeleton": {
-	"hash": "GrL7kQKh1zEvfyKvUxLskEOhKvo=",
+	"hash": "aBTspOId3pIaYdw03rZ6ki15Uo0=",
 	"spine": "3.8.75",
-	"x": -9.4,
+	"x": -12.05,
 	"y": -1.32,
-	"width": 143,
-	"height": 64.12,
-	"images": "D:\\crashgame\\ui\\astronautilus-color-re\\spaceman_cashout",
+	"width": 145.65,
+	"height": 65.66,
+	"images": "C:/Users/heidi.le/Desktop/spaceman_cashout/New folder",
 	"audio": ""
 },
 "bones": [
@@ -14,11 +14,13 @@
 	{ "name": "bone2", "parent": "spacema_cashout", "scaleX": 0.2, "scaleY": 0.2 },
 	{ "name": "spaceman", "parent": "bone2" },
 	{ "name": "bone3", "parent": "spacema_cashout", "x": 62.4, "y": 30.68, "scaleX": 0.2, "scaleY": 0.2 },
-	{ "name": "spaceman2", "parent": "bone3" }
+	{ "name": "spaceman2", "parent": "bone3" },
+	{ "name": "text", "parent": "spacema_cashout", "x": 37.95, "y": 59.34 }
 ],
 "slots": [
 	{ "name": "spaceman/Layer 1", "bone": "spaceman", "attachment": "spaceman_new/9" },
-	{ "name": "spaceman/Layer 2", "bone": "spaceman2", "attachment": "spaceman-chinhchu/t9" }
+	{ "name": "spaceman/Layer 2", "bone": "spaceman2", "attachment": "spaceman-chinhchu/t9" },
+	{ "name": "text", "bone": "text", "attachment": "text" }
 ],
 "skins": [
 	{
@@ -87,6 +89,9 @@
 				"spaceman-chinhchu/t28": { "width": 712, "height": 320 },
 				"spaceman-chinhchu/t29": { "width": 712, "height": 320 },
 				"spaceman-chinhchu/t30": { "width": 712, "height": 320 }
+			},
+			"text": {
+				"text": { "width": 100, "height": 10 }
 			}
 		}
 	}
@@ -94,6 +99,43 @@
 "animations": {
 	"main": {
 		"slots": {
+			"spaceman/Layer 1": {
+				"color": [
+					{ "color": "ffffff00" }
+				],
+				"attachment": [
+					{ "name": "spaceman_new/1" },
+					{ "time": 0.0667, "name": "spaceman_new/2" },
+					{ "time": 0.1333, "name": "spaceman_new/3" },
+					{ "time": 0.2, "name": "spaceman_new/4" },
+					{ "time": 0.2667, "name": "spaceman_new/5" },
+					{ "time": 0.3333, "name": "spaceman_new/6" },
+					{ "time": 0.4, "name": "spaceman_new/7" },
+					{ "time": 0.4667, "name": "spaceman_new/8" },
+					{ "time": 0.5333, "name": "spaceman_new/9" },
+					{ "time": 0.6, "name": "spaceman_new/10" },
+					{ "time": 0.6667, "name": "spaceman_new/11" },
+					{ "time": 0.7333, "name": "spaceman_new/12" },
+					{ "time": 0.8, "name": "spaceman_new/13" },
+					{ "time": 0.8667, "name": "spaceman_new/14" },
+					{ "time": 0.9333, "name": "spaceman_new/15" },
+					{ "time": 1, "name": "spaceman_new/16" },
+					{ "time": 1.0667, "name": "spaceman_new/17" },
+					{ "time": 1.1333, "name": "spaceman_new/18" },
+					{ "time": 1.2, "name": "spaceman_new/19" },
+					{ "time": 1.2667, "name": "spaceman_new/20" },
+					{ "time": 1.3333, "name": "spaceman_new/21" },
+					{ "time": 1.4, "name": "spaceman_new/22" },
+					{ "time": 1.4667, "name": "spaceman_new/23" },
+					{ "time": 1.5333, "name": "spaceman_new/24" },
+					{ "time": 1.6, "name": "spaceman_new/25" },
+					{ "time": 1.6667, "name": "spaceman_new/26" },
+					{ "time": 1.7333, "name": "spaceman_new/27" },
+					{ "time": 1.8, "name": "spaceman_new/28" },
+					{ "time": 1.8667, "name": "spaceman_new/29" },
+					{ "time": 1.9333, "name": "spaceman_new/30" }
+				]
+			},
 			"spaceman/Layer 2": {
 				"color": [
 					{ "time": 1.7667, "color": "ffffffff" },
@@ -131,55 +173,18 @@
 					{ "time": 2, "name": "spaceman-chinhchu/t29" },
 					{ "time": 2.0667, "name": "spaceman-chinhchu/t30" }
 				]
-			},
-			"spaceman/Layer 1": {
-				"color": [
-					{ "color": "ffffff00" }
-				],
-				"attachment": [
-					{ "name": "spaceman_new/1" },
-					{ "time": 0.0667, "name": "spaceman_new/2" },
-					{ "time": 0.1333, "name": "spaceman_new/3" },
-					{ "time": 0.2, "name": "spaceman_new/4" },
-					{ "time": 0.2667, "name": "spaceman_new/5" },
-					{ "time": 0.3333, "name": "spaceman_new/6" },
-					{ "time": 0.4, "name": "spaceman_new/7" },
-					{ "time": 0.4667, "name": "spaceman_new/8" },
-					{ "time": 0.5333, "name": "spaceman_new/9" },
-					{ "time": 0.6, "name": "spaceman_new/10" },
-					{ "time": 0.6667, "name": "spaceman_new/11" },
-					{ "time": 0.7333, "name": "spaceman_new/12" },
-					{ "time": 0.8, "name": "spaceman_new/13" },
-					{ "time": 0.8667, "name": "spaceman_new/14" },
-					{ "time": 0.9333, "name": "spaceman_new/15" },
-					{ "time": 1, "name": "spaceman_new/16" },
-					{ "time": 1.0667, "name": "spaceman_new/17" },
-					{ "time": 1.1333, "name": "spaceman_new/18" },
-					{ "time": 1.2, "name": "spaceman_new/19" },
-					{ "time": 1.2667, "name": "spaceman_new/20" },
-					{ "time": 1.3333, "name": "spaceman_new/21" },
-					{ "time": 1.4, "name": "spaceman_new/22" },
-					{ "time": 1.4667, "name": "spaceman_new/23" },
-					{ "time": 1.5333, "name": "spaceman_new/24" },
-					{ "time": 1.6, "name": "spaceman_new/25" },
-					{ "time": 1.6667, "name": "spaceman_new/26" },
-					{ "time": 1.7333, "name": "spaceman_new/27" },
-					{ "time": 1.8, "name": "spaceman_new/28" },
-					{ "time": 1.8667, "name": "spaceman_new/29" },
-					{ "time": 1.9333, "name": "spaceman_new/30" }
-				]
 			}
 		},
 		"bones": {
-			"spaceman": {
+			"spaceman2": {
 				"translate": [
-					{ "x": 7.8 },
 					{ "time": 1.3333 },
 					{ "time": 2, "x": 3.57, "y": -3.12 }
 				]
 			},
-			"spaceman2": {
+			"spaceman": {
 				"translate": [
+					{ "x": 7.8 },
 					{ "time": 1.3333 },
 					{ "time": 2, "x": 3.57, "y": -3.12 }
 				]
@@ -191,13 +196,22 @@
 			}
 		}
 	},
-	"user": {
+	"text": {
 		"slots": {
-			"spaceman/Layer 2": {
+			"spaceman/Layer 1": {
 				"color": [
 					{ "color": "ffffff00" }
 				]
 			},
+			"spaceman/Layer 2": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			}
+		}
+	},
+	"user": {
+		"slots": {
 			"spaceman/Layer 1": {
 				"color": [
 					{ "time": 1.7667, "color": "ffffffff" },
@@ -235,16 +249,21 @@
 					{ "time": 1.8667, "name": "spaceman_new/29" },
 					{ "time": 1.9333, "name": "spaceman_new/30" }
 				]
+			},
+			"spaceman/Layer 2": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
 			}
 		},
 		"bones": {
-			"spaceman": {
+			"spaceman2": {
 				"translate": [
 					{ "time": 1.3333 },
 					{ "time": 2, "x": 3.57, "y": -3.12 }
 				]
 			},
-			"spaceman2": {
+			"spaceman": {
 				"translate": [
 					{ "time": 1.3333 },
 					{ "time": 2, "x": 3.57, "y": -3.12 }
