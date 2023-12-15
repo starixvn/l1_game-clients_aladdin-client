@@ -249,7 +249,7 @@ export class RocketFly extends ObserverComponent {
         return Math.pow(1 - x, 2) + 1;
     }
 
-    @handle(gc.Audios.AudioHandler, (handle, id: string) => handle.playSFX(id))
+    @handle(gc.Audios.AudioHandler, (handle, id: string) => handle.playSFXExtra(id))
     playSoundRocketFly() {
         return this.rocketFlySound;
     }
