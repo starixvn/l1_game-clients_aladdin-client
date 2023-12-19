@@ -1,11 +1,11 @@
 {
 "skeleton": {
-	"hash": "u6GJ9XAzmdEi3l4XrthwH0wbSTA=",
+	"hash": "pQTNbJW0RPV28HucUJc10oUM/A8=",
 	"spine": "3.8.75",
 	"x": -75,
 	"y": -34,
-	"width": 162.95,
-	"height": 98.34,
+	"width": 150,
+	"height": 79.86,
 	"images": "C:/Users/heidi.le/Desktop/spaceman_cashout/New folder/",
 	"audio": ""
 },
@@ -15,12 +15,15 @@
 	{ "name": "spaceman", "parent": "user" },
 	{ "name": "main", "parent": "spacema_cashout" },
 	{ "name": "spaceman2", "parent": "main" },
-	{ "name": "text", "parent": "spacema_cashout", "x": -24.17, "y": 26.69 }
+	{ "name": "textt", "parent": "main" },
+	{ "name": "text", "parent": "textt", "x": -24.02, "y": 35.86 },
+	{ "name": "text2", "parent": "user", "x": -24.02, "y": 35.86 }
 ],
 "slots": [
 	{ "name": "spaceman/Layer 1", "bone": "spaceman", "attachment": "spaceman_new/30" },
 	{ "name": "spaceman/Layer 2", "bone": "spaceman2", "attachment": "spaceman-chinhchu/t9" },
-	{ "name": "text", "bone": "text", "attachment": "text" }
+	{ "name": "text", "bone": "text", "attachment": "text" },
+	{ "name": "text2", "bone": "text2", "attachment": "text" }
 ],
 "skins": [
 	{
@@ -90,8 +93,11 @@
 				"spaceman-chinhchu/t29": { "width": 150, "height": 68 },
 				"spaceman-chinhchu/t30": { "width": 150, "height": 68 }
 			},
+			"text2": {
+				"text": { "width": 50, "height": 20 }
+			},
 			"text": {
-				"text": { "width": 100, "height": 10 }
+				"text": { "width": 50, "height": 20 }
 			}
 		}
 	}
@@ -99,6 +105,54 @@
 "animations": {
 	"main": {
 		"slots": {
+			"text2": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			},
+			"spaceman/Layer 1": {
+				"color": [
+					{ "color": "ffffff00" }
+				],
+				"attachment": [
+					{ "name": "spaceman_new/1" },
+					{ "time": 0.0667, "name": "spaceman_new/2" },
+					{ "time": 0.1333, "name": "spaceman_new/3" },
+					{ "time": 0.2, "name": "spaceman_new/4" },
+					{ "time": 0.2667, "name": "spaceman_new/5" },
+					{ "time": 0.3333, "name": "spaceman_new/6" },
+					{ "time": 0.4, "name": "spaceman_new/7" },
+					{ "time": 0.4667, "name": "spaceman_new/8" },
+					{ "time": 0.5333, "name": "spaceman_new/9" },
+					{ "time": 0.6, "name": "spaceman_new/10" },
+					{ "time": 0.6667, "name": "spaceman_new/11" },
+					{ "time": 0.7333, "name": "spaceman_new/12" },
+					{ "time": 0.8, "name": "spaceman_new/13" },
+					{ "time": 0.8667, "name": "spaceman_new/14" },
+					{ "time": 0.9333, "name": "spaceman_new/15" },
+					{ "time": 1, "name": "spaceman_new/16" },
+					{ "time": 1.0667, "name": "spaceman_new/17" },
+					{ "time": 1.1333, "name": "spaceman_new/18" },
+					{ "time": 1.2, "name": "spaceman_new/19" },
+					{ "time": 1.2667, "name": "spaceman_new/20" },
+					{ "time": 1.3333, "name": "spaceman_new/21" },
+					{ "time": 1.4, "name": "spaceman_new/22" },
+					{ "time": 1.4667, "name": "spaceman_new/23" },
+					{ "time": 1.5333, "name": "spaceman_new/24" },
+					{ "time": 1.6, "name": "spaceman_new/25" },
+					{ "time": 1.6667, "name": "spaceman_new/26" },
+					{ "time": 1.7333, "name": "spaceman_new/27" },
+					{ "time": 1.8, "name": "spaceman_new/28" },
+					{ "time": 1.8667, "name": "spaceman_new/29" },
+					{ "time": 1.9333, "name": "spaceman_new/30" }
+				]
+			},
+			"text": {
+				"color": [
+					{ "time": 1.8333, "color": "ffffffff" },
+					{ "time": 2, "color": "ffffff00" }
+				]
+			},
 			"spaceman/Layer 2": {
 				"color": [
 					{ "time": 1.7667, "color": "ffffffff" },
@@ -136,43 +190,6 @@
 					{ "time": 2, "name": "spaceman-chinhchu/t29" },
 					{ "time": 2.0667, "name": "spaceman-chinhchu/t30" }
 				]
-			},
-			"spaceman/Layer 1": {
-				"color": [
-					{ "color": "ffffff00" }
-				],
-				"attachment": [
-					{ "name": "spaceman_new/1" },
-					{ "time": 0.0667, "name": "spaceman_new/2" },
-					{ "time": 0.1333, "name": "spaceman_new/3" },
-					{ "time": 0.2, "name": "spaceman_new/4" },
-					{ "time": 0.2667, "name": "spaceman_new/5" },
-					{ "time": 0.3333, "name": "spaceman_new/6" },
-					{ "time": 0.4, "name": "spaceman_new/7" },
-					{ "time": 0.4667, "name": "spaceman_new/8" },
-					{ "time": 0.5333, "name": "spaceman_new/9" },
-					{ "time": 0.6, "name": "spaceman_new/10" },
-					{ "time": 0.6667, "name": "spaceman_new/11" },
-					{ "time": 0.7333, "name": "spaceman_new/12" },
-					{ "time": 0.8, "name": "spaceman_new/13" },
-					{ "time": 0.8667, "name": "spaceman_new/14" },
-					{ "time": 0.9333, "name": "spaceman_new/15" },
-					{ "time": 1, "name": "spaceman_new/16" },
-					{ "time": 1.0667, "name": "spaceman_new/17" },
-					{ "time": 1.1333, "name": "spaceman_new/18" },
-					{ "time": 1.2, "name": "spaceman_new/19" },
-					{ "time": 1.2667, "name": "spaceman_new/20" },
-					{ "time": 1.3333, "name": "spaceman_new/21" },
-					{ "time": 1.4, "name": "spaceman_new/22" },
-					{ "time": 1.4667, "name": "spaceman_new/23" },
-					{ "time": 1.5333, "name": "spaceman_new/24" },
-					{ "time": 1.6, "name": "spaceman_new/25" },
-					{ "time": 1.6667, "name": "spaceman_new/26" },
-					{ "time": 1.7333, "name": "spaceman_new/27" },
-					{ "time": 1.8, "name": "spaceman_new/28" },
-					{ "time": 1.8667, "name": "spaceman_new/29" },
-					{ "time": 1.9333, "name": "spaceman_new/30" }
-				]
 			}
 		},
 		"bones": {
@@ -193,28 +210,37 @@
 				"translate": [
 					{ "x": -1.56 }
 				]
-			}
-		}
-	},
-	"text": {
-		"slots": {
-			"spaceman/Layer 2": {
-				"color": [
-					{ "color": "ffffff00" }
+			},
+			"text": {
+				"translate": [
+					{ "x": 15.42, "y": -12.56 },
+					{ "time": 0.1667, "x": 10.85, "y": -12.56 },
+					{ "time": 0.3333, "x": 5.14, "y": -12.56 },
+					{ "time": 0.5, "x": 1.71, "y": -9.14 },
+					{ "time": 0.6667, "x": -0.57, "y": -7.99 },
+					{ "time": 0.8333, "x": -2.28, "y": -7.99 },
+					{ "time": 1, "x": -4.57, "y": -7.99 },
+					{ "time": 1.1667, "x": -5.14, "y": -7.99, "curve": "stepped" },
+					{ "time": 1.3333, "x": -5.14, "y": -7.99 },
+					{ "time": 1.5, "x": -5.14, "y": -9.37 },
+					{ "time": 1.6667, "x": -3.07, "y": -12.81 },
+					{ "time": 1.8333, "x": -0.67, "y": -14.87 },
+					{ "time": 2, "x": 1.74, "y": -16.94 }
 				]
 			},
-			"spaceman/Layer 1": {
-				"color": [
-					{ "color": "ffffff00" }
+			"textt": {
+				"translate": [
+					{ "x": -3.78, "y": 2.06 }
 				]
 			}
 		}
 	},
 	"user": {
 		"slots": {
-			"spaceman/Layer 2": {
+			"text2": {
 				"color": [
-					{ "color": "ffffff00" }
+					{ "time": 1.8333, "color": "ffffffff" },
+					{ "time": 2, "color": "ffffff00" }
 				]
 			},
 			"spaceman/Layer 1": {
@@ -254,6 +280,16 @@
 					{ "time": 1.8667, "name": "spaceman_new/29" },
 					{ "time": 1.9333, "name": "spaceman_new/30" }
 				]
+			},
+			"text": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
+			},
+			"spaceman/Layer 2": {
+				"color": [
+					{ "color": "ffffff00" }
+				]
 			}
 		},
 		"bones": {
@@ -267,6 +303,23 @@
 				"translate": [
 					{ "time": 1.3667 },
 					{ "time": 2, "x": 3.57, "y": -3.12 }
+				]
+			},
+			"text2": {
+				"translate": [
+					{ "x": 15.42, "y": -12.56 },
+					{ "time": 0.1667, "x": 10.85, "y": -12.56 },
+					{ "time": 0.3333, "x": 5.14, "y": -12.56 },
+					{ "time": 0.5, "x": 1.71, "y": -9.14 },
+					{ "time": 0.6667, "x": -0.57, "y": -7.99 },
+					{ "time": 0.8333, "x": -2.28, "y": -7.99 },
+					{ "time": 1, "x": -4.57, "y": -7.99 },
+					{ "time": 1.1667, "x": -5.14, "y": -7.99, "curve": "stepped" },
+					{ "time": 1.3333, "x": -5.14, "y": -7.99 },
+					{ "time": 1.5, "x": -5.14, "y": -9.37 },
+					{ "time": 1.6667, "x": -3.07, "y": -12.81 },
+					{ "time": 1.8333, "x": -0.67, "y": -14.87 },
+					{ "time": 2, "x": 1.74, "y": -16.94 }
 				]
 			}
 		}
