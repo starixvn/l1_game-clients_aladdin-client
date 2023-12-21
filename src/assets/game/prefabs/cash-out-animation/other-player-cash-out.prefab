@@ -25,14 +25,14 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 15
+        "__id__": 16
       },
       {
-        "__id__": 17
+        "__id__": 18
       }
     ],
     "_prefab": {
-      "__id__": 19
+      "__id__": 20
     },
     "_lpos": {
       "__type__": "cc.Vec3",
@@ -86,11 +86,11 @@
       }
     ],
     "_prefab": {
-      "__id__": 14
+      "__id__": 15
     },
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": -33,
+      "x": 7.315,
       "y": 0,
       "z": 0
     },
@@ -140,8 +140,8 @@
     },
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": -8.880003929138184,
-      "y": 27.130001068115234,
+      "x": -25.58000373840332,
+      "y": 35.86000061035156,
       "z": 0
     },
     "_lrot": {
@@ -163,7 +163,7 @@
       "__type__": "cc.Vec3",
       "x": 0,
       "y": 0,
-      "z": 0.000002504478065487657
+      "z": 0.000005008956130975262
     },
     "_id": ""
   },
@@ -320,6 +320,9 @@
     "_sockets": [
       {
         "__id__": 13
+      },
+      {
+        "__id__": 14
       }
     ],
     "_useTint": false,
@@ -337,6 +340,13 @@
   {
     "__type__": "sp.Skeleton.SpineSocket",
     "path": "spacema_cashout/main/textt/text",
+    "target": {
+      "__id__": 3
+    }
+  },
+  {
+    "__type__": "sp.Skeleton.SpineSocket",
+    "path": "spacema_cashout/user/text3/text2",
     "target": {
       "__id__": 3
     }
@@ -364,7 +374,7 @@
     },
     "_enabled": true,
     "__prefab": {
-      "__id__": 16
+      "__id__": 17
     },
     "_contentSize": {
       "__type__": "cc.Size",
@@ -392,7 +402,7 @@
     },
     "_enabled": true,
     "__prefab": {
-      "__id__": 18
+      "__id__": 19
     },
     "_opacity": 255,
     "_id": ""
