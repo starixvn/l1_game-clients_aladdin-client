@@ -3,14 +3,14 @@
         "name": "In Game",
         "server": {
             "waitForRequest": {
-                "namespace": "/user/dragontigerfight",
+                "namespace": "/user/spaceflight",
                 "event": "inGame",
                 "payload": null
             },
             "response": [
                 {
-                    "namespace": "/user/dragontigerfight",
-                    "event": "DragonTigerFight",
+                    "namespace": "/user/spaceflight",
+                    "event": "Spaceflight",
                     "payload": {
                         "roundId": 2,
                         "gameConfigs": {
@@ -18,58 +18,21 @@
                             "groupId": "61765beed2b6510001f18bd6",
                             "minBet": 1,
                             "maxBet": 2000,
-                            "maxBetPerChoices": {
-                                "dragon": 2000,
-                                "tiger": 2000,
-                                "tie": 500,
-                                "redDragon": 1000,
-                                "blackDragon": 1000,
-                                "redTiger": 1000,
-                                "blackTiger": 1000
-                            },
+                            "maxBetPerChoices": {},
                             "chips": ["1", "2", "5", "10", "50", "100", "200", "500", "1000", "2000"],
                             "stakeLevels": [],
-                            "odds": {
-                                "dragon": 1.95,
-                                "tiger": 1.95,
-                                "tie": 1.9,
-                                "redDragon": 1.65,
-                                "blackDragon": 1.65,
-                                "redTiger": 1.65,
-                                "blackTiger": 1.65
-                            },
-                            "originalOdds": {
-                                "dragon": 1.95,
-                                "tiger": 1.95,
-                                "tie": 1.9,
-                                "redDragon": 1.65,
-                                "blackDragon": 1.65,
-                                "redTiger": 1.65,
-                                "blackTiger": 1.65
-                            },
+                            "odds": {},
+                            "originalOdds": {},
                             "enableFreeBet": false
                         },
                         "roundHistory": [
                             {
                                 "roundId": 1,
-                                "result": {
-                                    "dragon": {
-                                        "rank": 11,
-                                        "suit": 1
-                                    },
-                                    "tiger": {
-                                        "rank": 9,
-                                        "suit": 2
-                                    }
-                                },
-                                "settlementResult": {
-                                    "dragon": true,
-                                    "tiger": false,
-                                    "tie": false,
-                                    "blackDragon": false,
-                                    "redDragon": true,
-                                    "blackTiger": true,
-                                    "redTiger": false
+                                "result": 2.09,
+                                "md5Result": {
+                                    "hashValue": "5db2d9bb86be26f9870d5e1f9e5ec29d",
+                                    "rawValue": "{2.09}_{#20492716b4713d20ae38de2eec}",
+                                    "roundId": 1
                                 }
                             }
                         ],
@@ -86,7 +49,7 @@
                             "rate": 1
                         },
                         "resultHash": {
-                            "hashValue": "85c0bdc6ee9c1e742dc0963c6ce3dc1d"
+                            "hashValue": "f8950e1ca004470099cafc33e8a439b9"
                         },
                         "remainingTime": 6,
                         "players": {},
@@ -97,7 +60,7 @@
         },
         "client": {
             "waitUntilMetExpectation": true,
-            "waitExpectationTimeout": 60000,
+            "waitExpectationTimeout": 120000,
             "actual": "Integration.label('balance')",
             "expected": "2,000"
         }
