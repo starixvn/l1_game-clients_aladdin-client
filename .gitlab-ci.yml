@@ -21,8 +21,6 @@ variables:
         exit 0
       fi
     - node --version
-    - npm install --prefix ./game-client-base
-    - npm run build --prefix ./game-client-base
     - npm run install-dependencies --prefix "./$COCOS_PROJECT_DIR"
     - set +e
     - /Applications/CocosCreator/Creator/$COCOS_VERSION/CocosCreator.app/Contents/MacOS/CocosCreator --project "./$COCOS_PROJECT_DIR" --build "platform=web-mobile;debug=false;webOrientation=landscape;md5Cache=true;replaceSplashScreen=true"
@@ -59,10 +57,6 @@ unit_test_js:
     - docker
   before_script:
     - npm set registry http://npm.lumigame.com
-    - cd ./game-client-base
-    - npm install
-    - npm run build
-    - cd ..
     - cd ./src
     - npm run install-dependencies
   script:
