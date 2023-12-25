@@ -1,21 +1,21 @@
 {
 "skeleton": {
-	"hash": "NDamCI2NrLf6gtxT6SKpplLuYqc=",
+	"hash": "+sDSNi+4pY+jwI7Eu7CP2Bsqe4w=",
 	"spine": "3.8.75",
-	"x": -75,
-	"y": -34,
-	"width": 150,
-	"height": 68,
+	"x": -69.66,
+	"y": -56.9,
+	"width": 139.32,
+	"height": 113.81,
 	"images": "C:/Users/heidi.le/Desktop/spaceman_cashout/New folder/",
 	"audio": ""
 },
 "bones": [
 	{ "name": "spacema_cashout" },
-	{ "name": "user", "parent": "spacema_cashout", "color": "ff0404ff" },
+	{ "name": "user", "parent": "spacema_cashout", "rotation": 30, "scaleX": 0.85, "scaleY": 0.85, "color": "ff0404ff" },
 	{ "name": "spaceman", "parent": "user" },
-	{ "name": "main", "parent": "spacema_cashout" },
+	{ "name": "main", "parent": "spacema_cashout", "rotation": 30, "scaleX": 0.85, "scaleY": 0.85 },
 	{ "name": "spaceman2", "parent": "main" },
-	{ "name": "text", "parent": "spacema_cashout" }
+	{ "name": "text", "parent": "spacema_cashout", "x": -21.91, "y": 11.05, "scaleX": 0.85, "scaleY": 0.85 }
 ],
 "slots": [
 	{ "name": "spaceman/Layer 1", "bone": "spaceman", "attachment": "spaceman_new/30" },

@@ -103,8 +103,8 @@
     },
     "_lscale": {
       "__type__": "cc.Vec3",
-      "x": 0.85,
-      "y": 0.85,
+      "x": 1,
+      "y": 1,
       "z": 1
     },
     "_mobility": 0,
@@ -140,21 +140,21 @@
     },
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": -24.020004272460938,
-      "y": 35.86000061035156,
+      "x": -21.90999984741211,
+      "y": 11.050000190734863,
       "z": 0
     },
     "_lrot": {
       "__type__": "cc.Quat",
       "x": 0,
       "y": 0,
-      "z": 4.3711388286737347e-8,
-      "w": 0.9999999999999981
+      "z": 2.1855694157282652e-8,
+      "w": 0.9999999999999996
     },
     "_lscale": {
       "__type__": "cc.Vec3",
-      "x": 1,
-      "y": 1.0000000000000153,
+      "x": 0.8500000238418579,
+      "y": 0.8500000238418611,
       "z": 1
     },
     "_mobility": 0,
@@ -163,7 +163,7 @@
       "__type__": "cc.Vec3",
       "x": 0,
       "y": 0,
-      "z": 0.000005008956130975262
+      "z": 0.0000025044780670820564
     },
     "_id": ""
   },
@@ -270,13 +270,13 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 150,
-      "height": 77.86000061035156
+      "width": 139.32000732421875,
+      "height": 113.80999755859375
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
       "x": 0.5,
-      "y": 0.43668121928424014
+      "y": 0.4999560912615309
     },
     "_id": ""
   },
@@ -311,7 +311,7 @@
       "__expectedType__": "sp.SkeletonData"
     },
     "defaultSkin": "default",
-    "defaultAnimation": "",
+    "defaultAnimation": "user",
     "_premultipliedAlpha": false,
     "_timeScale": 1,
     "_preCacheMode": 0,
@@ -336,7 +336,7 @@
   },
   {
     "__type__": "sp.Skeleton.SpineSocket",
-    "path": "spacema_cashout/main/textt/text",
+    "path": "spacema_cashout/text",
     "target": {
       "__id__": 3
     }
