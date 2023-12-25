@@ -44,8 +44,8 @@
       "__type__": "cc.Quat",
       "x": 0,
       "y": 0,
-      "z": 0.25881904510252074,
-      "w": 0.9659258262890683
+      "z": 0,
+      "w": 1
     },
     "_lscale": {
       "__type__": "cc.Vec3",
@@ -59,7 +59,7 @@
       "__type__": "cc.Vec3",
       "x": 0,
       "y": 0,
-      "z": 30
+      "z": 0
     },
     "_id": ""
   },
@@ -140,8 +140,8 @@
     },
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": -9.320003509521484,
-      "y": 24.260000228881836,
+      "x": -24.020004272460938,
+      "y": 35.86000061035156,
       "z": 0
     },
     "_lrot": {
@@ -181,7 +181,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 46.67,
+      "width": 22.46,
       "height": 20
     },
     "_anchorPoint": {
@@ -217,7 +217,7 @@
       "b": 10,
       "a": 255
     },
-    "_string": "123456",
+    "_string": "123",
     "_horizontalAlign": 1,
     "_verticalAlign": 1,
     "_actualFontSize": 14,
@@ -270,13 +270,13 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 142.39999389648438,
-      "height": 64
+      "width": 150,
+      "height": 77.86000061035156
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
-      "x": 0.06601123610555397,
-      "y": 0.01875000074505806
+      "x": 0.5,
+      "y": 0.43668121928424014
     },
     "_id": ""
   },
@@ -311,7 +311,7 @@
       "__expectedType__": "sp.SkeletonData"
     },
     "defaultSkin": "default",
-    "defaultAnimation": "user",
+    "defaultAnimation": "",
     "_premultipliedAlpha": false,
     "_timeScale": 1,
     "_preCacheMode": 0,
@@ -336,7 +336,7 @@
   },
   {
     "__type__": "sp.Skeleton.SpineSocket",
-    "path": "spacema_cashout/user/text3/text2",
+    "path": "spacema_cashout/main/textt/text",
     "target": {
       "__id__": 3
     }
