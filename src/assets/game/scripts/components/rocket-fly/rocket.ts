@@ -147,6 +147,7 @@ export class Rocket extends Component {
         this.setRocketVisibility(false);
         this.setExplosionRocketVisibility(true);
 
+        const totalDuration = 4;
         const animName = smallExplosion ? RocketAnim.EXPLOSION_SMALL : RocketAnim.EXPLOSION_BIG;
         const duration = this.skeExplosion.findAnimation(animName).duration;
         this.skeExplosion.setAnimation(0, animName, false);
@@ -154,6 +155,9 @@ export class Rocket extends Component {
             .delay(duration)
             .call(() => {
                 this.explosion.active = false;
+            })
+            .delay(totalDuration - duration)
+            .call(() => {
                 this.playBackgroundTransition();
             })
             .start();
