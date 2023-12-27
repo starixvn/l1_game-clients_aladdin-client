@@ -1,17 +1,8 @@
 {
-"skeleton": {
-	"hash": "HK+UNfHAxygub4iwBCjUL2Ci3s0=",
-	"spine": "3.8.75",
-	"x": -640.37,
-	"y": -404.17,
-	"width": 1416.73,
-	"height": 840,
-	"images": "../chuyencanh-new/",
-	"audio": ""
-},
+"skeleton": { "hash": "x1e4Z36LWmIW8MdtonjbtNtCXW0=", "spine": "3.8.75", "images": "C:/Users/heidi.le/Desktop/transition", "audio": "" },
 "bones": [
 	{ "name": "transition" },
-	{ "name": "smoke", "parent": "transition", "x": 76.36, "y": 15.83, "scaleX": 7, "scaleY": 7.5 }
+	{ "name": "smoke", "parent": "transition", "x": 74.07, "y": 15.36, "scaleX": 7, "scaleY": 7.5 }
 ],
 "slots": [
 	{ "name": "smoke/smoke22", "bone": "smoke", "color": "180feeff", "attachment": "smoke/smoke9", "blend": "additive" }
