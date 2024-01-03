@@ -56,7 +56,7 @@ export class Rocket extends Component {
     private explosionTween: Tween<Node>;
     private backgroundTransitionTween: Tween<Node>;
     private readonly durationExplosion = 4;
-    private readonly defaultAngleExplosion = 0;
+    private readonly defaultAngleExplosion = 90;
 
     onLoad() {
         this.setRocketVisibility(false);
@@ -100,7 +100,7 @@ export class Rocket extends Component {
         this.explosion.active = status;
         if (!status) {
             this.explosion.angle = this.defaultAngleExplosion;
-            this.explosion.scale = v3(0.2, 0.2, 0.2);
+            this.explosion.scale = v3(0.1, 0.1, 0.1);
         }
     }
 
@@ -155,10 +155,10 @@ export class Rocket extends Component {
         this.setRocketVisibility(false);
         this.setExplosionRocketVisibility(true);
         const degreeRocket = toDegree(Math.atan2(this.rocket.parent.position.y, this.rocket.parent.position.x));
-        const durationAnimExplosion = 0.8;
+        const durationAnimExplosion = 1.14;
         this.explosion.angle = this.defaultAngleExplosion + degreeRocket;
         this.explosionTween = tween(this.explosion)
-            .to(durationAnimExplosion, { scale: v3(1.7, 1.7, 1.7) }, { easing: "backOut" })
+            .to(durationAnimExplosion, { scale: v3(2, 2, 2) }, { easing: "backOut" })
             .start();
 
         this.backgroundTransitionTween = tween(this.node)
