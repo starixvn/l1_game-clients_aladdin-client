@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, ParticleSystem2D, sp, Tween, tween, v3, Vec3 } from "cc";
+import { Component, Node, ParticleSystem2D, Tween, Vec3, _decorator, sp, toDegree, tween, v3 } from "cc";
 
 import { AnimationUtils } from "db://shared-components/shared/utils";
 import { SpaceManList } from "./space-man-list";
@@ -53,12 +53,16 @@ export class Rocket extends Component {
 
     private rotationTween: Tween<Node>;
     private positionTween: Tween<Node>;
-    private explositionTween: Tween<Node>;
+    private explosionTween: Tween<Node>;
+    private backgroundTransitionTween: Tween<Node>;
+    private readonly durationExplosion = 4;
+    private readonly defaultAngleExplosion = 90;
 
     onLoad() {
         this.setRocketVisibility(false);
         this.setExplosionRocketVisibility(false);
         this.setSpaceManVisibility(false);
+        this.explosion.active = false;
     }
 
     startFly() {
@@ -94,6 +98,10 @@ export class Rocket extends Component {
 
     setExplosionRocketVisibility(status: boolean) {
         this.explosion.active = status;
+        if (!status) {
+            this.explosion.angle = this.defaultAngleExplosion;
+            this.explosion.scale = v3(0.2, 0.2, 0.2);
+        }
     }
 
     updateRotation(angle: number, isAnimated = false, duration = 0.1) {
@@ -142,16 +150,19 @@ export class Rocket extends Component {
             .start();
     }
 
-    explode(smallExplosion: boolean) {
+    explode() {
         this.stopAnimation();
         this.setRocketVisibility(false);
         this.setExplosionRocketVisibility(true);
+        const degreeRocket = toDegree(Math.atan2(this.rocket.parent.position.y, this.rocket.parent.position.x));
+        const durationAnimExplosion = 0.8;
+        this.explosion.angle = this.defaultAngleExplosion + degreeRocket;
+        this.explosionTween = tween(this.explosion)
+            .to(durationAnimExplosion, { scale: v3(1.7, 1.7, 1.7) }, { easing: "backOut" })
+            .start();
 
-        const animName = smallExplosion ? RocketAnim.EXPLOSION_SMALL : RocketAnim.EXPLOSION_BIG;
-        const duration = this.skeExplosion.findAnimation(animName).duration;
-        this.skeExplosion.setAnimation(0, animName, false);
-        this.explositionTween = tween(this.node)
-            .delay(duration)
+        this.backgroundTransitionTween = tween(this.node)
+            .delay(this.durationExplosion - durationAnimExplosion)
             .call(() => {
                 this.explosion.active = false;
                 this.playBackgroundTransition();
@@ -163,7 +174,8 @@ export class Rocket extends Component {
     stopAnimation() {
         this.rotationTween?.stop();
         this.positionTween?.stop();
-        this.explositionTween?.stop();
+        this.explosionTween?.stop();
+        this.backgroundTransitionTween?.stop();
     }
 
     async playBackgroundTransition() {

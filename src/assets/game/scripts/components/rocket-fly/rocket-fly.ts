@@ -70,7 +70,7 @@ export class RocketFly extends ObserverComponent {
             this.preparingRocket = false;
             +result < this.smallExplosionMultiplier && (await AnimationUtils.delayTime(0.5));
             this.updateIsCrashed(true);
-            this.explodeRocket(+result < this.smallExplosionMultiplier);
+            this.explodeRocket();
         }
     }
 
@@ -229,11 +229,11 @@ export class RocketFly extends ObserverComponent {
         this.transformRocketTail.width = width + offset;
     }
 
-    explodeRocket(isSMall: boolean) {
+    explodeRocket() {
         this.tweenDeltaTime?.stop();
         this.hideRocketTail();
         this.startedRocketFlying = false;
-        this.cpnRocket.explode(isSMall);
+        this.cpnRocket.explode();
     }
 
     private showRocketTail() {
