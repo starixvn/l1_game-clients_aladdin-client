@@ -56,7 +56,7 @@ export class Rocket extends Component {
     private explosionTween: Tween<Node>;
     private backgroundTransitionTween: Tween<Node>;
     private readonly durationExplosion = 4;
-    private readonly defaultAngleExplosion = 90;
+    private readonly defaultAngleExplosion = 0;
 
     onLoad() {
         this.setRocketVisibility(false);
