@@ -69,14 +69,8 @@ export class RocketFly extends ObserverComponent {
         if (result) {
             this.preparingRocket = false;
             +result < this.smallExplosionMultiplier && (await AnimationUtils.delayTime(0.5));
-            this.updateIsCrashed(true);
             this.explodeRocket();
         }
-    }
-
-    @handle(GameCrash.CrashMultiplier.MultiplierHandlers, (handle, isCrashed: boolean) => handle.handleIsCrashed(isCrashed))
-    updateIsCrashed(isCrashed: boolean) {
-        return isCrashed;
     }
 
     @render(GameCrash.CrashMultiplier.MultiplierStore, (store) => store.time, { fireImmediately: false })
