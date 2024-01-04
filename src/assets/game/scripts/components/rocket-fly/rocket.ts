@@ -1,4 +1,4 @@
-import { Component, Node, ParticleSystem2D, Tween, Vec3, _decorator, sp, toDegree, tween, v3 } from "cc";
+import { Component, Node, ParticleSystem2D, Tween, UIOpacity, Vec3, _decorator, sp, toDegree, tween, v3 } from "cc";
 
 import { AnimationUtils } from "db://shared-components/shared/utils";
 import { SpaceManList } from "./space-man-list";
@@ -54,6 +54,7 @@ export class Rocket extends Component {
     private rotationTween: Tween<Node>;
     private positionTween: Tween<Node>;
     private explosionTween: Tween<Node>;
+    private explosionOpacityTween: Tween<UIOpacity>;
     private backgroundTransitionTween: Tween<Node>;
     private readonly durationExplosion = 4;
     private readonly defaultAngleExplosion = 90;
@@ -62,7 +63,6 @@ export class Rocket extends Component {
         this.setRocketVisibility(false);
         this.setExplosionRocketVisibility(false);
         this.setSpaceManVisibility(false);
-        this.explosion.active = false;
     }
 
     startFly() {
@@ -101,6 +101,7 @@ export class Rocket extends Component {
         if (!status) {
             this.explosion.angle = this.defaultAngleExplosion;
             this.explosion.scale = v3(0.1, 0.1, 0.1);
+            this.explosion.getComponent(UIOpacity).opacity = 50;
         }
     }
 
@@ -155,12 +156,16 @@ export class Rocket extends Component {
         this.setRocketVisibility(false);
         this.setExplosionRocketVisibility(true);
         const degreeRocket = toDegree(Math.atan2(this.rocket.parent.position.y, this.rocket.parent.position.x));
-        const durationAnimExplosion = 1.14;
+        const durationAnimExplosion = 1.2;
+        const durationOpacity = 1;
         this.explosion.angle = this.defaultAngleExplosion + degreeRocket;
         this.explosionTween = tween(this.explosion)
             .to(durationAnimExplosion, { scale: v3(2, 2, 2) }, { easing: "backOut" })
             .start();
-
+        this.explosionOpacityTween = tween(this.explosion.getComponent(UIOpacity))
+            .to(durationOpacity, { opacity: 255 }, { easing: "sineOut" })
+            .to(durationAnimExplosion - durationOpacity, { opacity: 245 }, { easing: "sineIn" })
+            .start();
         this.backgroundTransitionTween = tween(this.node)
             .delay(this.durationExplosion - durationAnimExplosion)
             .call(() => {
@@ -176,6 +181,7 @@ export class Rocket extends Component {
         this.positionTween?.stop();
         this.explosionTween?.stop();
         this.backgroundTransitionTween?.stop();
+        this.explosionOpacityTween?.stop();
     }
 
     async playBackgroundTransition() {
