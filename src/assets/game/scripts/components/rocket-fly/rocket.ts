@@ -165,11 +165,12 @@ export class Rocket extends Component {
         this.explosionOpacityTween = tween(this.explosion.getComponent(UIOpacity))
             .to(durationOpacity, { opacity: 255 }, { easing: "sineOut" })
             .to(durationAnimExplosion - durationOpacity, { opacity: 245 }, { easing: "sineIn" })
+            .delay(this.durationExplosion - durationAnimExplosion - durationOpacity)
+            .to(durationOpacity, { opacity: 1 }, { easing: "sineOut" })
             .start();
         this.backgroundTransitionTween = tween(this.node)
             .delay(this.durationExplosion - durationAnimExplosion)
             .call(() => {
-                this.explosion.active = false;
                 this.playBackgroundTransition();
             })
 
