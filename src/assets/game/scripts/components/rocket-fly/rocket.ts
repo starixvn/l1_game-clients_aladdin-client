@@ -161,8 +161,21 @@ export class Rocket extends Component {
         this.explosion.angle = this.defaultAngleExplosion + degreeRocket;
 
         this.explosionTween = tween(this.explosion)
-            .to(durationOpacity, { scale: v3(2, 2, 2) }, { easing: "backOut" })
-            .to(durationAnimExplosion - durationOpacity, { scale: v3(1.95, 1.95, 1.95) }, { easing: "sineOut" })
+            .to(
+                durationAnimExplosion,
+                { scale: v3(2, 2, 2) },
+                {
+                    easing: (t) => {
+                        const C1 = 0; // constant
+                        const C2 = 1.2; // P0
+                        const C3 = 1.8; // P1
+                        const C4 = 1; // constant
+                        const t1 = 1 - t;
+                        return t1 * (t1 * (C1 + (C2 * 3 - C1) * t) + C3 * 3 * t * t) + C4 * t * t * t;
+                    },
+                }
+            )
+
             .start();
 
         this.explosionOpacityTween = tween(this.explosion.getComponent(UIOpacity))
