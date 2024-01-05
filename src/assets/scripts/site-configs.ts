@@ -47,6 +47,5 @@ if (window.envConfig) {
 export const siteConfigs: gc.Configs.SiteConfigs =
     window.envConfig && window.envConfig.isDev ? defaultConfig : { ...defaultConfig, ...configDev, ...window.envConfig };
 
-console.log("game siteConfigs---------------", siteConfigs);
 window.envConfig = siteConfigs;
 gc.Shared.utils.StorageManager.setPrefixKey(siteConfigs.storagePrefixKey);
