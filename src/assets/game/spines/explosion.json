@@ -1,171 +1,68 @@
 {
-"skeleton": { "hash": "LrIYUfpkFxBrU+0YBuWDLhlYGOw=", "spine": "3.8.75", "images": "", "audio": "" },
+"skeleton": {
+	"hash": "A2CKbvMSToEiwChmeHroctylhgU=",
+	"spine": "3.8.75",
+	"x": -724.5,
+	"y": -435.5,
+	"width": 1398,
+	"height": 786,
+	"images": "C:/Users/heidi.le/Desktop/explosion0901",
+	"audio": ""
+},
 "bones": [
-	{ "name": "explosion" },
-	{ "name": "boom3", "parent": "explosion", "scaleX": 2.4, "scaleY": 2.5 }
+	{ "name": "explosion1" },
+	{ "name": "bone2", "parent": "explosion1", "scaleX": 1.5, "scaleY": 1.5 },
+	{ "name": "explosion", "parent": "bone2" }
 ],
 "slots": [
-	{ "name": "light-thang5", "bone": "explosion" },
-	{ "name": "1211/Supernova0", "bone": "boom3", "blend": "screen" }
+	{ "name": "explosion", "bone": "explosion", "attachment": "explosion" }
 ],
 "skins": [
 	{
 		"name": "default",
 		"attachments": {
-			"1211/Supernova0": {
-				"1211/Supernova57": { "width": 300, "height": 225 },
-				"1211/Supernova58": { "width": 300, "height": 225 },
-				"1211/Supernova59": { "width": 300, "height": 225 },
-				"1211/Supernova60": { "width": 300, "height": 225 },
-				"1211/Supernova61": { "width": 300, "height": 225 },
-				"1211/Supernova62": { "width": 300, "height": 225 },
-				"1211/Supernova63": { "width": 300, "height": 225 },
-				"1211/Supernova64": { "width": 300, "height": 225 },
-				"1211/Supernova65": { "width": 300, "height": 225 },
-				"1211/Supernova66": { "width": 300, "height": 225 },
-				"1211/Supernova67": { "width": 300, "height": 225 },
-				"1211/Supernova68": { "width": 300, "height": 225 },
-				"1211/Supernova69": { "width": 300, "height": 225 },
-				"1211/Supernova70": { "width": 300, "height": 225 },
-				"1211/Supernova71": { "width": 300, "height": 225 },
-				"1211/Supernova72": { "width": 300, "height": 225 },
-				"1211/Supernova73": { "width": 300, "height": 225 },
-				"1211/Supernova74": { "width": 300, "height": 225 },
-				"1211/Supernova75": { "width": 300, "height": 225 },
-				"1211/Supernova76": { "width": 300, "height": 225 },
-				"1211/Supernova77": { "width": 300, "height": 225 },
-				"1211/Supernova78": { "width": 300, "height": 225 },
-				"1211/Supernova79": { "width": 300, "height": 225 },
-				"1211/Supernova80": { "width": 300, "height": 225 },
-				"1211/Supernova81": { "width": 300, "height": 225 },
-				"1211/Supernova82": { "width": 300, "height": 225 },
-				"1211/Supernova83": { "width": 300, "height": 225 },
-				"1211/Supernova84": { "width": 300, "height": 225 },
-				"1211/Supernova85": { "width": 300, "height": 225 },
-				"1211/Supernova86": { "width": 300, "height": 225 },
-				"1211/Supernova87": { "width": 300, "height": 225 },
-				"1211/Supernova88": { "width": 300, "height": 225 },
-				"1211/Supernova89": { "width": 300, "height": 225 },
-				"1211/Supernova90": { "width": 300, "height": 225 },
-				"1211/Supernova91": { "width": 300, "height": 225 },
-				"1211/Supernova92": { "width": 300, "height": 225 },
-				"1211/Supernova93": { "width": 300, "height": 225 },
-				"1211/Supernova94": { "width": 300, "height": 225 },
-				"1211/Supernova95": { "width": 300, "height": 225 },
-				"1211/Supernova96": { "width": 300, "height": 225 },
-				"1211/Supernova97": { "width": 300, "height": 225 },
-				"1211/Supernova98": { "width": 300, "height": 225 },
-				"1211/Supernova99": { "width": 300, "height": 225 }
+			"explosion": {
+				"explosion": { "y": 0.5, "width": 210, "height": 203 }
 			}
 		}
 	}
 ],
 "animations": {
-	"explosion-big": {
-		"slots": {
-			"1211/Supernova0": {
-				"color": [
-					{ "time": 1.0333, "color": "ffffffff" },
-					{ "time": 1.4, "color": "ffffff00" }
-				],
-				"attachment": [
-					{ "name": "1211/Supernova57" },
-					{ "time": 0.0333, "name": "1211/Supernova58" },
-					{ "time": 0.0667, "name": "1211/Supernova59" },
-					{ "time": 0.1, "name": "1211/Supernova60" },
-					{ "time": 0.1333, "name": "1211/Supernova61" },
-					{ "time": 0.1667, "name": "1211/Supernova62" },
-					{ "time": 0.2, "name": "1211/Supernova63" },
-					{ "time": 0.2333, "name": "1211/Supernova64" },
-					{ "time": 0.2667, "name": "1211/Supernova65" },
-					{ "time": 0.3, "name": "1211/Supernova66" },
-					{ "time": 0.3333, "name": "1211/Supernova67" },
-					{ "time": 0.3667, "name": "1211/Supernova68" },
-					{ "time": 0.4, "name": "1211/Supernova69" },
-					{ "time": 0.4333, "name": "1211/Supernova70" },
-					{ "time": 0.4667, "name": "1211/Supernova71" },
-					{ "time": 0.5, "name": "1211/Supernova72" },
-					{ "time": 0.5333, "name": "1211/Supernova73" },
-					{ "time": 0.5667, "name": "1211/Supernova74" },
-					{ "time": 0.6, "name": "1211/Supernova75" },
-					{ "time": 0.6333, "name": "1211/Supernova76" },
-					{ "time": 0.6667, "name": "1211/Supernova77" },
-					{ "time": 0.7, "name": "1211/Supernova78" },
-					{ "time": 0.7333, "name": "1211/Supernova79" },
-					{ "time": 0.7667, "name": "1211/Supernova80" },
-					{ "time": 0.8, "name": "1211/Supernova81" },
-					{ "time": 0.8333, "name": "1211/Supernova82" },
-					{ "time": 0.8667, "name": "1211/Supernova83" },
-					{ "time": 0.9, "name": "1211/Supernova84" },
-					{ "time": 0.9333, "name": "1211/Supernova85" },
-					{ "time": 0.9667, "name": "1211/Supernova86" },
-					{ "time": 1, "name": "1211/Supernova87" },
-					{ "time": 1.0333, "name": "1211/Supernova88" },
-					{ "time": 1.0667, "name": "1211/Supernova89" },
-					{ "time": 1.1, "name": "1211/Supernova90" },
-					{ "time": 1.1333, "name": "1211/Supernova91" },
-					{ "time": 1.1667, "name": "1211/Supernova92" },
-					{ "time": 1.2, "name": "1211/Supernova93" },
-					{ "time": 1.2333, "name": "1211/Supernova94" },
-					{ "time": 1.2667, "name": "1211/Supernova95" },
-					{ "time": 1.3, "name": "1211/Supernova96" },
-					{ "time": 1.3333, "name": "1211/Supernova97" },
-					{ "time": 1.3667, "name": "1211/Supernova98" },
-					{ "time": 1.4, "name": "1211/Supernova99" }
-				]
-			}
-		},
+	"explosion": {
 		"bones": {
-			"boom3": {
-				"translate": [
-					{ "time": 4 }
-				]
-			}
-		}
-	},
-	"explosion-small": {
-		"slots": {
-			"1211/Supernova0": {
-				"color": [
-					{ "time": 0.9667, "color": "ffffffff" },
-					{ "time": 1.1667, "color": "ffffff00", "curve": "stepped" },
-					{ "time": 4, "color": "ffffff00" }
-				],
-				"attachment": [
-					{ "name": "1211/Supernova57" },
-					{ "time": 0.0667, "name": "1211/Supernova58" },
-					{ "time": 0.1, "name": "1211/Supernova59" },
-					{ "time": 0.1333, "name": "1211/Supernova60" },
-					{ "time": 0.2, "name": "1211/Supernova61" },
-					{ "time": 0.2333, "name": "1211/Supernova62" },
-					{ "time": 0.2667, "name": "1211/Supernova63" },
-					{ "time": 0.3333, "name": "1211/Supernova64" },
-					{ "time": 0.3667, "name": "1211/Supernova65" },
-					{ "time": 0.4, "name": "1211/Supernova66" },
-					{ "time": 0.4667, "name": "1211/Supernova67" },
-					{ "time": 0.5, "name": "1211/Supernova68" },
-					{ "time": 0.5333, "name": "1211/Supernova69" },
-					{ "time": 0.6, "name": "1211/Supernova70" },
-					{ "time": 0.6333, "name": "1211/Supernova71" },
-					{ "time": 0.6667, "name": "1211/Supernova72" },
-					{ "time": 0.7333, "name": "1211/Supernova73" },
-					{ "time": 0.7667, "name": "1211/Supernova74" },
-					{ "time": 0.8, "name": "1211/Supernova75" },
-					{ "time": 0.8667, "name": "1211/Supernova76" },
-					{ "time": 0.9, "name": "1211/Supernova77" },
-					{ "time": 0.9667, "name": "1211/Supernova78" },
-					{ "time": 1, "name": "1211/Supernova79" },
-					{ "time": 1.0333, "name": "1211/Supernova80" },
-					{ "time": 1.1, "name": "1211/Supernova81" },
-					{ "time": 1.1333, "name": "1211/Supernova82" },
-					{ "time": 1.1667, "name": "1211/Supernova83" }
-				]
-			}
-		},
-		"bones": {
-			"boom3": {
+			"explosion": {
 				"scale": [
-					{ "x": 0.812, "y": 0.824 }
+					{ "x": 0.24, "y": 0.24 },
+					{ "time": 0.0333, "x": 0.5, "y": 0.5 },
+					{ "time": 0.0667, "x": 0.75, "y": 0.75 },
+					{ "time": 0.1, "x": 1.1, "y": 1.1 },
+					{ "time": 0.1333, "x": 1.5, "y": 1.5 },
+					{ "time": 0.1667, "x": 1.7, "y": 1.7 },
+					{ "time": 0.2, "x": 1.85, "y": 1.85 },
+					{ "time": 0.2333, "x": 2, "y": 2 },
+					{ "time": 0.2667, "x": 2.1, "y": 2.1 },
+					{ "time": 0.3, "x": 2.2, "y": 2.2 },
+					{ "time": 0.3333, "x": 2.3, "y": 2.3, "curve": "stepped" },
+					{ "time": 0.4, "x": 2.3, "y": 2.3 },
+					{ "time": 0.4333, "x": 2.25, "y": 2.25 },
+					{ "time": 0.4667, "x": 2.2, "y": 2.2 },
+					{ "time": 0.5, "x": 2.15, "y": 2.15 },
+					{ "time": 0.5333, "x": 2.1, "y": 2.1 },
+					{ "time": 0.5667, "x": 2.05, "y": 2.05 },
+					{ "time": 0.6, "x": 2, "y": 2 },
+					{ "time": 0.6333, "x": 1.98, "y": 1.98 },
+					{ "time": 0.6667, "x": 1.95, "y": 1.95 },
+					{ "time": 0.7, "x": 1.9, "y": 1.9, "curve": "stepped" },
+					{ "time": 0.8667, "x": 1.9, "y": 1.9 },
+					{ "time": 0.9, "x": 1.91, "y": 1.91 },
+					{ "time": 0.9333, "x": 1.92, "y": 1.92 },
+					{ "time": 0.9667, "x": 1.93, "y": 1.93 },
+					{ "time": 1, "x": 1.94, "y": 1.94 },
+					{ "time": 1.0333, "x": 1.95, "y": 1.95 },
+					{ "time": 1.0667, "x": 1.98, "y": 1.98 },
+					{ "time": 1.1, "x": 2, "y": 2 },
+					{ "time": 1.1333, "x": 2.02, "y": 2.02, "curve": "stepped" },
+					{ "time": 2, "x": 2.02, "y": 2.02 }
 				]
 			}
 		}

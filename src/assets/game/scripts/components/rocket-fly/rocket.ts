@@ -98,11 +98,6 @@ export class Rocket extends Component {
 
     setExplosionRocketVisibility(status: boolean) {
         this.explosion.active = status;
-        if (!status) {
-            this.explosion.angle = this.defaultAngleExplosion;
-            this.explosion.scale = v3(0.1, 0.1, 0.1);
-            this.explosion.getComponent(UIOpacity).opacity = 50;
-        }
     }
 
     updateRotation(angle: number, isAnimated = false, duration = 0.1) {
@@ -151,10 +146,28 @@ export class Rocket extends Component {
             .start();
     }
 
+    playExplosionSpine() {
+        const animName = "explosion";
+        const duration = this.skeExplosion.findAnimation(animName).duration;
+        this.skeExplosion.setAnimation(0, animName, false);
+        this.explosionTween = tween(this.node)
+            .delay(duration)
+            .call(() => {
+                this.explosion.active = false;
+                this.playBackgroundTransition();
+            })
+
+            .start();
+    }
+
     explode() {
         this.stopAnimation();
         this.setRocketVisibility(false);
         this.setExplosionRocketVisibility(true);
+        this.playExplosionSpine();
+    }
+
+    playExplosionTween() {
         const degreeRocket = toDegree(Math.atan2(this.rocket.parent.position.y, this.rocket.parent.position.x));
         const durationAnimExplosion = 1.2;
         const durationOpacity = 1;
