@@ -18,7 +18,6 @@ export class SpaceMan extends Component {
     }
 
     setSpaceManVisibility(status: boolean) {
-        console.log("setSpaceManVisibility");
         this.node.active = status;
     }
 
