@@ -44,7 +44,7 @@ export class RocketFly extends ObserverComponent {
     private readonly graphTranslateX = 630;
     private readonly graphTranslateDuration = (this.rawLimitX + 4) * 1000;
     private tweenDeltaTime: Tween<TweenDeltaTime>;
-    private readonly rocketFlySound = "sfx_extra";
+    private readonly rocketFlySound = "rocket_fly";
 
     private get startPosition(): Vec3 {
         return this.startPoint.position;
@@ -106,7 +106,7 @@ export class RocketFly extends ObserverComponent {
 
         if (!this.startedRocketFlying) {
             this.cpnRocket.startFly();
-            this.playSoundRocketFly();
+
             this.startedRocketFlying = true;
         }
     }
@@ -247,10 +247,5 @@ export class RocketFly extends ObserverComponent {
     getTimerRate() {
         const x = Math.min(1, this.deltaTime / this.graphTranslateDuration);
         return Math.pow(1 - x, 2) + 1;
-    }
-
-    @handle(gc.Audios.AudioHandler, (handle, id: string) => handle.playSFXExtra(id))
-    playSoundRocketFly() {
-        return this.rocketFlySound;
     }
 }
