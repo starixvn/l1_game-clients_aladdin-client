@@ -41,10 +41,9 @@ export class RocketFly extends ObserverComponent {
     private reachedLimitX = false;
     private preparingRocket = false;
     private cpnColMultipliers: ColMultipliers;
-    private readonly graphTranslateX = 630;
+    private readonly graphTranslateX = 547;
     private readonly graphTranslateDuration = (this.rawLimitX + 4) * 1000;
     private tweenDeltaTime: Tween<TweenDeltaTime>;
-    private readonly rocketFlySound = "rocket_fly";
 
     private get startPosition(): Vec3 {
         return this.startPoint.position;
