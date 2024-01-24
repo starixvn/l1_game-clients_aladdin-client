@@ -21,6 +21,7 @@ describe("settings", () => {
                 startRound: 1,
             },
             numberOfRoundHistory: 11,
+            validateBalanceWhenBet: true,
         });
     });
 });
