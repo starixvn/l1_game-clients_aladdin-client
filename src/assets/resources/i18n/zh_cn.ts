@@ -103,6 +103,8 @@ export const languages = {
         "odds": "赔率",
         "ok": "好的",
         "one_choice_allowed": "只能押注一种选择。",
+        "pf_button_clear": "清除",
+        "pf_button_verify": "核实",
         "promotion": "促销活动",
         "promotion_terms_and_conditions": "条款和条件",
         "result": "结果",

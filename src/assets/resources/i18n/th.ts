@@ -103,6 +103,8 @@ export const languages = {
         "odds": "อัตราต่อรอง",
         "ok": "ตกลง",
         "one_choice_allowed": "สามารถเดิมพันได้เพียงตัวเลือกเดียวเท่านั้น",
+        "pf_button_clear": "ล้าง",
+        "pf_button_verify": "ตรวจสอบ",
         "promotion": "โปรโมชั่น",
         "promotion_terms_and_conditions": "ข้อกำหนด\nและเงื่อนไข",
         "result": "ผลลัพธ์",

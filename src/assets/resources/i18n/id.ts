@@ -103,6 +103,8 @@ export const languages = {
         "odds": "Odds",
         "ok": "OKE",
         "one_choice_allowed": "Hanya bisa bertaruh pada satu opsi.",
+        "pf_button_clear": "Clear",
+        "pf_button_verify": "Verifikasi",
         "promotion": "Promosi",
         "promotion_terms_and_conditions": "Syarat dan Ketentuan",
         "result": "Hasil",
