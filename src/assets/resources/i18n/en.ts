@@ -114,6 +114,7 @@ export const languages = {
         "pf_client_seed_tooltip_para_1": "Client Seed is generated from Player’s side.",
         "pf_client_seed_tooltip_para_2": "Merge Client Seed of the first five betting players of the round in sequential order from Player 1 to Player 5",
         "pf_combined_sha512_hash_tooltip_para_1": "The final result is determined by a combination of the Server Seed and the Client Seed of the first five betting players of the round, subsequently converted into a SHA512 hash.",
+        "pf_fairness": "Fairness",
         "pf_header_client_seed": "Client Seed",
         "pf_header_combined_sha512_hash": "Combined SHA512 hash",
         "pf_header_server_seed": "Server Seed",

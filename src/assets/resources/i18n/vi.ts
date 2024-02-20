@@ -105,6 +105,7 @@ export const languages = {
         "one_choice_allowed": "Chỉ được cược 1 bên.",
         "pf_button_clear": "Xóa",
         "pf_button_verify": "Xác Minh",
+        "pf_fairness": "Công Bằng",
         "promotion": "Khuyến Mãi",
         "promotion_terms_and_conditions": "Điều Khoản Khuyến Mãi",
         "result": "Kết Quả",
