@@ -111,6 +111,7 @@ export const languages = {
         "pf_client_seed_para_1": "(Can not change seed after bet is accepted)",
         "pf_client_seed_para_2": "Random on every new round",
         "pf_client_seed_para_3": "Manual input",
+        "pf_client_seed_para_4": "Random",
         "pf_client_seed_tooltip": "Client Seed is generated from Player’s side.\nMerge Client Seed of the first five betting players of the round in sequential order from Player 1 to Player 5",
         "pf_client_seed_tooltip_para_1": "Client Seed is generated from Player’s side.",
         "pf_client_seed_tooltip_para_2": "Merge Client Seed of the first five betting players of the round in sequential order from Player 1 to Player 5",
