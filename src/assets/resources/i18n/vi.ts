@@ -108,7 +108,7 @@ export const languages = {
         "pf_button_verify": "Xác Minh",
         "pf_copy_successfully ": "Copy thành công!",
         "pf_copy_unsucessful": "Chức năng Copy tạm thời không hoạt động.",
-        "pf_fairness": "Công Bằng",
+        "pf_fairness": "Minh Bạch",
         "pf_header_client_seed": "Client Seed",
         "pf_header_server_seed": "Server Seed",
         "pf_header_server_seed_sha256": "Server Seed SHA256",

@@ -106,7 +106,7 @@ export const languages = {
         "one_choice_allowed": "Hanya bisa bertaruh pada satu opsi.",
         "pf_ header_merge_client_seed": "Gabungkan Seed Klien",
         "pf_button_clear": "Clear",
-        "pf_button_save": "Menyimpan",
+        "pf_button_save": "Save",
         "pf_button_verify": "Verifikasi",
         "pf_client_seed_para_1": "(Tidak dapat mengubah seed setelah taruhan diterima)",
         "pf_client_seed_para_2": "Acak di setiap babak baru",

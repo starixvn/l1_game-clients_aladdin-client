@@ -104,7 +104,7 @@ export const languages = {
         "odds": "賠率",
         "ok": "好的",
         "one_choice_allowed": "只能押註一種選擇。",
-        "pf_ header_merge_client_seed": "合併客戶端種子",
+        "pf_ header_merge_client_seed": "合併客戶種子",
         "pf_button_clear": "清除",
         "pf_button_save": "保存",
         "pf_button_verify": "核實",
