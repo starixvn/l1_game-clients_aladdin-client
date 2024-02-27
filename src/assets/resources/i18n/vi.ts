@@ -127,6 +127,7 @@ export const languages = {
         "pf_player_3": "Người Chơi 3",
         "pf_player_4": "Người Chơi 4",
         "pf_player_5": "Người Chơi 5",
+        "pf_pop-up_title_pf_guide": "Hướng Dẫn Provably Fair",
         "pf_provably_fair_para_2": "Có thể kiểm tra tính chính xác của chuỗi SHA256 hoặc SHA512 bằng bất kỳ ứng dụng từ bên thứ ba, ví dụ:",
         "pf_settings_para_1": "Kết quả cuối cùng được xác định dựa trên sự kết hợp giữa Server Seed và Client Seed của 5 người chơi đặt cược đầu tiên.",
         "pf_settings_para_2": "Người chơi có thể thay đổi giá trị Client Seed và kiểm tra tính minh bạch của kết quả trong mục Lịch sử cược.",

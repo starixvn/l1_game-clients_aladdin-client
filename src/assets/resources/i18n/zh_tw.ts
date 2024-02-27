@@ -128,6 +128,7 @@ export const languages = {
         "pf_player_3": "玩家3",
         "pf_player_4": "玩家4",
         "pf_player_5": "玩家5",
+        "pf_pop-up_title_pf_guide": "Provably Fair Guide",
         "pf_provably_fair_para_2": "SHA256或SHA512的正確性可以在任何線上計算器中檢查，例如：",
         "pf_settings_para_1": "最終結果由本輪前五名投注玩家的伺服器種子和客戶端種子組合決定。",
         "pf_settings_para_2": "玩家可以更改客戶端種子值並從投注歷史記錄中檢查遊戲結果的公平性。",
