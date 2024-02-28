@@ -6,6 +6,7 @@ export const languages = {
         "bet_choice": "Lựa Chọn",
         "bet_detail": "Chi Tiết Cược",
         "bet_history": "Lịch Sử",
+        "button_change": "Thay Đổi",
         "character_name": "Tên nhân vật",
         "copy_failed_md5": "Chức năng Copy tạm thời không hoạt động.",
         "copy_successfully_md5": "Copy thành công!",

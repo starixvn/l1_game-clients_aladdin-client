@@ -128,7 +128,7 @@ export const languages = {
         "pf_player_3": "Pemain 3",
         "pf_player_4": "Pemain 4",
         "pf_player_5": "Pemain 5",
-        "pf_pop-up_title_pf_guide": "Provably Fair Guide",
+        "pf_pop-up_title_pf_guide": "Provably Fair Guides",
         "pf_provably_fair_para_2": "Kebenaran SHA256 atau SHA512 dapat diperiksa di kalkulator online mana pun, misalnya:",
         "pf_settings_para_1": "Hasil akhir ditentukan oleh kombinasi Server Seed dan Klien Seed dari lima pemain taruhan pertama pada putaran tersebut.",
         "pf_settings_para_2": "Pemain dapat mengubah nilai Seed Klien dan memeriksa kewajaran hasil permainan dari riwayat Taruhan.",

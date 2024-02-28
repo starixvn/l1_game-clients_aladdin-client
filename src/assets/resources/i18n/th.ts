@@ -128,7 +128,7 @@ export const languages = {
         "pf_player_3": "ผู้เล่น 3",
         "pf_player_4": "ผู้เล่น 4",
         "pf_player_5": "ผู้เล่น 5",
-        "pf_pop-up_title_pf_guide": "Provably Fair Guide",
+        "pf_pop-up_title_pf_guide": "Provably Fair Guides",
         "pf_provably_fair_para_2": "สามารถตรวจสอบความถูกต้องของ SHA256 หรือ SHA512 ได้ในเครื่องคำนวณออนไลน์ เช่น:",
         "pf_settings_para_1": "ผลลัพธ์สุดท้ายจะถูกกำหนดโดยการรวมกันของ Server Seed และ Client Seed ของผู้เล่นเดิมพันห้าคนแรกของรอบ",
         "pf_settings_para_2": "ผู้เล่นสามารถเปลี่ยนค่า Client Seed และตรวจสอบความเป็นธรรมของผลลัพธ์เกมได้จากประวัติการเดิมพัน",
