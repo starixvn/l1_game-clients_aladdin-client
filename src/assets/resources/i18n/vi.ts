@@ -135,7 +135,7 @@ export const languages = {
         "pf_title_new_client_seed": "CLIENT SEED MỚI",
         "pf_title_provably_fair": "PROVABLY FAIR",
         "pf_title_provably_fair_settings": "CÀI ĐẶT PROVABLY FAIR",
-        "pf_title_verification ": "XÁC MINH",
+        "pf_title_verification": "XÁC MINH",
         "pf_verification_para_1": "Kết Quả Cuối Cùng",
         "pf_verification_para_2": "Lấy 8 ký tự đầu tiên trong chuỗi SHA512",
         "pf_verification_para_3": "Đổi Sang Hệ Thập Phân",

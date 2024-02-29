@@ -135,7 +135,7 @@ export const languages = {
         "pf_title_new_client_seed": "新客户种子",
         "pf_title_provably_fair": "可证明公平",
         "pf_title_provably_fair_settings": "可证明公平的环境",
-        "pf_title_verification ": "确认",
+        "pf_title_verification": "确认",
         "pf_verification_para_1": "最后结果",
         "pf_verification_para_2": "从 SHA512 中获取前 {value} 位：",
         "pf_verification_para_3": "转换为十进制",

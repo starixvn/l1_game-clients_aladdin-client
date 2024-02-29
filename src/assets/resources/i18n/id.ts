@@ -135,7 +135,7 @@ export const languages = {
         "pf_title_new_client_seed": "SEED KLIEN BARU",
         "pf_title_provably_fair": "TERBUKTI ADIL",
         "pf_title_provably_fair_settings": "PENGATURAN YANG TERBUKTI ADIL",
-        "pf_title_verification ": "Verifikasi",
+        "pf_title_verification": "Verifikasi",
         "pf_verification_para_1": "Hasil Akhir",
         "pf_verification_para_2": "Ambil digit {value} pertama dari SHA512:",
         "pf_verification_para_3": "Konversikan ke Desimal",

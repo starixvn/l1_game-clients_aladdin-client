@@ -135,7 +135,7 @@ export const languages = {
         "pf_title_new_client_seed": " CLIENT SEED ใหม่",
         "pf_title_provably_fair": "ความยุติธรรมที่พิจูสน์ได้",
         "pf_title_provably_fair_settings": "ตั้งค่าความยุติธรรมที่พิจูสน์ได้",
-        "pf_title_verification ": "การยืนยัน",
+        "pf_title_verification": "การยืนยัน",
         "pf_verification_para_1": "ผลลัพธ์สุดท้าย",
         "pf_verification_para_2": "ใช้ {มูลค่า} หลักแรกจาก SHA512:",
         "pf_verification_para_3": "แปลงเป็นทศนิยม",
