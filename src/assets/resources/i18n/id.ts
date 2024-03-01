@@ -110,7 +110,7 @@ export const languages = {
         "pf_button_verify": "Verifikasi",
         "pf_client_seed_para_1": "(Tidak dapat mengubah seed setelah taruhan diterima)",
         "pf_client_seed_para_2": "Acak di setiap babak baru",
-        "pf_client_seed_para_3": "masukan manual",
+        "pf_client_seed_para_3": "Masukan manual",
         "pf_client_seed_tooltip": "Seed Klien dihasilkan dari sisi Pemain.\nGabungkan Seed Klien dari lima pemain taruhan pertama pada putaran tersebut secara berurutan dari Pemain 1 hingga Pemain 5",
         "pf_client_seed_tooltip_para_1": "Seed Klien dihasilkan dari sisi Pemain.",
         "pf_client_seed_tooltip_para_2": "Gabungkan Seed Klien dari lima pemain taruhan pertama pada putaran tersebut secara berurutan dari Pemain 1 hingga Pemain 5",
