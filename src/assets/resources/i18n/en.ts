@@ -130,7 +130,7 @@ export const languages = {
         "pf_player_4": "Player 4",
         "pf_player_5": "Player 5",
         "pf_pop-up_title_pf_guide": "Provably Fair Guides",
-        "pf_provably_fair_para_2": "The correctness of the SHA256 or SHA512 can be checked in any online calculator, for example:",
+        "pf_provably_fair_para_2": "You can verify the accuracy of SHA256 or SHA512 using any online calculator provided by third parties.",
         "pf_settings_para_1": "The final result is determined by a combination of the Server Seed and the Client Seed of the first five betting players of the round.",
         "pf_settings_para_2": "The Player can change the Client Seed value and check the fairness of game result from Bet history. ",
         "pf_title_new_client_seed": "NEW CLIENT SEED",
