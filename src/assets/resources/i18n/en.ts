@@ -139,7 +139,7 @@ export const languages = {
         "pf_title_provably_fair_settings": "PROVABLY FAIR SETTINGS",
         "pf_title_verification": "VERIFICATION",
         "pf_verification_para_1": "Final Result",
-        "pf_verification_para_2": "Take first {value} digits from SHA512:",
+        "pf_verification_para_2": "Take first {value} characters from SHA512:",
         "pf_verification_para_3": "Convert to Decimal ",
         "pf_verification_para_4": "Calculate Final Result",
         "promotion": "Promotions",

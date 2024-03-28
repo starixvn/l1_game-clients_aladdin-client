@@ -139,7 +139,7 @@ export const languages = {
         "pf_title_provably_fair_settings": "ตั้งค่าPROVABLY FAIR",
         "pf_title_verification": "การยืนยัน",
         "pf_verification_para_1": "ผลลัพธ์สุดท้าย",
-        "pf_verification_para_2": "ใช้ {value} หลักแรกจาก SHA512:",
+        "pf_verification_para_2": "ใช้ตัวอักษร {value} ตัวแรกจาก SHA512:",
         "pf_verification_para_3": "แปลงเป็นทศนิยม",
         "pf_verification_para_4": "คำนวณผลลัพธ์สุดท้าย",
         "promotion": "โปรโมชั่น",

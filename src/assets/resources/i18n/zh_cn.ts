@@ -139,7 +139,7 @@ export const languages = {
         "pf_title_provably_fair_settings": "可证明公平的环境",
         "pf_title_verification": "确认",
         "pf_verification_para_1": "最后结果",
-        "pf_verification_para_2": "从 SHA512 中获取前 {value} 位：",
+        "pf_verification_para_2": "从 SHA512 中获取前 {value} 个字符:",
         "pf_verification_para_3": "转换为十进制",
         "pf_verification_para_4": "计算最终结果",
         "promotion": "促销活动",
