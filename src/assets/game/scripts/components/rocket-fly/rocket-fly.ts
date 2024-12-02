@@ -22,14 +22,12 @@ export class RocketFly extends ObserverComponent {
     @property(Rocket)
     cpnRocket: Rocket = null;
 
-    @property(UITransform)
-    transformRocketTail: UITransform = null;
-
     @property(Node)
     startPoint: Node = null;
 
-    @property(Node)
-    nodeColMultiplier: Node = null;
+    @property
+    maxHeight = 0;
+
     private readonly startRotation = -90;
     private readonly graphWidth = 500;
     private readonly graphMaxX = 32;
@@ -43,15 +41,15 @@ export class RocketFly extends ObserverComponent {
     private startedRocketFlying = false;
     private reachedLimitX = false;
     private preparingRocket = false;
-    private cpnColMultipliers: ColMultipliers;
     private tweenDeltaTime: Tween<TweenDeltaTime>;
+
+    isFirstRun = false;
 
     private get startPosition(): Vec3 {
         return this.startPoint.position;
     }
 
     onLoad() {
-        this.cpnColMultipliers = this.nodeColMultiplier.getComponent(ColMultipliers);
         this.cpnRocket.updatePosition(this.startPosition, false);
 
         super.onLoad();
@@ -81,6 +79,7 @@ export class RocketFly extends ObserverComponent {
 
     @render(GameCrash.CrashMultiplier.MultiplierStore, (store) => store.time, { fireImmediately: false })
     setTimeByMultiplier(time: number) {
+        console.log("time: ", time);
         if (time - this.deltaTime > 150) {
             const timePoint = time - 100;
             this.updateDeltaTime(timePoint);
@@ -115,13 +114,8 @@ export class RocketFly extends ObserverComponent {
         this.deltaTime = deltaTime;
         if (!this.reachedLimitX) {
             this.flyRocket(this.deltaTime, false);
-            this.movingRocketContainer(this.deltaTime, false);
+            !this.isFirstRun && this.movingRocketContainer();
         }
-        this.cpnColMultipliers.handleScroll(
-            this.cpnRocket.nodeRocketHead,
-            this.calculateMultiplier(this.getTimeInSeconds(this.deltaTime)),
-            false
-        );
     }
 
     @render(gc.Rounds.RoundTimeStore, (store) => store.isInRoundTime)
@@ -138,23 +132,22 @@ export class RocketFly extends ObserverComponent {
         }
         this.scheduleOnce(() => {
             this.prepareForRocket(true);
-            this.cpnColMultipliers.scrollUp();
         }, BG_CLOSING_TRANSITION_DURATION / 2);
     }
 
     private prepareForRocket(animated: boolean) {
         this.preparingRocket = true;
-        this.updateRocketTailWidth(0);
         this.cpnRocket.prepareRocket(this.startRotation, animated);
         this.cpnRocket.updatePosition(this.startPosition);
         this.resetRocketContainer();
         this.reachedLimitX = false;
         this.deltaTime = 0;
+        this.isFirstRun = false;
     }
 
     calculateRocketPosition(rawX: number, scale: number) {
         const rawY = this.calculateMultiplier(rawX) - 1;
-        return v3(rawX * scale, rawY * scale);
+        return v3(rawX * scale, 0);
     }
 
     calculateMultiplier(time: number) {
@@ -164,23 +157,28 @@ export class RocketFly extends ObserverComponent {
         return Math.pow(a * time + b, 5) + c;
     }
 
-    movingRocketContainer(time: number, animated: boolean) {
+    movingRocketContainer() {
         const container = this.cpnRocket.node.parent;
-        const ratio = Math.min(time / this.graphTranslateDuration, 1);
-        const destX = this.graphTranslateX * ratio;
 
-        const destPosition = v3(destX, container.position.y);
-        if (animated) {
-            Tween.stopAllByTarget(container);
-            tween(container).to(0.1, { position: destPosition }).start();
-        } else {
-            container.position = destPosition;
-        }
+        const destPosition = v3(100, 150);
+
+        Tween.stopAllByTarget(container);
+        tween(container)
+            .parallel(
+                tween().to(1.5, { position: destPosition }),
+                tween()
+                    .to(0.8, { eulerAngles: v3(0, 0, 30) }, { easing: "quadOut" })
+                    .to(0.7, { eulerAngles: v3(0, 0, 0) }, { easing: "quadInOut" })
+            )
+            .start();
+
+        this.isFirstRun = true;
     }
 
     resetRocketContainer() {
         const container = this.cpnRocket.node.parent;
-        container.position = v3(0, container.position.y);
+        container.position = v3(0, 0);
+        container.eulerAngles = v3(0, 0, 0);
     }
 
     getTimeInSeconds(time: number) {
@@ -192,6 +190,7 @@ export class RocketFly extends ObserverComponent {
         const rawLimitX = this.rawLimitX;
 
         let rawX = this.getTimeInSeconds(time) * this.getTimerRate();
+        // console.log("rawX: ", rawX);
 
         if (rawX >= rawLimitX) {
             rawX = rawLimitX;
@@ -202,11 +201,12 @@ export class RocketFly extends ObserverComponent {
         const prevRocketPosition = this.calculateRocketPosition(rawX - 0.1, scale);
         const delta = {
             x: newPosition.x - prevRocketPosition.x,
-            y: newPosition.y - prevRocketPosition.y,
+            y: 0,
         };
+        // console.log("delta: ", delta.x, delta.y);
 
-        this.updateRocketTailWidth(newPosition.x);
         const eulerAngle = this.startRotation + toDegree(Math.atan2(delta.y, delta.x));
+        // console.log("eulerAngle: ", eulerAngle);
         this.cpnRocket.updateRotation(eulerAngle, animated);
         this.cpnRocket.updatePosition(newPosition, animated);
     }
@@ -223,25 +223,10 @@ export class RocketFly extends ObserverComponent {
                 .start();
     }
 
-    private updateRocketTailWidth(width: number) {
-        this.showRocketTail();
-        const offset = width > 0 ? Math.abs(this.transformRocketTail.node.position.x) : 0;
-        this.transformRocketTail.width = width + offset;
-    }
-
     explodeRocket() {
         this.tweenDeltaTime?.stop();
-        this.hideRocketTail();
         this.startedRocketFlying = false;
         this.cpnRocket.explode();
-    }
-
-    private showRocketTail() {
-        this.transformRocketTail.node.active = true;
-    }
-
-    private hideRocketTail() {
-        this.transformRocketTail.node.active = false;
     }
 
     getTimerRate() {

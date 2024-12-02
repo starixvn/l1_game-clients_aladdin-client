@@ -15,8 +15,11 @@ export class BackgroundControl extends ObserverComponent {
     @property(Node)
     nodeBackground: Node = null;
 
+    @property(Node)
+    nodeBgRight: Node = null;
+
     private isBgMoving = false;
-    private readonly backgroundMoveY = -500;
+    private readonly backgroundMoveX = -500;
     private readonly movingBackgroundDuration = 40;
 
     @render(GameCrash.CrashMultiplier.MultiplierStore, (store) => store.time, { fireImmediately: false })
@@ -44,16 +47,14 @@ export class BackgroundControl extends ObserverComponent {
 
     initNodeBackgroundWithTime(time: number) {
         const rate = time / (this.movingBackgroundDuration * 1000);
-        this.nodeBackground.scale = v3(1, 1).multiplyScalar(1 - rate);
-        this.nodeBackground.position = v3(0, this.backgroundMoveY * rate);
+        this.nodeBackground.position = v3(this.backgroundMoveX * rate, 0);
     }
 
     startMovingBackground() {
         this.isBgMoving = true;
         tween(this.nodeBackground)
             .to(this.movingBackgroundDuration, {
-                scale: v3(0),
-                position: v3(0, this.backgroundMoveY),
+                position: v3(this.backgroundMoveX, 0),
             })
             .start();
     }

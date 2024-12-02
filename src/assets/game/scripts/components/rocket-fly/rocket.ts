@@ -104,7 +104,7 @@ export class Rocket extends Component {
         if (isAnimated) {
             this.rotationTween?.stop();
             this.rotationTween = tween(this.node)
-                .to(duration, { eulerAngles: v3(0, 0, angle) })
+                .to(0.1, { eulerAngles: v3(0, 0, angle) })
                 .start();
         } else {
             this.node.eulerAngles = v3(0, 0, angle);
@@ -197,6 +197,7 @@ export class Rocket extends Component {
             .delay(this.durationExplosion - durationAnimExplosion - durationOpacity)
             .to(durationOpacity, { opacity: 1 }, { easing: "sineOut" })
             .start();
+
         this.backgroundTransitionTween = tween(this.node)
             .delay(this.durationExplosion - durationAnimExplosion)
             .call(() => {
