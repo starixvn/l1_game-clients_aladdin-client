@@ -205,7 +205,7 @@ export const languages = {
         crash: "Crash",
         crashed: "CRASHED",
         current_multiplier: "Current Multiplier",
-        game_icon_name: "Christmas Crash",
+        game_icon_name: "CHRISTMAS CRASH",
         game_name: "Christmas Crash",
         glossary_bet: "Bet",
         glossary_crash_point: "Crash Point",
