@@ -28,6 +28,7 @@ export class BackgroundControl extends ObserverComponent {
     mainBackgroundColor: Color = new Color("010386");
 
     private isBgMoving = false;
+    private isResetBg = false;
     protected currentWidth = 1398;
     protected positionUpdateRepeatBg = 0;
 
@@ -93,7 +94,21 @@ export class BackgroundControl extends ObserverComponent {
                 { scale: v3(1, 1, 1), position: v3(0, 0, 0) },
                 {
                     easing: "sineIn",
-                    onUpdate() {},
+                    onUpdate: () => {
+                        const currentX = Math.abs(this.nodeContainerBackground?.position?.x);
+                        console.log("currentX", currentX);
+                        if (currentX - this.nodeBg1?.position?.x) {
+                        }
+                        // if (this.nodeBg1?.position?.x > this?.nodeBg2?.position?.x) {
+                        //     // Di chuyển `nodeBg2` sang bên phải `nodeBg1`
+                        //     const newX = this.nodeBg1?.position?.x + this.currentWidth;
+                        //     this.nodeBg2?.setPosition(v3(newX, this.nodeBg1.position.y, this.nodeBg1.position.z));
+                        // } else {
+                        //     // Di chuyển `nodeBg1` sang bên phải `nodeBg2`
+                        //     const newX = this.nodeBg2?.position?.x + this.currentWidth;
+                        //     this.nodeBg1?.setPosition(v3(newX, this.nodeBg2.position.y, this.nodeBg2.position.z));
+                        // }
+                    },
                 }
             )
 

@@ -6,7 +6,7 @@ import Observer from "observer";
 import ColMultipliers from "../../../../../extensions/shared-components/assets/game-crash/col-multipliers/col-multipliers";
 import { ObserverComponent } from "../../../../../extensions/shared-components/assets/shared/common-components/observer-component/scripts/observer-component";
 import { BG_CLOSING_TRANSITION_DURATION } from "../background-control";
-import { Rocket, RocketAnim } from "./rocket";
+import { Plane } from "./plane";
 
 const { ccclass, property } = _decorator;
 
@@ -18,9 +18,9 @@ type TweenDeltaTime = {
 };
 
 @ccclass
-export class RocketFly extends ObserverComponent {
-    @property(Rocket)
-    cpnRocket: Rocket = null;
+export class PlaneFly extends ObserverComponent {
+    @property(Plane)
+    cpnPlane: Plane = null;
 
     @property(Node)
     startPoint: Node = null;
@@ -28,14 +28,12 @@ export class RocketFly extends ObserverComponent {
     @property
     maxHeight = 0;
 
-    private readonly startRotation = -90;
+    private readonly startRotation = 0;
     private readonly graphWidth = 500;
     private readonly graphMaxX = 32;
     private readonly rawLimitX = 30;
     private readonly graphScale = this.graphWidth / this.graphMaxX;
     private readonly smallExplosionMultiplier = 1.02;
-    private readonly realGraphWidth = 1098;
-    private readonly graphTranslateX = this.realGraphWidth - this.graphWidth - 50;
     private readonly graphTranslateDuration = this.rawLimitX * 1000;
     private deltaTime = 0;
     private startedRocketFlying = false;
@@ -50,7 +48,7 @@ export class RocketFly extends ObserverComponent {
     }
 
     onLoad() {
-        this.cpnRocket.updatePosition(this.startPosition, false);
+        this.cpnPlane.updatePosition(this.startPosition, false);
 
         super.onLoad();
     }
@@ -83,7 +81,10 @@ export class RocketFly extends ObserverComponent {
             const timePoint = time - 100;
             this.updateDeltaTime(timePoint);
         }
-        this.cpnRocket.setRocketVisibility(true);
+
+        console.log("time: ", time);
+
+        this.cpnPlane.setRocketVisibility(true);
         const tweenObject = {
             deltaTime: this.deltaTime,
         };
@@ -103,7 +104,7 @@ export class RocketFly extends ObserverComponent {
             .start();
 
         if (!this.startedRocketFlying) {
-            this.cpnRocket.startFly();
+            this.cpnPlane.startFly(time);
 
             this.startedRocketFlying = true;
         }
@@ -113,7 +114,9 @@ export class RocketFly extends ObserverComponent {
         this.deltaTime = deltaTime;
         if (!this.reachedLimitX) {
             this.flyRocket(this.deltaTime, false);
-            !this.isFirstRun && this.movingRocketContainer();
+            if (deltaTime < this.cpnPlane.durationPlanTakeOff) {
+                // !this.isFirstRun && this.movingRocketContainer();
+            }
         }
     }
 
@@ -136,8 +139,8 @@ export class RocketFly extends ObserverComponent {
 
     private prepareForRocket(animated: boolean) {
         this.preparingRocket = true;
-        this.cpnRocket.prepareRocket(this.startRotation, animated);
-        this.cpnRocket.updatePosition(this.startPosition);
+        this.cpnPlane.prepareRocket(this.startRotation, animated);
+        this.cpnPlane.updatePosition(this.startPosition);
         this.resetRocketContainer();
         this.reachedLimitX = false;
         this.deltaTime = 0;
@@ -157,9 +160,8 @@ export class RocketFly extends ObserverComponent {
     }
 
     movingRocketContainer() {
-        const container = this.cpnRocket.node.parent;
-
-        const destPosition = v3(100, 150);
+        const container = this.cpnPlane.node.parent;
+        const destPosition = v3(200, 50);
 
         Tween.stopAllByTarget(container);
         tween(container)
@@ -175,7 +177,7 @@ export class RocketFly extends ObserverComponent {
     }
 
     resetRocketContainer() {
-        const container = this.cpnRocket.node.parent;
+        const container = this.cpnPlane.node.parent;
         container.position = v3(0, 0);
         container.eulerAngles = v3(0, 0, 0);
     }
@@ -187,14 +189,10 @@ export class RocketFly extends ObserverComponent {
     async flyRocket(time: number, animated = true) {
         const scale = this.graphScale;
         const rawLimitX = this.rawLimitX;
-
         let rawX = this.getTimeInSeconds(time) * this.getTimerRate();
-        // console.log("rawX: ", rawX);
-
         if (rawX >= rawLimitX) {
             rawX = rawLimitX;
             this.reachedLimitX = true;
-            this.startShakeRocketAnimation();
         }
         const newPosition = this.calculateRocketPosition(rawX, scale);
         const prevRocketPosition = this.calculateRocketPosition(rawX - 0.1, scale);
@@ -202,30 +200,16 @@ export class RocketFly extends ObserverComponent {
             x: newPosition.x - prevRocketPosition.x,
             y: 0,
         };
-        // console.log("delta: ", delta.x, delta.y);
 
         const eulerAngle = this.startRotation + toDegree(Math.atan2(delta.y, delta.x));
-        // console.log("eulerAngle: ", eulerAngle);
-        this.cpnRocket.updateRotation(eulerAngle, animated);
-        this.cpnRocket.updatePosition(newPosition, animated);
-    }
-
-    protected startShakeRocketAnimation() {
-        this.cpnRocket.skeRocket?.setAnimation(0, RocketAnim.SHAKEN_STRONG, true);
-        const duration = this.cpnRocket?.skeRocket?.findAnimation(RocketAnim.SHAKEN_STRONG).duration;
-        duration > 0 &&
-            tween(this.node)
-                .delay(duration)
-                .call(() => {
-                    this.cpnRocket?.skeRocket?.setAnimation(0, RocketAnim.SHAKEN_WEAK, true);
-                })
-                .start();
+        this.cpnPlane.updateRotation(eulerAngle, animated);
+        this.cpnPlane.updatePosition(newPosition, animated);
     }
 
     explodeRocket() {
         this.tweenDeltaTime?.stop();
         this.startedRocketFlying = false;
-        this.cpnRocket.explode();
+        this.cpnPlane.explode();
     }
 
     getTimerRate() {
