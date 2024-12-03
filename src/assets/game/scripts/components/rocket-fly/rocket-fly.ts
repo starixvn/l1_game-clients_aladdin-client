@@ -79,7 +79,6 @@ export class RocketFly extends ObserverComponent {
 
     @render(GameCrash.CrashMultiplier.MultiplierStore, (store) => store.time, { fireImmediately: false })
     setTimeByMultiplier(time: number) {
-        console.log("time: ", time);
         if (time - this.deltaTime > 150) {
             const timePoint = time - 100;
             this.updateDeltaTime(timePoint);

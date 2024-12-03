@@ -1,5 +1,5 @@
 import gc from "@sg/game-client-base";
-import { Node, Tween, _decorator, tween, v3 } from "cc";
+import { Node, Tween, UITransform, Vec3, _decorator, tween, v3, log, Color } from "cc";
 import Observer from "observer";
 const { Settlements, GameCrash } = gc;
 
@@ -13,20 +13,37 @@ export const BG_CLOSING_TRANSITION_DURATION = 2;
 @ccclass("background_control")
 export class BackgroundControl extends ObserverComponent {
     @property(Node)
-    nodeBackground: Node = null;
+    nodeContainerBackground: Node = null;
 
     @property(Node)
-    nodeBgRight: Node = null;
+    nodeBg1: Node = null;
+
+    @property(Node)
+    nodeBg2: Node = null;
+
+    @property({ type: Number })
+    moveSpeed = 200; //pixel/s
+
+    @property(Color)
+    mainBackgroundColor: Color = new Color("010386");
 
     private isBgMoving = false;
-    private readonly backgroundMoveX = -500;
-    private readonly movingBackgroundDuration = 40;
+    protected currentWidth = 1398;
+    protected positionUpdateRepeatBg = 0;
+
+    onLoad(): void {
+        super.onLoad();
+        this.currentWidth = this.nodeBg1?.getComponent(UITransform)?.width;
+    }
+
+    protected update(dt: number): void {
+        this.isBgMoving && this.startMovingBackground(dt);
+    }
 
     @render(GameCrash.CrashMultiplier.MultiplierStore, (store) => store.time, { fireImmediately: false })
     renderRocketTime(time: number) {
         if (!this.isBgMoving) {
-            this.initNodeBackgroundWithTime(time);
-            this.startMovingBackground();
+            this.isBgMoving = true;
         }
     }
 
@@ -42,28 +59,47 @@ export class BackgroundControl extends ObserverComponent {
         if (!result) {
             return;
         }
-        Tween.stopAllByTarget(this.nodeBackground);
+
+        Tween.stopAllByTarget(this.nodeContainerBackground);
+        this.isBgMoving = false;
+        this.positionUpdateRepeatBg = 0;
     }
 
-    initNodeBackgroundWithTime(time: number) {
-        const rate = time / (this.movingBackgroundDuration * 1000);
-        this.nodeBackground.position = v3(this.backgroundMoveX * rate, 0);
-    }
+    startMovingBackground(dt: number) {
+        const currentX = Math.ceil(Math.abs(this.nodeContainerBackground?.position?.x));
+        const newX = this.nodeContainerBackground?.position?.x - this.moveSpeed * dt;
+        this.nodeContainerBackground?.setPosition(v3(newX, 0, 0));
 
-    startMovingBackground() {
-        this.isBgMoving = true;
-        tween(this.nodeBackground)
-            .to(this.movingBackgroundDuration, {
-                position: v3(this.backgroundMoveX, 0),
-            })
-            .start();
+        if (currentX > this.currentWidth + this.positionUpdateRepeatBg) {
+            this.positionUpdateRepeatBg = currentX;
+            const offset = currentX - this.positionUpdateRepeatBg;
+            if (this.nodeBg1.position.x < this.nodeBg2.position.x) {
+                const newX = this.nodeBg2.position.x + this.currentWidth - offset;
+                this.nodeBg1.setPosition(v3(newX, this.nodeBg2.position.y, this.nodeBg2.position.z));
+            } else {
+                const newX = this.nodeBg1.position.x + this.currentWidth - offset;
+                this.nodeBg2.setPosition(v3(newX, this.nodeBg1.position.y, this.nodeBg1.position.z));
+            }
+            log(`Trigger event at currentX: ${currentX}`);
+        }
     }
 
     resetBackground() {
         this.isBgMoving = false;
-        Tween.stopAllByTarget(this.nodeBackground);
-        tween(this.nodeBackground)
-            .to(1, { scale: v3(1, 1, 1), position: v3(0, 0, 0) }, { easing: "sineIn" })
+        Tween.stopAllByTarget(this.nodeContainerBackground);
+        tween(this.nodeContainerBackground)
+            .to(
+                1,
+                { scale: v3(1, 1, 1), position: v3(0, 0, 0) },
+                {
+                    easing: "sineIn",
+                    onUpdate() {},
+                }
+            )
+
             .start();
+
+        this.nodeBg1 && (this.nodeBg1.position = v3(0, 0, 0));
+        this.nodeBg2 && (this.nodeBg2.position = v3(this.currentWidth, 0, 0));
     }
 }
