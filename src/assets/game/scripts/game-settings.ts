@@ -5,7 +5,7 @@ import { sharedContainer } from "../../scripts/shared-container";
 
 export const settings = {
     id: 73,
-    name: "Spaceflight",
+    name: "Christmascrash",
     durations: {
         wholeRound: 14,
         lockingBet: 3,
@@ -14,7 +14,7 @@ export const settings = {
         startRound: 1,
     },
     numberOfRoundHistory: 11,
-    validateBalanceWhenBet:true
+    validateBalanceWhenBet: true,
 };
 
 export const containerOptions: gc.IContainerOptions = {
