@@ -1,6 +1,4 @@
-import { Component, Node, ParticleSystem2D, Tween, UIOpacity, Vec3, _decorator, sp, toDegree, tween, v3 } from "cc";
-
-import { SpaceManList } from "./space-man-list";
+import { Component, Node, Tween, Vec3, _decorator, sp, tween, v3 } from "cc";
 
 const { ccclass, property } = _decorator;
 
@@ -17,9 +15,6 @@ export class Plane extends Component {
     @property(Node)
     plane: Node = null;
 
-    @property(SpaceManList)
-    cpnSpaceManList: SpaceManList = null;
-
     get skePlane(): sp.Skeleton {
         return this.plane.getChildByName("skeleton").getComponent(sp.Skeleton);
     }
@@ -31,7 +26,6 @@ export class Plane extends Component {
     onLoad() {
         this.setRocketVisibility(false);
         this.setExplosionRocketVisibility(false);
-        this.setSpaceManVisibility(false);
     }
 
     startFly(time: number) {
@@ -46,11 +40,6 @@ export class Plane extends Component {
                 })
                 .start();
         // this.skePlane.setAnimation(0, PlaneAnim.FLY, true);
-    }
-
-    setSpaceManVisibility(status: boolean) {
-        this.cpnSpaceManList.node.active = status;
-        status && this.cpnSpaceManList.setVisibility(status);
     }
 
     setRocketAnim(name: string, loop: boolean) {
@@ -91,15 +80,12 @@ export class Plane extends Component {
         this.stopAnimation();
         this.setRocketVisibility(true);
         this.setExplosionRocketVisibility(false);
-        const onFinished = () => {
-            this.setSpaceManVisibility(false);
-        };
+        const onFinished = () => {};
         if (!animated) {
             onFinished();
             return;
         }
         this.updateRotation(0);
-        this.setSpaceManVisibility(true);
         tween(this.node)
             .delay(2)
             .to(2, { eulerAngles: v3(0, 0, startRotation) }, { easing: "sineOut" })
