@@ -23,7 +23,7 @@ export class Plane extends Component {
     private positionTween: Tween<Node>;
     readonly durationPlanTakeOff = 1.6;
     readonly altitude = 185;
-    readonly distanceTakeOff = 200;
+    readonly distanceTakeOff = 520;
 
     onLoad() {
         this.setPlaneVisibility(false);
@@ -46,17 +46,6 @@ export class Plane extends Component {
         status && this.setPlaneAnim(PlaneAnim.EXPLOSION, false);
     }
 
-    updateRotation(angle: number, isAnimated = false, duration = 0.1) {
-        if (isAnimated) {
-            this.rotationTween?.stop();
-            this.rotationTween = tween(this.node)
-                .to(0.1, { eulerAngles: v3(0, 0, angle) })
-                .start();
-        } else {
-            this.node.eulerAngles = v3(0, 0, angle);
-        }
-    }
-
     updatePosition(pos: Vec3, isAnimated = false, duration = 0.1) {
         if (isAnimated) {
             this.positionTween?.stop();
@@ -77,7 +66,7 @@ export class Plane extends Component {
             onFinished();
             return;
         }
-        this.updateRotation(0);
+
         tween(this.node)
             .delay(2)
             .to(2, { eulerAngles: v3(0, 0, startRotation) }, { easing: "sineOut" })

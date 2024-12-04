@@ -24,17 +24,14 @@ export class BackgroundControl extends ObserverComponent {
     @property({ type: Number })
     moveSpeed = 200; //pixel/s
 
-    @property(Color)
-    mainBackgroundColor: Color = new Color("010386");
-
     private isBgMoving = false;
-    private isResetBg = false;
     protected currentWidth = 1398;
     protected positionUpdateRepeatBg = 0;
 
     onLoad(): void {
         super.onLoad();
-        this.currentWidth = this.nodeBg1?.getComponent(UITransform)?.width;
+        this.nodeBg1?.getComponent(UITransform) && (this.currentWidth = this.nodeBg1?.getComponent(UITransform)?.width);
+        log("bg currentWidth---", this.currentWidth);
     }
 
     protected update(dt: number): void {
@@ -50,9 +47,7 @@ export class BackgroundControl extends ObserverComponent {
 
     @render(gc.Rounds.RoundTimeStore, (store) => store.isStartRound, { fireImmediately: false })
     changeIdleAnim(isStartRound: boolean) {
-        if (isStartRound) {
-            this.resetBackground();
-        }
+        isStartRound && this.resetBackground();
     }
 
     @render(Settlements.SettlementStore, (store) => store.result)
@@ -88,40 +83,15 @@ export class BackgroundControl extends ObserverComponent {
     resetBackground() {
         this.isBgMoving = false;
         Tween.stopAllByTarget(this.nodeContainerBackground);
-        let lastUpdateX = Math.abs(this.nodeContainerBackground?.position?.x);
-        tween(this.nodeContainerBackground)
-            .to(
-                1,
-                { scale: v3(1, 1, 1), position: v3(0, 0, 0) },
-                {
-                    easing: "sineIn",
-                    onUpdate: () => {
-                        const currentX = Math.abs(this.nodeContainerBackground?.position?.x);
-                        console.log("currentX", currentX);
 
-                        if (Math.abs(lastUpdateX - currentX) >= this.currentWidth) {
-                            // Chỉ cập nhật khi giá trị X thay đổi đủ lớn
-                            if (this.nodeBg1?.position?.x > this.nodeBg2?.position?.x) {
-                                const newX = this.nodeBg1?.position?.x - this.currentWidth;
-                                this.nodeBg2?.setPosition(v3(newX, this.nodeBg1.position.y, this.nodeBg1.position.z));
-                            } else {
-                                const newX = this.nodeBg2?.position?.x - this.currentWidth;
-                                this.nodeBg1?.setPosition(v3(newX, this.nodeBg2.position.y, this.nodeBg2.position.z));
-                            }
-                            console.log("resetBackground", currentX);
+        if (this.nodeBg1) {
+            this.nodeBg1.position = v3(0, 0, 0);
+            this.nodeBg1.scale = v3(1, 1, 1);
+        }
 
-                            // Cập nhật giá trị lastUpdateX
-                            lastUpdateX = currentX;
-                        }
-
-                        if (currentX < 20) {
-                            this.nodeBg1 && (this.nodeBg1.position = v3(0, 0, 0));
-                            this.nodeBg2 && (this.nodeBg2.position = v3(this.currentWidth, 0, 0));
-                        }
-                    },
-                }
-            )
-
-            .start();
+        if (this.nodeBg2) {
+            this.nodeBg2.position = v3(1398, 0, 0);
+            this.nodeBg2.scale = v3(-1, 1, 1);
+        }
     }
 }

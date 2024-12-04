@@ -116,7 +116,7 @@ export class PlaneFly extends ObserverComponent {
     private updateDeltaTime(deltaTime: number) {
         this.deltaTime = deltaTime;
         if (!this.reachedLimitX) {
-            this.flyRocket(this.deltaTime, false);
+            // this.flyRocket(this.deltaTime, false);
             if (this.isFlyFullTime(deltaTime)) {
                 !this.isFirstRun && this.takeOffLane();
             }
@@ -166,8 +166,8 @@ export class PlaneFly extends ObserverComponent {
             .parallel(
                 tween().to(this.durationTakeOff, { position: destPosition }),
                 tween()
-                    .to(1.4, { eulerAngles: v3(0, 0, 17) }, { easing: "quadOut" })
-                    .to(0.2, { eulerAngles: v3(0, 0, 0) }, { easing: "quadInOut" })
+                    .to(0.9, { eulerAngles: v3(0, 0, 15) }, { easing: "quadOut" })
+                    .to(0.7, { eulerAngles: v3(0, 0, 0) }, { easing: "quadInOut" })
             )
             .start();
 
@@ -193,14 +193,7 @@ export class PlaneFly extends ObserverComponent {
             this.reachedLimitX = true;
         }
         const newPosition = this.calculatePlanePosition(rawX, scale);
-        const prevRocketPosition = this.calculatePlanePosition(rawX - 0.1, scale);
-        const delta = {
-            x: newPosition.x - prevRocketPosition.x,
-            y: 0,
-        };
 
-        const eulerAngle = this.startRotation + toDegree(Math.atan2(delta.y, delta.x));
-        this.cpnPlane.updateRotation(eulerAngle, animated);
         this.cpnPlane.updatePosition(newPosition, animated);
     }
 
