@@ -103,7 +103,7 @@ export class PlaneFly extends ObserverComponent {
             .start();
 
         if (!this.startedPlaneFlying) {
-            if (!this.isFlyFullTime(time) && this.cpnPlane?.node?.parent) {
+            if (!this.isEnoughTakeOffTime(time) && this.cpnPlane?.node?.parent) {
                 this.cpnPlane.node.parent.position = v3(this.cpnPlane.distanceTakeOff, this.cpnPlane.altitude, 0);
             }
 
@@ -116,13 +116,13 @@ export class PlaneFly extends ObserverComponent {
     private updateDeltaTime(deltaTime: number) {
         this.deltaTime = deltaTime;
         if (!this.reachedLimitX) {
-            if (this.isFlyFullTime(deltaTime)) {
+            if (this.isEnoughTakeOffTime(deltaTime)) {
                 !this.isFirstRun && this.takeOffLane();
             }
         }
     }
 
-    private isFlyFullTime(time: number) {
+    private isEnoughTakeOffTime(time: number) {
         return this.getTimeInSeconds(time) < this.cpnPlane.durationPlanTakeOff;
     }
 
@@ -199,7 +199,7 @@ export class PlaneFly extends ObserverComponent {
     explodeRocket() {
         this.tweenDeltaTime?.stop();
         this.startedPlaneFlying = false;
-        this.cpnPlane.explode(this.isFlyFullTime(this.deltaTime));
+        this.cpnPlane.explode(this.isEnoughTakeOffTime(this.deltaTime));
     }
 
     getTimerRate() {

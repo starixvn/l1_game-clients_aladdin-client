@@ -18,6 +18,9 @@ export class Plane extends Component {
     @property(Node)
     plane: Node = null;
 
+    @property(Node)
+    smoke: Node = null;
+
     @property(sp.Skeleton)
     spineBackground: sp.Skeleton = null;
 
@@ -33,9 +36,11 @@ export class Plane extends Component {
     onLoad() {
         this.setPlaneVisibility(false);
         this.setExplosionPlaneVisibility(false);
+        this.smoke.active = false;
     }
 
     startFly() {
+        this.smoke.active = true;
         this.skePlane.setAnimation(0, PlaneAnim.FLY, true);
     }
 
@@ -61,6 +66,7 @@ export class Plane extends Component {
     }
 
     preparePlane(startRotation: number, animated = true) {
+        this.smoke.active = false;
         this.node.active = true;
         this.setPlaneAnim(PlaneAnim.IDLE, true);
         this.stopAnimation();
@@ -81,6 +87,7 @@ export class Plane extends Component {
     explode(isSpot = false) {
         this.stopAnimation();
         this.setExplosionPlaneVisibility(true, isSpot);
+        this.smoke.active = false;
         this.playBackgroundTransition();
     }
 
