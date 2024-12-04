@@ -1,4 +1,5 @@
 import { Component, Node, Tween, Vec3, _decorator, sp, tween, v3 } from "cc";
+import { AnimationUtils } from "../../../../../extensions/shared-components/assets/shared/utils";
 
 const { ccclass, property } = _decorator;
 
@@ -8,12 +9,16 @@ export const PlaneAnim = {
     PLANE_TAKE_OFF: "catcanh",
     IDLE: "idle",
     EXPLOSION: "crash",
+    GIF: "gif",
 };
 
 @ccclass()
 export class Plane extends Component {
     @property(Node)
     plane: Node = null;
+
+    @property(sp.Skeleton)
+    spineBackground: sp.Skeleton = null;
 
     get skePlane(): sp.Skeleton {
         return this.plane.getChildByName("skeleton").getComponent(sp.Skeleton);
@@ -65,7 +70,7 @@ export class Plane extends Component {
         }
 
         tween(this.node)
-            .delay(2)
+            .delay(1)
             .to(2, { eulerAngles: v3(0, 0, startRotation) }, { easing: "sineOut" })
             .delay(2)
 
@@ -75,9 +80,14 @@ export class Plane extends Component {
     explode() {
         this.stopAnimation();
         this.setExplosionPlaneVisibility(true);
+        this.playBackgroundTransition();
     }
 
     stopAnimation() {
         this.positionTween?.stop();
+    }
+
+    async playBackgroundTransition() {
+        this.spineBackground && (await AnimationUtils.playSpine(this.spineBackground, "transition"));
     }
 }
