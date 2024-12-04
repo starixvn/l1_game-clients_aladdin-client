@@ -22,7 +22,7 @@ export class Plane extends Component {
     private positionTween: Tween<Node>;
     readonly durationPlanTakeOff = 1.6;
     readonly altitude = 185;
-    readonly distanceTakeOff = 520;
+    readonly distanceTakeOff = 540;
 
     onLoad() {
         this.setPlaneVisibility(false);
