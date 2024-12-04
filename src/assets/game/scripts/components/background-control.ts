@@ -42,7 +42,7 @@ export class BackgroundControl extends ObserverComponent {
     }
 
     @render(GameCrash.CrashMultiplier.MultiplierStore, (store) => store.time, { fireImmediately: false })
-    renderRocketTime(time: number) {
+    renderPlaneTime(time: number) {
         if (!this.isBgMoving) {
             this.isBgMoving = true;
         }

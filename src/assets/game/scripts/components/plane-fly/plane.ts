@@ -21,37 +21,29 @@ export class Plane extends Component {
 
     private rotationTween: Tween<Node>;
     private positionTween: Tween<Node>;
-    readonly durationPlanTakeOff = 1600;
+    readonly durationPlanTakeOff = 1.6;
+    readonly altitude = 185;
+    readonly distanceTakeOff = 200;
 
     onLoad() {
-        this.setRocketVisibility(false);
-        this.setExplosionRocketVisibility(false);
+        this.setPlaneVisibility(false);
+        this.setExplosionPlaneVisibility(false);
     }
 
-    startFly(time: number) {
-        // const isFullTme = time < this.durationPlanTakeOff;
-        // isFullTme && this.setRocketAnim(PlaneAnim.PLANE_TAKE_OFF, false);
-        // const duration = this.skePlane?.findAnimation(PlaneAnim.PLANE_TAKE_OFF).duration;
-        // duration > 0 &&
-        //     tween(this.node)
-        //         .delay(isFullTme ? duration : 0)
-        //         .call(() => {
-        //             this.skePlane.setAnimation(0, PlaneAnim.FLY, true);
-        //         })
-        //         .start();
+    startFly() {
         this.skePlane.setAnimation(0, PlaneAnim.FLY, true);
     }
 
-    setRocketAnim(name: string, loop: boolean) {
+    setPlaneAnim(name: string, loop: boolean) {
         this.skePlane?.setAnimation(0, name, loop);
     }
 
-    setRocketVisibility(status: boolean) {
+    setPlaneVisibility(status: boolean) {
         this.plane.active = status;
     }
 
-    setExplosionRocketVisibility(status: boolean) {
-        status && this.setRocketAnim(PlaneAnim.EXPLOSION, false);
+    setExplosionPlaneVisibility(status: boolean) {
+        status && this.setPlaneAnim(PlaneAnim.EXPLOSION, false);
     }
 
     updateRotation(angle: number, isAnimated = false, duration = 0.1) {
@@ -74,12 +66,12 @@ export class Plane extends Component {
         }
     }
 
-    prepareRocket(startRotation: number, animated = true) {
+    preparePlane(startRotation: number, animated = true) {
         this.node.active = true;
-        this.setRocketAnim(PlaneAnim.IDLE, true);
+        this.setPlaneAnim(PlaneAnim.IDLE, true);
         this.stopAnimation();
-        this.setRocketVisibility(true);
-        this.setExplosionRocketVisibility(false);
+        this.setPlaneVisibility(true);
+        this.setExplosionPlaneVisibility(false);
         const onFinished = () => {};
         if (!animated) {
             onFinished();
@@ -98,7 +90,7 @@ export class Plane extends Component {
 
     explode() {
         this.stopAnimation();
-        this.setExplosionRocketVisibility(true);
+        this.setExplosionPlaneVisibility(true);
     }
 
     stopAnimation() {

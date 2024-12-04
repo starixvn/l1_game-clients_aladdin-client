@@ -36,9 +36,9 @@ export class PlaneFly extends ObserverComponent {
     private readonly smallExplosionMultiplier = 1.02;
     private readonly graphTranslateDuration = this.rawLimitX * 1000;
     private deltaTime = 0;
-    private startedRocketFlying = false;
+    private startedPlaneFlying = false;
     private reachedLimitX = false;
-    private preparingRocket = false;
+    private preparingPlane = false;
     private tweenDeltaTime: Tween<TweenDeltaTime>;
     private readonly durationTakeOff = 1.6;
 
@@ -62,9 +62,9 @@ export class PlaneFly extends ObserverComponent {
     @render(gc.Settlements.SettlementStore, (store) => store.result, {
         fireImmediately: false,
     })
-    async renderRocketExplosion(result: gc.GameServiceMessage.TResult) {
+    async renderPlaneExplosion(result: gc.GameServiceMessage.TResult) {
         if (result) {
-            this.preparingRocket = false;
+            this.preparingPlane = false;
             +result < this.smallExplosionMultiplier && (await AnimationUtils.delayTime(0.5));
             this.updateIsCrashed();
             this.explodeRocket();
@@ -83,9 +83,7 @@ export class PlaneFly extends ObserverComponent {
             this.updateDeltaTime(timePoint);
         }
 
-        console.log("time: ", time);
-
-        this.cpnPlane.setRocketVisibility(true);
+        this.cpnPlane.setPlaneVisibility(true);
         const tweenObject = {
             deltaTime: this.deltaTime,
         };
@@ -104,10 +102,14 @@ export class PlaneFly extends ObserverComponent {
             )
             .start();
 
-        if (!this.startedRocketFlying) {
-            this.cpnPlane.startFly(time);
+        if (!this.startedPlaneFlying) {
+            if (!this.isFlyFullTime(time) && this.cpnPlane?.node?.parent) {
+                this.cpnPlane.node.parent.position = v3(0, this.cpnPlane.altitude, 0);
+            }
 
-            this.startedRocketFlying = true;
+            this.cpnPlane.startFly();
+
+            this.startedPlaneFlying = true;
         }
     }
 
@@ -115,16 +117,20 @@ export class PlaneFly extends ObserverComponent {
         this.deltaTime = deltaTime;
         if (!this.reachedLimitX) {
             this.flyRocket(this.deltaTime, false);
-            if (deltaTime < this.cpnPlane.durationPlanTakeOff) {
-                !this.isFirstRun && this.movingRocketContainer();
+            if (this.isFlyFullTime(deltaTime)) {
+                !this.isFirstRun && this.takeOffLane();
             }
         }
     }
 
+    private isFlyFullTime(time: number) {
+        return this.getTimeInSeconds(time) < this.cpnPlane.durationPlanTakeOff;
+    }
+
     @render(gc.Rounds.RoundTimeStore, (store) => store.isInRoundTime)
     renderInRoundTime(isInRoundTime: boolean) {
-        if (isInRoundTime && !this.preparingRocket) {
-            this.prepareForRocket(false);
+        if (isInRoundTime && !this.preparingPlane) {
+            this.prepareForPlane(false);
         }
     }
 
@@ -134,36 +140,27 @@ export class PlaneFly extends ObserverComponent {
             return;
         }
         this.scheduleOnce(() => {
-            this.prepareForRocket(true);
+            this.prepareForPlane(true);
         }, BG_CLOSING_TRANSITION_DURATION / 2);
     }
 
-    private prepareForRocket(animated: boolean) {
-        this.preparingRocket = true;
-        this.cpnPlane.prepareRocket(this.startRotation, animated);
+    private prepareForPlane(animated: boolean) {
+        this.preparingPlane = true;
+        this.cpnPlane.preparePlane(this.startRotation, animated);
         this.cpnPlane.updatePosition(this.startPosition);
-        this.resetRocketContainer();
+        this.resetPlaneContainer();
         this.reachedLimitX = false;
         this.deltaTime = 0;
         this.isFirstRun = false;
     }
 
-    calculateRocketPosition(rawX: number, scale: number) {
-        const rawY = this.calculateMultiplier(rawX) - 1;
+    calculatePlanePosition(rawX: number, scale: number) {
         return v3(rawX * scale, 0);
     }
 
-    calculateMultiplier(time: number) {
-        const a = 0.04;
-        const b = 0.66;
-        const c = 1 - Math.pow(b, 5);
-        return Math.pow(a * time + b, 5) + c;
-    }
-
-    movingRocketContainer() {
+    takeOffLane() {
         const container = this.cpnPlane.node.parent;
-        const destPosition = v3(200, 185);
-
+        const destPosition = v3(this.cpnPlane.distanceTakeOff, this.cpnPlane.altitude);
         Tween.stopAllByTarget(container);
         tween(container)
             .parallel(
@@ -177,7 +174,7 @@ export class PlaneFly extends ObserverComponent {
         this.isFirstRun = true;
     }
 
-    resetRocketContainer() {
+    resetPlaneContainer() {
         const container = this.cpnPlane.node.parent;
         container.position = v3(0, 0);
         container.eulerAngles = v3(0, 0, 0);
@@ -195,8 +192,8 @@ export class PlaneFly extends ObserverComponent {
             rawX = rawLimitX;
             this.reachedLimitX = true;
         }
-        const newPosition = this.calculateRocketPosition(rawX, scale);
-        const prevRocketPosition = this.calculateRocketPosition(rawX - 0.1, scale);
+        const newPosition = this.calculatePlanePosition(rawX, scale);
+        const prevRocketPosition = this.calculatePlanePosition(rawX - 0.1, scale);
         const delta = {
             x: newPosition.x - prevRocketPosition.x,
             y: 0,
@@ -209,7 +206,7 @@ export class PlaneFly extends ObserverComponent {
 
     explodeRocket() {
         this.tweenDeltaTime?.stop();
-        this.startedRocketFlying = false;
+        this.startedPlaneFlying = false;
         this.cpnPlane.explode();
     }
 
