@@ -104,7 +104,7 @@ export class PlaneFly extends ObserverComponent {
 
         if (!this.startedPlaneFlying) {
             if (!this.isFlyFullTime(time) && this.cpnPlane?.node?.parent) {
-                this.cpnPlane.node.parent.position = v3(0, this.cpnPlane.altitude, 0);
+                this.cpnPlane.node.parent.position = v3(this.cpnPlane.distanceTakeOff, this.cpnPlane.altitude, 0);
             }
 
             this.cpnPlane.startFly();

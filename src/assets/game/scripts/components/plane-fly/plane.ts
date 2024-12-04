@@ -19,7 +19,6 @@ export class Plane extends Component {
         return this.plane.getChildByName("skeleton").getComponent(sp.Skeleton);
     }
 
-    private rotationTween: Tween<Node>;
     private positionTween: Tween<Node>;
     readonly durationPlanTakeOff = 1.6;
     readonly altitude = 185;
@@ -61,9 +60,7 @@ export class Plane extends Component {
         this.stopAnimation();
         this.setPlaneVisibility(true);
         this.setExplosionPlaneVisibility(false);
-        const onFinished = () => {};
         if (!animated) {
-            onFinished();
             return;
         }
 
@@ -71,9 +68,7 @@ export class Plane extends Component {
             .delay(2)
             .to(2, { eulerAngles: v3(0, 0, startRotation) }, { easing: "sineOut" })
             .delay(2)
-            .call(() => {
-                onFinished();
-            })
+
             .start();
     }
 
@@ -83,7 +78,6 @@ export class Plane extends Component {
     }
 
     stopAnimation() {
-        this.rotationTween?.stop();
         this.positionTween?.stop();
     }
 }

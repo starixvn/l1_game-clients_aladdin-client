@@ -82,16 +82,23 @@ export class BackgroundControl extends ObserverComponent {
 
     resetBackground() {
         this.isBgMoving = false;
-        Tween.stopAllByTarget(this.nodeContainerBackground);
 
-        if (this.nodeBg1) {
-            this.nodeBg1.position = v3(0, 0, 0);
-            this.nodeBg1.scale = v3(1, 1, 1);
-        }
+        Tween.stopAllByTarget(this?.nodeContainerBackground);
+        tween(this.node)
+            .delay(1)
+            .call(() => {
+                this.nodeContainerBackground && (this.nodeContainerBackground.position = v3(0, 0, 0));
 
-        if (this.nodeBg2) {
-            this.nodeBg2.position = v3(1398, 0, 0);
-            this.nodeBg2.scale = v3(-1, 1, 1);
-        }
+                if (this.nodeBg1) {
+                    this.nodeBg1.position = v3(0, 0, 0);
+                    this.nodeBg1.scale = v3(1, 1, 1);
+                }
+
+                if (this.nodeBg2) {
+                    this.nodeBg2.position = v3(this.currentWidth, 0, 0);
+                    this.nodeBg2.scale = v3(-1, 1, 1);
+                }
+            })
+            .start();
     }
 }
