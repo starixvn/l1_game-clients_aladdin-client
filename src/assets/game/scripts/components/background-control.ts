@@ -88,6 +88,7 @@ export class BackgroundControl extends ObserverComponent {
     resetBackground() {
         this.isBgMoving = false;
         Tween.stopAllByTarget(this.nodeContainerBackground);
+        let lastUpdateX = Math.abs(this.nodeContainerBackground?.position?.x);
         tween(this.nodeContainerBackground)
             .to(
                 1,
@@ -97,24 +98,30 @@ export class BackgroundControl extends ObserverComponent {
                     onUpdate: () => {
                         const currentX = Math.abs(this.nodeContainerBackground?.position?.x);
                         console.log("currentX", currentX);
-                        if (currentX - this.nodeBg1?.position?.x) {
+
+                        if (Math.abs(lastUpdateX - currentX) >= this.currentWidth) {
+                            // Chỉ cập nhật khi giá trị X thay đổi đủ lớn
+                            if (this.nodeBg1?.position?.x > this.nodeBg2?.position?.x) {
+                                const newX = this.nodeBg1?.position?.x - this.currentWidth;
+                                this.nodeBg2?.setPosition(v3(newX, this.nodeBg1.position.y, this.nodeBg1.position.z));
+                            } else {
+                                const newX = this.nodeBg2?.position?.x - this.currentWidth;
+                                this.nodeBg1?.setPosition(v3(newX, this.nodeBg2.position.y, this.nodeBg2.position.z));
+                            }
+                            console.log("resetBackground", currentX);
+
+                            // Cập nhật giá trị lastUpdateX
+                            lastUpdateX = currentX;
                         }
-                        // if (this.nodeBg1?.position?.x > this?.nodeBg2?.position?.x) {
-                        //     // Di chuyển `nodeBg2` sang bên phải `nodeBg1`
-                        //     const newX = this.nodeBg1?.position?.x + this.currentWidth;
-                        //     this.nodeBg2?.setPosition(v3(newX, this.nodeBg1.position.y, this.nodeBg1.position.z));
-                        // } else {
-                        //     // Di chuyển `nodeBg1` sang bên phải `nodeBg2`
-                        //     const newX = this.nodeBg2?.position?.x + this.currentWidth;
-                        //     this.nodeBg1?.setPosition(v3(newX, this.nodeBg2.position.y, this.nodeBg2.position.z));
-                        // }
+
+                        if (currentX < 20) {
+                            this.nodeBg1 && (this.nodeBg1.position = v3(0, 0, 0));
+                            this.nodeBg2 && (this.nodeBg2.position = v3(this.currentWidth, 0, 0));
+                        }
                     },
                 }
             )
 
             .start();
-
-        this.nodeBg1 && (this.nodeBg1.position = v3(0, 0, 0));
-        this.nodeBg2 && (this.nodeBg2.position = v3(this.currentWidth, 0, 0));
     }
 }

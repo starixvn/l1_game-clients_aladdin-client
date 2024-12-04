@@ -40,6 +40,7 @@ export class PlaneFly extends ObserverComponent {
     private reachedLimitX = false;
     private preparingRocket = false;
     private tweenDeltaTime: Tween<TweenDeltaTime>;
+    private readonly durationTakeOff = 1.6;
 
     isFirstRun = false;
 
@@ -115,7 +116,7 @@ export class PlaneFly extends ObserverComponent {
         if (!this.reachedLimitX) {
             this.flyRocket(this.deltaTime, false);
             if (deltaTime < this.cpnPlane.durationPlanTakeOff) {
-                // !this.isFirstRun && this.movingRocketContainer();
+                !this.isFirstRun && this.movingRocketContainer();
             }
         }
     }
@@ -161,15 +162,15 @@ export class PlaneFly extends ObserverComponent {
 
     movingRocketContainer() {
         const container = this.cpnPlane.node.parent;
-        const destPosition = v3(200, 50);
+        const destPosition = v3(200, 185);
 
         Tween.stopAllByTarget(container);
         tween(container)
             .parallel(
-                tween().to(1.5, { position: destPosition }),
+                tween().to(this.durationTakeOff, { position: destPosition }),
                 tween()
-                    .to(0.8, { eulerAngles: v3(0, 0, 30) }, { easing: "quadOut" })
-                    .to(0.7, { eulerAngles: v3(0, 0, 0) }, { easing: "quadInOut" })
+                    .to(1.4, { eulerAngles: v3(0, 0, 17) }, { easing: "quadOut" })
+                    .to(0.2, { eulerAngles: v3(0, 0, 0) }, { easing: "quadInOut" })
             )
             .start();
 

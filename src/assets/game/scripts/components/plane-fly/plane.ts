@@ -29,17 +29,17 @@ export class Plane extends Component {
     }
 
     startFly(time: number) {
-        const isFullTme = time < this.durationPlanTakeOff;
-        isFullTme && this.setRocketAnim(PlaneAnim.PLANE_TAKE_OFF, false);
-        const duration = this.skePlane?.findAnimation(PlaneAnim.PLANE_TAKE_OFF).duration;
-        duration > 0 &&
-            tween(this.node)
-                .delay(isFullTme ? duration : 0)
-                .call(() => {
-                    this.skePlane.setAnimation(0, PlaneAnim.FLY, true);
-                })
-                .start();
-        // this.skePlane.setAnimation(0, PlaneAnim.FLY, true);
+        // const isFullTme = time < this.durationPlanTakeOff;
+        // isFullTme && this.setRocketAnim(PlaneAnim.PLANE_TAKE_OFF, false);
+        // const duration = this.skePlane?.findAnimation(PlaneAnim.PLANE_TAKE_OFF).duration;
+        // duration > 0 &&
+        //     tween(this.node)
+        //         .delay(isFullTme ? duration : 0)
+        //         .call(() => {
+        //             this.skePlane.setAnimation(0, PlaneAnim.FLY, true);
+        //         })
+        //         .start();
+        this.skePlane.setAnimation(0, PlaneAnim.FLY, true);
     }
 
     setRocketAnim(name: string, loop: boolean) {
