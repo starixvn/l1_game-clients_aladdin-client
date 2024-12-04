@@ -116,7 +116,6 @@ export class PlaneFly extends ObserverComponent {
     private updateDeltaTime(deltaTime: number) {
         this.deltaTime = deltaTime;
         if (!this.reachedLimitX) {
-            // this.flyRocket(this.deltaTime, false);
             if (this.isFlyFullTime(deltaTime)) {
                 !this.isFirstRun && this.takeOffLane();
             }
@@ -200,7 +199,7 @@ export class PlaneFly extends ObserverComponent {
     explodeRocket() {
         this.tweenDeltaTime?.stop();
         this.startedPlaneFlying = false;
-        this.cpnPlane.explode();
+        this.cpnPlane.explode(this.isFlyFullTime(this.deltaTime));
     }
 
     getTimerRate() {

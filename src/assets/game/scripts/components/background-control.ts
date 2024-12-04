@@ -31,7 +31,6 @@ export class BackgroundControl extends ObserverComponent {
     onLoad(): void {
         super.onLoad();
         this.nodeBg1?.getComponent(UITransform) && (this.currentWidth = this.nodeBg1?.getComponent(UITransform)?.width);
-        log("bg currentWidth---", this.currentWidth);
     }
 
     protected update(dt: number): void {
@@ -82,9 +81,11 @@ export class BackgroundControl extends ObserverComponent {
 
     resetBackground() {
         this.isBgMoving = false;
-
         Tween.stopAllByTarget(this?.nodeContainerBackground);
-        tween(this.node)
+        Tween.stopAllByTarget(this?.nodeBg1);
+        Tween.stopAllByTarget(this?.nodeBg2);
+
+        tween(this?.node)
             .delay(1)
             .call(() => {
                 this.nodeContainerBackground && (this.nodeContainerBackground.position = v3(0, 0, 0));

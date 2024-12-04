@@ -9,6 +9,7 @@ export const PlaneAnim = {
     PLANE_TAKE_OFF: "catcanh",
     IDLE: "idle",
     EXPLOSION: "crash",
+    EXPLOSION_AT_SPOT: "crash-taicho",
     GIF: "gif",
 };
 
@@ -46,8 +47,8 @@ export class Plane extends Component {
         this.plane.active = status;
     }
 
-    setExplosionPlaneVisibility(status: boolean) {
-        status && this.setPlaneAnim(PlaneAnim.EXPLOSION, false);
+    setExplosionPlaneVisibility(status: boolean, isSpot = false) {
+        status && this.setPlaneAnim(isSpot ? PlaneAnim.EXPLOSION_AT_SPOT : PlaneAnim.EXPLOSION, false);
     }
 
     updatePosition(pos: Vec3, isAnimated = false, duration = 0.1) {
@@ -77,9 +78,9 @@ export class Plane extends Component {
             .start();
     }
 
-    explode() {
+    explode(isSpot = false) {
         this.stopAnimation();
-        this.setExplosionPlaneVisibility(true);
+        this.setExplosionPlaneVisibility(true, isSpot);
         this.playBackgroundTransition();
     }
 
