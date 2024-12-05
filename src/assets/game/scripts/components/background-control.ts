@@ -73,27 +73,19 @@ export class BackgroundControl extends ObserverComponent {
         const currentContainerX = this.nodeContainerBackground?.position?.x - this.moveSpeed * dt;
         const positiveX = Math.abs(currentContainerX);
         this.nodeContainerBackground?.setPosition(v3(currentContainerX, 0, 0));
-        if (positiveX > this.currentBgWidth + this.positionUpdateRepeatBg) {
+        if (positiveX >= this.currentBgWidth + this.positionUpdateRepeatBg) {
             this.positionUpdateRepeatBg = positiveX;
             const nodes = [this.nodeBg1, this.nodeBg2, this.nodeBg3];
             nodes.sort((a, b) => a.position.x - b.position.x);
             const leftmostNode = nodes[0];
             const rightmostNode = nodes[nodes.length - 1];
-            let scaleNewX = 1;
-            let anchorNewX = 0;
             const scaleXMiddle = rightmostNode.scale.x;
-            const anchorXMiddle = rightmostNode.getComponent(UITransform).anchorX;
-
-            if (scaleXMiddle === 1 && anchorXMiddle === 0) {
-                scaleNewX = -1;
-                anchorNewX = 1;
-            }
+            let scaleNewX = -scaleXMiddle;
 
             // Move leftmost node to the right of the rightmost node
             const newX = rightmostNode.position.x + this.currentBgWidth;
             leftmostNode.setPosition(v3(newX, rightmostNode.position.y, rightmostNode.position.z));
             leftmostNode.scale = v3(scaleNewX, 1, 1);
-            leftmostNode.getComponent(UITransform).setAnchorPoint(v2(anchorNewX, 0));
 
             log(`Trigger event at positiveX: ${positiveX}`);
         }
@@ -108,23 +100,19 @@ export class BackgroundControl extends ObserverComponent {
             }
         });
 
-        const resetNode = (node: Node | undefined, position: Vec3, scale: Vec3, anchorPoint: Vec2) => {
+        const resetNode = (node: Node | undefined, position: Vec3, scale: Vec3) => {
             if (!node) return;
             node.position = position;
             node.scale = scale;
-            const uiTransform = node.getComponent(UITransform);
-            if (uiTransform) {
-                uiTransform.setAnchorPoint(anchorPoint);
-            }
         };
 
         tween(this?.node)
             .delay(1)
             .call(() => {
-                resetNode(this.nodeContainerBackground, v3(0, 0, 0), v3(1, 1, 1), v2(0, 0));
-                resetNode(this.nodeBg1, v3(0, 0, 0), v3(1, 1, 1), v2(0, 0));
-                resetNode(this.nodeBg2, v3(this.currentBgWidth, 0, 0), v3(-1, 1, 1), v2(1, 0));
-                resetNode(this.nodeBg3, v3(this.currentBgWidth * 2, 0, 0), v3(1, 1, 1), v2(0, 0));
+                resetNode(this.nodeContainerBackground, v3(0, 0, 0), v3(1, 1, 1));
+                resetNode(this.nodeBg1, v3(0, 0, 0), v3(1, 1, 1));
+                resetNode(this.nodeBg2, v3(this.currentBgWidth, 0, 0), v3(-1, 1, 1));
+                resetNode(this.nodeBg3, v3(this.currentBgWidth * 2, 0, 0), v3(1, 1, 1));
             })
             .start();
     }
