@@ -67,7 +67,7 @@ export class BackgroundControl extends ObserverComponent {
 
         if (currentX > this.currentWidth + this.positionUpdateRepeatBg) {
             this.positionUpdateRepeatBg = currentX;
-            const offset = currentX - this.positionUpdateRepeatBg;
+            const offset = currentX % this.currentWidth;
             if (this.nodeBg1.position.x < this.nodeBg2.position.x) {
                 const newX = this.nodeBg2.position.x + this.currentWidth - offset;
                 this.nodeBg1.setPosition(v3(newX, this.nodeBg2.position.y, this.nodeBg2.position.z));
