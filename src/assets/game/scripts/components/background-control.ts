@@ -1,5 +1,5 @@
 import gc from "@sg/game-client-base";
-import { Node, Tween, UITransform, Vec3, _decorator, tween, v3, log, Color } from "cc";
+import { Node, Tween, UITransform, Vec3, _decorator, tween, v3, log, Color, screen, Vec2, v2 } from "cc";
 import Observer from "observer";
 const { Settlements, GameCrash } = gc;
 
@@ -21,16 +21,25 @@ export class BackgroundControl extends ObserverComponent {
     @property(Node)
     nodeBg2: Node = null;
 
+    @property(Node)
+    nodeBg3: Node = null;
+
     @property({ type: Number })
     moveSpeed = 200; //pixel/s
 
     private isBgMoving = false;
-    protected currentWidth = 1398;
+    protected currentScreenWidth = 0;
+    protected currentBgWidth = 0;
     protected positionUpdateRepeatBg = 0;
 
     onLoad(): void {
         super.onLoad();
-        this.nodeBg1?.getComponent(UITransform) && (this.currentWidth = this.nodeBg1?.getComponent(UITransform)?.width);
+        this.nodeBg1?.getComponent(UITransform) && (this.currentBgWidth = this.nodeBg1?.getComponent(UITransform)?.width);
+        if (screen.windowSize) {
+            this.currentScreenWidth = screen.windowSize?.width ?? 1398;
+        }
+
+        log("currentScreenWidth", this.currentScreenWidth);
     }
 
     protected update(dt: number): void {
@@ -38,7 +47,7 @@ export class BackgroundControl extends ObserverComponent {
     }
 
     @render(GameCrash.CrashMultiplier.MultiplierStore, (store) => store.time, { fireImmediately: false })
-    renderPlaneTime(time: number) {
+    renderBackgroundTime(time: number) {
         if (!this.isBgMoving) {
             this.isBgMoving = true;
         }
@@ -61,44 +70,61 @@ export class BackgroundControl extends ObserverComponent {
     }
 
     startMovingBackground(dt: number) {
-        const currentX = Math.ceil(Math.abs(this.nodeContainerBackground?.position?.x));
-        const newX = this.nodeContainerBackground?.position?.x - this.moveSpeed * dt;
-        this.nodeContainerBackground?.setPosition(v3(newX, 0, 0));
+        const currentContainerX = this.nodeContainerBackground?.position?.x - this.moveSpeed * dt;
+        const positiveX = Math.abs(currentContainerX);
+        this.nodeContainerBackground?.setPosition(v3(currentContainerX, 0, 0));
+        if (positiveX > this.currentBgWidth + this.positionUpdateRepeatBg) {
+            this.positionUpdateRepeatBg = positiveX;
+            const nodes = [this.nodeBg1, this.nodeBg2, this.nodeBg3];
+            nodes.sort((a, b) => a.position.x - b.position.x);
+            const leftmostNode = nodes[0];
+            const rightmostNode = nodes[nodes.length - 1];
+            let scaleNewX = 1;
+            let anchorNewX = 0;
+            const scaleXMiddle = rightmostNode.scale.x;
+            const anchorXMiddle = rightmostNode.getComponent(UITransform).anchorX;
 
-        if (currentX > this.currentWidth + this.positionUpdateRepeatBg) {
-            this.positionUpdateRepeatBg = currentX;
-            const offset = currentX % this.currentWidth;
-            if (this.nodeBg1.position.x < this.nodeBg2.position.x) {
-                const newX = this.nodeBg2.position.x + this.currentWidth - offset;
-                this.nodeBg1.setPosition(v3(newX, this.nodeBg2.position.y, this.nodeBg2.position.z));
-            } else {
-                const newX = this.nodeBg1.position.x + this.currentWidth - offset;
-                this.nodeBg2.setPosition(v3(newX, this.nodeBg1.position.y, this.nodeBg1.position.z));
+            if (scaleXMiddle === 1 && anchorXMiddle === 0) {
+                scaleNewX = -1;
+                anchorNewX = 1;
             }
-            log(`Trigger event at currentX: ${currentX}`);
+
+            // Move leftmost node to the right of the rightmost node
+            const newX = rightmostNode.position.x + this.currentBgWidth;
+            leftmostNode.setPosition(v3(newX, rightmostNode.position.y, rightmostNode.position.z));
+            leftmostNode.scale = v3(scaleNewX, 1, 1);
+            leftmostNode.getComponent(UITransform).setAnchorPoint(v2(anchorNewX, 0));
+
+            log(`Trigger event at positiveX: ${positiveX}`);
         }
     }
 
     resetBackground() {
         this.isBgMoving = false;
-        Tween.stopAllByTarget(this?.nodeContainerBackground);
-        Tween.stopAllByTarget(this?.nodeBg1);
-        Tween.stopAllByTarget(this?.nodeBg2);
+
+        [this?.nodeContainerBackground, this?.nodeBg1, this?.nodeBg2, this?.nodeBg3].forEach((target) => {
+            if (target) {
+                Tween.stopAllByTarget(target);
+            }
+        });
+
+        const resetNode = (node: Node | undefined, position: Vec3, scale: Vec3, anchorPoint: Vec2) => {
+            if (!node) return;
+            node.position = position;
+            node.scale = scale;
+            const uiTransform = node.getComponent(UITransform);
+            if (uiTransform) {
+                uiTransform.setAnchorPoint(anchorPoint);
+            }
+        };
 
         tween(this?.node)
             .delay(1)
             .call(() => {
-                this.nodeContainerBackground && (this.nodeContainerBackground.position = v3(0, 0, 0));
-
-                if (this.nodeBg1) {
-                    this.nodeBg1.position = v3(0, 0, 0);
-                    this.nodeBg1.scale = v3(1, 1, 1);
-                }
-
-                if (this.nodeBg2) {
-                    this.nodeBg2.position = v3(this.currentWidth, 0, 0);
-                    this.nodeBg2.scale = v3(-1, 1, 1);
-                }
+                resetNode(this.nodeContainerBackground, v3(0, 0, 0), v3(1, 1, 1), v2(0, 0));
+                resetNode(this.nodeBg1, v3(0, 0, 0), v3(1, 1, 1), v2(0, 0));
+                resetNode(this.nodeBg2, v3(this.currentBgWidth, 0, 0), v3(-1, 1, 1), v2(1, 0));
+                resetNode(this.nodeBg3, v3(this.currentBgWidth * 2, 0, 0), v3(1, 1, 1), v2(0, 0));
             })
             .start();
     }
