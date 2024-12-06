@@ -106,7 +106,9 @@ export class BackgroundControl extends ObserverComponent {
                 this.backgroundNodes.forEach((node, index) => {
                     if (!node) return;
                     const xPos = this.currentBgWidth * index;
-                    const scaleX = index === 1 ? -1 : 1; // Middle node is flipped
+                    const previousNode = this.backgroundNodes[index - 1];
+                    const scaleX = previousNode && previousNode.scale.x === 1 ? -1 : 1; // Middle node is flipped
+
                     resetNode(node, v3(xPos, node.position.y, 0), v3(scaleX, 1, 1));
                 });
             })
