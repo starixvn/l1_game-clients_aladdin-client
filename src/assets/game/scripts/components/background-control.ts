@@ -29,7 +29,7 @@ export class BackgroundControl extends ObserverComponent {
 
     private isBgMoving = false;
     protected currentBgWidth = 0;
-    protected lastPositionBg = 0;
+    protected lastCompletedScrollDistance = 0;
 
     onLoad(): void {
         super.onLoad();
@@ -60,29 +60,32 @@ export class BackgroundControl extends ObserverComponent {
 
         Tween.stopAllByTarget(this.nodeContainerBackground);
         this.isBgMoving = false;
-        this.lastPositionBg = 0;
+        this.lastCompletedScrollDistance = 0;
     }
 
     startMovingBackground(dt: number) {
         const currentContainerX = this.nodeContainerBackground?.position?.x - this.moveSpeed * dt;
         const positiveX = Math.abs(currentContainerX);
-        const offsetX = this.currentBgWidth / 3;
+        const triggerThreshold = this.currentBgWidth / 3;
         this.nodeContainerBackground?.setPosition(v3(currentContainerX, 0, 0));
-        if (positiveX - offsetX >= this.currentBgWidth + this.lastPositionBg) {
-            this.lastPositionBg = positiveX;
-            const nodes = [this.nodeBg1, this.nodeBg2, this.nodeBg3];
+        if (positiveX - triggerThreshold > this.currentBgWidth + this.lastCompletedScrollDistance) {
+            const bgOverflowDistance = positiveX % this.currentBgWidth;
+            this.lastCompletedScrollDistance = positiveX - bgOverflowDistance;
+            const nodes = [this.nodeBg1, this.nodeBg2, this.nodeBg3].filter((node) => node != null);
             nodes.sort((a, b) => a.position.x - b.position.x);
             const leftmostNode = nodes[0];
             const rightmostNode = nodes[nodes.length - 1];
-            const scaleXMiddle = rightmostNode.scale.x;
+            const scaleXMiddle = rightmostNode?.scale?.x;
             let scaleNewX = -scaleXMiddle;
 
             // Move leftmost node to the right of the rightmost node
             const newX = rightmostNode.position.x + this.currentBgWidth;
-            leftmostNode.setPosition(v3(newX, rightmostNode.position.y, rightmostNode.position.z));
-            leftmostNode.scale = v3(scaleNewX, 1, 1);
+            if (leftmostNode && newX > 0) {
+                leftmostNode.setPosition(v3(newX, rightmostNode.position.y, rightmostNode.position.z));
+                leftmostNode.scale = v3(scaleNewX, 1, 1);
+            }
 
-            log(`Trigger event at positiveX: ${positiveX} - ${positiveX - offsetX}`);
+            console.log(`Trigger event at positiveX: ${positiveX} `);
         }
     }
 
