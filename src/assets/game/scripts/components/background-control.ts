@@ -29,7 +29,7 @@ export class BackgroundControl extends ObserverComponent {
 
     private isBgMoving = false;
     protected currentBgWidth = 0;
-    protected positionUpdateRepeatBg = 0;
+    protected lastPositionBg = 0;
 
     onLoad(): void {
         super.onLoad();
@@ -60,16 +60,16 @@ export class BackgroundControl extends ObserverComponent {
 
         Tween.stopAllByTarget(this.nodeContainerBackground);
         this.isBgMoving = false;
-        this.positionUpdateRepeatBg = 0;
+        this.lastPositionBg = 0;
     }
 
     startMovingBackground(dt: number) {
         const currentContainerX = this.nodeContainerBackground?.position?.x - this.moveSpeed * dt;
         const positiveX = Math.abs(currentContainerX);
-        const offsetX = this.currentBgWidth / 2;
+        const offsetX = this.currentBgWidth / 3;
         this.nodeContainerBackground?.setPosition(v3(currentContainerX, 0, 0));
-        if (positiveX - offsetX >= this.currentBgWidth + this.positionUpdateRepeatBg) {
-            this.positionUpdateRepeatBg = positiveX;
+        if (positiveX - offsetX >= this.currentBgWidth + this.lastPositionBg) {
+            this.lastPositionBg = positiveX;
             const nodes = [this.nodeBg1, this.nodeBg2, this.nodeBg3];
             nodes.sort((a, b) => a.position.x - b.position.x);
             const leftmostNode = nodes[0];
@@ -82,7 +82,7 @@ export class BackgroundControl extends ObserverComponent {
             leftmostNode.setPosition(v3(newX, rightmostNode.position.y, rightmostNode.position.z));
             leftmostNode.scale = v3(scaleNewX, 1, 1);
 
-            log(`Trigger event at positiveX: ${positiveX}`);
+            log(`Trigger event at positiveX: ${positiveX} - ${positiveX - offsetX}`);
         }
     }
 
