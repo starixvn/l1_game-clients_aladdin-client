@@ -28,18 +28,12 @@ export class BackgroundControl extends ObserverComponent {
     moveSpeed = 200; //pixel/s
 
     private isBgMoving = false;
-    protected currentScreenWidth = 0;
     protected currentBgWidth = 0;
     protected positionUpdateRepeatBg = 0;
 
     onLoad(): void {
         super.onLoad();
         this.nodeBg1?.getComponent(UITransform) && (this.currentBgWidth = this.nodeBg1?.getComponent(UITransform)?.width);
-        if (screen.windowSize) {
-            this.currentScreenWidth = screen.windowSize?.width ?? 1398;
-        }
-
-        log("currentScreenWidth", this.currentScreenWidth);
     }
 
     protected update(dt: number): void {
@@ -72,8 +66,9 @@ export class BackgroundControl extends ObserverComponent {
     startMovingBackground(dt: number) {
         const currentContainerX = this.nodeContainerBackground?.position?.x - this.moveSpeed * dt;
         const positiveX = Math.abs(currentContainerX);
+        const offsetX = this.currentBgWidth / 2;
         this.nodeContainerBackground?.setPosition(v3(currentContainerX, 0, 0));
-        if (positiveX >= this.currentBgWidth + this.positionUpdateRepeatBg) {
+        if (positiveX - offsetX >= this.currentBgWidth + this.positionUpdateRepeatBg) {
             this.positionUpdateRepeatBg = positiveX;
             const nodes = [this.nodeBg1, this.nodeBg2, this.nodeBg3];
             nodes.sort((a, b) => a.position.x - b.position.x);
