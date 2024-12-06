@@ -194,6 +194,10 @@ export const languages = {
         "you_reach_max_win": "Anda mencapai Maksimal Menang"
     },
     "ChristmasX": {
+        "game_icon_name": "CHRISTMAS X",
+        "game_name": "Christmas X"
+    },
+    "Spaceflight": {
         "Start_in ": "Mulai masuk",
         "auto_cashout": "CASHOUT OTOMATIS",
         "auto_play": "AUTO-PLAY",
@@ -206,8 +210,8 @@ export const languages = {
         "crash": "Jatuh",
         "crashed": "TERJATUH",
         "current_multiplier": "Pengganda Saat Ini",
-        "game_icon_name": "CHRISTMAS X",
-        "game_name": "Christmas X",
+        "game_icon_name": "PENERBANGAN\nANTARIKSA",
+        "game_name": "Penerbangan Antariksa",
         "glossary_bet": "Taruhan",
         "glossary_crash_point": "Titik jatuh",
         "glossary_option": "Pilihan",

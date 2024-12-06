@@ -194,6 +194,10 @@ export const languages = {
         "you_reach_max_win": "您达到了最大胜利"
     },
     "ChristmasX": {
+        "game_icon_name": "CHRISTMAS X",
+        "game_name": "Christmas X"
+    },
+    "Spaceflight": {
         "Start_in ": "开始于",
         "auto_cashout": "自动兑现",
         "auto_play": "自动游戏",
@@ -206,8 +210,8 @@ export const languages = {
         "crash": "爆炸",
         "crashed": "坠毁",
         "current_multiplier": "当前倍数",
-        "game_icon_name": "CHRISTMAS X",
-        "game_name": "Christmas X",
+        "game_icon_name": "航天",
+        "game_name": "航天",
         "glossary_bet": "赌注",
         "glossary_crash_point": "崩溃点",
         "glossary_option": "选项",

@@ -194,6 +194,10 @@ export const languages = {
         "you_reach_max_win": "คุณถึงยอดชนะสูงสุด"
     },
     "ChristmasX": {
+        "game_icon_name": "CHRISTMAS X",
+        "game_name": "Christmas X"
+    },
+    "Spaceflight": {
         "Start_in ": "เริ่มเข้า",
         "auto_cashout": "ถอนเงินอัตโนมัติ",
         "auto_play": "เล่นอัตโนมัติ",
@@ -206,8 +210,8 @@ export const languages = {
         "crash": "ชน",
         "crashed": "ล้มเหลว",
         "current_multiplier": "ตัวคูณปัจจุบัน",
-        "game_icon_name": "CHRISTMAS X",
-        "game_name": "Christmas X",
+        "game_icon_name": "การบินอวกาศ",
+        "game_name": "การบินอวกาศ",
         "glossary_bet": "เดิมพัน",
         "glossary_crash_point": "แต้มการพังของจรวด",
         "glossary_option": "ตัวเลือก",

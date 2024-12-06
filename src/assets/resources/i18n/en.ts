@@ -194,6 +194,10 @@ export const languages = {
         "you_reach_max_win": "You reached the max win"
     },
     "ChristmasX": {
+        "game_icon_name": "CHRISTMAS X",
+        "game_name": "Christmas X"
+    },
+    "Spaceflight": {
         "Start_in ": "Start in ",
         "auto_cashout": "AUTO CASHOUT",
         "auto_play": "AUTO-PLAY",
@@ -207,8 +211,8 @@ export const languages = {
         "crash": "Crash",
         "crashed": "CRASHED",
         "current_multiplier": "Current Multiplier",
-        "game_icon_name": "CHRISTMAS X",
-        "game_name": "Christmas X",
+        "game_icon_name": "SPACEFLIGHT",
+        "game_name": "Spaceflight",
         "glossary_bet": "Bet",
         "glossary_crash_point": "Crash Point",
         "glossary_option": "Option",

@@ -194,6 +194,10 @@ export const languages = {
         "you_reach_max_win": "Bạn Đã Đạt Mức Tiền Thắng Tối Đa"
     },
     "ChristmasX": {
+        "game_icon_name": "CHRISTMAS X",
+        "game_name": "Christmas X"
+    },
+    "Spaceflight": {
         "Start_in ": "Bắt đầu sau",
         "auto_cashout": "TỰ ĐỘNG RÚT TIỀN",
         "auto_play": "CHƠI TỰ ĐỘNG",
@@ -207,8 +211,8 @@ export const languages = {
         "crash": "Nổ",
         "crashed": "ĐÃ NỔ",
         "current_multiplier": "Số Nhân Hiện Tại",
-        "game_icon_name": "CHRISTMAS X",
-        "game_name": "Christmas X",
+        "game_icon_name": "PHI THUYỀN\nKHÔNG GIAN",
+        "game_name": "Phi Thuyền Không Gian",
         "glossary_bet": "Cược",
         "glossary_crash_point": "Điểm Nổ",
         "glossary_option": "Lựa Chọn",
