@@ -15,14 +15,8 @@ export class BackgroundControl extends ObserverComponent {
     @property(Node)
     nodeContainerBackground: Node = null;
 
-    @property(Node)
-    nodeBg1: Node = null;
-
-    @property(Node)
-    nodeBg2: Node = null;
-
-    @property(Node)
-    nodeBg3: Node = null;
+    @property([Node])
+    backgroundNodes: Node[] = [null, null, null];
 
     @property({ type: Number })
     moveSpeed = 200; //pixel/s
@@ -33,7 +27,8 @@ export class BackgroundControl extends ObserverComponent {
 
     onLoad(): void {
         super.onLoad();
-        this.nodeBg1?.getComponent(UITransform) && (this.currentBgWidth = this.nodeBg1?.getComponent(UITransform)?.width);
+        this.backgroundNodes[0]?.getComponent(UITransform) &&
+            (this.currentBgWidth = this.backgroundNodes[0]?.getComponent(UITransform)?.width);
     }
 
     protected update(dt: number): void {
@@ -71,7 +66,7 @@ export class BackgroundControl extends ObserverComponent {
         if (positiveX - triggerThreshold > this.currentBgWidth + this.lastCompletedScrollDistance) {
             const bgOverflowDistance = positiveX % this.currentBgWidth;
             this.lastCompletedScrollDistance = positiveX - bgOverflowDistance;
-            const nodes = [this.nodeBg1, this.nodeBg2, this.nodeBg3].filter((node) => node != null);
+            const nodes = this.backgroundNodes.filter((node) => node != null);
             nodes.sort((a, b) => a.position.x - b.position.x);
             const leftmostNode = nodes[0];
             const rightmostNode = nodes[nodes.length - 1];
@@ -92,7 +87,7 @@ export class BackgroundControl extends ObserverComponent {
     resetBackground() {
         this.isBgMoving = false;
 
-        [this?.nodeContainerBackground, this?.nodeBg1, this?.nodeBg2, this?.nodeBg3].forEach((target) => {
+        [this?.nodeContainerBackground, ...this.backgroundNodes].forEach((target) => {
             if (target) {
                 Tween.stopAllByTarget(target);
             }
@@ -108,9 +103,12 @@ export class BackgroundControl extends ObserverComponent {
             .delay(1)
             .call(() => {
                 resetNode(this.nodeContainerBackground, v3(0, 0, 0), v3(1, 1, 1));
-                resetNode(this.nodeBg1, v3(0, this.nodeBg1.position.y, 0), v3(1, 1, 1));
-                resetNode(this.nodeBg2, v3(this.currentBgWidth, this.nodeBg2.position.y, 0), v3(-1, 1, 1));
-                resetNode(this.nodeBg3, v3(this.currentBgWidth * 2, this.nodeBg3.position.y, 0), v3(1, 1, 1));
+                this.backgroundNodes.forEach((node, index) => {
+                    if (!node) return;
+                    const xPos = this.currentBgWidth * index;
+                    const scaleX = index === 1 ? -1 : 1; // Middle node is flipped
+                    resetNode(node, v3(xPos, node.position.y, 0), v3(scaleX, 1, 1));
+                });
             })
             .start();
     }
