@@ -110,9 +110,9 @@ export class BackgroundControl extends ObserverComponent {
             .delay(1)
             .call(() => {
                 resetNode(this.nodeContainerBackground, v3(0, 0, 0), v3(1, 1, 1));
-                resetNode(this.nodeBg1, v3(0, 0, 0), v3(1, 1, 1));
-                resetNode(this.nodeBg2, v3(this.currentBgWidth, 0, 0), v3(-1, 1, 1));
-                resetNode(this.nodeBg3, v3(this.currentBgWidth * 2, 0, 0), v3(1, 1, 1));
+                resetNode(this.nodeBg1, v3(0, this.nodeBg1.position.y, 0), v3(1, 1, 1));
+                resetNode(this.nodeBg2, v3(this.currentBgWidth, this.nodeBg2.position.y, 0), v3(-1, 1, 1));
+                resetNode(this.nodeBg3, v3(this.currentBgWidth * 2, this.nodeBg3.position.y, 0), v3(1, 1, 1));
             })
             .start();
     }
