@@ -66,7 +66,7 @@ export class BackgroundControl extends ObserverComponent {
     startMovingBackground(dt: number) {
         const currentContainerX = this.nodeContainerBackground?.position?.x - this.moveSpeed * dt;
         const positiveX = Math.abs(currentContainerX);
-        const triggerThreshold = this.currentBgWidth / 3;
+        const triggerThreshold = this.currentBgWidth / 2;
         this.nodeContainerBackground?.setPosition(v3(currentContainerX, 0, 0));
         if (positiveX - triggerThreshold > this.currentBgWidth + this.lastCompletedScrollDistance) {
             const bgOverflowDistance = positiveX % this.currentBgWidth;
