@@ -6,7 +6,7 @@ import { sharedContainer } from "../../scripts/shared-container";
 export const settings = {
     id: 73,
     name: "Christmascrash",
-    namespaces: "Spaceflight",
+    namespaces: "ChristmasX",
     durations: {
         wholeRound: 14,
         lockingBet: 3,
