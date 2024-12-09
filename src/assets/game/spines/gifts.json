@@ -1,1 +1,139 @@
-{"skeleton":{"hash":"kLkUWz299kI4Mx2FD8v+EBB59ck","spine":"3.8.99","x":-14.86,"y":-14.52,"width":31,"height":32,"images":"","audio":"D:/MYWORKFOLDER/design/crashgame/ui/rocket2"},"bones":[{"name":"root"},{"name":"gift-main","parent":"root","color":"9b9b9b00"},{"name":"main","parent":"gift-main","x":-82.6,"y":70.16},{"name":"gif1","parent":"main"}],"slots":[{"name":"gif/gif1","bone":"gif1","attachment":"gif3"},{"name":"path","bone":"gift-main","attachment":"path"}],"path":[{"name":"gift-drop-cash-out","bones":["main"],"target":"path"}],"skins":[{"name":"default","attachments":{"gif/gif1":{"gif1":{"x":0.19,"y":-0.46,"rotation":-158.16,"width":32,"height":37},"gif3":{"x":-0.46,"y":-0.19,"rotation":-158.16,"width":31,"height":32}},"path":{"path":{"type":"path","lengths":[362.99,714.82],"vertexCount":6,"vertices":[85.18,-32.6,0.14,1.48,-92.3,38.53,-190.78,-93.87,-162.67,-262.57,-147.75,-352.1]}}}}],"animations":{"main":{"slots":{"gif/gif1":{"color":[{"time":0.9,"color":"ffffffff"},{"time":1.3333,"color":"ffffff00"}]}},"bones":{"gif1":{"rotate":[{"time":0.1667},{"time":0.3,"angle":60},{"time":0.4333,"angle":120},{"time":0.5667,"angle":180},{"time":0.7333,"angle":-120},{"time":0.9333,"angle":-40},{"time":1.1333,"angle":-1},{"time":1.3333,"angle":60}],"scale":[{"x":0,"y":0},{"time":0.1667,"x":1.2,"y":1.2},{"time":0.6667,"x":1.24,"y":1.24},{"time":1.3333,"x":1.2,"y":1.2}]}},"path":{"gift-drop-cash-out":{"position":[{"curve":0.25,"c3":0.75},{"time":1.3333,"position":1}]}}},"user":{"slots":{"gif/gif1":{"color":[{"time":0.9,"color":"ffffffff"},{"time":1.3333,"color":"ffffff00"}],"attachment":[{"name":"gif1"}]}},"bones":{"gif1":{"rotate":[{"time":0.1667},{"time":0.3,"angle":60},{"time":0.4333,"angle":120},{"time":0.5667,"angle":180},{"time":0.7333,"angle":-120},{"time":0.9333,"angle":-40},{"time":1.1333,"angle":-1},{"time":1.3333,"angle":60}],"scale":[{"x":0,"y":0},{"time":0.1667,"x":1.025,"y":1.025},{"time":0.6667,"x":0.96,"y":0.96},{"time":1.3333,"x":0.9,"y":0.9}]}},"path":{"gift-drop-cash-out":{"position":[{"curve":0.25,"c3":0.75},{"time":1.3333,"position":1}]}}}}}
+{
+    "skeleton": {
+        "hash": "TJJVIvlZaNigRmGvy03Fq7/Tjpg",
+        "spine": "3.8.99",
+        "x": -20.67,
+        "y": -19.32,
+        "width": 40.68,
+        "height": 41.24,
+        "images": "",
+        "audio": "D:/MYWORKFOLDER/design/crashgame/ui/rocket2"
+    },
+    "bones": [
+        { "name": "root" },
+        { "name": "gift-main", "parent": "root", "color": "9b9b9b00" },
+        { "name": "main", "parent": "gift-main", "x": -82.6, "y": 70.16 },
+        { "name": "gif1", "parent": "main" },
+        { "name": "text", "parent": "main", "x": -0.35, "y": 33.63 }
+    ],
+    "slots": [
+        { "name": "gif/gif1", "bone": "gif1", "attachment": "gif3" },
+        { "name": "path", "bone": "gift-main", "attachment": "path" },
+        { "name": "text", "bone": "text" }
+    ],
+    "path": [{ "name": "gift-drop-cash-out", "bones": ["main"], "target": "path", "rotateMix": 0 }],
+    "skins": [
+        {
+            "name": "default",
+            "attachments": {
+                "gif/gif1": {
+                    "gif1": { "x": 0.19, "y": -0.46, "rotation": -158.16, "width": 32, "height": 37 },
+                    "gif3": { "x": -0.46, "y": -0.19, "rotation": -158.16, "width": 31, "height": 32 }
+                },
+                "path": {
+                    "path": {
+                        "type": "path",
+                        "lengths": [390.7, 741.49],
+                        "vertexCount": 6,
+                        "vertices": [63.16, -65.02, 0.14, 1.48, -92.3, 99.02, -190.78, -93.87, -162.67, -262.57, -147.75, -352.1]
+                    }
+                }
+            }
+        }
+    ],
+    "animations": {
+        "main": {
+            "slots": {
+                "gif/gif1": {
+                    "color": [
+                        { "time": 1.1667, "color": "ffffffff" },
+                        { "time": 1.5667, "color": "ffffff00" }
+                    ]
+                },
+                "text": {
+                    "color": [
+                        { "color": "ffffff00" },
+                        { "time": 0.1333, "color": "ffffffff", "curve": "stepped" },
+                        { "time": 1, "color": "ffffffff" },
+                        { "time": 1.2333, "color": "ffffff00" }
+                    ]
+                }
+            },
+            "bones": {
+                "gif1": {
+                    "rotate": [
+                        { "time": 0.2667 },
+                        { "time": 0.4667, "angle": 60 },
+                        { "time": 0.6667, "angle": 120 },
+                        { "time": 0.8667, "angle": 180 },
+                        { "time": 1.1, "angle": -120 },
+                        { "time": 1.4, "angle": -40 },
+                        { "time": 1.7, "angle": -1 },
+                        { "time": 1.8667, "angle": 30 }
+                    ],
+                    "scale": [
+                        { "x": 0, "y": 0 },
+                        { "time": 0.2667, "x": 1.2, "y": 1.2 },
+                        { "time": 1, "x": 1.24, "y": 1.24 },
+                        { "time": 1.8667, "x": 1.2, "y": 1.2 }
+                    ]
+                }
+            },
+            "path": {
+                "gift-drop-cash-out": {
+                    "position": [
+                        { "curve": 0.25, "c3": 0.75 },
+                        { "time": 1.3333, "position": 1 }
+                    ]
+                }
+            }
+        },
+        "user": {
+            "slots": {
+                "gif/gif1": {
+                    "color": [
+                        { "time": 1, "color": "ffffffff" },
+                        { "time": 1.2333, "color": "ffffff00" }
+                    ],
+                    "attachment": [{ "name": "gif1" }]
+                },
+                "text": {
+                    "color": [
+                        { "color": "ffffff00" },
+                        { "time": 0.1333, "color": "ffffffff", "curve": "stepped" },
+                        { "time": 1, "color": "ffffffff" },
+                        { "time": 1.2333, "color": "ffffff00" }
+                    ]
+                }
+            },
+            "bones": {
+                "gif1": {
+                    "rotate": [
+                        { "time": 0.2 },
+                        { "time": 0.3667, "angle": 60 },
+                        { "time": 0.5333, "angle": 120 },
+                        { "time": 0.7, "angle": 180 },
+                        { "time": 0.9333, "angle": -120 },
+                        { "time": 1.1667, "angle": -40 },
+                        { "time": 1.4333, "angle": -1 },
+                        { "time": 1.6667, "angle": 30 }
+                    ],
+                    "scale": [
+                        { "x": 0, "y": 0 },
+                        { "time": 0.2, "x": 1.025, "y": 1.025 },
+                        { "time": 0.8333, "x": 0.96, "y": 0.96 },
+                        { "time": 1.6667, "x": 0.9, "y": 0.9 }
+                    ]
+                }
+            },
+            "path": {
+                "gift-drop-cash-out": {
+                    "position": [
+                        { "curve": 0.25, "c3": 0.75 },
+                        { "time": 1.3333, "position": 1 }
+                    ]
+                }
+            }
+        }
+    }
+}

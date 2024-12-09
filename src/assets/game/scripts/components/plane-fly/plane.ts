@@ -9,7 +9,7 @@ export const PlaneAnim = {
     PLANE_TAKE_OFF: "catcanh",
     IDLE: "idle",
     EXPLOSION: "crash",
-    EXPLOSION_AT_SPOT: "crash-taicho",
+    EXPLOSION_AT_GROUND: "snow",
     GIF: "gif",
 };
 
@@ -30,12 +30,12 @@ export class Plane extends Component {
 
     private positionTween: Tween<Node>;
     readonly durationPlanTakeOff = 1.6;
+    readonly durationCrash = 0.4;
     readonly altitude = 185;
     readonly distanceTakeOff = 540;
 
     onLoad() {
         this.setPlaneVisibility(false);
-        this.setExplosionPlaneVisibility(false);
         this.smoke.active = false;
     }
 
@@ -52,41 +52,29 @@ export class Plane extends Component {
         this.plane.active = status;
     }
 
-    setExplosionPlaneVisibility(status: boolean, isSpot = false) {
-        status && this.setPlaneAnim(isSpot ? PlaneAnim.EXPLOSION_AT_SPOT : PlaneAnim.EXPLOSION, false);
+    setExplosionPlaneVisibility() {
+        this.setPlaneAnim(PlaneAnim.EXPLOSION, false);
+        this.planeFall();
     }
 
-    updatePosition(pos: Vec3, isAnimated = false, duration = 0.1) {
-        if (isAnimated) {
-            this.positionTween?.stop();
-            this.positionTween = tween(this.node).to(duration, { position: pos }).start();
-        } else {
-            this.node.position = pos;
-        }
+    updatePosition(pos: Vec3) {
+        this.node.position = pos;
     }
 
-    preparePlane(startRotation: number, animated = true) {
+    preparePlane(animated = true) {
         this.smoke.active = false;
         this.node.active = true;
         this.setPlaneAnim(PlaneAnim.IDLE, true);
         this.stopAnimation();
         this.setPlaneVisibility(true);
-        this.setExplosionPlaneVisibility(false);
         if (!animated) {
             return;
         }
-
-        tween(this.node)
-            .delay(1)
-            .to(2, { eulerAngles: v3(0, 0, startRotation) }, { easing: "sineOut" })
-            .delay(2)
-
-            .start();
     }
 
-    explode(isSpot = false) {
+    explode() {
         this.stopAnimation();
-        this.setExplosionPlaneVisibility(true, isSpot);
+        this.setExplosionPlaneVisibility();
         this.smoke.active = false;
         this.playBackgroundTransition();
     }
@@ -97,5 +85,29 @@ export class Plane extends Component {
 
     async playBackgroundTransition() {
         this.spineBackground && (await AnimationUtils.playSpine(this.spineBackground, "transition"));
+    }
+
+    protected planeFall() {
+        const plane = this.node;
+        const currentAltitude = plane.position.y;
+        const destPosition = v3(plane.position.x, 0, 0);
+        const crashDuration = this.calculateFallDuration(currentAltitude);
+        tween(plane)
+            .parallel(
+                tween().to(crashDuration, { position: destPosition, eulerAngles: v3(0, 0, 0) }, { easing: "quadIn" }),
+                tween()
+                    .delay(crashDuration - 0.1)
+                    .call(() => {
+                        this.skePlane.setAnimation(0, PlaneAnim.EXPLOSION_AT_GROUND, false);
+                    })
+            )
+
+            .start();
+    }
+
+    private calculateFallDuration(currentAltitude: number): number {
+        const ratio = currentAltitude / this.altitude;
+
+        return Math.max(this.durationCrash * ratio, 0.1);
     }
 }

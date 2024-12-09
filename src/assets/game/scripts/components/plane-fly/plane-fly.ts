@@ -28,18 +28,13 @@ export class PlaneFly extends ObserverComponent {
     @property
     maxHeight = 0;
 
-    private readonly startRotation = 0;
-    private readonly graphWidth = 500;
-    private readonly graphMaxX = 32;
-    private readonly rawLimitX = 30;
-    private readonly graphScale = this.graphWidth / this.graphMaxX;
     private readonly smallExplosionMultiplier = 1.02;
-    private readonly graphTranslateDuration = this.rawLimitX * 1000;
     private deltaTime = 0;
     private startedPlaneFlying = false;
     private reachedLimitX = false;
     private preparingPlane = false;
     private tweenDeltaTime: Tween<TweenDeltaTime>;
+    private tweenTakeOff: Tween<Node>;
     private readonly durationTakeOff = 1.6;
 
     isFirstRun = false;
@@ -49,7 +44,7 @@ export class PlaneFly extends ObserverComponent {
     }
 
     onLoad() {
-        this.cpnPlane.updatePosition(this.startPosition, false);
+        this.cpnPlane.updatePosition(this.startPosition);
 
         super.onLoad();
     }
@@ -104,7 +99,7 @@ export class PlaneFly extends ObserverComponent {
 
         if (!this.startedPlaneFlying) {
             if (!this.isEnoughTakeOffTime(time) && this.cpnPlane?.node?.parent) {
-                this.cpnPlane.node.parent.position = v3(this.cpnPlane.distanceTakeOff, this.cpnPlane.altitude, 0);
+                this.cpnPlane.node.position = v3(this.cpnPlane.distanceTakeOff, this.cpnPlane.altitude, 0);
             }
 
             this.cpnPlane.startFly();
@@ -145,7 +140,7 @@ export class PlaneFly extends ObserverComponent {
 
     private prepareForPlane(animated: boolean) {
         this.preparingPlane = true;
-        this.cpnPlane.preparePlane(this.startRotation, animated);
+        this.cpnPlane.preparePlane(animated);
         this.cpnPlane.updatePosition(this.startPosition);
         this.resetPlaneContainer();
         this.reachedLimitX = false;
@@ -158,10 +153,10 @@ export class PlaneFly extends ObserverComponent {
     }
 
     takeOffLane() {
-        const container = this.cpnPlane.node.parent;
+        const plane = this.cpnPlane.node;
         const destPosition = v3(this.cpnPlane.distanceTakeOff, this.cpnPlane.altitude);
-        Tween.stopAllByTarget(container);
-        tween(container)
+        Tween.stopAllByTarget(plane);
+        this.tweenTakeOff = tween(plane)
             .parallel(
                 tween().to(this.durationTakeOff, { position: destPosition }),
                 tween()
@@ -183,27 +178,10 @@ export class PlaneFly extends ObserverComponent {
         return time / 1000;
     }
 
-    async flyRocket(time: number, animated = true) {
-        const scale = this.graphScale;
-        const rawLimitX = this.rawLimitX;
-        let rawX = this.getTimeInSeconds(time) * this.getTimerRate();
-        if (rawX >= rawLimitX) {
-            rawX = rawLimitX;
-            this.reachedLimitX = true;
-        }
-        const newPosition = this.calculatePlanePosition(rawX, scale);
-
-        this.cpnPlane.updatePosition(newPosition, animated);
-    }
-
     explodeRocket() {
         this.tweenDeltaTime?.stop();
+        this.tweenTakeOff?.stop();
         this.startedPlaneFlying = false;
-        this.cpnPlane.explode(this.isEnoughTakeOffTime(this.deltaTime));
-    }
-
-    getTimerRate() {
-        const x = Math.min(1, this.deltaTime / this.graphTranslateDuration);
-        return Math.pow(1 - x, 2) + 1;
+        this.cpnPlane.explode();
     }
 }
