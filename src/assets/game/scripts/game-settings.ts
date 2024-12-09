@@ -4,7 +4,7 @@ import { LogStore } from "db://shared-components/game/scripts/stores/log-store";
 import { sharedContainer } from "../../scripts/shared-container";
 
 export const settings = {
-    id: 73,
+    id: 106,
     name: "Christmascrash",
     namespaces: ["ChristmasX", "Spaceflight"],
     durations: {
