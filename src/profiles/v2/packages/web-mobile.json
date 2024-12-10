@@ -40,7 +40,12 @@
       "polyfills": {
         "asyncFunctions": true
       },
-      "md5Cache": false
+      "md5Cache": false,
+      "overwriteProjectSettings": {
+        "macroConfig": {
+          "cleanupImageCache": "off"
+        }
+      }
     },
     "options": {
       "web-mobile": {
