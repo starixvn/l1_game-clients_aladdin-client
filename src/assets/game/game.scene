@@ -1985,7 +1985,7 @@
     "value": {
       "__type__": "cc.Size",
       "width": 217.32000732421875,
-      "height": 138.36000061035156
+      "height": 140.17999267578125
     }
   },
   {
@@ -2005,7 +2005,7 @@
     "value": {
       "__type__": "cc.Vec2",
       "x": 0.5264586775548079,
-      "y": 0.3070974377784721
+      "y": 0.3031103145849126
     }
   },
   {
@@ -2337,6 +2337,29 @@
     "_isUnderline": false,
     "_underlineHeight": 2,
     "_cacheMode": 2,
+    "_enableOutline": false,
+    "_outlineColor": {
+      "__type__": "cc.Color",
+      "r": 0,
+      "g": 0,
+      "b": 0,
+      "a": 255
+    },
+    "_outlineWidth": 2,
+    "_enableShadow": false,
+    "_shadowColor": {
+      "__type__": "cc.Color",
+      "r": 0,
+      "g": 0,
+      "b": 0,
+      "a": 255
+    },
+    "_shadowOffset": {
+      "__type__": "cc.Vec2",
+      "x": 2,
+      "y": 2
+    },
+    "_shadowBlur": 2,
     "_id": "68H/4Ck9JPu4PtWLQpBPxV"
   },
   {
@@ -4316,7 +4339,7 @@
     "_prefab": null,
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": 2.115,
+      "x": 0,
       "y": 0,
       "z": 0
     },
@@ -4386,7 +4409,7 @@
       "a": 255
     },
     "_spriteFrame": {
-      "__uuid__": "2d67d332-0b65-4c26-aacf-03f54c9217cc@d4cb7",
+      "__uuid__": "2d67d332-0b65-4c26-aacf-03f54c9217cc@72970",
       "__expectedType__": "cc.SpriteFrame"
     },
     "_type": 1,
@@ -5706,7 +5729,6 @@
     "_timeScale": 1,
     "_preCacheMode": 0,
     "_cacheMode": 0,
-    "_defaultCacheMode": 0,
     "_sockets": [],
     "_useTint": false,
     "_debugMesh": false,
@@ -15417,16 +15439,30 @@
     "_isUnderline": false,
     "_underlineHeight": 2,
     "_cacheMode": 0,
-    "_id": "24iGec1D9F0I5s8SBXBLev",
     "_enableOutline": true,
-    "_outlineWidth": 1,
     "_outlineColor": {
       "__type__": "cc.Color",
       "r": 26,
       "g": 35,
       "b": 44,
       "a": 255
-    }
+    },
+    "_outlineWidth": 1,
+    "_enableShadow": false,
+    "_shadowColor": {
+      "__type__": "cc.Color",
+      "r": 0,
+      "g": 0,
+      "b": 0,
+      "a": 255
+    },
+    "_shadowOffset": {
+      "__type__": "cc.Vec2",
+      "x": 2,
+      "y": 2
+    },
+    "_shadowBlur": 2,
+    "_id": "24iGec1D9F0I5s8SBXBLev"
   },
   {
     "__type__": "cc.Widget",
@@ -16559,6 +16595,9 @@
     "lightProbeInfo": {
       "__id__": 832
     },
+    "postSettings": {
+      "__id__": 833
+    },
     "bakedWithStationaryMainLight": false,
     "bakedWithHighpLightmap": false
   },
@@ -16621,6 +16660,7 @@
       "z": 0
     },
     "_distance": 0,
+    "_planeBias": 1,
     "_shadowColor": {
       "__type__": "cc.Color",
       "r": 76,
@@ -16703,5 +16743,9 @@
     "_showConvex": false,
     "_data": null,
     "_lightProbeSphereVolume": 1
+  },
+  {
+    "__type__": "cc.PostSettingsInfo",
+    "_toneMappingType": 0
   }
 ]
