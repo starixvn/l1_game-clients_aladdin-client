@@ -6,7 +6,7 @@
       "outputName": "web-mobile",
       "mainBundleCompressionType": "merge_dep",
       "platform": "web-mobile",
-      "useSplashScreen": false,
+      "useSplashScreen": true,
       "skipCompressTexture": false,
       "mainBundleIsRemote": false,
       "startScene": "cdeb5c24-9ba8-4cab-a306-8a562fd04b39",
@@ -44,6 +44,9 @@
       "overwriteProjectSettings": {
         "macroConfig": {
           "cleanupImageCache": "off"
+        },
+        "includeModules": {
+          "gfx-webgl2": "off"
         }
       }
     },
