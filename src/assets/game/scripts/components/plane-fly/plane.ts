@@ -6,11 +6,9 @@ const { ccclass, property } = _decorator;
 export const PlaneAnim = {
     START: "idle",
     FLY: "bay",
-    PLANE_TAKE_OFF: "catcanh",
     IDLE: "idle",
     EXPLOSION: "crash",
     EXPLOSION_AT_GROUND: "snow",
-    GIF: "gif",
 };
 
 @ccclass()
