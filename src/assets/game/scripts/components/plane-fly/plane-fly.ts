@@ -1,9 +1,8 @@
 import gc from "@sg/game-client-base";
-import { _decorator, Node, toDegree, Tween, tween, UITransform, v3, Vec3 } from "cc";
+import { _decorator, Node, Tween, tween, v3, Vec3 } from "cc";
 import { AnimationUtils } from "db://shared-components/shared/utils";
 import Observer from "observer";
 
-import ColMultipliers from "../../../../../extensions/shared-components/assets/game-crash/col-multipliers/col-multipliers";
 import { ObserverComponent } from "../../../../../extensions/shared-components/assets/shared/common-components/observer-component/scripts/observer-component";
 import { BG_CLOSING_TRANSITION_DURATION } from "../background-control";
 import { Plane } from "./plane";
@@ -36,6 +35,7 @@ export class PlaneFly extends ObserverComponent {
     private tweenDeltaTime: Tween<TweenDeltaTime>;
     private tweenTakeOff: Tween<Node>;
     private readonly durationTakeOff = 1.6;
+    private readonly planeTakeOffSound = "plane_takeoff";
 
     isFirstRun = false;
 
@@ -153,6 +153,7 @@ export class PlaneFly extends ObserverComponent {
     }
 
     takeOffLane() {
+        this.playPlaneTakeOffSound();
         const plane = this.cpnPlane.node;
         const destPosition = v3(this.cpnPlane.distanceTakeOff, this.cpnPlane.altitude);
         Tween.stopAllByTarget(plane);
@@ -183,5 +184,10 @@ export class PlaneFly extends ObserverComponent {
         this.tweenTakeOff?.stop();
         this.startedPlaneFlying = false;
         this.cpnPlane.explode();
+    }
+
+    @handle(gc.Audios.AudioHandler, (handle, id: string) => handle.playSFX(id))
+    playPlaneTakeOffSound() {
+        return this.planeTakeOffSound;
     }
 }
