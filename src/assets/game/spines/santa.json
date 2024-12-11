@@ -1,10 +1,10 @@
 {
   "skeleton": {
-    "hash": "/D+sS5Eth1apbqoA5sIDHhrV9Nc",
+    "hash": "QWKRP/AXf/GSM8xK9YQzqQHfKho",
     "spine": "3.8.99",
     "x": -114.41,
     "y": -42.49,
-    "width": 217.32,
+    "width": 223.72,
     "height": 140.18,
     "images": "",
     "audio": "D:/MYWORKFOLDER/design/crashgame/ui/rocket2"
@@ -407,7 +407,14 @@
       "x": 0.75,
       "y": -4.04
     },
-    { "name": "face-sad", "parent": "maybay", "x": -0.77, "y": 53.65 }
+    { "name": "face-sad", "parent": "maybay", "x": -0.77, "y": 53.65 },
+    {
+      "name": "fan-stop",
+      "parent": "than",
+      "x": 76.41,
+      "y": 17.02,
+      "color": "9b9b9b00"
+    }
   ],
   "slots": [
     { "name": "taytrai", "bone": "taysau", "attachment": "taytrai" },
@@ -430,6 +437,11 @@
     { "name": "taytruoc", "bone": "taytruoc", "attachment": "taytruoc" },
     { "name": "rau", "bone": "rau", "attachment": "rau" },
     { "name": "ria", "bone": "ria", "attachment": "ria" },
+    {
+      "name": "fan-dissable",
+      "bone": "fan-stop",
+      "attachment": "fan-dissable"
+    },
     { "name": "fan", "bone": "canh", "attachment": "fan" },
     { "name": "dautenlua", "bone": "dautenlua", "attachment": "dautenlua1" },
     { "name": "14/FXAJ_Snowflake_1400", "bone": "snow", "color": "ffb400ff" },
@@ -991,6 +1003,9 @@
           }
         },
         "fan": { "fan": { "width": 53, "height": 53 } },
+        "fan-dissable": {
+          "fan-dissable": { "x": 2.9, "y": 0.5, "width": 60, "height": 60 }
+        },
         "hat": {
           "hat": {
             "type": "mesh",
@@ -1408,7 +1423,10 @@
   ],
   "animations": {
     "bay": {
-      "slots": { "cry2/cri013": { "color": [{ "color": "ffffff00" }] } },
+      "slots": {
+        "cry2/cri013": { "color": [{ "color": "ffffff00" }] },
+        "fan-dissable": { "color": [{ "color": "ffffff00" }] }
+      },
       "bones": {
         "bag3": {
           "rotate": [
@@ -2443,7 +2461,10 @@
       }
     },
     "crash": {
-      "slots": { "cry2/cri013": { "color": [{ "color": "ffffff00" }] } },
+      "slots": {
+        "cry2/cri013": { "color": [{ "color": "ffffff00" }] },
+        "fan-dissable": { "color": [{ "color": "ffffff00" }] }
+      },
       "bones": {
         "day4": { "rotate": [{ "angle": 9.59 }] },
         "day3": { "rotate": [{ "angle": 9.59 }] },
@@ -2529,7 +2550,10 @@
       }
     },
     "idle": {
-      "slots": { "cry2/cri013": { "color": [{ "color": "ffffff00" }] } },
+      "slots": {
+        "cry2/cri013": { "color": [{ "color": "ffffff00" }] },
+        "fan-dissable": { "color": [{ "color": "ffffff00" }] }
+      },
       "bones": {
         "bag5": {
           "translate": [
@@ -2746,7 +2770,8 @@
         },
         "14/FXAJ_Snowflake_1400": {
           "color": [
-            { "color": "f6edd7ff", "curve": "stepped" },
+            { "color": "f6edd700" },
+            { "time": 0.0333, "color": "f6edd7ff", "curve": "stepped" },
             { "time": 1.3, "color": "f6edd7ff" },
             { "time": 1.3667, "color": "f6edd700" }
           ],
@@ -2845,6 +2870,7 @@
             { "time": 1.4667, "name": "cry2/cri051" }
           ]
         },
+        "fan": { "color": [{ "color": "ffffff00" }] },
         "santa": {
           "color": [
             { "color": "ffffffff", "curve": "stepped" },
@@ -2941,7 +2967,8 @@
             { "time": 0.2333, "x": -1.1, "y": 2.03 }
           ]
         },
-        "fan": { "rotate": [{}, { "time": 0.6667, "angle": 90 }] }
+        "fan": { "rotate": [{}, { "time": 0.6667, "angle": 90 }] },
+        "fan-stop": { "rotate": [{}, { "time": 1.4667, "angle": 60 }] }
       }
     }
   }

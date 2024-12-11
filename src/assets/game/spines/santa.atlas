@@ -1,6 +1,6 @@
 
 santa.webp
-size: 1603,396
+size: 1610,396
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
@@ -19,8 +19,8 @@ repeat: none
   offset: 52, 17
   index: -1
 13/Smoke FX 1302
-  rotate: false
-  xy: 1491, 362
+  rotate: true
+  xy: 1555, 200
   size: 50, 32
   orig: 150, 114
   offset: 45, 17
@@ -292,8 +292,8 @@ repeat: none
   offset: 31, 60
   index: -1
 13/Smoke FX 1341
-  rotate: false
-  xy: 1534, 172
+  rotate: true
+  xy: 1537, 252
   size: 61, 25
   orig: 150, 114
   offset: 53, 62
@@ -341,22 +341,22 @@ repeat: none
   offset: 77, 43
   index: -1
 14/FXAJ_Snowflake_1404
-  rotate: false
-  xy: 1453, 308
+  rotate: true
+  xy: 1555, 165
   size: 33, 24
   orig: 200, 113
   offset: 73, 42
   index: -1
 14/FXAJ_Snowflake_1405
   rotate: true
-  xy: 1494, 245
+  xy: 1575, 71
   size: 41, 26
   orig: 200, 113
   offset: 68, 42
   index: -1
 14/FXAJ_Snowflake_1406
-  rotate: false
-  xy: 1546, 366
+  rotate: true
+  xy: 1534, 104
   size: 52, 28
   orig: 200, 113
   offset: 62, 41
@@ -369,8 +369,8 @@ repeat: none
   offset: 56, 40
   index: -1
 14/FXAJ_Snowflake_1408
-  rotate: false
-  xy: 1523, 199
+  rotate: true
+  xy: 1522, 158
   size: 74, 31
   orig: 200, 113
   offset: 49, 39
@@ -615,7 +615,7 @@ bag
   index: -1
 banhsau
   rotate: true
-  xy: 1494, 288
+  xy: 1581, 169
   size: 29, 27
   orig: 31, 29
   offset: 1, 1
@@ -628,22 +628,22 @@ banhtruoc
   offset: 1, 1
   index: -1
 cainon
-  rotate: false
-  xy: 1491, 319
+  rotate: true
+  xy: 1564, 114
   size: 49, 41
   orig: 49, 41
   offset: 0, 0
   index: -1
 cry2/cri013
   rotate: true
-  xy: 1491, 65
+  xy: 1494, 234
   size: 79, 41
   orig: 95, 52
   offset: 8, 8
   index: -1
 cry2/cri014
-  rotate: false
-  xy: 1522, 232
+  rotate: true
+  xy: 1478, 152
   size: 79, 42
   orig: 95, 52
   offset: 8, 7
@@ -664,7 +664,7 @@ cry2/cri016
   index: -1
 cry2/cri017
   rotate: true
-  xy: 1400, 59
+  xy: 1400, 60
   size: 80, 44
   orig: 95, 52
   offset: 7, 4
@@ -748,10 +748,10 @@ cry2/cri028
   index: -1
 cry2/cri029
   rotate: true
-  xy: 1311, 222
-  size: 84, 44
+  xy: 1316, 311
+  size: 83, 44
   orig: 95, 52
-  offset: 3, 5
+  offset: 4, 5
   index: -1
 cry2/cri030
   rotate: true
@@ -776,14 +776,14 @@ cry2/cri032
   index: -1
 cry2/cri033
   rotate: true
-  xy: 1386, 141
+  xy: 1386, 142
   size: 82, 45
   orig: 95, 52
   offset: 7, 3
   index: -1
 cry2/cri034
   rotate: true
-  xy: 1357, 225
+  xy: 1357, 226
   size: 83, 44
   orig: 95, 52
   offset: 7, 4
@@ -846,7 +846,7 @@ cry2/cri042
   index: -1
 cry2/cri043
   rotate: true
-  xy: 1316, 310
+  xy: 1311, 222
   size: 84, 44
   orig: 95, 52
   offset: 4, 5
@@ -880,50 +880,50 @@ cry2/cri047
   offset: 7, 6
   index: -1
 cry2/cri048
-  rotate: false
-  xy: 1523, 276
+  rotate: true
+  xy: 1491, 72
   size: 78, 41
   orig: 95, 52
   offset: 9, 8
   index: -1
 cry2/cri049
   rotate: true
-  xy: 1534, 66
+  xy: 1498, 315
   size: 79, 41
   orig: 95, 52
   offset: 8, 8
   index: -1
 cry2/cri050
   rotate: true
-  xy: 1449, 227
+  xy: 1449, 233
   size: 79, 43
   orig: 95, 52
   offset: 8, 6
   index: -1
 cry2/cri051
   rotate: true
-  xy: 1478, 146
+  xy: 1453, 315
   size: 79, 43
   orig: 95, 52
   offset: 8, 5
   index: -1
 dautenlua1
   rotate: false
-  xy: 1576, 151
+  xy: 1577, 315
   size: 19, 19
   orig: 20, 19
   offset: 0, 0
   index: -1
 day1
   rotate: false
-  xy: 1523, 147
+  xy: 1564, 260
   size: 21, 23
   orig: 21, 23
   offset: 0, 0
   index: -1
 day2
-  rotate: true
-  xy: 1546, 149
+  rotate: false
+  xy: 1564, 285
   size: 21, 28
   orig: 21, 28
   offset: 0, 0
@@ -937,10 +937,17 @@ dayngang
   index: -1
 fan
   rotate: false
-  xy: 1427, 4
+  xy: 1427, 5
   size: 53, 53
   orig: 53, 53
   offset: 0, 0
+  index: -1
+fan-dissable
+  rotate: false
+  xy: 1546, 16
+  size: 51, 51
+  orig: 60, 60
+  offset: 4, 5
   index: -1
 hat
   rotate: false
@@ -950,15 +957,15 @@ hat
   offset: 0, 0
   index: -1
 rau
-  rotate: false
-  xy: 1543, 325
+  rotate: true
+  xy: 1541, 336
   size: 58, 39
   orig: 58, 39
   offset: 0, 0
   index: -1
 ria
   rotate: false
-  xy: 1453, 375
+  xy: 1541, 315
   size: 34, 19
   orig: 35, 19
   offset: 0, 0
@@ -978,8 +985,8 @@ santa-sad
   offset: 6, 15
   index: -1
 taytrai
-  rotate: false
-  xy: 1453, 334
+  rotate: true
+  xy: 1534, 69
   size: 33, 39
   orig: 36, 40
   offset: 3, 1
