@@ -4,9 +4,9 @@ import { AnimationUtils } from "../../../../../extensions/shared-components/asse
 const { ccclass, property } = _decorator;
 
 export const PlaneAnim = {
-    START: "idle",
     FLY: "bay",
     IDLE: "idle",
+    SHAKE: "runglac",
     EXPLOSION: "crash",
     EXPLOSION_AT_GROUND: "snow",
 };
@@ -27,6 +27,7 @@ export class Plane extends Component {
     }
 
     private positionTween: Tween<Node>;
+    private planeCrashTween: Tween<Node>;
     readonly durationPlanTakeOff = 1.6;
     readonly durationCrash = 0.4;
     readonly altitude = 185;
@@ -51,8 +52,15 @@ export class Plane extends Component {
     }
 
     setExplosionPlaneVisibility() {
-        this.setPlaneAnim(PlaneAnim.EXPLOSION, false);
-        this.planeFall();
+        const animationDuration = this.skePlane?.findAnimation(PlaneAnim.SHAKE).duration;
+        this.setPlaneAnim(PlaneAnim.SHAKE, false);
+        this.planeCrashTween = tween(this.node)
+            .delay(animationDuration)
+            .call(() => {
+                this.setPlaneAnim(PlaneAnim.EXPLOSION, false);
+                this.planeFall();
+            })
+            .start();
     }
 
     updatePosition(pos: Vec3) {
@@ -79,6 +87,7 @@ export class Plane extends Component {
 
     stopAnimation() {
         this.positionTween?.stop();
+        this.planeCrashTween?.stop();
     }
 
     async playBackgroundTransition() {
