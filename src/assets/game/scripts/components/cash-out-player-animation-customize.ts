@@ -23,14 +23,12 @@ export class CashOutPlayerAnimationCustomize extends CashOutPlayerAnimation {
     }
 
     @render(gc.GameCrash.CrashOtherPlayer.OtherPlayerStore, (store) => store.otherPlayer, { fireImmediately: false })
-    renderOtherPlayerCashOut(otherPlayer: gc.GameCrash.GameCrashServiceMessage.CrashOtherPlayer) {
+    playOtherPlayerCashOutSound(otherPlayer: gc.GameCrash.GameCrashServiceMessage.CrashOtherPlayer) {
         this.playGiftBoxDropSound();
-        super.renderOtherPlayerCashOut(otherPlayer);
     }
 
     @render(gc.GameCrash.CrashCashOut.CrashCashOutStore, (store) => store.cashOutNotice, { fireImmediately: false })
-    renderMainPlayerCashOutFull(cashOut: gc.GameCrash.GameCrashServiceMessage.CrashCashOut) {
+    playerMainPlayerCashOutFullSound(cashOut: gc.GameCrash.GameCrashServiceMessage.CrashCashOut) {
         this.playGiftBoxDropSound();
-        super.renderMainPlayerCashOutFull(cashOut);
     }
 }
