@@ -1,5 +1,5 @@
 import { _decorator, Node, Tween, tween, UIOpacity } from "cc";
-import { TotalWinNotice } from "../../../../extensions/shared-components/assets/game-crash/total-win/total-win-notice";
+import { TotalWinNotice } from "db://shared-components/game-crash/total-win/total-win-notice";
 const { ccclass, property } = _decorator;
 
 @ccclass("christmas_total_win_notice")

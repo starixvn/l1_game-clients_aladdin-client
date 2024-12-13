@@ -1,5 +1,5 @@
 import { Component, Node, Tween, Vec3, _decorator, sp, tween, v3 } from "cc";
-import { AnimationUtils } from "../../../../../extensions/shared-components/assets/shared/utils";
+import { AnimationUtils } from "db://shared-components/shared/utils";
 
 const { ccclass, property } = _decorator;
 
@@ -22,9 +22,7 @@ export class Plane extends Component {
     @property(sp.Skeleton)
     spineBackground: sp.Skeleton = null;
 
-    get skePlane(): sp.Skeleton {
-        return this.plane.getChildByName("skeleton").getComponent(sp.Skeleton);
-    }
+    protected skePlane: sp.Skeleton = null;
 
     private positionTween: Tween<Node>;
     private planeCrashTween: Tween<Node>;
@@ -36,6 +34,7 @@ export class Plane extends Component {
     onLoad() {
         this.setPlaneVisibility(false);
         this.smoke.active = false;
+        this.skePlane = this.plane.getChildByName("skeleton").getComponent(sp.Skeleton);
     }
 
     startFly() {
@@ -67,15 +66,12 @@ export class Plane extends Component {
         this.node.position = pos;
     }
 
-    preparePlane(animated = true) {
+    preparePlane() {
         this.smoke.active = false;
         this.node.active = true;
         this.setPlaneAnim(PlaneAnim.IDLE, true);
         this.stopAnimation();
         this.setPlaneVisibility(true);
-        if (!animated) {
-            return;
-        }
     }
 
     explode() {
@@ -99,17 +95,18 @@ export class Plane extends Component {
         const currentAltitude = plane.position.y;
         const destPosition = v3(plane.position.x, 0, 0);
         const crashDuration = this.calculateFallDuration(currentAltitude);
-        tween(plane)
-            .parallel(
-                tween().to(crashDuration, { position: destPosition, eulerAngles: v3(0, 0, 0) }, { easing: "quadIn" }),
-                tween()
-                    .delay(crashDuration - 0.1)
-                    .call(() => {
-                        this.skePlane.setAnimation(0, PlaneAnim.EXPLOSION_AT_GROUND, false);
-                    })
-            )
+        plane &&
+            tween(plane)
+                .parallel(
+                    tween().to(crashDuration, { position: destPosition, eulerAngles: v3(0, 0, 0) }, { easing: "quadIn" }),
+                    tween()
+                        .delay(crashDuration - 0.1)
+                        .call(() => {
+                            this.skePlane.setAnimation(0, PlaneAnim.EXPLOSION_AT_GROUND, false);
+                        })
+                )
 
-            .start();
+                .start();
     }
 
     private calculateFallDuration(currentAltitude: number): number {

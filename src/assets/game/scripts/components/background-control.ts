@@ -3,7 +3,7 @@ import { Node, Tween, UITransform, Vec3, _decorator, tween, v3, log, Color, scre
 import Observer from "observer";
 const { Settlements, GameCrash } = gc;
 
-import { ObserverComponent } from "../../../../extensions/shared-components/assets/shared/common-components/observer-component/scripts/observer-component";
+import { ObserverComponent } from "db://shared-components/shared/common-components/observer-component/scripts/observer-component";
 
 const { ccclass, property } = _decorator;
 const { render } = Observer;
@@ -27,8 +27,8 @@ export class BackgroundControl extends ObserverComponent {
 
     onLoad(): void {
         super.onLoad();
-        this.backgroundNodes[0]?.getComponent(UITransform) &&
-            (this.currentBgWidth = this.backgroundNodes[0]?.getComponent(UITransform)?.width);
+        const backgroundCpm = this.backgroundNodes[0]?.getComponent(UITransform);
+        backgroundCpm && (this.currentBgWidth = backgroundCpm?.width ?? 0);
     }
 
     protected update(dt: number): void {
@@ -36,7 +36,7 @@ export class BackgroundControl extends ObserverComponent {
     }
 
     @render(GameCrash.CrashMultiplier.MultiplierStore, (store) => store.time, { fireImmediately: false })
-    renderBackgroundTime(time: number) {
+    renderBackgroundTime() {
         if (!this.isBgMoving) {
             this.isBgMoving = true;
         }
@@ -94,24 +94,27 @@ export class BackgroundControl extends ObserverComponent {
         });
 
         const resetNode = (node: Node | undefined, position: Vec3, scale: Vec3) => {
-            if (!node) return;
+            if (!node) {
+                return;
+            }
             node.position = position;
             node.scale = scale;
         };
 
-        tween(this?.node)
-            .delay(1)
-            .call(() => {
-                resetNode(this.nodeContainerBackground, v3(0, 0, 0), v3(1, 1, 1));
-                this.backgroundNodes.forEach((node, index) => {
-                    if (!node) return;
-                    const xPos = this.currentBgWidth * index;
-                    const previousNode = this.backgroundNodes[index - 1];
-                    const scaleX = previousNode && previousNode.scale.x === 1 ? -1 : 1; // Middle node is flipped
+        this?.node &&
+            tween(this.node)
+                .delay(1)
+                .call(() => {
+                    resetNode(this.nodeContainerBackground, v3(0, 0, 0), v3(1, 1, 1));
+                    this.backgroundNodes.forEach((node, index) => {
+                        if (!node) return;
+                        const xPos = this.currentBgWidth * index;
+                        const previousNode = this.backgroundNodes[index - 1];
+                        const scaleX = previousNode && previousNode.scale.x === 1 ? -1 : 1; // Middle node is flipped
 
-                    resetNode(node, v3(xPos, node.position.y, 0), v3(scaleX, 1, 1));
-                });
-            })
-            .start();
+                        resetNode(node, v3(xPos, node.position.y, 0), v3(scaleX, 1, 1));
+                    });
+                })
+                .start();
     }
 }

@@ -3,7 +3,7 @@ import { _decorator, Node, Tween, tween, v3, Vec3 } from "cc";
 import { AnimationUtils } from "db://shared-components/shared/utils";
 import Observer from "observer";
 
-import { ObserverComponent } from "../../../../../extensions/shared-components/assets/shared/common-components/observer-component/scripts/observer-component";
+import { ObserverComponent } from "db://shared-components/shared/common-components/observer-component/scripts/observer-component";
 import { BG_CLOSING_TRANSITION_DURATION } from "../background-control";
 import { Plane } from "./plane";
 
@@ -36,8 +36,7 @@ export class PlaneFly extends ObserverComponent {
     private tweenTakeOff: Tween<Node>;
     private readonly durationTakeOff = 1.6;
     private readonly planeTakeOffSound = "plane_takeoff";
-
-    isFirstRun = false;
+    protected isTakeOffPlane = false;
 
     private get startPosition(): Vec3 {
         return this.startPoint.position;
@@ -83,19 +82,21 @@ export class PlaneFly extends ObserverComponent {
             deltaTime: this.deltaTime,
         };
         this.tweenDeltaTime?.stop();
-        this.tweenDeltaTime = tween(tweenObject)
-            .to(
-                0.1,
-                {
-                    deltaTime: time,
-                },
-                {
-                    onUpdate: () => {
-                        this.node.isValid && this.updateDeltaTime(tweenObject.deltaTime);
+        this.tweenDeltaTime =
+            tweenObject &&
+            tween(tweenObject)
+                .to(
+                    0.1,
+                    {
+                        deltaTime: time,
                     },
-                }
-            )
-            .start();
+                    {
+                        onUpdate: () => {
+                            this.node.isValid && this.updateDeltaTime(tweenObject.deltaTime);
+                        },
+                    }
+                )
+                .start();
 
         if (!this.startedPlaneFlying) {
             if (!this.isEnoughTakeOffTime(time) && this.cpnPlane?.node?.parent) {
@@ -112,7 +113,7 @@ export class PlaneFly extends ObserverComponent {
         this.deltaTime = deltaTime;
         if (!this.reachedLimitX) {
             if (this.isEnoughTakeOffTime(deltaTime)) {
-                !this.isFirstRun && this.takeOffLane();
+                !this.isTakeOffPlane && this.takeOffPlane();
             }
         }
     }
@@ -124,7 +125,7 @@ export class PlaneFly extends ObserverComponent {
     @render(gc.Rounds.RoundTimeStore, (store) => store.isInRoundTime)
     renderInRoundTime(isInRoundTime: boolean) {
         if (isInRoundTime && !this.preparingPlane) {
-            this.prepareForPlane(false);
+            this.prepareForPlane();
         }
     }
 
@@ -134,39 +135,41 @@ export class PlaneFly extends ObserverComponent {
             return;
         }
         this.scheduleOnce(() => {
-            this.prepareForPlane(true);
+            this.prepareForPlane();
         }, BG_CLOSING_TRANSITION_DURATION / 2);
     }
 
-    private prepareForPlane(animated: boolean) {
+    private prepareForPlane() {
         this.preparingPlane = true;
-        this.cpnPlane.preparePlane(animated);
+        this.cpnPlane.preparePlane();
         this.cpnPlane.updatePosition(this.startPosition);
         this.resetPlaneContainer();
         this.reachedLimitX = false;
         this.deltaTime = 0;
-        this.isFirstRun = false;
+        this.isTakeOffPlane = false;
     }
 
     calculatePlanePosition(rawX: number, scale: number) {
         return v3(rawX * scale, 0);
     }
 
-    takeOffLane() {
+    takeOffPlane() {
         this.playPlaneTakeOffSound();
         const plane = this.cpnPlane.node;
         const destPosition = v3(this.cpnPlane.distanceTakeOff, this.cpnPlane.altitude);
         Tween.stopAllByTarget(plane);
-        this.tweenTakeOff = tween(plane)
-            .parallel(
-                tween().to(this.durationTakeOff, { position: destPosition }),
-                tween()
-                    .to(0.9, { eulerAngles: v3(0, 0, 15) }, { easing: "quadOut" })
-                    .to(0.7, { eulerAngles: v3(0, 0, 0) }, { easing: "quadInOut" })
-            )
-            .start();
+        this.tweenTakeOff =
+            plane &&
+            tween(plane)
+                .parallel(
+                    tween().to(this.durationTakeOff, { position: destPosition }),
+                    tween()
+                        .to(0.9, { eulerAngles: v3(0, 0, 15) }, { easing: "quadOut" })
+                        .to(0.7, { eulerAngles: v3(0, 0, 0) }, { easing: "quadInOut" })
+                )
+                .start();
 
-        this.isFirstRun = true;
+        this.isTakeOffPlane = true;
     }
 
     resetPlaneContainer() {
