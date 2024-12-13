@@ -1,5 +1,5 @@
 import gc from "@sg/game-client-base";
-import { Node, Tween, UITransform, Vec3, _decorator, tween, v3, log, Color, screen, Vec2, v2 } from "cc";
+import { Node, Tween, UITransform, Vec3, _decorator, tween, v3, log, Color, screen, Vec2, v2, CCInteger } from "cc";
 import Observer from "observer";
 const { Settlements, GameCrash } = gc;
 
@@ -18,7 +18,7 @@ export class BackgroundControl extends ObserverComponent {
     @property([Node])
     backgroundNodes: Node[] = [null, null, null];
 
-    @property({ type: Number })
+    @property(CCInteger)
     moveSpeed = 200; //pixel/s
 
     private isBgMoving = false;
