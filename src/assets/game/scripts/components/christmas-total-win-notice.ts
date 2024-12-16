@@ -1,4 +1,4 @@
-import { _decorator, Node, Tween, tween, UIOpacity } from "cc";
+import { _decorator, Node, tween, UIOpacity } from "cc";
 import { TotalWinNotice } from "db://shared-components/game-crash/total-win/total-win-notice";
 const { ccclass, property } = _decorator;
 
@@ -7,8 +7,6 @@ export class ChristmasTotalWinNotice extends TotalWinNotice {
     @property(Node)
     bgNode: Node = null;
 
-    private bgTween: Tween<UIOpacity> = null;
-
     onLoad() {
         super.onLoad();
         this.blinkBgNode();
@@ -16,7 +14,7 @@ export class ChristmasTotalWinNotice extends TotalWinNotice {
     blinkBgNode() {
         const opacityComp = this.bgNode.getComponent(UIOpacity);
         if (opacityComp) {
-            this.bgTween = tween(opacityComp)
+            tween(opacityComp)
                 .sequence(tween().to(0.5, { opacity: 50 }), tween().to(0.5, { opacity: 255 }))
                 .repeatForever()
                 .start();
