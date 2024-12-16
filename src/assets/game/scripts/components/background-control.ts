@@ -1,9 +1,9 @@
 import gc from "@sg/game-client-base";
-import { Node, Tween, _decorator, tween, v3 } from "cc";
+import { Node, Tween, UITransform, Vec3, _decorator, tween, v3, log, Color, screen, Vec2, v2, CCInteger } from "cc";
 import Observer from "observer";
 const { Settlements, GameCrash } = gc;
 
-import { ObserverComponent } from "../../../../extensions/shared-components/assets/shared/common-components/observer-component/scripts/observer-component";
+import { ObserverComponent } from "db://shared-components/shared/common-components/observer-component/scripts/observer-component";
 
 const { ccclass, property } = _decorator;
 const { render } = Observer;
@@ -13,25 +13,38 @@ export const BG_CLOSING_TRANSITION_DURATION = 2;
 @ccclass("background_control")
 export class BackgroundControl extends ObserverComponent {
     @property(Node)
-    nodeBackground: Node = null;
+    nodeContainerBackground: Node = null;
+
+    @property([Node])
+    backgroundNodes: Node[] = [null, null, null];
+
+    @property(CCInteger)
+    moveSpeed = 200; //pixel/s
 
     private isBgMoving = false;
-    private readonly backgroundMoveY = -500;
-    private readonly movingBackgroundDuration = 40;
+    protected currentBgWidth = 0;
+    protected lastDistance = 0;
+
+    onLoad(): void {
+        super.onLoad();
+        const backgroundCpm = this.backgroundNodes[0]?.getComponent(UITransform);
+        backgroundCpm && (this.currentBgWidth = backgroundCpm?.width ?? 0);
+    }
+
+    protected update(dt: number): void {
+        this.isBgMoving && this.startMovingBackground(dt);
+    }
 
     @render(GameCrash.CrashMultiplier.MultiplierStore, (store) => store.time, { fireImmediately: false })
-    renderRocketTime(time: number) {
+    renderBackgroundTime() {
         if (!this.isBgMoving) {
-            this.initNodeBackgroundWithTime(time);
-            this.startMovingBackground();
+            this.isBgMoving = true;
         }
     }
 
     @render(gc.Rounds.RoundTimeStore, (store) => store.isStartRound, { fireImmediately: false })
     changeIdleAnim(isStartRound: boolean) {
-        if (isStartRound) {
-            this.resetBackground();
-        }
+        isStartRound && this.resetBackground();
     }
 
     @render(Settlements.SettlementStore, (store) => store.result)
@@ -39,30 +52,69 @@ export class BackgroundControl extends ObserverComponent {
         if (!result) {
             return;
         }
-        Tween.stopAllByTarget(this.nodeBackground);
+
+        Tween.stopAllByTarget(this.nodeContainerBackground);
+        this.isBgMoving = false;
+        this.lastDistance = 0;
     }
 
-    initNodeBackgroundWithTime(time: number) {
-        const rate = time / (this.movingBackgroundDuration * 1000);
-        this.nodeBackground.scale = v3(1, 1).multiplyScalar(1 - rate);
-        this.nodeBackground.position = v3(0, this.backgroundMoveY * rate);
-    }
+    startMovingBackground(dt: number) {
+        const currentContainerX = this.nodeContainerBackground?.position?.x - this.moveSpeed * dt;
+        const positiveX = Math.abs(currentContainerX);
+        const triggerThreshold = this.currentBgWidth / 2;
+        this.nodeContainerBackground?.setPosition(v3(currentContainerX, 0, 0));
+        if (positiveX - triggerThreshold > this.currentBgWidth + this.lastDistance) {
+            const bgOverflowDistance = positiveX % this.currentBgWidth;
+            this.lastDistance = positiveX - bgOverflowDistance;
+            const nodes = this.backgroundNodes.filter((node) => node != null);
+            nodes.sort((a, b) => a.position.x - b.position.x);
+            const leftmostNode = nodes[0];
+            const rightmostNode = nodes[nodes.length - 1];
+            const scaleXMiddle = rightmostNode?.scale?.x;
+            let scaleNewX = -scaleXMiddle;
 
-    startMovingBackground() {
-        this.isBgMoving = true;
-        tween(this.nodeBackground)
-            .to(this.movingBackgroundDuration, {
-                scale: v3(0),
-                position: v3(0, this.backgroundMoveY),
-            })
-            .start();
+            // Move leftmost node to the right of the rightmost node
+            const newX = rightmostNode.position.x + this.currentBgWidth;
+            if (leftmostNode && newX > 0) {
+                leftmostNode.setPosition(v3(newX, rightmostNode.position.y, rightmostNode.position.z));
+                leftmostNode.scale = v3(scaleNewX, 1, 1);
+            }
+
+            console.log(`Trigger event at positiveX: ${positiveX} `);
+        }
     }
 
     resetBackground() {
         this.isBgMoving = false;
-        Tween.stopAllByTarget(this.nodeBackground);
-        tween(this.nodeBackground)
-            .to(1, { scale: v3(1, 1, 1), position: v3(0, 0, 0) }, { easing: "sineIn" })
-            .start();
+
+        [this?.nodeContainerBackground, ...this.backgroundNodes].forEach((target) => {
+            if (target) {
+                Tween.stopAllByTarget(target);
+            }
+        });
+
+        const resetNode = (node: Node | undefined, position: Vec3, scale: Vec3) => {
+            if (!node) {
+                return;
+            }
+            node.position = position;
+            node.scale = scale;
+        };
+
+        this?.node &&
+            tween(this.node)
+                .delay(1)
+                .call(() => {
+                    resetNode(this.nodeContainerBackground, v3(0, 0, 0), v3(1, 1, 1));
+                    this.backgroundNodes.forEach((node, index) => {
+                        if (!node) return;
+                        const xPos = this.currentBgWidth * index;
+                        const previousNode = this.backgroundNodes[index - 1];
+                        const scaleX = previousNode && previousNode.scale.x === 1 ? -1 : 1; // Middle node is flipped
+
+                        resetNode(node, v3(xPos, node.position.y, 0), v3(scaleX, 1, 1));
+                    });
+                })
+                .start();
     }
 }

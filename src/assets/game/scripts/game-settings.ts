@@ -4,8 +4,9 @@ import { LogStore } from "db://shared-components/game/scripts/stores/log-store";
 import { sharedContainer } from "../../scripts/shared-container";
 
 export const settings = {
-    id: 73,
-    name: "Spaceflight",
+    id: 106,
+    name: "Christmascrash",
+    namespaces: ["ChristmasX", "Spaceflight"],
     durations: {
         wholeRound: 14,
         lockingBet: 3,
@@ -14,7 +15,7 @@ export const settings = {
         startRound: 1,
     },
     numberOfRoundHistory: 11,
-    validateBalanceWhenBet:true
+    validateBalanceWhenBet: true,
 };
 
 export const containerOptions: gc.IContainerOptions = {

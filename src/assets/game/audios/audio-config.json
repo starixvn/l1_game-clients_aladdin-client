@@ -14,10 +14,13 @@
     "count_down": {
         "bundle": "resources"
     },
-    "walking_man": {
+    "plane_flying": {
         "bundle": "resources"
     },
-    "rocket_fly": {
+    "plane_takeoff": {
+        "bundle": "resources"
+    },
+    "giftbox_drop": {
         "bundle": "resources"
     },
     "receive-finish": {
@@ -25,19 +28,8 @@
     },
     "bgm-song1": {
         "bundle": "resources",
-        "path": "background-music/bgm-song1",
-        "isMusicGame": true,
-        "isLazyLoad": true
-    },
-    "bgm-song2": {
-        "bundle": "resources",
-        "path": "background-music/bgm-song2",
-        "isMusicGame": true,
-        "isLazyLoad": true
-    },
-    "bgm-song3": {
-        "bundle": "resources",
-        "path": "background-music/bgm-song3",
+        "path": "background-music/song1",
+        "type": "music",
         "isMusicGame": true,
         "isLazyLoad": true
     }
