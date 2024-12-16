@@ -1,4 +1,4 @@
-import { Component, Node, Tween, Vec3, _decorator, sp, tween, v3 } from "cc";
+import { Component, Node, Tween, Vec3, _decorator, sp, tween, v3, log } from "cc";
 import { AnimationUtils } from "db://shared-components/shared/utils";
 
 const { ccclass, property } = _decorator;
@@ -42,7 +42,7 @@ export class Plane extends Component {
         this.skePlane.setAnimation(0, PlaneAnim.FLY, true);
     }
 
-    setPlaneAnim(name: string, loop: boolean) {
+    protected setPlaneAnim(name: string, loop: boolean) {
         this.skePlane?.setAnimation(0, name, loop);
     }
 
@@ -50,7 +50,7 @@ export class Plane extends Component {
         this.plane.active = status;
     }
 
-    setExplosionPlaneVisibility() {
+    protected setExplosionPlaneVisibility() {
         const animationDuration = this.skePlane?.findAnimation(PlaneAnim.SHAKE).duration;
         this.setPlaneAnim(PlaneAnim.SHAKE, false);
         this.planeCrashTween = tween(this.node)
@@ -81,13 +81,17 @@ export class Plane extends Component {
         this.playBackgroundTransition();
     }
 
-    stopAnimation() {
+    protected stopAnimation() {
         this.positionTween?.stop();
         this.planeCrashTween?.stop();
     }
 
-    async playBackgroundTransition() {
-        this.spineBackground && (await AnimationUtils.playSpine(this.spineBackground, "transition"));
+    protected playBackgroundTransition() {
+        try {
+            this.spineBackground && AnimationUtils.playSpine(this.spineBackground, "transition");
+        } catch (error) {
+            log(`Play background transition error`, error);
+        }
     }
 
     protected planeFall() {

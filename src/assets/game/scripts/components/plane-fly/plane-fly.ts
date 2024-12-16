@@ -30,7 +30,6 @@ export class PlaneFly extends ObserverComponent {
     private readonly smallExplosionMultiplier = 1.02;
     private deltaTime = 0;
     private startedPlaneFlying = false;
-    private reachedLimitX = false;
     private preparingPlane = false;
     private tweenDeltaTime: Tween<TweenDeltaTime>;
     private tweenTakeOff: Tween<Node>;
@@ -51,6 +50,7 @@ export class PlaneFly extends ObserverComponent {
     onDestroy(): void {
         super.onDestroy();
         this.tweenDeltaTime?.stop();
+        this.tweenTakeOff?.stop();
     }
 
     @render(gc.Settlements.SettlementStore, (store) => store.result, {
@@ -111,10 +111,8 @@ export class PlaneFly extends ObserverComponent {
 
     private updateDeltaTime(deltaTime: number) {
         this.deltaTime = deltaTime;
-        if (!this.reachedLimitX) {
-            if (this.isEnoughTakeOffTime(deltaTime)) {
-                !this.isTakeOffPlane && this.takeOffPlane();
-            }
+        if (this.isEnoughTakeOffTime(deltaTime)) {
+            !this.isTakeOffPlane && this.takeOffPlane();
         }
     }
 
@@ -144,7 +142,6 @@ export class PlaneFly extends ObserverComponent {
         this.cpnPlane.preparePlane();
         this.cpnPlane.updatePosition(this.startPosition);
         this.resetPlaneContainer();
-        this.reachedLimitX = false;
         this.deltaTime = 0;
         this.isTakeOffPlane = false;
     }
