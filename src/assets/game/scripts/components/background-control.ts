@@ -23,7 +23,7 @@ export class BackgroundControl extends ObserverComponent {
 
     private isBgMoving = false;
     protected currentBgWidth = 0;
-    protected lastCompletedScrollDistance = 0;
+    protected lastDistance = 0;
 
     onLoad(): void {
         super.onLoad();
@@ -55,7 +55,7 @@ export class BackgroundControl extends ObserverComponent {
 
         Tween.stopAllByTarget(this.nodeContainerBackground);
         this.isBgMoving = false;
-        this.lastCompletedScrollDistance = 0;
+        this.lastDistance = 0;
     }
 
     startMovingBackground(dt: number) {
@@ -63,9 +63,9 @@ export class BackgroundControl extends ObserverComponent {
         const positiveX = Math.abs(currentContainerX);
         const triggerThreshold = this.currentBgWidth / 2;
         this.nodeContainerBackground?.setPosition(v3(currentContainerX, 0, 0));
-        if (positiveX - triggerThreshold > this.currentBgWidth + this.lastCompletedScrollDistance) {
+        if (positiveX - triggerThreshold > this.currentBgWidth + this.lastDistance) {
             const bgOverflowDistance = positiveX % this.currentBgWidth;
-            this.lastCompletedScrollDistance = positiveX - bgOverflowDistance;
+            this.lastDistance = positiveX - bgOverflowDistance;
             const nodes = this.backgroundNodes.filter((node) => node != null);
             nodes.sort((a, b) => a.position.x - b.position.x);
             const leftmostNode = nodes[0];
