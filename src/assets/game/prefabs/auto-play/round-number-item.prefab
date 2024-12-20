@@ -37,7 +37,7 @@
         "__id__": 24
       },
       {
-        "__id__": 26
+        "__id__": 27
       }
     ],
     "_prefab": {
@@ -467,6 +467,29 @@
     "_isUnderline": false,
     "_underlineHeight": 2,
     "_cacheMode": 0,
+    "_enableOutline": false,
+    "_outlineColor": {
+      "__type__": "cc.Color",
+      "r": 0,
+      "g": 0,
+      "b": 0,
+      "a": 255
+    },
+    "_outlineWidth": 2,
+    "_enableShadow": false,
+    "_shadowColor": {
+      "__type__": "cc.Color",
+      "r": 0,
+      "g": 0,
+      "b": 0,
+      "a": 255
+    },
+    "_shadowOffset": {
+      "__type__": "cc.Vec2",
+      "x": 2,
+      "y": 2
+    },
+    "_shadowBlur": 2,
     "_id": ""
   },
   {
@@ -485,7 +508,6 @@
     "__prefab": {
       "__id__": 20
     },
-    "isBitmapCacheMode": false,
     "_id": ""
   },
   {
@@ -534,7 +556,7 @@
     "fileId": "ea5Q7gejVG35P70MuMyNgw"
   },
   {
-    "__type__": "ba2480Km2ZJw508qQe1CTtg",
+    "__type__": "cc.Button",
     "_name": "",
     "_objFlags": 0,
     "__editorExtras__": {},
@@ -545,35 +567,9 @@
     "__prefab": {
       "__id__": 25
     },
-    "lblNoOfRound": {
-      "__id__": 17
-    },
-    "sprSelectedBg": {
-      "__id__": 11
-    },
-    "noOfRoundSelectedTextColor": "ffffff",
-    "noOfRoundNormalTextColor": "ffffff",
-    "_id": ""
-  },
-  {
-    "__type__": "cc.CompPrefabInfo",
-    "fileId": "3eJlrtRNtASoMXrFSeP6UG"
-  },
-  {
-    "__type__": "cc.Button",
-    "_name": "",
-    "_objFlags": 0,
-    "__editorExtras__": {},
-    "node": {
-      "__id__": 1
-    },
-    "_enabled": true,
-    "__prefab": {
-      "__id__": 27
-    },
     "clickEvents": [
       {
-        "__id__": 28
+        "__id__": 26
       }
     ],
     "_interactable": true,
@@ -625,9 +621,35 @@
       "__id__": 1
     },
     "component": "",
-    "_componentId": "ba2480Km2ZJw508qQe1CTtg",
+    "_componentId": "730e1oncJBNuJrHP9D9q+YZ",
     "handler": "onRoundNumberItemClick",
     "customEventData": ""
+  },
+  {
+    "__type__": "730e1oncJBNuJrHP9D9q+YZ",
+    "_name": "",
+    "_objFlags": 0,
+    "__editorExtras__": {},
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "__prefab": {
+      "__id__": 28
+    },
+    "lblNoOfRound": {
+      "__id__": 17
+    },
+    "sprSelectedBg": {
+      "__id__": 11
+    },
+    "noOfRoundSelectedTextColor": "000000",
+    "noOfRoundNormalTextColor": "ffffff",
+    "_id": ""
+  },
+  {
+    "__type__": "cc.CompPrefabInfo",
+    "fileId": "aedNcyVPdINL3dFjgXoK8G"
   },
   {
     "__type__": "cc.PrefabInfo",

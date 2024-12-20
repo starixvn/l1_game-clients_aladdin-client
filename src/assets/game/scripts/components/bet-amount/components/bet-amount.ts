@@ -1,5 +1,5 @@
 import gc from "@sg/game-client-base";
-import { _decorator, instantiate, Label, Node, Prefab, tween, v3 } from "cc";
+import { _decorator, instantiate, Label, Node, Prefab, tween, Vec3 } from "cc";
 import { ObserverComponent } from "db://shared-components/shared/common-components/observer-component/scripts/observer-component";
 import Observer from "observer";
 import { BetAmountHandlers } from "../bet-amount-handlers";
@@ -21,7 +21,15 @@ export default class BetAmount extends ObserverComponent {
     @property(Label)
     lblBetLevelDefault: Label = null;
 
+    @property(Node)
+    nodeDisabledDescrease: Node = null;
+
+    @property(Node)
+    nodeDisabledInscrease: Node = null;
+
     private betLevelsContainer: BetLevelsContainer = null;
+    private betAmount = 0;
+    private betLevels = [];
 
     onLoad() {
         super.onLoad();
@@ -41,16 +49,22 @@ export default class BetAmount extends ObserverComponent {
 
     @render(gc.GameConfigs.GameConfigStore, (store) => store.defaultBetLevel)
     showDefaultBetLevel(defaultBetLevel: number) {
-        this.lblBetLevelDefault.string = defaultBetLevel.toString();
+        this.setBetAmount(defaultBetLevel);
     }
 
     @render(BetAmountStore, (store) => store.betAmount)
     renderBetAmount(betAmount: number) {
+        this.setBetAmount(betAmount);
+    }
+
+    setBetAmount(betAmount: number) {
         this.lblBetLevelDefault.string = betAmount.toString();
+        this.betAmount = betAmount;
     }
 
     @render(gc.GameConfigs.GameConfigStore, (store) => store.betLevels)
     assignBetLevel(betLevels: number[]) {
+        this.betLevels = betLevels;
         this.nodeBetLevelsContainer.destroyAllChildren();
         const container = instantiate(this.prfBetLevelsContainer);
         this.betLevelsContainer = container.getComponent(BetLevelsContainer);
@@ -62,9 +76,8 @@ export default class BetAmount extends ObserverComponent {
         if (!this.nodeBetLevelsContainer) {
             return;
         }
-
         tween(this.nodeBetLevelsContainer)
-            .to(0.2, { scale: v3(1, 0, 0) })
+            .to(0.2, { scale: new Vec3(1, 0, 1) })
             .call(() => {
                 this.nodeBetLevelsContainer.active = false;
             })
@@ -76,9 +89,9 @@ export default class BetAmount extends ObserverComponent {
             return;
         }
         this.nodeBetLevelsContainer.active = true;
-        this.nodeBetLevelsContainer.setScale(1, 0, 0);
+        this.nodeBetLevelsContainer.setScale(new Vec3(1, 0, 1));
         tween(this.nodeBetLevelsContainer)
-            .to(0.2, { scale: v3(1, 1, 0) })
+            .to(0.2, { scale: new Vec3(1, 1, 1) })
             .start();
     }
 
@@ -93,5 +106,34 @@ export default class BetAmount extends ObserverComponent {
 
     isShowStakeLevels(): boolean {
         return this.nodeBetLevelsContainer && this.nodeBetLevelsContainer.active && this.nodeBetLevelsContainer.scale.y === 1;
+    }
+
+    @handle(BetAmountHandlers, (handle, amount: number) => handle.updateBetAmount(amount))
+    onClickDescreaseButton() {
+        let index = this.findIndexBetLevel() - 1;
+        if (index < 0) {
+            this.nodeDisabledDescrease.active = true;
+            return this.betLevels[0];
+        }
+        return this.betLevels[index];
+    }
+
+    @handle(BetAmountHandlers, (handle, amount: number) => handle.updateBetAmount(amount))
+    onClickInscreaseButton() {
+        let index = this.findIndexBetLevel() + 1;
+        if (index > this.betLevels.length - 1) {
+            this.nodeDisabledInscrease.active = true;
+            return this.betLevels[this.betLevels.length - 1];
+        }
+        return this.betLevels[index];
+    }
+
+    findIndexBetLevel(): number {
+        const index = this.betLevels.findIndex((amount) => amount === this.betAmount);
+        if (index > -1 || index < this.betLevels.length) {
+            this.nodeDisabledDescrease.active = false;
+            this.nodeDisabledInscrease.active = false;
+        }
+        return index;
     }
 }
