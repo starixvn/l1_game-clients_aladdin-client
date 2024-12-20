@@ -2,7 +2,7 @@ import { _decorator } from "cc";
 import { startGame } from "db://shared-components/shared/scripts/startup";
 import Observer from "observer";
 
-import GameCrashComponent from "db://shared-components/game-crash/scripts/components/game-crash-component";
+import GameComponent from "db://shared-components/game/scripts/components/game-component";
 import { siteConfigs } from "../../../scripts/site-configs";
 import { containerOptions, settings } from "../game-settings";
 import "./../../../resources/i18n";
@@ -14,7 +14,7 @@ const { observer } = Observer;
 
 @ccclass
 @observer(settings.name)
-export default class Game extends GameCrashComponent {
+export default class Game extends GameComponent {
     override namespace = settings.name;
     override containerOptions = containerOptions;
 }

@@ -27,6 +27,9 @@ export default class BetAmount extends ObserverComponent {
     @property(Node)
     nodeDisabledInscrease: Node = null;
 
+    @property(Node)
+    nodeOverlayBg: Node = null;
+
     private betLevelsContainer: BetLevelsContainer = null;
     private betAmount = 0;
     private betLevels = [];
@@ -39,20 +42,20 @@ export default class BetAmount extends ObserverComponent {
         configs.minBet = 1;
         configs.maxBet = 2000;
         configs.defaultBetLevel = 100;
-        this.setGameConfigs(configs);
-    }
-
-    @handle(BetAmountHandlers)
-    setGameConfigs(gameConfigs: gc.GameServiceMessage.GameConfigs) {
-        return gameConfigs;
+        this.nodeOverlayBg.active = false;
     }
 
     @render(gc.GameConfigs.GameConfigStore, (store) => store.defaultBetLevel)
     showDefaultBetLevel(defaultBetLevel: number) {
-        this.setBetAmount(defaultBetLevel);
+        this.updateBetAmount(defaultBetLevel);
     }
 
-    @render(BetAmountStore, (store) => store.betAmount)
+    @handle(BetAmountHandlers, (handle, amount: number) => handle.updateBetAmount(amount))
+    updateBetAmount(amount: number) {
+        return amount;
+    }
+
+    @render(gc.Bet.BetStore, (store) => store.amount)
     renderBetAmount(betAmount: number) {
         this.setBetAmount(betAmount);
     }
@@ -76,6 +79,7 @@ export default class BetAmount extends ObserverComponent {
         if (!this.nodeBetLevelsContainer) {
             return;
         }
+        this.nodeOverlayBg.active = false;
         tween(this.nodeBetLevelsContainer)
             .to(0.2, { scale: new Vec3(1, 0, 1) })
             .call(() => {
@@ -88,6 +92,7 @@ export default class BetAmount extends ObserverComponent {
         if (!this.nodeBetLevelsContainer) {
             return;
         }
+        this.nodeOverlayBg.active = true;
         this.nodeBetLevelsContainer.active = true;
         this.nodeBetLevelsContainer.setScale(new Vec3(1, 0, 1));
         tween(this.nodeBetLevelsContainer)
@@ -99,9 +104,16 @@ export default class BetAmount extends ObserverComponent {
         const isShowing = this.isShowStakeLevels();
         if (!isShowing) {
             this.showBetLevelsContainer();
+            this.setStatusBetAmountPopup(true);
         } else {
             this.hideBetLevelsContainer();
+            this.setStatusBetAmountPopup(false);
         }
+    }
+
+    @handle(BetAmountHandlers, (handle, isOpen: boolean) => handle.updateStatusBetAmountPopup(isOpen))
+    setStatusBetAmountPopup(isOpen: boolean) {
+        return isOpen;
     }
 
     isShowStakeLevels(): boolean {
@@ -135,5 +147,14 @@ export default class BetAmount extends ObserverComponent {
             this.nodeDisabledInscrease.active = false;
         }
         return index;
+    }
+
+    onClickOverlayBg() {
+        this.hideBetLevelsContainer();
+    }
+
+    @render(BetAmountStore, (store) => store.isOpenBetAmountPopup)
+    setVisibilityBetAmountPopup(isOpenBetAmountPopup: boolean) {
+        isOpenBetAmountPopup ? this.showBetLevelsContainer() : this.hideBetLevelsContainer();
     }
 }

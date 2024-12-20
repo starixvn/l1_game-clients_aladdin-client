@@ -4,8 +4,8 @@ import { LogStore } from "db://shared-components/game/scripts/stores/log-store";
 import { sharedContainer } from "../../scripts/shared-container";
 
 export const settings = {
-    id: 106,
-    name: "Christmascrash",
+    id: 107,
+    name: "Goldentree",
     namespaces: ["ChristmasX", "Spaceflight"],
     durations: {
         wholeRound: 14,
@@ -24,5 +24,5 @@ export const containerOptions: gc.IContainerOptions = {
         container.bind(gc.GameConfigs.GameSetting).toConstantValue(settings);
         container.bind(LogStore).to(LogStore);
     },
-    features: [gc.GameCrash, ...gc.defaultFeatures],
+    features: [gc.GameInstantWin, ...gc.defaultFeatures],
 };

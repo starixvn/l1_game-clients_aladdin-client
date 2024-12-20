@@ -56,8 +56,4 @@ export default class BetLevelsContainer extends ObserverComponent {
 
         this.content.getComponent(UITransform).height = height;
     }
-
-    onClickOverlayBg() {
-        this.node.active = false;
-    }
 }
