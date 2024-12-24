@@ -1,6 +1,7 @@
 import gc from "@sg/game-client-base";
 import inversify from "inversify";
 import { BetAmountStore } from "../bet-amount/bet-amount-store";
+import { BetHandler } from "../bets/bet-handler";
 import { AutoPlayStore } from "./auto-play-store";
 
 const { injectable, inject } = inversify;
@@ -11,7 +12,26 @@ export class AutoPlayHandler implements gc.Shared.IHandler<number> {
     @inject(gc.Bet.BetStore) private readonly betStore: gc.Bet.BetStore;
     @inject(BetAmountStore) protected readonly betAmountStore: BetAmountStore;
     @inject(gc.Notices.NoticeStore) private readonly noticeStore: gc.Notices.NoticeStore;
+    @inject(BetHandler) private readonly betHandler: BetHandler;
+    constructor() {
+        // mobx.reaction(
+        //     () => this.betStore.lastReceivedBet,
+        //     (lastReceivedBet) => {
+        //         if (lastReceivedBet) {
+        //             this.handleAutoPlaceBet();
+        //         }
+        //     }
+        // );
+    }
     handle() {}
+
+    handleAutoPlaceBet() {
+        if (this.checkFinishedAutoPlay) {
+            return;
+        }
+        this.updateAutoPlayRounds(this.autoPlayStore.roundsAutoPlay - 1);
+        this.betHandler.autoPlaceBet();
+    }
 
     openAutoPlayPopup() {
         this.autoPlayStore.isOpenAutoPlayPopup = true;
@@ -32,7 +52,7 @@ export class AutoPlayHandler implements gc.Shared.IHandler<number> {
 
     cancelAutoPlay() {
         this.autoPlayStore.isAutoPlay = false;
-        //this.updateAutoPlayRounds(0);
+        this.updateAutoPlayRounds(0);
     }
 
     isValidBet() {
@@ -74,8 +94,18 @@ export class AutoPlayHandler implements gc.Shared.IHandler<number> {
         this.autoPlayStore.isOpenAutoPlayPopup = false;
         if (this.isValidBet()) {
             this.autoPlayStore.isAutoPlay = true;
+            this.betHandler.autoPlaceBet();
+            this.updateAutoPlayRounds(this.autoPlayStore.roundsAutoPlay - 1);
         } else {
             this.cancelAutoPlay();
         }
+    }
+
+    updateAutoPlayRounds(rounds: number) {
+        this.autoPlayStore.roundsAutoPlay = rounds;
+    }
+
+    checkFinishedAutoPlay() {
+        return this.autoPlayStore.isAutoPlay && this.autoPlayStore.roundsAutoPlay <= 0;
     }
 }
