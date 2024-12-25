@@ -30,6 +30,9 @@ export default class BetAmount extends ObserverComponent {
     @property(Node)
     nodeOverlayBg: Node = null;
 
+    @property(Node)
+    nodeDisabledBetAmount: Node = null;
+
     private betLevelsContainer: BetLevelsContainer = null;
     private betAmount = 0;
     private betLevels = [];
@@ -156,5 +159,10 @@ export default class BetAmount extends ObserverComponent {
     @render(BetAmountStore, (store) => store.isOpenBetAmountPopup)
     setVisibilityBetAmountPopup(isOpenBetAmountPopup: boolean) {
         isOpenBetAmountPopup ? this.showBetLevelsContainer() : this.hideBetLevelsContainer();
+    }
+
+    @render(BetAmountStore, (store) => store.disabledBetAmount)
+    disabledBetAmount(disabledBetAmount: boolean) {
+        this.nodeDisabledBetAmount.active = disabledBetAmount;
     }
 }

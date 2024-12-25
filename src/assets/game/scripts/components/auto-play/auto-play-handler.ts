@@ -13,20 +13,12 @@ export class AutoPlayHandler implements gc.Shared.IHandler<number> {
     @inject(BetAmountStore) protected readonly betAmountStore: BetAmountStore;
     @inject(gc.Notices.NoticeStore) private readonly noticeStore: gc.Notices.NoticeStore;
     @inject(BetHandler) private readonly betHandler: BetHandler;
-    constructor() {
-        // mobx.reaction(
-        //     () => this.betStore.lastReceivedBet,
-        //     (lastReceivedBet) => {
-        //         if (lastReceivedBet) {
-        //             this.handleAutoPlaceBet();
-        //         }
-        //     }
-        // );
-    }
+
     handle() {}
 
     handleAutoPlaceBet() {
-        if (this.checkFinishedAutoPlay) {
+        if (this.checkFinishedAutoPlay()) {
+            this.autoPlayStore.isAutoPlay = false;
             return;
         }
         this.updateAutoPlayRounds(this.autoPlayStore.roundsAutoPlay - 1);
@@ -107,5 +99,12 @@ export class AutoPlayHandler implements gc.Shared.IHandler<number> {
 
     checkFinishedAutoPlay() {
         return this.autoPlayStore.isAutoPlay && this.autoPlayStore.roundsAutoPlay <= 0;
+    }
+
+    checkSpinNextRound() {
+        if (!this.autoPlayStore.isAutoPlay) {
+            return;
+        }
+        this.handleAutoPlaceBet();
     }
 }

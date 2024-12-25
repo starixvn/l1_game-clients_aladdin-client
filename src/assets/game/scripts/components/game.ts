@@ -4,15 +4,17 @@ import { startGame } from "db://shared-components/shared/scripts/startup";
 import Observer from "observer";
 
 import GameComponent from "db://shared-components/game/scripts/components/game-component";
+import { FunctionUtils } from "db://shared-components/shared/utils";
 import { siteConfigs } from "../../../scripts/site-configs";
 import { containerOptions, settings } from "../game-settings";
 import "./../../../resources/i18n";
+import { AutoPlayHandler } from "./auto-play/auto-play-handler";
 import WinNoticeContainer from "./win/win-notice-container";
 
 startGame(settings.name, containerOptions, siteConfigs, settings.namespaces);
 
 const { ccclass, property } = _decorator;
-const { observer } = Observer;
+const { observer, render, handle } = Observer;
 
 export interface IWinInstantResult {
     betWin: number;
@@ -42,8 +44,14 @@ export default class Game extends GameComponent {
         if (result.betWin > 0) {
             this.betWinNotice.showBetWin(betWin);
         }
+        await FunctionUtils.delay(2000);
+        this.checkSpinNextRound();
     }
+
     isValidResult(result: gc.GameServiceMessage.TResult, settlementResult: gc.GameServiceMessage.TSettlementResult) {
         return !!result;
     }
+
+    @handle(AutoPlayHandler, (handle) => handle.checkSpinNextRound())
+    checkSpinNextRound() {}
 }
