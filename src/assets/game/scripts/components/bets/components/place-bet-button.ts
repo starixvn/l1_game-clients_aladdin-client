@@ -19,13 +19,13 @@ export default class PlaceBetButton extends ObserverComponent {
     @handle(BetHandler, (handler) => handler.handle())
     onBet() {}
 
-    @render(AutoPlayStore, (store) => store.isAutoPlay)
+    @render(AutoPlayStore, (store) => store.isAutoplay)
     setVisibilityRoundsAutoplay(isAutoPlay: boolean) {
         this.nodeRoundsAutoPlay && (this.nodeRoundsAutoPlay.active = isAutoPlay);
         this.isAutoplay = isAutoPlay;
     }
 
-    @render(AutoPlayStore, (store) => store.roundsAutoPlay)
+    @render(AutoPlayStore, (store) => store.roundsAutoplay)
     setNoOfRound(roundsAutoPlay: number) {
         this.nodeRoundsAutoPlay && (this.nodeRoundsAutoPlay.getComponent(Label).string = roundsAutoPlay.toString());
     }

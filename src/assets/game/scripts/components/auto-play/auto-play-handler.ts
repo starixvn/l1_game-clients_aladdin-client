@@ -18,15 +18,15 @@ export class AutoPlayHandler implements gc.Shared.IHandler<number> {
 
     handleAutoPlaceBet() {
         if (this.checkFinishedAutoPlay()) {
-            this.autoPlayStore.isAutoPlay = false;
+            this.autoPlayStore.isAutoplay = false;
             return;
         }
-        this.updateAutoPlayRounds(this.autoPlayStore.roundsAutoPlay - 1);
+        this.updateAutoPlayRounds(this.autoPlayStore.roundsAutoplay - 1);
         this.betHandler.autoPlaceBet();
     }
 
     openAutoPlayPopup() {
-        this.autoPlayStore.isOpenAutoPlayPopup = true;
+        this.autoPlayStore.isOpenAutoplayPopup = true;
         if (this.autoPlayStore.roundConfirmedOnPopup !== 0) {
             this.autoPlayStore.selectedRoundOnPopup = this.autoPlayStore.roundConfirmedOnPopup;
         } else {
@@ -35,7 +35,7 @@ export class AutoPlayHandler implements gc.Shared.IHandler<number> {
     }
 
     clickAutoPlay() {
-        if (!this.autoPlayStore.isAutoPlay && this.isValidBet()) {
+        if (!this.autoPlayStore.isAutoplay && this.isValidBet()) {
             this.openAutoPlayPopup();
         } else {
             this.cancelAutoPlay();
@@ -43,7 +43,7 @@ export class AutoPlayHandler implements gc.Shared.IHandler<number> {
     }
 
     cancelAutoPlay() {
-        this.autoPlayStore.isAutoPlay = false;
+        this.autoPlayStore.isAutoplay = false;
         this.updateAutoPlayRounds(0);
     }
 
@@ -74,7 +74,7 @@ export class AutoPlayHandler implements gc.Shared.IHandler<number> {
     }
 
     closeAutoPlayPopup() {
-        this.autoPlayStore.isOpenAutoPlayPopup = false;
+        this.autoPlayStore.isOpenAutoplayPopup = false;
     }
 
     updateNoOfRounds(rounds: number) {
@@ -82,27 +82,27 @@ export class AutoPlayHandler implements gc.Shared.IHandler<number> {
     }
 
     confirmRoundAndStart() {
-        this.autoPlayStore.roundsAutoPlay = this.autoPlayStore.roundConfirmedOnPopup = this.autoPlayStore.selectedRoundOnPopup;
-        this.autoPlayStore.isOpenAutoPlayPopup = false;
+        this.autoPlayStore.roundsAutoplay = this.autoPlayStore.roundConfirmedOnPopup = this.autoPlayStore.selectedRoundOnPopup;
+        this.autoPlayStore.isOpenAutoplayPopup = false;
         if (this.isValidBet()) {
-            this.autoPlayStore.isAutoPlay = true;
+            this.autoPlayStore.isAutoplay = true;
             this.betHandler.autoPlaceBet();
-            this.updateAutoPlayRounds(this.autoPlayStore.roundsAutoPlay - 1);
+            this.updateAutoPlayRounds(this.autoPlayStore.roundsAutoplay - 1);
         } else {
             this.cancelAutoPlay();
         }
     }
 
     updateAutoPlayRounds(rounds: number) {
-        this.autoPlayStore.roundsAutoPlay = rounds;
+        this.autoPlayStore.roundsAutoplay = rounds;
     }
 
     checkFinishedAutoPlay() {
-        return this.autoPlayStore.isAutoPlay && this.autoPlayStore.roundsAutoPlay <= 0;
+        return this.autoPlayStore.isAutoplay && this.autoPlayStore.roundsAutoplay <= 0;
     }
 
     checkSpinNextRound() {
-        if (!this.autoPlayStore.isAutoPlay) {
+        if (!this.autoPlayStore.isAutoplay) {
             return;
         }
         this.handleAutoPlaceBet();

@@ -38,7 +38,7 @@ export default class AutoPlayPopup extends ObserverComponent {
         });
     }
 
-    @render(AutoPlayStore, (store) => store.isOpenAutoPlayPopup)
+    @render(AutoPlayStore, (store) => store.isOpenAutoplayPopup)
     setAutoPlayPopupVisibility(status: boolean) {
         this.node.active = status;
     }

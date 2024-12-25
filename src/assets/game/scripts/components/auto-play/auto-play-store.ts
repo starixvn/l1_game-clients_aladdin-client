@@ -10,12 +10,12 @@ export class AutoPlayStore {
     }
 
     public roundsList = [10, 30, 50, 80, 100, 200, 500, 1000];
-    public isOpenAutoPlayPopup = false;
+    public isOpenAutoplayPopup = false;
     public selectedRoundOnPopup = this.roundsList[0];
-    public roundsAutoPlay = 0;
+    public roundsAutoplay = 0;
     public _roundConfirmedOnPopup = 0;
 
-    public isAutoPlay = false;
+    public isAutoplay = false;
 
     set roundConfirmedOnPopup(rounds: number) {
         this._roundConfirmedOnPopup = rounds;

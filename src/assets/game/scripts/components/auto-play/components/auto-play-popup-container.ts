@@ -12,7 +12,7 @@ export class AutoPlayPopupContainer extends NodeContainer {
     @property(Node)
     nodeOverlay: Node = null;
 
-    @render(AutoPlayStore, (store) => store.isOpenAutoPlayPopup)
+    @render(AutoPlayStore, (store) => store.isOpenAutoplayPopup)
     renderOpenPopup(isOpenAutoPlayPopup: boolean) {
         this.nodeOverlay.active = isOpenAutoPlayPopup;
         if (this.node.children.length > 1) {

@@ -23,6 +23,6 @@ export class BetAmountStore {
     }
 
     get disabledBetAmount() {
-        return this.autoPlayStore.isAutoPlay;
+        return this.autoPlayStore.isAutoplay;
     }
 }
