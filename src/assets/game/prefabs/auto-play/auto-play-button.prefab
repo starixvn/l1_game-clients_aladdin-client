@@ -428,14 +428,14 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "icon-playing",
+    "_name": "icon-pause",
     "_objFlags": 0,
     "__editorExtras__": {},
     "_parent": {
       "__id__": 10
     },
     "_children": [],
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 18
@@ -760,6 +760,9 @@
     },
     "sprIconAutoPlay": {
       "__id__": 14
+    },
+    "sprIconPause": {
+      "__id__": 20
     },
     "_id": ""
   },

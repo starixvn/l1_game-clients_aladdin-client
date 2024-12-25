@@ -20,11 +20,6 @@ export default class BetLevelsContainer extends ObserverComponent {
     private readonly itemHeight = 51;
     private readonly itemsOfColumnMax = 5;
 
-    onLoad() {
-        //this.content.destroyAllChildren();
-        super.onLoad();
-    }
-
     setBetLevels(betLevels: number[]) {
         if (betLevels.length <= 0) {
             return;
@@ -55,5 +50,19 @@ export default class BetLevelsContainer extends ObserverComponent {
         }
 
         this.content.getComponent(UITransform).height = height;
+    }
+
+    @render(gc.Bet.BetStore, (store) => store.amount)
+    renderBetAmount(betAmount: number) {
+        if (this.content.children.length <= 0) {
+            return;
+        }
+        this.content.children.forEach((child) => {
+            child.getComponent(BetLevelItem).setSelectedNode(false);
+        });
+        const index = this.betLevels.findIndex((amount) => amount === betAmount);
+        const selectedNode = this.content.children[index];
+        const comp = selectedNode.getComponent(BetLevelItem);
+        comp.setSelectedNode(true);
     }
 }

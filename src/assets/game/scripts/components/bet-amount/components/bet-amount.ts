@@ -107,15 +107,15 @@ export default class BetAmount extends ObserverComponent {
         const isShowing = this.isShowStakeLevels();
         if (!isShowing) {
             this.showBetLevelsContainer();
-            this.setStatusBetAmountPopup(true);
+            this.openBetAmountPopup(true);
         } else {
             this.hideBetLevelsContainer();
-            this.setStatusBetAmountPopup(false);
+            this.openBetAmountPopup(false);
         }
     }
 
     @handle(BetAmountHandlers, (handle, isOpen: boolean) => handle.updateStatusBetAmountPopup(isOpen))
-    setStatusBetAmountPopup(isOpen: boolean) {
+    openBetAmountPopup(isOpen: boolean) {
         return isOpen;
     }
 
