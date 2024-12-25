@@ -14,7 +14,7 @@ export default class BetWinNotice extends ObserverComponent {
 
     setBetWin(betWin: number) {
         this.node.getComponent(UIOpacity).opacity = 255;
-        this.lblBetWin.string = betWin.toString();
+        this.lblBetWin.string = `+ ${betWin}`;
         tween(this.node.getComponent(UIOpacity))
             .to(2, { opacity: 0 }, { easing: "sineOut" })
             .call(() => {
