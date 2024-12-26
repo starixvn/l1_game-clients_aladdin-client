@@ -56,11 +56,15 @@ export default class PlaceBetButton extends ObserverComponent {
     addEvent() {
         input.on(Input.EventType.KEY_DOWN, this.onKeyDown, this);
         input.on(Input.EventType.KEY_UP, this.onKeyUp, this);
+        this.node.on(Node.EventType.MOUSE_ENTER, this.eventOnEnter, this);
+        this.node.on(Node.EventType.MOUSE_LEAVE, this.eventOnLeave, this);
     }
 
     removeEvent() {
         input.off(Input.EventType.KEY_DOWN, this.onKeyDown, this);
-        input.on(Input.EventType.KEY_UP, this.onKeyUp, this);
+        input.off(Input.EventType.KEY_UP, this.onKeyUp, this);
+        this.node.off(Node.EventType.MOUSE_ENTER, this.eventOnEnter, this);
+        this.node.off(Node.EventType.MOUSE_LEAVE, this.eventOnLeave, this);
     }
 
     onKeyDown(event) {
@@ -68,6 +72,14 @@ export default class PlaceBetButton extends ObserverComponent {
         if (keyCode === KeyCode.SPACE) {
             this.updatePressingKey(true);
         }
+    }
+
+    eventOnEnter() {
+        document.body.style.cursor = "pointer";
+    }
+
+    eventOnLeave() {
+        document.body.style.cursor = "default";
     }
 
     onKeyUp(event) {
