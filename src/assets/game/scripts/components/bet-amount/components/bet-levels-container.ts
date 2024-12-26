@@ -17,8 +17,8 @@ export default class BetLevelsContainer extends ObserverComponent {
     prfBetLevelItem: Prefab = null;
 
     private betLevels: number[] = [];
-    private readonly itemHeight = 51;
-    private readonly itemsOfColumnMax = 5;
+    private readonly itemHeight = 60;
+    private readonly itemsOfColumnMax = 4;
 
     setBetLevels(betLevels: number[]) {
         if (betLevels.length <= 0) {

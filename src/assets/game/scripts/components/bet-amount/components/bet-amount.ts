@@ -2,6 +2,8 @@ import gc from "@sg/game-client-base";
 import { _decorator, instantiate, Label, Node, Prefab, tween, Vec3 } from "cc";
 import { ObserverComponent } from "db://shared-components/shared/common-components/observer-component/scripts/observer-component";
 import Observer from "observer";
+
+import { InstantWinConfigStore } from "../../../game-configs/instant-win-config-store";
 import { BetAmountHandlers } from "../bet-amount-handlers";
 import { BetAmountStore } from "../bet-amount-store";
 import BetLevelsContainer from "./bet-levels-container";
@@ -48,7 +50,7 @@ export default class BetAmount extends ObserverComponent {
         this.nodeOverlayBg.active = false;
     }
 
-    @render(gc.GameConfigs.GameConfigStore, (store) => store.defaultBetLevel)
+    @render(InstantWinConfigStore, (store) => store.defaultBetLevel)
     showDefaultBetLevel(defaultBetLevel: number) {
         this.updateBetAmount(defaultBetLevel);
     }
@@ -68,7 +70,7 @@ export default class BetAmount extends ObserverComponent {
         this.betAmount = betAmount;
     }
 
-    @render(gc.GameConfigs.GameConfigStore, (store) => store.betLevels)
+    @render(InstantWinConfigStore, (store) => store.betLevels)
     assignBetLevel(betLevels: number[]) {
         this.betLevels = betLevels;
         this.nodeBetLevelsContainer.destroyAllChildren();

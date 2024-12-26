@@ -1,5 +1,6 @@
 import gc from "@sg/game-client-base";
 import { LogStore } from "db://shared-components/game/scripts/stores/log-store";
+import * as InstantWinFeature from "../scripts";
 
 import { sharedContainer } from "../../scripts/shared-container";
 
@@ -24,5 +25,5 @@ export const containerOptions: gc.IContainerOptions = {
         container.bind(gc.GameConfigs.GameSetting).toConstantValue(settings);
         container.bind(LogStore).to(LogStore);
     },
-    features: [gc.defaultFeatures],
+    features: [InstantWinFeature, ...gc.defaultFeatures],
 };
