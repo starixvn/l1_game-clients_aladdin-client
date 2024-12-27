@@ -126,9 +126,8 @@ export default class BetAmount extends ObserverComponent {
     @handle(BetAmountHandlers, (handle, amount: number) => handle.updateBetAmount(amount))
     onClickDescreaseButton() {
         let index = this.findIndexBetLevel() - 1;
-        if (index < 0) {
+        if (index === 0) {
             this.nodeDisabledDescrease.active = true;
-            return this.betLevels[0];
         }
         return this.betLevels[index];
     }
@@ -136,9 +135,8 @@ export default class BetAmount extends ObserverComponent {
     @handle(BetAmountHandlers, (handle, amount: number) => handle.updateBetAmount(amount))
     onClickInscreaseButton() {
         let index = this.findIndexBetLevel() + 1;
-        if (index > this.betLevels.length - 1) {
+        if (index === this.betLevels.length - 1) {
             this.nodeDisabledInscrease.active = true;
-            return this.betLevels[this.betLevels.length - 1];
         }
         return this.betLevels[index];
     }
