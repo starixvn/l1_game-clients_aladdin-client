@@ -193,42 +193,12 @@ export const languages = {
         "win_loss": "贏 輸",
         "you_reach_max_win": "您達到了最大勝利"
     },
-    "ChristmasX": {
-        "game_icon_name": "CHRISTMAS X",
-        "game_name": "Christmas X"
-    },
-    "Spaceflight": {
-        "Start_in ": "開始於",
-        "auto_cashout": "自動兌現",
+    "TapFortune": {},
+    "TapGame": {
+        "Bet": "賭注",
         "auto_play": "自動遊戲",
-        "bet_accepted": "接受投注",
-        "bet_amount": "投注金額",
-        "cancel_bet": "取消投注",
-        "cashed": "兌現",
-        "cashout": "兌現",
-        "cashout_50%": "兌現 50%",
-        "crash": "爆炸",
-        "crashed": "墜毀",
-        "current_multiplier": "當前倍數",
-        "game_icon_name": "航天",
-        "game_name": "航天",
-        "glossary_bet": "賭注",
-        "glossary_crash_point": "崩潰點",
-        "glossary_option": "選項",
-        "glossary_refund": "退款",
-        "glossary_total_bet": "總賭注",
-        "in_play": "在玩",
-        "message_bet_is_accepted": "投注接受",
-        "multiplier": "乘數",
-        "next_round": "(下一輪)",
-        "number_of_auto_play": "數量 自動遊戲:",
-        "place_bet": "下注",
-        "player": "閒家",
-        "reach_max_win": "達到最大勝利",
-        "stop_auto_play": "停止自動遊戲",
-        "total_cashout_amount_reach_max": "提現總額 達到最大勝利",
-        "waiting": "等待...",
-        "you_reach_max_win": "您達到了最大勝利"
+        "balance": "餘額",
+        "number_of_auto_play": "數量 自動遊戲:"
     }
 };
 

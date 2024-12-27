@@ -119,7 +119,7 @@ export const languages = {
         "message_void_running_ticket": "Cược của bạn đã bị hủy vì lý do kỹ thuật. Vui lòng thử lại game.",
         "message_win_limit_hit": "Game %{gameName} (#%{gameRoundId})\n\nĐã đạt giới hạn thắng cược! Vui lòng liên hệ với cấp trên, cảm ơn bạn. Đặt cược thất bại! (%{errorCode})",
         "min_bet_hand": "Tiền cược tối thiểu của tay bài này là %{minBet}",
-        "multiplier_time": "Gấp Bội Thắng!",
+        "multiplier_time": "GẤP BỘI THẮNG!",
         "name_invalid": "Tên nhân vật không hợp lệ.",
         "nickname_requirement": "Lưu ý:\n+ Tên nhân vật phải có từ 3 đến 14 ký tự.\n+ Không gõ dấu tiếng việt, không chứa khoảng trắng và các ký tự đặc biệt.\n+ Không thể đổi tên nhân vật sau khi tạo.",
         "non_winning_payline": "Không có dòng cược thắng",
@@ -193,43 +193,15 @@ export const languages = {
         "win_loss": "Thắng Thua",
         "you_reach_max_win": "Bạn Đã Đạt Mức Tiền Thắng Tối Đa"
     },
-    "ChristmasX": {
-        "game_icon_name": "CHRISTMAS X",
-        "game_name": "Christmas X"
+    "TapFortune": {
+        "game_icon_name": "HÁI LỘC",
+        "game_name": "Hái Lộc"
     },
-    "Spaceflight": {
-        "Start_in ": "Bắt đầu sau",
-        "auto_cashout": "TỰ ĐỘNG RÚT TIỀN",
+    "TapGame": {
+        "Bet": "TIỀN CƯỢC",
         "auto_play": "CHƠI TỰ ĐỘNG",
-        "bet_accepted": "Đã Nhận Cược",
-        "bet_amount": "TIỀN CƯỢC",
-        "cancel_bet": "(Hủy Cược)",
-        "cashed": "Rút Tiền",
-        "cashed_out": "ĐÃ RÚT TIỀN",
-        "cashout": "Rút Tiền",
-        "cashout_50%": "Rút Tiền 50%",
-        "crash": "Nổ",
-        "crashed": "ĐÃ NỔ",
-        "current_multiplier": "Số Nhân Hiện Tại",
-        "game_icon_name": "PHI THUYỀN\nKHÔNG GIAN",
-        "game_name": "Phi Thuyền Không Gian",
-        "glossary_bet": "Cược",
-        "glossary_crash_point": "Điểm Nổ",
-        "glossary_option": "Lựa Chọn",
-        "glossary_refund": "Hoàn Tiền",
-        "glossary_total_bet": "Tổng Cược",
-        "in_play": "ĐANG BAY",
-        "message_bet_is_accepted": "Đã xác nhận cược",
-        "multiplier": "Hệ Số Nhân",
-        "next_round": "(Phiên Kế)",
-        "number_of_auto_play": "Chọn Số Lượt Chơi:",
-        "place_bet": "ĐẶT CƯỢC",
-        "player": "Người Chơi",
-        "reach_max_win": "Đạt mức tiền thắng tối đa",
-        "stop_auto_play": "DỪNG CHƠI TỰ ĐỘNG",
-        "total_cashout_amount_reach_max": "Tổng tiền đã rút đạt mức tối đa",
-        "waiting": "ĐANG CHỜ...",
-        "you_reach_max_win": "Bạn Đã Đạt Mức Tiền Thắng Tối Đa"
+        "balance": "SỐ DƯ",
+        "number_of_auto_play": "Chọn Số Lượt Chơi:"
     }
 };
 

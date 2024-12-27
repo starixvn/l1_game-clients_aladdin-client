@@ -193,42 +193,11 @@ export const languages = {
         "win_loss": "ชนะ แพ้",
         "you_reach_max_win": "คุณถึงยอดชนะสูงสุด"
     },
-    "ChristmasX": {
-        "game_icon_name": "CHRISTMAS X",
-        "game_name": "Christmas X"
-    },
-    "Spaceflight": {
-        "Start_in ": "เริ่มเข้า",
-        "auto_cashout": "ถอนเงินอัตโนมัติ",
+    "TapFortune": {},
+    "TapGame": {
+        "Bet": "เดิมพัน",
         "auto_play": "เล่นอัตโนมัติ",
-        "bet_accepted": "ยอมรับการเดิมพันแล้ว",
-        "bet_amount": "จำนวนเงินเดิมพัน",
-        "cancel_bet": "(ยกเลิกเดิมพัน)",
-        "cashed": "เงินสด",
-        "cashout": "ถอนเงิน",
-        "cashout_50%": "ถอนเงิน 50%",
-        "crash": "ชน",
-        "crashed": "ล้มเหลว",
-        "current_multiplier": "ตัวคูณปัจจุบัน",
-        "game_icon_name": "การบินอวกาศ",
-        "game_name": "การบินอวกาศ",
-        "glossary_bet": "เดิมพัน",
-        "glossary_crash_point": "แต้มการพังของจรวด",
-        "glossary_option": "ตัวเลือก",
-        "glossary_refund": "คืนเงิน",
-        "glossary_total_bet": "เดิมพันรวม",
-        "in_play": "กำลังเล่นอยู่",
-        "message_bet_is_accepted": "ยอมรับการเดิมพันแล้ว",
-        "multiplier": "ตัวคูณ",
-        "next_round": "(รอบต่อไป)",
-        "number_of_auto_play": "จำนวนการ เล่นอัตโนมัติ:",
-        "place_bet": "วางเดิมพัน",
-        "player": "ผู้เล่น",
-        "reach_max_win": "เข้าถึงชัยชนะสูงสุด",
-        "stop_auto_play": "หยุดเล่นอัตโนมัติ",
-        "total_cashout_amount_reach_max": "จ่ายเงินยอดชนะสูงสุด",
-        "waiting": "กำลังรอ...",
-        "you_reach_max_win": "คุณถึงยอดชนะสูงสุด"
+        "number_of_auto_play": "จำนวนการ เล่นอัตโนมัติ:"
     }
 };
 

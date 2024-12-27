@@ -119,7 +119,7 @@ export const languages = {
         "message_void_running_ticket": "The bet was voided due to a technical issue. Please try the game again.",
         "message_win_limit_hit": "Game %{gameName} (#%{gameRoundId})\n\nFailed to place bet! Win limit hit. Please contact your upline, thank you. (%{errorCode})",
         "min_bet_hand": "Min bet for this hand is %{minBet}",
-        "multiplier_time": "Winning Boost!",
+        "multiplier_time": "WINNING BOOST!",
         "name_invalid": "The entered nickname is invalid, please try again",
         "nickname_requirement": "Note:\n      + Nickname must be between 3 and 14 characters long.\n      + Cannot contain spaces, special characters, and non-English characters. \n      + Cannot change the nickname after submitting.",
         "non_winning_payline": "Non-winning Paylines",
@@ -193,43 +193,15 @@ export const languages = {
         "win_loss": "Win Loss",
         "you_reach_max_win": "You reached the max win"
     },
-    "ChristmasX": {
-        "game_icon_name": "CHRISTMAS X",
-        "game_name": "Christmas X"
+    "TapFortune": {
+        "game_icon_name": "TAP FORTUNE",
+        "game_name": "Tap Fortune"
     },
-    "Spaceflight": {
-        "Start_in ": "Start in ",
-        "auto_cashout": "AUTO CASHOUT",
+    "TapGame": {
+        "Bet": "BET",
         "auto_play": "AUTO-PLAY",
-        "bet_accepted": "Bet Accepted",
-        "bet_amount": "BET AMOUNT",
-        "cancel_bet": "(Cancel Bet)",
-        "cashed": "CASHED",
-        "cashed_out": "CASHED OUT",
-        "cashout": "Cashout",
-        "cashout_50%": "Cashout 50%",
-        "crash": "Crash",
-        "crashed": "CRASHED",
-        "current_multiplier": "Current Multiplier",
-        "game_icon_name": "SPACEFLIGHT",
-        "game_name": "Spaceflight",
-        "glossary_bet": "Bet",
-        "glossary_crash_point": "Crash Point",
-        "glossary_option": "Option",
-        "glossary_refund": "Refund",
-        "glossary_total_bet": "Total Bet",
-        "in_play": "IN PLAY",
-        "message_bet_is_accepted": "Bet  is accepted ",
-        "multiplier": "Multiplier",
-        "next_round": "(Next Round)",
-        "number_of_auto_play": "Number of Auto-Play:",
-        "place_bet": "PLACE BET",
-        "player": "Player",
-        "reach_max_win": "Reach the Max Win",
-        "stop_auto_play": "STOP AUTO-PLAY",
-        "total_cashout_amount_reach_max": "Total cashout amounts reach the max win",
-        "waiting": "WAITING...",
-        "you_reach_max_win": "You reached the Max Win"
+        "balance": "BALANCE",
+        "number_of_auto_play": "Number of Auto-Play:"
     }
 };
 

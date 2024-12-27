@@ -193,42 +193,11 @@ export const languages = {
         "win_loss": "Menang Kalah",
         "you_reach_max_win": "Anda mencapai Maksimal Menang"
     },
-    "ChristmasX": {
-        "game_icon_name": "CHRISTMAS X",
-        "game_name": "Christmas X"
-    },
-    "Spaceflight": {
-        "Start_in ": "Mulai masuk",
-        "auto_cashout": "CASHOUT OTOMATIS",
+    "TapFortune": {},
+    "TapGame": {
+        "Bet": "Bertaruh",
         "auto_play": "AUTO-PLAY",
-        "bet_accepted": "Taruhan Diterima",
-        "bet_amount": "JUMLAH TARUHAN",
-        "cancel_bet": "(Batalkan Taruhan)",
-        "cashed": "Dicairkan",
-        "cashout": "Cashout",
-        "cashout_50%": "Cashout 50%",
-        "crash": "Jatuh",
-        "crashed": "TERJATUH",
-        "current_multiplier": "Pengganda Saat Ini",
-        "game_icon_name": "PENERBANGAN\nANTARIKSA",
-        "game_name": "Penerbangan Antariksa",
-        "glossary_bet": "Taruhan",
-        "glossary_crash_point": "Titik jatuh",
-        "glossary_option": "Pilihan",
-        "glossary_refund": "Pengembalian dana",
-        "glossary_total_bet": "Total Taruhan",
-        "in_play": "SEDANG BERMAIN",
-        "message_bet_is_accepted": "Taruhan diterima",
-        "multiplier": "Pengali",
-        "next_round": "(Ronde Selanjutnya)",
-        "number_of_auto_play": "Jumlah Auto-Play:",
-        "place_bet": "Pasang Taruhan",
-        "player": "Player",
-        "reach_max_win": "Raih Kemenangan Maksimal",
-        "stop_auto_play": "STOP AUTO-PLAY",
-        "total_cashout_amount_reach_max": "Total jumlah pembayaran Raih kemenangan maksimal",
-        "waiting": "MENUNGGU...",
-        "you_reach_max_win": "Anda mencapai Maksimal Menang"
+        "number_of_auto_play": "Jumlah Auto-Play:"
     }
 };
 

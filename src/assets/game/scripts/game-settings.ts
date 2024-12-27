@@ -7,7 +7,7 @@ import { sharedContainer } from "../../scripts/shared-container";
 export const settings = {
     id: 107,
     name: "Goldentree",
-    namespaces: ["ChristmasX", "Spaceflight"],
+    namespaces: ["TapFortune", "TapGame"],
     durations: {
         wholeRound: 14,
         lockingBet: 3,
