@@ -43,10 +43,8 @@ export default class BetAmount extends ObserverComponent {
         super.onLoad();
         gc.initMobxLogger();
         const configs = new gc.GameServiceMessage.GameConfigs();
-        configs.betLevels = [1, 5, 10, 50, 100, 200, 500, 1000, 2000];
         configs.minBet = 1;
         configs.maxBet = 2000;
-        configs.defaultBetLevel = 100;
         this.nodeOverlayBg.active = false;
     }
 
