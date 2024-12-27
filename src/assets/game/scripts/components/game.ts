@@ -54,4 +54,15 @@ export default class Game extends GameComponent {
 
     @handle(AutoPlayHandler, (handle) => handle.checkSpinNextRound())
     checkSpinNextRound() {}
+
+    renderRoundId(roundId: number) {
+        //override parent component
+    }
+
+    @render(gc.Settlements.SettlementStore, (store) => store.currentFinish, {
+        fireImmediately: false,
+    })
+    showRoundId(currentFinish: any) {
+        this.lblRoundId && (this.lblRoundId.string = `#${currentFinish.roundId}`);
+    }
 }

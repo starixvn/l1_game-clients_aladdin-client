@@ -75,7 +75,7 @@ export default class PlaceBetButton extends ObserverComponent {
     }
 
     eventOnEnter() {
-        document.body.style.cursor = "pointer";
+        !this.isAutoplay && (document.body.style.cursor = "pointer");
     }
 
     eventOnLeave() {

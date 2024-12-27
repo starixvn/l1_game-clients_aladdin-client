@@ -1,9 +1,9 @@
 import gc from "@sg/game-client-base";
 import { _decorator, Label, tween, Vec3 } from "cc";
-import { BalanceEffectHandlers } from "db://shared-components/game/balance-effect/scripts/handlers/balance-effect-handlers";
 import { ObserverComponent } from "db://shared-components/shared/common-components/observer-component/scripts/observer-component";
 import Observer from "observer";
 import { IWinInstantResult } from "../game";
+import { BalanceInfoHandler } from "./balance-info-handler";
 const { ccclass, property } = _decorator;
 const { observer, render, handle } = Observer;
 const { Player, Bet, FormatUtils, Settlements } = gc;
@@ -30,12 +30,12 @@ export class BalanceInfo extends ObserverComponent {
         }
     }
 
-    @handle(BalanceEffectHandlers.MainPlayerDecreaseBalance)
+    @handle(BalanceInfoHandler, (handle, balance: number) => handle.descreaseBalance(balance))
     mainPlayerDecreaseBalance(balance: number) {
         return balance;
     }
 
-    @handle(BalanceEffectHandlers.MainPlayerIncreaseBalance)
+    @handle(BalanceInfoHandler, (handle, balance: number) => handle.increaseBalance(balance))
     mainPlayerIncreaseBalance(balance: number) {
         return balance;
     }

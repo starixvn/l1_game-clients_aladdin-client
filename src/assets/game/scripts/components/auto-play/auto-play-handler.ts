@@ -13,6 +13,7 @@ export class AutoPlayHandler implements gc.Shared.IHandler<number> {
     @inject(BetAmountStore) protected readonly betAmountStore: BetAmountStore;
     @inject(gc.Notices.NoticeStore) private readonly noticeStore: gc.Notices.NoticeStore;
     @inject(BetHandler) private readonly betHandler: BetHandler;
+    @inject(gc.Rounds.RoundStore) private readonly roundStore: gc.Rounds.RoundStore;
 
     handle() {}
 
@@ -27,11 +28,7 @@ export class AutoPlayHandler implements gc.Shared.IHandler<number> {
 
     openAutoPlayPopup() {
         this.autoPlayStore.isOpenAutoplayPopup = true;
-        if (this.autoPlayStore.roundConfirmedOnPopup !== 0) {
-            this.autoPlayStore.selectedRoundOnPopup = this.autoPlayStore.roundConfirmedOnPopup;
-        } else {
-            this.autoPlayStore.selectedRoundOnPopup = this.autoPlayStore.roundsList[0];
-        }
+        this.autoPlayStore.selectedRoundOnPopup = this.autoPlayStore.roundsList[0];
     }
 
     clickAutoPlay() {
@@ -48,21 +45,24 @@ export class AutoPlayHandler implements gc.Shared.IHandler<number> {
     }
 
     isValidBet() {
-        // if (!this.isEnoughMoney()) {
-        //     this.showNotEnoughMoney();
-        //     return false;
-        // }
-
-        // if (!this.betInputStore.isAmountGreaterMinBet) {
-        //     this.showMsgMinBet();
-        //     return false;
-        // }
+        if (!this.isEnoughMoney()) {
+            this.showNotEnoughMoney();
+            return false;
+        }
+        if (!this.isAmountGreaterMinBet()) {
+            this.showMsgMinBet();
+            return false;
+        }
 
         return true;
     }
 
     isEnoughMoney() {
-        return this.betAmountStore.betAmount <= this.betStore.availableBalance;
+        return this.betStore.amount <= this.betStore.availableBalance;
+    }
+
+    isAmountGreaterMinBet() {
+        return this.betStore.amount >= this.roundStore.minBet;
     }
 
     private showNotEnoughMoney() {
@@ -73,16 +73,16 @@ export class AutoPlayHandler implements gc.Shared.IHandler<number> {
         this.noticeStore.addWarning(message);
     }
 
+    showMsgMinBet() {
+        this.noticeStore.addWarning(gc.Translator.commonTranslate("message_min_bet_notice", { minBet: this.roundStore.minBet }));
+    }
+
     closeAutoPlayPopup() {
         this.autoPlayStore.isOpenAutoplayPopup = false;
     }
 
-    updateNoOfRounds(rounds: number) {
-        this.autoPlayStore.selectedRoundOnPopup = rounds;
-    }
-
     confirmRoundAndStart() {
-        this.autoPlayStore.roundsAutoplay = this.autoPlayStore.roundConfirmedOnPopup = this.autoPlayStore.selectedRoundOnPopup;
+        this.autoPlayStore.roundsAutoplay = this.autoPlayStore.selectedRoundOnPopup;
         this.autoPlayStore.isOpenAutoplayPopup = false;
         if (this.isValidBet()) {
             this.autoPlayStore.isAutoplay = true;
