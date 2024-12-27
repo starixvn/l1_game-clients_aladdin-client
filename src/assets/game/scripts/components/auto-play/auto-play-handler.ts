@@ -107,4 +107,8 @@ export class AutoPlayHandler implements gc.Shared.IHandler<number> {
         }
         this.handleAutoPlaceBet();
     }
+
+    updateNoOfRounds(rounds: number) {
+        this.autoPlayStore.selectedRoundOnPopup = rounds;
+    }
 }
