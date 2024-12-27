@@ -201,7 +201,8 @@ export const languages = {
         "Bet": "BET",
         "auto_play": "AUTO-PLAY",
         "balance": "BALANCE",
-        "number_of_auto_play": "Number of Auto-Play:"
+        "number_of_auto_play": "Number of Auto-Play:",
+        "start": "Start"
     }
 };
 

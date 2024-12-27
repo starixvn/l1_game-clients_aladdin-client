@@ -193,11 +193,16 @@ export const languages = {
         "win_loss": "Menang Kalah",
         "you_reach_max_win": "Anda mencapai Maksimal Menang"
     },
-    "TapFortune": {},
+    "TapFortune": {
+        "game_icon_name": "Ketuk\nKeberuntungan",
+        "game_name": "Ketuk Keberuntungan"
+    },
     "TapGame": {
         "Bet": "Bertaruh",
         "auto_play": "AUTO-PLAY",
-        "number_of_auto_play": "Jumlah Auto-Play:"
+        "balance": "saldo ",
+        "number_of_auto_play": "Jumlah Auto-Play:",
+        "start": "Mulai"
     }
 };
 

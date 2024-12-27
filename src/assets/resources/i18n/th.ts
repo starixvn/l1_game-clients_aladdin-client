@@ -193,11 +193,16 @@ export const languages = {
         "win_loss": "ชนะ แพ้",
         "you_reach_max_win": "คุณถึงยอดชนะสูงสุด"
     },
-    "TapFortune": {},
+    "TapFortune": {
+        "game_icon_name": "แตะโชค",
+        "game_name": "แตะโชค"
+    },
     "TapGame": {
         "Bet": "เดิมพัน",
         "auto_play": "เล่นอัตโนมัติ",
-        "number_of_auto_play": "จำนวนการ เล่นอัตโนมัติ:"
+        "balance": "ยอดคงเหลือ",
+        "number_of_auto_play": "จำนวนการ เล่นอัตโนมัติ:",
+        "start": "เริ่ม"
     }
 };
 

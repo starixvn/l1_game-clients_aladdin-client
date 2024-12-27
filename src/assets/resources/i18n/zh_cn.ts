@@ -193,12 +193,16 @@ export const languages = {
         "win_loss": "赢 输",
         "you_reach_max_win": "您达到了最大胜利"
     },
-    "TapFortune": {},
+    "TapFortune": {
+        "game_icon_name": "金钱树",
+        "game_name": "金钱树"
+    },
     "TapGame": {
         "Bet": "赌注",
         "auto_play": "自动游戏",
         "balance": "余额",
-        "number_of_auto_play": "数量 自动游戏:"
+        "number_of_auto_play": "数量 自动游戏:",
+        "start": "开始"
     }
 };
 

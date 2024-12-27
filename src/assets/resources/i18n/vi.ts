@@ -201,7 +201,8 @@ export const languages = {
         "Bet": "TIỀN CƯỢC",
         "auto_play": "CHƠI TỰ ĐỘNG",
         "balance": "SỐ DƯ",
-        "number_of_auto_play": "Chọn Số Lượt Chơi:"
+        "number_of_auto_play": "Chọn Số Lượt Chơi:",
+        "start": "Bắt Đầu"
     }
 };
 

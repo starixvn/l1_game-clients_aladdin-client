@@ -1557,7 +1557,7 @@
     "_lpos": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": -11.75,
+      "y": -16.397999999999968,
       "z": 0
     },
     "_lrot": {
@@ -1597,8 +1597,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 132,
-      "height": 30
+      "width": 54.7734375,
+      "height": 30.240000000000002
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1612,7 +1612,7 @@
     "fileId": "8doifFkxhBPaCg764ONsNS"
   },
   {
-    "__type__": "cc.Sprite",
+    "__type__": "cc.Label",
     "_name": "",
     "_objFlags": 0,
     "__editorExtras__": {},
@@ -1633,28 +1633,57 @@
       "b": 255,
       "a": 255
     },
-    "_spriteFrame": null,
-    "_type": 0,
-    "_fillType": 0,
-    "_sizeMode": 0,
-    "_fillCenter": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
+    "_string": "Start",
+    "_horizontalAlign": 1,
+    "_verticalAlign": 1,
+    "_actualFontSize": 24,
+    "_fontSize": 24,
+    "_fontFamily": "Arial",
+    "_lineHeight": 24,
+    "_overflow": 0,
+    "_enableWrapText": true,
+    "_font": {
+      "__uuid__": "0b9efa3d-c517-4301-af5b-ac67552528db",
+      "__expectedType__": "cc.TTFFont"
     },
-    "_fillStart": 0,
-    "_fillRange": 0,
-    "_isTrimmedMode": false,
-    "_useGrayscale": false,
-    "_atlas": null,
+    "_isSystemFontUsed": false,
+    "_spacingX": 0,
+    "_isItalic": false,
+    "_isBold": false,
+    "_isUnderline": false,
+    "_underlineHeight": 2,
+    "_cacheMode": 0,
+    "_enableOutline": false,
+    "_outlineColor": {
+      "__type__": "cc.Color",
+      "r": 0,
+      "g": 0,
+      "b": 0,
+      "a": 255
+    },
+    "_outlineWidth": 2,
+    "_enableShadow": false,
+    "_shadowColor": {
+      "__type__": "cc.Color",
+      "r": 0,
+      "g": 0,
+      "b": 0,
+      "a": 255
+    },
+    "_shadowOffset": {
+      "__type__": "cc.Vec2",
+      "x": 2,
+      "y": 2
+    },
+    "_shadowBlur": 2,
     "_id": ""
   },
   {
     "__type__": "cc.CompPrefabInfo",
-    "fileId": "ebihGIrVRMrIf0Jj95rgph"
+    "fileId": "8auibWQ6FFBon6IgXA33Wm"
   },
   {
-    "__type__": "a67896fTUBMjqsMU4DLBJx4",
+    "__type__": "d79a8JOa2JHfr/hBtgYdLqO",
     "_name": "",
     "_objFlags": 0,
     "__editorExtras__": {},
@@ -1665,18 +1694,15 @@
     "__prefab": {
       "__id__": 70
     },
-    "spriteList": [],
-    "atlas": {
-      "__uuid__": "24cde592-abec-44b7-87d4-a55740b5ff06",
-      "__expectedType__": "cc.SpriteAtlas"
-    },
-    "prefix": "text_start",
-    "defaultLocalized": "en",
+    "key": "TapGame.start",
+    "format": 0,
+    "prefix": "",
+    "suffix": "",
     "_id": ""
   },
   {
     "__type__": "cc.CompPrefabInfo",
-    "fileId": "04+Ni+o41OCJbl8yEdCrFi"
+    "fileId": "02ek9kOTNGjK7JcdkLfPLI"
   },
   {
     "__type__": "cc.PrefabInfo",
