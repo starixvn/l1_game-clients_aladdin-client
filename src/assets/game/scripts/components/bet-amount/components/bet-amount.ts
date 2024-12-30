@@ -64,7 +64,7 @@ export default class BetAmount extends ObserverComponent {
         this.betAmount = betAmount;
     }
 
-    @render(InstantWinConfigStore, (store) => store.betLevels)
+    @render(BetAmountStore, (store) => store.betLevels)
     assignBetLevel(betLevels: number[]) {
         this.betLevels = betLevels;
         this.nodeBetLevelsContainer.destroyAllChildren();
@@ -122,28 +122,17 @@ export default class BetAmount extends ObserverComponent {
     @handle(BetAmountHandlers, (handle, amount: number) => handle.updateBetAmount(amount))
     onClickDescreaseButton() {
         let index = this.findIndexBetLevel() - 1;
-        if (index === 0) {
-            this.nodeDisabledDescrease.active = true;
-        }
         return this.betLevels[index];
     }
 
     @handle(BetAmountHandlers, (handle, amount: number) => handle.updateBetAmount(amount))
     onClickInscreaseButton() {
         let index = this.findIndexBetLevel() + 1;
-        if (index === this.betLevels.length - 1) {
-            this.nodeDisabledInscrease.active = true;
-        }
         return this.betLevels[index];
     }
 
     findIndexBetLevel(): number {
-        const index = this.betLevels.findIndex((amount) => amount === this.betAmount);
-        if (index > -1 || index < this.betLevels.length) {
-            this.nodeDisabledDescrease.active = false;
-            this.nodeDisabledInscrease.active = false;
-        }
-        return index;
+        return this.betLevels.findIndex((amount) => amount === this.betAmount);
     }
 
     onClickOverlayBg() {
@@ -158,5 +147,15 @@ export default class BetAmount extends ObserverComponent {
     @render(BetAmountStore, (store) => store.disabledBetAmount)
     disabledBetAmount(disabledBetAmount: boolean) {
         this.nodeDisabledBetAmount.active = disabledBetAmount;
+    }
+
+    @render(BetAmountStore, (store) => store.isMaxbetLevelValue)
+    disabledMaxBetLevel(isMaxbetLevelValue: boolean) {
+        this.nodeDisabledInscrease.active = isMaxbetLevelValue;
+    }
+
+    @render(BetAmountStore, (store) => store.isMinBetLevelValue)
+    disabledMinBetLevel(isMinBetLevelValue: boolean) {
+        this.nodeDisabledDescrease.active = isMinBetLevelValue;
     }
 }
