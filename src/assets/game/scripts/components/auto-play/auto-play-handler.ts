@@ -49,10 +49,6 @@ export class AutoPlayHandler implements gc.Shared.IHandler<number> {
             this.showNotEnoughMoney();
             return false;
         }
-        if (!this.isAmountGreaterMinBet()) {
-            this.showMsgMinBet();
-            return false;
-        }
 
         return true;
     }
