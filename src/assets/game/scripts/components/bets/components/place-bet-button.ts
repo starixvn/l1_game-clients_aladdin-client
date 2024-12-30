@@ -14,7 +14,11 @@ const { observer, render, handle } = Observer;
 @ccclass
 export default class PlaceBetButton extends ObserverComponent {
     @property(Node)
-    nodeRoundsAutoPlay: Node = null;
+    nodeAutoPlay: Node = null;
+
+    @property(Label)
+    lblRoundsAutoPlay: Label = null;
+
     private isAutoplay = false;
 
     onLoad() {
@@ -32,13 +36,13 @@ export default class PlaceBetButton extends ObserverComponent {
 
     @render(AutoPlayStore, (store) => store.isAutoplay)
     setVisibilityRoundsAutoplay(isAutoPlay: boolean) {
-        this.nodeRoundsAutoPlay && (this.nodeRoundsAutoPlay.active = isAutoPlay);
+        this.nodeAutoPlay && (this.nodeAutoPlay.active = isAutoPlay);
         this.isAutoplay = isAutoPlay;
     }
 
     @render(AutoPlayStore, (store) => store.roundsAutoplay)
     setNoOfRound(roundsAutoPlay: number) {
-        this.nodeRoundsAutoPlay && (this.nodeRoundsAutoPlay.getComponent(Label).string = roundsAutoPlay.toString());
+        this.nodeAutoPlay && (this.lblRoundsAutoPlay.string = roundsAutoPlay.toString());
     }
 
     onClickBetButton() {
