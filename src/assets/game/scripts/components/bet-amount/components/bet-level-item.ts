@@ -4,7 +4,7 @@ import { ObserverComponent } from "db://shared-components/shared/common-componen
 import Observer from "observer";
 import { BetAmountHandlers } from "../bet-amount-handlers";
 
-const { Connection } = gc;
+const { FormatUtils } = gc;
 const { ccclass, property } = _decorator;
 const { observer, render, handle } = Observer;
 
@@ -22,7 +22,7 @@ export default class BetLevelItem extends ObserverComponent {
     }
 
     setData(betLevel: number) {
-        this.lblBet.string = betLevel.toString();
+        this.lblBet.string = FormatUtils.numberWithCommas(betLevel, 2);
     }
 
     setSelectedNode(isSelected: boolean) {
