@@ -104,6 +104,6 @@ export default class PlaceBetButton extends ObserverComponent {
             this.unschedule(this.onBet);
             return;
         }
-        this.schedule(this.onBet, 2, macro.REPEAT_FOREVER);
+        this.schedule(this.onBet, 1, macro.REPEAT_FOREVER);
     }
 }

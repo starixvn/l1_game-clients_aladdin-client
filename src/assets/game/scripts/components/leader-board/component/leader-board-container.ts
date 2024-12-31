@@ -27,15 +27,12 @@ export class LeaderBoardContainer extends ObserverComponent {
         this.nodeMainPlayer.active = false;
     }
 
-    @render(LeaderBoardStore, (store) => store.winnersShowOnBoard)
-    showWinners(winners: IWinner[]) {
-        const winnersOnBoard = this.nodeMainPlayer.active ? winners.slice(0, winners.length - 1) : winners;
-        this.nodeWinners.destroyAllChildren();
-        winnersOnBoard.forEach((winner) => {
-            const nodeWinner = instantiate(this.prfWinner);
-            nodeWinner.getComponent(Winner).setData(winner);
-            this.nodeWinners.addChild(nodeWinner);
-        });
+    @render(LeaderBoardStore, (store) => store.winner, { fireImmediately: false })
+    showWinners(winner: IWinner) {
+        //const winnersOnBoard = this.nodeMainPlayer.active ? winners.slice(0, winners.length - 1) : winners;
+        const nodeWinner = instantiate(this.prfWinner);
+        nodeWinner.getComponent(Winner).setData(winner);
+        this.nodeWinners.addChild(nodeWinner);
     }
 
     @render(Settlements.SettlementStore, (store) => store.result, { fireImmediately: false })

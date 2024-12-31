@@ -9,6 +9,7 @@ export namespace GameServiceMessage {
     export class Winner {
         name: string;
         betWin: number;
+        bigWin: boolean;
 
         static eventName = "winner";
     }

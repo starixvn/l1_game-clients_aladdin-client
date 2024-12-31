@@ -44,7 +44,7 @@ export default class Game extends GameComponent {
         if (result.betWin > 0) {
             this.betWinNotice.showBetWin(betWin);
         }
-        await FunctionUtils.delay(2000);
+        await FunctionUtils.delay(1000);
         this.checkSpinNextRound();
     }
 

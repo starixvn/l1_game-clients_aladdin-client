@@ -9,8 +9,7 @@ const { injectable, inject } = inversify;
 export class LeaderBoardHandler implements gc.Shared.IMultipleHandlers {
     @inject(LeaderBoardStore) protected readonly leaderBoardStore: LeaderBoardStore;
     handleWinner(winner: GameServiceMessage.Winner) {
-        //this.leaderBoardStore.winner = winner;
-        this.leaderBoardStore.winners.unshift(winner);
+        this.leaderBoardStore.winner = winner;
     }
 
     eventHandleList = [
