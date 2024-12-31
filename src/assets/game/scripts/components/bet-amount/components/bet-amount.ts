@@ -8,7 +8,7 @@ import { BetAmountHandlers } from "../bet-amount-handlers";
 import { BetAmountStore } from "../bet-amount-store";
 import BetLevelsContainer from "./bet-levels-container";
 
-const { Connection } = gc;
+const { FormatUtils } = gc;
 const { ccclass, property } = _decorator;
 const { observer, render, handle } = Observer;
 
@@ -60,7 +60,7 @@ export default class BetAmount extends ObserverComponent {
     }
 
     setBetAmount(betAmount: number) {
-        this.lblBetLevelDefault.string = betAmount.toString();
+        this.lblBetLevelDefault.string = FormatUtils.numberWithCommas(betAmount, 2);
         this.betAmount = betAmount;
     }
 
