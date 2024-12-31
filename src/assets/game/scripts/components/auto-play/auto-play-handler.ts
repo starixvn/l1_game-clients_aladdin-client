@@ -18,7 +18,7 @@ export class AutoPlayHandler implements gc.Shared.IHandler<number> {
     handle() {}
 
     handleAutoPlaceBet() {
-        if (this.checkFinishedAutoPlay()) {
+        if (this.checkFinishedAutoPlay() || !this.isValidBet()) {
             this.autoPlayStore.isAutoplay = false;
             return;
         }
