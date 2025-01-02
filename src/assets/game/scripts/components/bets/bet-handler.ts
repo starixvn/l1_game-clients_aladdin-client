@@ -23,8 +23,9 @@ export class BetHandler extends gc.Bet.BetHandler {
     }
 
     updatePressingKey(isPressingKey: boolean) {
-        if (!this.autoPlayStore.isAutoplay) {
-            this.holdActionStore.isPressingKey = isPressingKey;
+        this.holdActionStore.isPressingKey = isPressingKey;
+        if (this.autoPlayStore.isAutoplay) {
+            this.autoPlayStore.isAutoplay = false;
         }
     }
 }

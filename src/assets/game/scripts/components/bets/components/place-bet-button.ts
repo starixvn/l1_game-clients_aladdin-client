@@ -1,5 +1,5 @@
 import gc from "@sg/game-client-base";
-import { _decorator, Input, input, KeyCode, Label, macro, Node } from "cc";
+import { _decorator, Input, input, KeyCode, Label, Node } from "cc";
 import { ObserverComponent } from "db://shared-components/shared/common-components/observer-component/scripts/observer-component";
 import Observer from "observer";
 import { AutoPlayHandler } from "../../auto-play/auto-play-handler";
@@ -99,11 +99,11 @@ export default class PlaceBetButton extends ObserverComponent {
     }
 
     @render(HoldActionStore, (store) => store.isPressingKey, { fireImmediately: false })
-    handleAutoBet(isPressingKey: boolean) {
+    handlePressingKey(isPressingKey: boolean) {
         if (!isPressingKey) {
-            this.unschedule(this.onBet);
             return;
         }
-        this.schedule(this.onBet, 1, macro.REPEAT_FOREVER);
+
+        !this.isAutoplay && this.onBet();
     }
 }
