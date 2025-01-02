@@ -1,5 +1,5 @@
 import gc from "@sg/game-client-base";
-import { _decorator, Input, input, KeyCode, Label, Node } from "cc";
+import { _decorator, Input, input, KeyCode, Label, Node, PolygonCollider2D, Contact2DType, Collider2D, IPhysics2DContact } from "cc";
 import { ObserverComponent } from "db://shared-components/shared/common-components/observer-component/scripts/observer-component";
 import Observer from "observer";
 import { AutoPlayHandler } from "../../auto-play/auto-play-handler";
@@ -19,11 +19,13 @@ export default class PlaceBetButton extends ObserverComponent {
     @property(Label)
     lblRoundsAutoPlay: Label = null;
 
+    private collider: PolygonCollider2D = null;
     private isAutoplay = false;
 
     onLoad() {
         super.onLoad();
         this.addEvent();
+        this.collider = this.node?.getComponent(PolygonCollider2D);
     }
 
     onDestroy(): void {
@@ -60,15 +62,21 @@ export default class PlaceBetButton extends ObserverComponent {
     addEvent() {
         input.on(Input.EventType.KEY_DOWN, this.onKeyDown, this);
         input.on(Input.EventType.KEY_UP, this.onKeyUp, this);
-        this.node.on(Node.EventType.MOUSE_ENTER, this.eventOnEnter, this);
-        this.node.on(Node.EventType.MOUSE_LEAVE, this.eventOnLeave, this);
+
+        if (this.collider) {
+            this.collider.on(Contact2DType.BEGIN_CONTACT, this.onTouchEnter, this);
+            this.collider.on(Contact2DType.END_CONTACT, this.onTouchLeave, this);
+        }
     }
 
     removeEvent() {
         input.off(Input.EventType.KEY_DOWN, this.onKeyDown, this);
         input.off(Input.EventType.KEY_UP, this.onKeyUp, this);
-        this.node.off(Node.EventType.MOUSE_ENTER, this.eventOnEnter, this);
-        this.node.off(Node.EventType.MOUSE_LEAVE, this.eventOnLeave, this);
+
+        if (this.collider) {
+            this.collider.off(Contact2DType.BEGIN_CONTACT, this.onTouchEnter, this);
+            this.collider.off(Contact2DType.END_CONTACT, this.onTouchLeave, this);
+        }
     }
 
     onKeyDown(event) {
@@ -78,11 +86,11 @@ export default class PlaceBetButton extends ObserverComponent {
         }
     }
 
-    eventOnEnter() {
+    onTouchEnter(selfCollider: Collider2D, otherCollider: Collider2D, contact: IPhysics2DContact | null) {
         !this.isAutoplay && (document.body.style.cursor = "pointer");
     }
 
-    eventOnLeave() {
+    onTouchLeave(selfCollider: Collider2D, otherCollider: Collider2D, contact: IPhysics2DContact | null) {
         document.body.style.cursor = "default";
     }
 
