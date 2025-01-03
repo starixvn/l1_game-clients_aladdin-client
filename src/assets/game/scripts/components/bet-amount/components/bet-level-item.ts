@@ -18,7 +18,7 @@ export default class BetLevelItem extends ObserverComponent {
 
     @handle(BetAmountHandlers, (handler, amount: number) => handler.updateBetAmount(amount))
     onClickBetItem() {
-        return +this.lblBet.string;
+        return +this.lblBet?.string?.replace(/,/g, "");
     }
 
     setData(betLevel: number) {
