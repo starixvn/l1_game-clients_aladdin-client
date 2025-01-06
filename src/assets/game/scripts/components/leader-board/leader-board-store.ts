@@ -7,6 +7,7 @@ export interface IWinner {
     name: string;
     betWin: number;
     bigWin: boolean;
+    rate: number;
 }
 
 @injectable()
