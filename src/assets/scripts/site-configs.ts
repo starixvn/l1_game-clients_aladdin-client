@@ -25,7 +25,6 @@ const defaultConfig: gc.Configs.SiteConfigs = {
     },
     mainObserverNamespace: "Tapfortune",
     tolgeeUrl: "",
-    storagePrefixKey: "tapfortune",
 };
 
 let configDev = {
