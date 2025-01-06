@@ -8,6 +8,7 @@ export interface IWinner {
     betWin: number;
     bigWin: boolean;
     rate: number;
+    avatarId: number;
 }
 
 @injectable()

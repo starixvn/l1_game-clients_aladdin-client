@@ -1,15 +1,10 @@
-import gc from "@sg/game-client-base";
-import { _decorator, instantiate, Prefab } from "cc";
-import { ObserverComponent } from "db://shared-components/shared/common-components/observer-component/scripts/observer-component";
-import Observer from "observer";
+import { _decorator, Component, instantiate, Prefab } from "cc";
 import BetWinNotice from "./bet-win-notice";
 
-const { Connection } = gc;
 const { ccclass, property } = _decorator;
-const { observer, render, handle } = Observer;
 
 @ccclass
-export default class WinNoticeContainer extends ObserverComponent {
+export default class WinNoticeContainer extends Component {
     @property(Prefab)
     prfWinNotice: Prefab = null;
 

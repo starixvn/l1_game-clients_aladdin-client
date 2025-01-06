@@ -1,4 +1,4 @@
-import { _decorator, instantiate, Node, Prefab, sp } from "cc";
+import { _decorator, instantiate, math, Prefab, sp, UITransform, v3 } from "cc";
 import { ObserverComponent } from "db://shared-components/shared/common-components/observer-component/scripts/observer-component";
 import { AnimationUtils } from "db://shared-components/shared/utils";
 import Observer from "observer";
@@ -29,16 +29,17 @@ export class RandomSlotWinner extends ObserverComponent {
     @property(Prefab)
     prfWinNotice: Prefab = null;
 
-    slots: Node[] = [];
+    @property(UITransform)
+    randomArea: UITransform = null;
+
     onLoad() {
-        this.slots = this.node?.children;
         this.resetAnimations();
         super.onLoad();
     }
 
     @render(LeaderBoardStore, (store) => store.winner, { fireImmediately: false })
     showWinners(winner: IWinner) {
-        const { betWin, bigWin } = winner;
+        const { betWin, bigWin, avatarId } = winner;
 
         if (betWin <= 0) {
             this.resetAnimations();
@@ -46,7 +47,7 @@ export class RandomSlotWinner extends ObserverComponent {
         }
 
         this.playWinAnimations(bigWin);
-        this.showWinNotice(betWin);
+        this.showWinNotice(betWin, avatarId);
     }
 
     private resetAnimations() {
@@ -69,14 +70,29 @@ export class RandomSlotWinner extends ObserverComponent {
         }
     }
 
-    private showWinNotice(betWin: number) {
-        const randomIndex = Math.floor(Math.random() * this.slots.length);
-        const randomSlot = this.slots[randomIndex];
+    private showWinNotice(betWin: number, avatarId?: number) {
+        const horizonNum = 10;
+        const randomIndex = math.randomRangeInt(0, horizonNum);
+
+        const randomX = (randomIndex * this.randomArea.width) / horizonNum;
+        const randomY = math.randomRangeInt(0, this.randomArea.height);
+        const randomPosition = v3(randomX, randomY);
 
         const noticeNode = instantiate(this.prfWinNotice);
+        noticeNode.position = randomPosition;
         const notice = noticeNode.getComponent(BetWinNotice);
-        randomSlot.addChild(noticeNode);
-        notice.setBetWin(betWin);
+        this.randomArea.node.addChild(noticeNode);
+        if (avatarId !== undefined) {
+            notice.setAvatar(avatarId).then((success) => {
+                if (success) {
+                    notice.setBetWin(betWin);
+                } else {
+                    noticeNode.destroy();
+                }
+            });
+        } else {
+            notice.setBetWin(betWin);
+        }
     }
 
     async playAnim(spine: sp.Skeleton, animName: string, isLoop: boolean) {
