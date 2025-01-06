@@ -31,32 +31,30 @@ export class RandomSlotWinner extends ObserverComponent {
 
     slots: Node[] = [];
     onLoad() {
-        super.onLoad();
         this.slots = this.node?.children;
+        this.resetAnimations();
+        super.onLoad();
+    }
+
+    @render(LeaderBoardStore, (store) => store.winner, { fireImmediately: false })
+    showWinners(winner: IWinner) {
+        const { betWin, bigWin } = winner;
+
+        if (betWin <= 0) {
+            this.resetAnimations();
+            return;
+        }
+
+        this.playWinAnimations(bigWin);
+        this.showWinNotice(betWin);
+    }
+
+    private resetAnimations() {
         this.playAnim(this.spineLeaf, AnimationNameLeaf.idle, true);
         this.playAnim(this.spineTree, AnimationNameTree.idle, true);
     }
 
-    @render(LeaderBoardStore, (store) => store.winner, { fireImmediately: false })
-    async showWinners(winner: IWinner) {
-        const { betWin, bigWin } = winner;
-
-        if (betWin <= 0) {
-            await this.resetAnimations();
-            return;
-        }
-
-        await Promise.all([this.playWinAnimations(bigWin), this.showWinNotice(betWin)]);
-    }
-
-    private async resetAnimations(): Promise<void> {
-        await Promise.all([
-            this.playAnim(this.spineLeaf, AnimationNameLeaf.idle, true),
-            this.playAnim(this.spineTree, AnimationNameTree.idle, true),
-        ]);
-    }
-
-    private async playWinAnimations(isBigWin: boolean): Promise<void> {
+    private async playWinAnimations(isBigWin: boolean) {
         if (!AnimationUtils.isAnimationPlaying(this.spineLeaf, AnimationNameLeaf.win)) {
             await this.playAnim(this.spineLeaf, AnimationNameLeaf.win, false);
         }
@@ -71,7 +69,7 @@ export class RandomSlotWinner extends ObserverComponent {
         }
     }
 
-    private async showWinNotice(betWin: number): Promise<void> {
+    private showWinNotice(betWin: number) {
         const randomIndex = Math.floor(Math.random() * this.slots.length);
         const randomSlot = this.slots[randomIndex];
 
