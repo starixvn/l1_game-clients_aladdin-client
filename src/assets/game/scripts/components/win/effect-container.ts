@@ -37,6 +37,8 @@ export class EffectContainer extends ObserverComponent {
 
     container: Node = null;
 
+    private forceNewAnimation = false;
+
     onLoad() {
         this.container = this.node.getChildByName("notice-container");
         this.resetAnimations();
@@ -52,7 +54,7 @@ export class EffectContainer extends ObserverComponent {
             return;
         }
 
-        this.playWinAnimations(bigWin);
+        this.playWinAnimations(bigWin, false);
 
         const encryptedName = this.encryptedName(name);
         this.showOtherWinnerNotice(encryptedName, betWin, avatarId);
@@ -64,7 +66,7 @@ export class EffectContainer extends ObserverComponent {
 
     showMainPlayerWinning(data: { betWin: number; bigWin: boolean }) {
         const { betWin, bigWin } = data;
-        this.playWinAnimations(bigWin);
+        this.playWinAnimations(bigWin, true);
         this.showMainPlayerNotice(betWin);
     }
 
@@ -85,10 +87,15 @@ export class EffectContainer extends ObserverComponent {
         this.resetAnimations();
     }
 
-    private async playWinAnimations(isBigWin: boolean) {
+    private async playWinAnimations(isBigWin: boolean, forceNew: boolean) {
         this.unschedule(this.onAnimationEnd);
-        if (!AnimationUtils.isAnimationPlaying(this.spineLeaf, AnimationNameLeaf.win)) {
-            await this.playAnim(this.spineLeaf, AnimationNameLeaf.win, false);
+        const callNewAnimation = this.forceNewAnimation ? false : forceNew;
+        if (forceNew) {
+            this.forceNewAnimation = true;
+        }
+
+        if (!AnimationUtils.isAnimationPlaying(this.spineLeaf, AnimationNameLeaf.win) || callNewAnimation) {
+            this.playAnim(this.spineLeaf, AnimationNameLeaf.win, false);
         }
 
         const treeAnimation = isBigWin ? AnimationNameTree.bigWin : AnimationNameTree.normalWin;
@@ -96,10 +103,11 @@ export class EffectContainer extends ObserverComponent {
             AnimationUtils.isAnimationPlaying(this.spineTree, AnimationNameTree.bigWin) ||
             AnimationUtils.isAnimationPlaying(this.spineTree, AnimationNameTree.normalWin);
 
-        if (!isTreeAnimPlaying) {
+        if (!isTreeAnimPlaying || callNewAnimation) {
             await this.playAnim(this.spineTree, treeAnimation, false);
+            this.forceNewAnimation = false;
+            this.scheduleOnce(this.onAnimationEnd, 0.1);
         }
-        this.scheduleOnce(this.onAnimationEnd, 0.1);
     }
 
     private getRandomWorldPosition() {
