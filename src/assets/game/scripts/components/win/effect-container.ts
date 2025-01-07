@@ -2,8 +2,8 @@ import { _decorator, instantiate, math, Prefab, sp, UITransform, v3 } from "cc";
 import { ObserverComponent } from "db://shared-components/shared/common-components/observer-component/scripts/observer-component";
 import { AnimationUtils } from "db://shared-components/shared/utils";
 import Observer from "observer";
-import BetWinNotice from "../../win/bet-win-notice";
-import { IWinner, LeaderBoardStore } from "../leader-board-store";
+import { IWinner, LeaderBoardStore } from "../leader-board/leader-board-store";
+import BetWinNotice from "./bet-win-notice";
 const { ccclass, property } = _decorator;
 const { observer, render, handle } = Observer;
 
@@ -18,8 +18,8 @@ enum AnimationNameLeaf {
     idle = "leaf-fall-idle",
 }
 
-@ccclass("RandomSlotWinner")
-export class RandomSlotWinner extends ObserverComponent {
+@ccclass("EffectContainer")
+export class EffectContainer extends ObserverComponent {
     @property(sp.Skeleton)
     spineTree: sp.Skeleton = null;
 

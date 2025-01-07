@@ -9,7 +9,7 @@ import { siteConfigs } from "../../../scripts/site-configs";
 import { containerOptions, settings } from "../game-settings";
 import "./../../../resources/i18n";
 import { AutoPlayHandler } from "./auto-play/auto-play-handler";
-import WinNoticeContainer from "./win/win-notice-container";
+import { EffectContainer } from "./win/effect-container";
 
 startGame(settings.name, containerOptions, siteConfigs, settings.namespaces);
 
@@ -25,15 +25,15 @@ export interface IWinInstantResult {
 @observer(settings.name)
 export default class Game extends GameComponent {
     @property(Node)
-    nodeBetWin: Node = null;
+    nodeEffectContainer: Node = null;
 
     override namespace = settings.name;
     override containerOptions = containerOptions;
-    betWinNotice: WinNoticeContainer = null;
+    effectContainer: EffectContainer = null;
 
     onLoad() {
+        this.effectContainer = this.nodeEffectContainer.getComponent(EffectContainer);
         super.onLoad();
-        this.betWinNotice = this.nodeBetWin.getComponent(WinNoticeContainer);
     }
 
     async showResult(result: IWinInstantResult, hasAnimation: boolean, settlementResult: gc.GameServiceMessage.TSettlementResult) {
@@ -42,7 +42,7 @@ export default class Game extends GameComponent {
         }
         const { betWin, bigWin } = result;
         if (result.betWin > 0) {
-            this.betWinNotice.showBetWin(betWin);
+            this.effectContainer.showBetWin(betWin);
         }
         await FunctionUtils.delay(1000);
         this.checkSpinNextRound();
