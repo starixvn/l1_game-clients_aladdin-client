@@ -1,5 +1,5 @@
 import gc from "@sg/game-client-base";
-import { _decorator, Input, input, KeyCode, Label, Node } from "cc";
+import { _decorator, Input, input, KeyCode, Label, Node, sp } from "cc";
 import { ObserverComponent } from "db://shared-components/shared/common-components/observer-component/scripts/observer-component";
 import Observer from "observer";
 import { AutoPlayHandler } from "../../auto-play/auto-play-handler";
@@ -19,9 +19,13 @@ export default class PlaceBetButton extends ObserverComponent {
     @property(Label)
     lblRoundsAutoPlay: Label = null;
 
+    @property(sp.Skeleton)
+    effect: sp.Skeleton = null;
+
     private isAutoplay = false;
 
     onLoad() {
+        this.resetEffect();
         super.onLoad();
         this.addEvent();
     }
@@ -31,8 +35,16 @@ export default class PlaceBetButton extends ObserverComponent {
         this.removeEvent();
     }
 
+    resetEffect() {
+        this.effect.setAnimation(0, "idle", true);
+    }
+
     @handle(BetHandler, (handler) => handler.handle())
-    onBet() {}
+    onBet() {
+        this.unschedule(this.resetEffect);
+        this.effect.setAnimation(0, "tap-anim", false);
+        this.scheduleOnce(this.resetEffect, 1);
+    }
 
     @render(AutoPlayStore, (store) => store.isAutoplay)
     setVisibilityRoundsAutoplay(isAutoPlay: boolean) {
