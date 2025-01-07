@@ -36,7 +36,7 @@ export default class PlaceBetButton extends ObserverComponent {
     }
 
     resetEffect() {
-        this.effect.setAnimation(0, "idle", true);
+        this.effect && this.effect.setAnimation(0, "idle", true);
     }
 
     @handle(BetHandler, (handler) => handler.handle())
