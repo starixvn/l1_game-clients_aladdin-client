@@ -13,6 +13,15 @@ export default class BetWinNotice extends Component {
     @property(Label)
     lblBetWin: Label = null;
 
+    @property(Label)
+    lblName: Label = null;
+
+    setName(name: string) {
+        if (this.lblName) {
+            this.lblName.string = name;
+        }
+    }
+
     async setAvatar(avatarId: number) {
         if (!this.avatar) {
             return true;
@@ -29,7 +38,7 @@ export default class BetWinNotice extends Component {
     }
 
     setBetWin(betWin: number) {
-        this.lblBetWin.string = `+ ${FormatUtils.numberWithCommas(betWin, 2)}`;
+        this.lblBetWin.string = `+${FormatUtils.numberWithCommas(betWin, 2)}`;
 
         const uiOpacity = this.node.getComponent(UIOpacity);
         uiOpacity.opacity = 255;

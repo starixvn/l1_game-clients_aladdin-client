@@ -1,4 +1,4 @@
-import { _decorator, instantiate, math, Prefab, sp, UITransform, v3 } from "cc";
+import { _decorator, instantiate, math, Node, Prefab, sp } from "cc";
 import { ObserverComponent } from "db://shared-components/shared/common-components/observer-component/scripts/observer-component";
 import { AnimationUtils } from "db://shared-components/shared/utils";
 import Observer from "observer";
@@ -27,19 +27,25 @@ export class EffectContainer extends ObserverComponent {
     spineLeaf: sp.Skeleton = null;
 
     @property(Prefab)
-    prfWinNotice: Prefab = null;
+    prfOtherWinNotice: Prefab = null;
 
-    @property(UITransform)
-    randomArea: UITransform = null;
+    @property(Prefab)
+    prfMainPlayerNotice: Prefab = null;
+
+    @property(Node)
+    randomArea: Node = null;
+
+    container: Node = null;
 
     onLoad() {
+        this.container = this.node.getChildByName("notice-container");
         this.resetAnimations();
         super.onLoad();
     }
 
     @render(LeaderBoardStore, (store) => store.winner, { fireImmediately: false })
     showWinners(winner: IWinner) {
-        const { betWin, bigWin, avatarId } = winner;
+        const { betWin, bigWin, avatarId, name } = winner;
 
         if (betWin <= 0) {
             this.resetAnimations();
@@ -47,13 +53,19 @@ export class EffectContainer extends ObserverComponent {
         }
 
         this.playWinAnimations(bigWin);
-        this.showWinNotice(betWin, avatarId);
+
+        const encryptedName = this.encryptedName(name);
+        this.showOtherWinnerNotice(encryptedName, betWin, avatarId);
+    }
+
+    private encryptedName(name: string): string {
+        return `${name.substring(0, 1)}***${name.substring(name.length - 3, name.length)}`;
     }
 
     showMainPlayerWinning(data: { betWin: number; bigWin: boolean }) {
         const { betWin, bigWin } = data;
         this.playWinAnimations(bigWin);
-        this.showWinNotice(betWin);
+        this.showMainPlayerNotice(betWin);
     }
 
     private resetAnimations() {
@@ -90,28 +102,45 @@ export class EffectContainer extends ObserverComponent {
         }
     }
 
-    private showWinNotice(betWin: number, avatarId?: number) {
-        const horizonNum = 10;
-        const randomIndex = math.randomRangeInt(0, horizonNum);
+    private getRandomWorldPosition() {
+        const slots = this.randomArea.children;
+        const randomIndex = math.randomRangeInt(0, slots.length);
 
-        const randomX = (randomIndex * this.randomArea.width) / horizonNum;
-        const randomY = math.randomRangeInt(0, this.randomArea.height);
-        const randomPosition = v3(randomX, randomY);
+        return slots[randomIndex].worldPosition;
+    }
 
-        const noticeNode = instantiate(this.prfWinNotice);
-        noticeNode.position = randomPosition;
+    private createNotice(prefab: Prefab) {
+        const noticeNode = instantiate(prefab);
         const notice = noticeNode.getComponent(BetWinNotice);
-        this.randomArea.node.addChild(noticeNode);
+        this.container.addChild(noticeNode);
+
+        return notice;
+    }
+
+    private showMainPlayerNotice(betWin: number) {
+        const notice = this.createNotice(this.prfMainPlayerNotice);
+        notice.setBetWin(betWin);
+    }
+
+    private showOtherWinnerNotice(name: string, betWin: number, avatarId?: number) {
+        const notice = this.createNotice(this.prfOtherWinNotice);
+        const noticeNode = notice.node;
+
+        noticeNode.worldPosition = this.getRandomWorldPosition();
+        const updateInfo = () => {
+            notice.setName(name);
+            notice.setBetWin(betWin);
+        };
         if (avatarId !== undefined) {
             notice.setAvatar(avatarId).then((success) => {
                 if (success) {
-                    notice.setBetWin(betWin);
+                    updateInfo();
                 } else {
                     noticeNode.destroy();
                 }
             });
         } else {
-            notice.setBetWin(betWin);
+            updateInfo();
         }
     }
 
