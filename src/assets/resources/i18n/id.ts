@@ -174,6 +174,7 @@ export const languages = {
         "promotion": "Promosi",
         "promotion_terms_and_conditions": "Syarat dan Ketentuan",
         "result": "Hasil",
+        "rotateDevice": "Silakan putar perangkat Anda.",
         "round": "Babak",
         "searching_for_players": "Mencari pemain...",
         "sha256": "SHA-256",
@@ -202,7 +203,8 @@ export const languages = {
         "auto_play": "AUTO-PLAY",
         "balance": "saldo ",
         "number_of_auto_play": "Jumlah Auto-Play:",
-        "start": "Mulai"
+        "start": "Mulai",
+        "turboMode": "Mode Turbo"
     }
 };
 

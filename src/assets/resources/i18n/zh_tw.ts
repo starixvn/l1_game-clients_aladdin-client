@@ -174,6 +174,7 @@ export const languages = {
         "promotion": "促銷活動",
         "promotion_terms_and_conditions": "條款和條件",
         "result": "結果",
+        "rotateDevice": "請旋轉您的設備。",
         "round": "回合",
         "searching_for_players": "正在搜尋玩家...",
         "sha256": "SHA-256",
@@ -202,7 +203,8 @@ export const languages = {
         "auto_play": "自動遊戲",
         "balance": "餘額",
         "number_of_auto_play": "數量 自動遊戲:",
-        "start": "開始"
+        "start": "開始",
+        "turboMode": "渦輪模式"
     }
 };
 

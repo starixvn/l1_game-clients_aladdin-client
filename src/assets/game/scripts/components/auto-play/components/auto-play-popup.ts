@@ -1,5 +1,5 @@
 import gc from "@sg/game-client-base";
-import { _decorator, instantiate, Node, Prefab } from "cc";
+import { _decorator, instantiate, Node, Prefab, Toggle } from "cc";
 import { ObserverComponent } from "db://shared-components/shared/common-components/observer-component/scripts/observer-component";
 import Observer from "observer";
 import { AutoPlayHandler } from "../auto-play-handler";
@@ -17,6 +17,9 @@ export default class AutoPlayPopup extends ObserverComponent {
 
     @property(Prefab)
     prfNoOfRound: Prefab = null;
+
+    @property(Toggle)
+    tglTurboMode: Toggle = null;
 
     @render(AutoPlayStore, (store) => store.roundsList)
     initContentRounds(roundsList: number[]) {
@@ -51,5 +54,10 @@ export default class AutoPlayPopup extends ObserverComponent {
     @handle(AutoPlayHandler, (handle) => handle.confirmRoundAndStart())
     onClickStartButton() {
         //this.playSoundClick();
+    }
+
+    @handle(AutoPlayHandler, (handle, isTurboMode: boolean) => handle.handleTurboMode(isTurboMode))
+    onTurboModeChanged() {
+        return this.tglTurboMode.isChecked;
     }
 }

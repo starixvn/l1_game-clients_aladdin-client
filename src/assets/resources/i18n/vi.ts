@@ -174,6 +174,7 @@ export const languages = {
         "promotion": "Khuyến Mãi",
         "promotion_terms_and_conditions": "Điều Khoản Khuyến Mãi",
         "result": "Kết Quả",
+        "rotateDevice": "Vui lòng xoay thiết bị của bạn.",
         "round": "Phiên",
         "searching_for_players": "Đang tìm thêm người chơi...",
         "sha256": "SHA-256",
@@ -202,7 +203,8 @@ export const languages = {
         "auto_play": "CHƠI TỰ ĐỘNG",
         "balance": "SỐ DƯ",
         "number_of_auto_play": "Chọn Số Lượt Chơi:",
-        "start": "Bắt Đầu"
+        "start": "Bắt Đầu",
+        "turboMode": "Siêu Tốc"
     }
 };
 

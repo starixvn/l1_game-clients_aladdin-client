@@ -1,4 +1,5 @@
 import gc from "@sg/game-client-base";
+import { FunctionUtils } from "db://shared-components/shared/utils";
 import inversify from "inversify";
 import { BetAmountStore } from "../bet-amount/bet-amount-store";
 import { BetHandler } from "../bets/bet-handler";
@@ -17,11 +18,13 @@ export class AutoPlayHandler implements gc.Shared.IHandler<number> {
 
     handle() {}
 
-    handleAutoPlaceBet() {
+    async handleAutoPlaceBet() {
         if (this.checkFinishedAutoPlay() || !this.isValidBet()) {
             this.autoPlayStore.isAutoplay = false;
             return;
         }
+        const delayNextRoundDuration = this.autoPlayStore.isTurboMode ? 500 : 1000;
+        await FunctionUtils.delay(delayNextRoundDuration);
         this.updateAutoPlayRounds(this.autoPlayStore.roundsAutoplay - 1);
         this.betHandler.autoPlaceBet();
     }
@@ -106,5 +109,9 @@ export class AutoPlayHandler implements gc.Shared.IHandler<number> {
 
     updateNoOfRounds(rounds: number) {
         this.autoPlayStore.selectedRoundOnPopup = rounds;
+    }
+
+    handleTurboMode(isTurboMode: boolean) {
+        this.autoPlayStore.isTurboMode = isTurboMode;
     }
 }

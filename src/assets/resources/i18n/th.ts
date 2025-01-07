@@ -174,6 +174,7 @@ export const languages = {
         "promotion": "โปรโมชั่น",
         "promotion_terms_and_conditions": "ข้อกำหนด\nและเงื่อนไข",
         "result": "ผลลัพธ์",
+        "rotateDevice": "กรุณาหมุนอุปกรณ์ของคุณ",
         "round": "รอบ",
         "searching_for_players": "ค้นหาผู้เล่น...",
         "sha256": "SHA-256",
@@ -202,7 +203,8 @@ export const languages = {
         "auto_play": "เล่นอัตโนมัติ",
         "balance": "ยอดคงเหลือ",
         "number_of_auto_play": "จำนวนการ เล่นอัตโนมัติ:",
-        "start": "เริ่ม"
+        "start": "เริ่ม",
+        "turboMode": "โหมด Turbo"
     }
 };
 

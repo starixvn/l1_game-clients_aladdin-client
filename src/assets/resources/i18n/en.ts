@@ -174,6 +174,7 @@ export const languages = {
         "promotion": "Promotions",
         "promotion_terms_and_conditions": "Terms and Conditions",
         "result": "Result",
+        "rotateDevice": "Please rotate your device.",
         "round": "Round",
         "searching_for_players": "Searching for players...",
         "sha256": "SHA-256",
@@ -202,7 +203,8 @@ export const languages = {
         "auto_play": "AUTO-PLAY",
         "balance": "BALANCE",
         "number_of_auto_play": "Number of Auto-Play:",
-        "start": "Start"
+        "start": "Start",
+        "turboMode": "Turbo Mode"
     }
 };
 
