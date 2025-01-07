@@ -98,8 +98,8 @@ export class EffectContainer extends ObserverComponent {
 
         if (!isTreeAnimPlaying) {
             await this.playAnim(this.spineTree, treeAnimation, false);
-            this.scheduleOnce(this.onAnimationEnd, 0.1);
         }
+        this.scheduleOnce(this.onAnimationEnd, 0.1);
     }
 
     private getRandomWorldPosition() {
