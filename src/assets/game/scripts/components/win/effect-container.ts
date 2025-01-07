@@ -50,12 +50,31 @@ export class EffectContainer extends ObserverComponent {
         this.showWinNotice(betWin, avatarId);
     }
 
+    showMainPlayerWinning(data: { betWin: number; bigWin: boolean }) {
+        const { betWin, bigWin } = data;
+        this.playWinAnimations(bigWin);
+        this.showWinNotice(betWin);
+    }
+
     private resetAnimations() {
         this.playAnim(this.spineLeaf, AnimationNameLeaf.idle, true);
         this.playAnim(this.spineTree, AnimationNameTree.idle, true);
     }
 
+    private onAnimationEnd() {
+        const isLeafPlaying = AnimationUtils.isAnimationPlaying(this.spineLeaf, AnimationNameLeaf.win);
+        const isTreePlaying =
+            AnimationUtils.isAnimationPlaying(this.spineTree, AnimationNameTree.bigWin) ||
+            AnimationUtils.isAnimationPlaying(this.spineTree, AnimationNameTree.normalWin);
+
+        if (isLeafPlaying || isTreePlaying) {
+            return;
+        }
+        this.resetAnimations();
+    }
+
     private async playWinAnimations(isBigWin: boolean) {
+        this.unschedule(this.onAnimationEnd);
         if (!AnimationUtils.isAnimationPlaying(this.spineLeaf, AnimationNameLeaf.win)) {
             await this.playAnim(this.spineLeaf, AnimationNameLeaf.win, false);
         }
@@ -67,6 +86,7 @@ export class EffectContainer extends ObserverComponent {
 
         if (!isTreeAnimPlaying) {
             await this.playAnim(this.spineTree, treeAnimation, false);
+            this.scheduleOnce(this.onAnimationEnd, 0.1);
         }
     }
 

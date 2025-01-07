@@ -40,9 +40,8 @@ export default class Game extends GameComponent {
         if (!result) {
             return;
         }
-        const { betWin, bigWin } = result;
         if (result.betWin > 0) {
-            this.effectContainer.showBetWin(betWin);
+            this.effectContainer.showMainPlayerWinning(result);
         }
         await FunctionUtils.delay(1000);
         this.checkSpinNextRound();
