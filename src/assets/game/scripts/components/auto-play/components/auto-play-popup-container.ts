@@ -12,7 +12,10 @@ export class AutoPlayPopupContainer extends NodeContainer {
     @render(AutoPlayStore, (store) => store.isOpenAutoplayPopup)
     renderOpenPopup(isOpenAutoPlayPopup: boolean) {
         if (!isOpenAutoPlayPopup) {
-            this.node.children[0].getComponent(Dialog).hide();
+            const nodes = this.node.children;
+            if (nodes.length > 0) {
+                nodes[0].getComponent(Dialog)?.hide();
+            }
             return;
         }
 
