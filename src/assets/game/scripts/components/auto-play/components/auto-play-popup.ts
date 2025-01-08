@@ -41,11 +41,6 @@ export default class AutoPlayPopup extends ObserverComponent {
         });
     }
 
-    // @render(AutoPlayStore, (store) => store.isOpenAutoplayPopup)
-    // setAutoPlayPopupVisibility(status: boolean) {
-    //     this.node.active = status;
-    // }
-
     @handle(AutoPlayHandler, (handle) => handle.closeAutoPlayPopup())
     onClickclosePopup() {
         //this.playSoundClick();
@@ -59,5 +54,10 @@ export default class AutoPlayPopup extends ObserverComponent {
     @handle(AutoPlayHandler, (handle, isTurboMode: boolean) => handle.handleTurboMode(isTurboMode))
     onTurboModeChanged() {
         return this.tglTurboMode.isChecked;
+    }
+
+    @render(AutoPlayStore, (store) => store.isTurboMode)
+    renderTurboMode(isTurboMode: boolean) {
+        this.tglTurboMode.isChecked = isTurboMode;
     }
 }

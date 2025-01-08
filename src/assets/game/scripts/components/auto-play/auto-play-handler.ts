@@ -23,7 +23,7 @@ export class AutoPlayHandler implements gc.Shared.IHandler<number> {
             this.autoPlayStore.isAutoplay = false;
             return;
         }
-        const delayNextRoundDuration = this.autoPlayStore.isTurboMode ? 500 : 1000;
+        const delayNextRoundDuration = this.autoPlayStore.isTurboMode ? 200 : 1000;
         await FunctionUtils.delay(delayNextRoundDuration);
         this.updateAutoPlayRounds(this.autoPlayStore.roundsAutoplay - 1);
         this.betHandler.autoPlaceBet();
