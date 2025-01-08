@@ -166,7 +166,7 @@ export class EffectContainer extends ObserverComponent {
             )
             .call(() => {
                 this.updateBalance();
-                // node.destroy();
+                node.destroy();
             })
             .start();
     }
