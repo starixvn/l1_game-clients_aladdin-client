@@ -37,19 +37,19 @@ export default class BetWinNotice extends Component {
         return false;
     }
 
-    setBetWin(betWin: number) {
+    setBetWin(betWin: number, fadeOut: boolean, onFinish: () => void) {
         this.lblBetWin.string = `+${FormatUtils.numberWithCommas(betWin, 2)}`;
 
         const uiOpacity = this.node.getComponent(UIOpacity);
         uiOpacity.opacity = 255;
         const duration = 2;
-        tween(uiOpacity)
-            .delay(0.75 * duration)
-            .to(0.25 * duration, { opacity: 0 }, { easing: "sineOut" })
-            .call(() => {
-                this.node.destroy();
-            })
-            .start();
+
+        if (fadeOut) {
+            tween(uiOpacity)
+                .delay(0.75 * duration)
+                .to(0.25 * duration, { opacity: 0 }, { easing: "sineOut" })
+                .start();
+        }
 
         tween(this.node)
             .by(
@@ -59,6 +59,7 @@ export default class BetWinNotice extends Component {
                 },
                 { easing: "sineOut" }
             )
+            .call(onFinish)
             .start();
     }
 }

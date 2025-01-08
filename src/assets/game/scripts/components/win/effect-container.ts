@@ -1,7 +1,8 @@
-import { _decorator, instantiate, math, Node, Prefab, sp } from "cc";
+import { _decorator, instantiate, log, math, Node, Prefab, sp, tween, v3 } from "cc";
 import { ObserverComponent } from "db://shared-components/shared/common-components/observer-component/scripts/observer-component";
 import { AnimationUtils } from "db://shared-components/shared/utils";
 import Observer from "observer";
+import { BalanceInfoHandler } from "../balance/balance-info-handler";
 import { IWinner, LeaderBoardStore } from "../leader-board/leader-board-store";
 import BetWinNotice from "./bet-win-notice";
 const { ccclass, property } = _decorator;
@@ -34,6 +35,9 @@ export class EffectContainer extends ObserverComponent {
 
     @property(Node)
     randomArea: Node = null;
+
+    @property(Node)
+    balanceNode: Node = null;
 
     container: Node = null;
 
@@ -132,8 +136,43 @@ export class EffectContainer extends ObserverComponent {
 
     private showMainPlayerNotice(betWin: number) {
         const notice = this.createNotice(this.prfMainPlayerNotice);
-        notice.setBetWin(betWin);
+        notice.setBetWin(betWin, false, () => this.flyToBalance(notice.node));
     }
+
+    private flyToBalance(node: Node) {
+        const position = AnimationUtils.getPositionAtDestNode(node, this.balanceNode);
+
+        const height = 50;
+        const startPosition = v3(node.position);
+        const delta = position.subtract(startPosition);
+        tween(node)
+            .to(
+                0.5,
+                {
+                    position,
+                },
+                {
+                    onUpdate: (node, dt: number) => {
+                        var frac = (dt * 1) % 1.0;
+                        var y = height * 4 * frac * (1 - frac);
+                        y += delta.y * dt;
+                        log("delta y ", y);
+                        y += startPosition.y;
+                        log("final y ", y);
+                        var x = delta.x * dt;
+                        node.position = v3(x, y, 0);
+                    },
+                }
+            )
+            .call(() => {
+                this.updateBalance();
+                // node.destroy();
+            })
+            .start();
+    }
+
+    @handle(BalanceInfoHandler, (handle) => handle.updateBalance())
+    private updateBalance() {}
 
     private showOtherWinnerNotice(id: string, name: string, betWin: number, avatarId?: number) {
         const notice = this.createNotice(this.prfOtherWinNotice);
@@ -142,7 +181,9 @@ export class EffectContainer extends ObserverComponent {
         noticeNode.worldPosition = this.getRandomWorldPosition(id);
         const updateInfo = () => {
             notice.setName(name);
-            notice.setBetWin(betWin);
+            notice.setBetWin(betWin, true, () => {
+                noticeNode.destroy();
+            });
         };
         if (avatarId !== undefined) {
             notice.setAvatar(avatarId).then((success) => {

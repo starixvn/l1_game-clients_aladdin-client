@@ -2,7 +2,6 @@ import gc from "@sg/game-client-base";
 import { _decorator, Label, tween, Vec3 } from "cc";
 import { ObserverComponent } from "db://shared-components/shared/common-components/observer-component/scripts/observer-component";
 import Observer from "observer";
-import { IWinInstantResult } from "../game";
 import { BalanceInfoHandler } from "./balance-info-handler";
 const { ccclass, property } = _decorator;
 const { observer, render, handle } = Observer;
@@ -33,15 +32,5 @@ export class BalanceInfo extends ObserverComponent {
     @handle(BalanceInfoHandler, (handle, balance: number) => handle.descreaseBalance(balance))
     mainPlayerDecreaseBalance(balance: number) {
         return balance;
-    }
-
-    @handle(BalanceInfoHandler, (handle, balance: number) => handle.increaseBalance(balance))
-    mainPlayerIncreaseBalance(balance: number) {
-        return balance;
-    }
-
-    @render(Settlements.SettlementStore, (store) => store.result, { fireImmediately: false })
-    showPayout(result: IWinInstantResult) {
-        this.mainPlayerIncreaseBalance(result.betWin);
     }
 }
