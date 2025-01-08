@@ -1,7 +1,7 @@
-import { _decorator, Node } from "cc";
+import { _decorator } from "cc";
+import { Dialog } from "db://shared-components/shared/common-components/dialogs/dialog";
 import { NodeContainer } from "db://shared-components/shared/common-components/node-container/node-container";
 import Observer from "observer";
-import { AutoPlayHandler } from "../auto-play-handler";
 import { AutoPlayStore } from "../auto-play-store";
 
 const { ccclass, property } = _decorator;
@@ -9,19 +9,13 @@ const { render, handle } = Observer;
 
 @ccclass
 export class AutoPlayPopupContainer extends NodeContainer {
-    @property(Node)
-    nodeOverlay: Node = null;
-
     @render(AutoPlayStore, (store) => store.isOpenAutoplayPopup)
     renderOpenPopup(isOpenAutoPlayPopup: boolean) {
-        this.nodeOverlay.active = isOpenAutoPlayPopup;
-        if (this.node.children.length > 1) {
+        if (!isOpenAutoPlayPopup) {
+            this.node.children[0].getComponent(Dialog).hide();
             return;
         }
 
         this.createNode();
     }
-
-    @handle(AutoPlayHandler, (handle) => handle.closeAutoPlayPopup())
-    onClickclosePopup() {}
 }
