@@ -4,6 +4,7 @@ import mobx from "mobx";
 const { injectable, inject } = inversify;
 
 export interface IWinner {
+    id: string;
     name: string;
     betWin: number;
     bigWin: boolean;

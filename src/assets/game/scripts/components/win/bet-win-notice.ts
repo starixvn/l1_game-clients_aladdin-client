@@ -55,7 +55,7 @@ export default class BetWinNotice extends Component {
             .by(
                 duration,
                 {
-                    position: new Vec3(0, 200, 0),
+                    position: new Vec3(0, 150, 0),
                 },
                 { easing: "sineOut" }
             )

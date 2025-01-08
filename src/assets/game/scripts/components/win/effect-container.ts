@@ -38,7 +38,7 @@ export class EffectContainer extends ObserverComponent {
     container: Node = null;
 
     private forceNewAnimation = false;
-
+    private playerPositions: { [id: string]: number } = {};
     onLoad() {
         this.container = this.node.getChildByName("notice-container");
         this.resetAnimations();
@@ -47,7 +47,7 @@ export class EffectContainer extends ObserverComponent {
 
     @render(LeaderBoardStore, (store) => store.winner, { fireImmediately: false })
     showWinners(winner: IWinner) {
-        const { betWin, bigWin, avatarId, name } = winner;
+        const { betWin, bigWin, avatarId, name, id } = winner;
 
         if (betWin <= 0) {
             this.resetAnimations();
@@ -57,7 +57,7 @@ export class EffectContainer extends ObserverComponent {
         this.playWinAnimations(bigWin, false);
 
         const encryptedName = this.encryptedName(name);
-        this.showOtherWinnerNotice(encryptedName, betWin, avatarId);
+        this.showOtherWinnerNotice(id, encryptedName, betWin, avatarId);
     }
 
     private encryptedName(name: string): string {
@@ -110,9 +110,14 @@ export class EffectContainer extends ObserverComponent {
         }
     }
 
-    private getRandomWorldPosition() {
+    private getRandomWorldPosition(id: string) {
         const slots = this.randomArea.children;
-        const randomIndex = math.randomRangeInt(0, slots.length);
+
+        if (!this.playerPositions[id]) {
+            this.playerPositions[id] = math.randomRangeInt(0, slots.length);
+        }
+
+        const randomIndex = this.playerPositions[id];
 
         return slots[randomIndex].worldPosition;
     }
@@ -130,11 +135,11 @@ export class EffectContainer extends ObserverComponent {
         notice.setBetWin(betWin);
     }
 
-    private showOtherWinnerNotice(name: string, betWin: number, avatarId?: number) {
+    private showOtherWinnerNotice(id: string, name: string, betWin: number, avatarId?: number) {
         const notice = this.createNotice(this.prfOtherWinNotice);
         const noticeNode = notice.node;
 
-        noticeNode.worldPosition = this.getRandomWorldPosition();
+        noticeNode.worldPosition = this.getRandomWorldPosition(id);
         const updateInfo = () => {
             notice.setName(name);
             notice.setBetWin(betWin);
