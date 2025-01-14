@@ -1,7 +1,7 @@
 import inversify from "inversify";
 import mobx from "mobx";
 
-const { injectable, inject } = inversify;
+const { injectable } = inversify;
 
 export interface IWinner {
     id: string;

@@ -10,10 +10,7 @@ export class LeaderBoardHandler implements gc.Shared.IMultipleHandlers {
     @inject(LeaderBoardStore) protected readonly leaderBoardStore: LeaderBoardStore;
     @inject(gc.Player.MainPlayerStore) protected readonly mainPlayerStore: gc.Player.MainPlayerStore;
     handleWinner(winner: IWinner) {
-        this.leaderBoardStore.winner = {
-            ...winner,
-            betWin: gc.NumberUtils.getValueByCurrency(winner.betWin, this.mainPlayerStore.rate, winner.rate),
-        };
+        
     }
 
     eventHandleList = [
