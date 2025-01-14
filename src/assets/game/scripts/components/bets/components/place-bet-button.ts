@@ -2,8 +2,9 @@ import gc from "@sg/game-client-base";
 import { _decorator, Input, input, KeyCode, Label, Node, sp } from "cc";
 import { ObserverComponent } from "db://shared-components/shared/common-components/observer-component/scripts/observer-component";
 import Observer from "observer";
-import { AutoPlayHandler } from "../../auto-play/auto-play-handler";
-import { AutoPlayStore } from "../../auto-play/auto-play-store";
+// import { AutoPlayHandler } from "../../auto-play/auto-play-handler";
+// import { AutoPlayStore } from "../../auto-play/auto-play-store";
+import { BetStore } from "../bet-store";
 import { BetHandler } from "../bet-handler";
 import { HoldActionStore } from "../hold-action-store";
 
@@ -46,16 +47,16 @@ export default class PlaceBetButton extends ObserverComponent {
         this.scheduleOnce(this.resetEffect, 1);
     }
 
-    @render(AutoPlayStore, (store) => store.isAutoplay)
-    setVisibilityRoundsAutoplay(isAutoPlay: boolean) {
-        this.nodeAutoPlay && (this.nodeAutoPlay.active = isAutoPlay);
-        this.isAutoplay = isAutoPlay;
-    }
+    // @render(AutoPlayStore, (store) => store.isAutoplay)
+    // setVisibilityRoundsAutoplay(isAutoPlay: boolean) {
+    //     this.nodeAutoPlay && (this.nodeAutoPlay.active = isAutoPlay);
+    //     this.isAutoplay = isAutoPlay;
+    // }
 
-    @render(AutoPlayStore, (store) => store.roundsAutoplay)
-    setNoOfRound(roundsAutoPlay: number) {
-        this.nodeAutoPlay && (this.lblRoundsAutoPlay.string = roundsAutoPlay.toString());
-    }
+    // @render(AutoPlayStore, (store) => store.roundsAutoplay)
+    // setNoOfRound(roundsAutoPlay: number) {
+    //     this.nodeAutoPlay && (this.lblRoundsAutoPlay.string = roundsAutoPlay.toString());
+    // }
 
     onClickBetButton() {
         if (!this.isAutoplay) {
@@ -63,11 +64,11 @@ export default class PlaceBetButton extends ObserverComponent {
             return;
         }
         this.isAutoplay = !this.isAutoplay;
-        !this.isAutoplay && this.cancelAutoPlay();
+        // !this.isAutoplay && this.cancelAutoPlay();
     }
 
-    @handle(AutoPlayHandler, (handle) => handle.cancelAutoPlay())
-    cancelAutoPlay() {}
+    // @handle(AutoPlayHandler, (handle) => handle.cancelAutoPlay())
+    // cancelAutoPlay() {}
 
     addEvent() {
         input.on(Input.EventType.KEY_DOWN, this.onKeyDown, this);

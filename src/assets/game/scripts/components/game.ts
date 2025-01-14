@@ -8,7 +8,6 @@ import { FunctionUtils } from "db://shared-components/shared/utils";
 import { siteConfigs } from "../../../scripts/site-configs";
 import { containerOptions, settings } from "../game-settings";
 import "./../../../resources/i18n";
-import { AutoPlayHandler } from "./auto-play/auto-play-handler";
 import { EffectContainer } from "./win/effect-container";
 
 startGame(settings.name, containerOptions, siteConfigs, settings.namespaces);
@@ -51,7 +50,7 @@ export default class Game extends GameComponent {
         return !!result;
     }
 
-    @handle(AutoPlayHandler, (handle) => handle.checkSpinNextRound())
+    // @handle(AutoPlayHandler, (handle) => handle.checkSpinNextRound())
     checkSpinNextRound() {}
 
     renderRoundId(roundId: number) {
