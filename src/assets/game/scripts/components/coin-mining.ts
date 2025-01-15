@@ -6,8 +6,8 @@ import Observer from "observer";
 const { ccclass, property } = _decorator;
 const { observer, render, handle } = Observer;
 
-@ccclass("lucky_tree")
-export class LuckyTree extends ObserverComponent {
+@ccclass("coin_mining")
+export class CoinMining extends ObserverComponent {
     @property(sp.Skeleton)
     spineTree: sp.Skeleton = null;
 
@@ -16,7 +16,7 @@ export class LuckyTree extends ObserverComponent {
     }
 
     @render(gc.Bet.BetStore, (store) => store.isProcessingBet)
-    playShakeTreeAnim(isProcessingBet: boolean) {
+    playCoinMiningAnim(isProcessingBet: boolean) {
         if (isProcessingBet) this.playAnim("shake", false);
     }
 }

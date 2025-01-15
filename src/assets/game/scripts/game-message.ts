@@ -6,11 +6,11 @@ export namespace GameServiceMessage {
         static eventName = "gameConfigs";
     }
 
-    export class Winner {
+    export class Player {
         name: string;
         betWin: number;
         bigWin: boolean;
 
-        static eventName = "winner";
+        static eventName = "player";
     }
 }

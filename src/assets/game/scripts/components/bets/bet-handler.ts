@@ -15,4 +15,8 @@ export class BetHandler extends gc.Bet.BetHandler {
     updateMultiplier(multiplier: number) {
         this.betsStore.multiplier = multiplier;
     }
+
+    updateStatusHittingCoin(status: boolean) {
+        this.betsStore.isHittingOnCoin = status;
+    }
 }

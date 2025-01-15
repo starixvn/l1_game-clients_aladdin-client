@@ -1,7 +1,7 @@
 import { _decorator, Node, Prefab, sp } from "cc";
 import { ObserverComponent } from "db://shared-components/shared/common-components/observer-component/scripts/observer-component";
 import Observer from "observer";
-import { IWinner, LeaderBoardStore } from "../leader-board/leader-board-store";
+import { IPlayer, RoomStore } from "../room/room-store";
 const { ccclass, property } = _decorator;
 const { render } = Observer;
 
@@ -32,8 +32,8 @@ export class EffectContainer extends ObserverComponent {
         super.onLoad();
     }
 
-    @render(LeaderBoardStore, (store) => store.winner, { fireImmediately: false })
-    showWinners(winner: IWinner) {
+    @render(RoomStore, (store) => store.player, { fireImmediately: false })
+    showPlayers(player: IPlayer) {
     }
 
     showMainPlayerWinning(data: { betWin: number; bigWin: boolean }) {

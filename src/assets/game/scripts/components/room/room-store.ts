@@ -3,7 +3,7 @@ import mobx from "mobx";
 
 const { injectable } = inversify;
 
-export interface IWinner {
+export interface IPlayer {
     id: string;
     name: string;
     betWin: number;
@@ -13,18 +13,18 @@ export interface IWinner {
 }
 
 @injectable()
-export class LeaderBoardStore {
+export class RoomStore {
     constructor() {
         mobx.makeAutoObservable(this);
     }
 
-    private _winner: IWinner = null;
+    private _player: IPlayer = null;
 
-    get winner() {
-        return this._winner;
+    get player() {
+        return this._player;
     }
 
-    set winner(winner: IWinner) {
-        this._winner = winner;
+    set player(player: IPlayer) {
+        this._player = player;
     }
 }

@@ -2,12 +2,13 @@ import gc from "@sg/game-client-base";
 import inversify from "inversify";
 import mobx from "mobx";
 import { InstantWinConfigStore } from "../../game-configs/instant-win-config-store";
-
+import { BetStore } from "../bets/bet-store";
 const { injectable, inject } = inversify;
 
 @injectable()
 export class BetAmountStore {
     @inject(gc.Bet.BetStore) private readonly betStore: gc.Bet.BetStore;
+    @inject(BetStore) private readonly betsStore: BetStore;
     @inject(InstantWinConfigStore) private readonly gameConfig: InstantWinConfigStore;
     constructor() {
         mobx.makeAutoObservable(this);
@@ -20,7 +21,7 @@ export class BetAmountStore {
     }
 
     get disabledBetAmount() {
-        return false;
+        return this.betsStore.isHittingOnCoin;
     }
 
     get isMinBetLevelValue() {

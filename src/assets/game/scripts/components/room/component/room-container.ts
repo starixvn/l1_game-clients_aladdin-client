@@ -3,13 +3,13 @@ import { ObserverComponent } from "db://shared-components/shared/common-componen
 
 
 const { ccclass, property } = _decorator;
-@ccclass("leader_board_container")
-export class LeaderBoardContainer extends ObserverComponent {
+@ccclass("room_container")
+export class RoomContainer extends ObserverComponent {
     @property(Node)
-    nodeWinners: Node = null;
+    nodePlayers: Node = null;
 
     @property(Prefab)
-    prfWinner: Prefab = null;
+    prfPlayer: Prefab = null;
 
     @property(Node)
     nodeMainPlayer: Node = null;

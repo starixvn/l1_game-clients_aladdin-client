@@ -1,22 +1,22 @@
 import gc from "@sg/game-client-base";
 import inversify from "inversify";
 import { GameServiceMessage } from "../../game-message";
-import { IWinner, LeaderBoardStore } from "./leader-board-store";
+import { IPlayer, RoomStore } from "./room-store";
 
 const { injectable, inject } = inversify;
 
 @injectable()
-export class LeaderBoardHandler implements gc.Shared.IMultipleHandlers {
-    @inject(LeaderBoardStore) protected readonly leaderBoardStore: LeaderBoardStore;
+export class RoomHandler implements gc.Shared.IMultipleHandlers {
+    @inject(RoomStore) protected readonly RoomStore: RoomStore;
     @inject(gc.Player.MainPlayerStore) protected readonly mainPlayerStore: gc.Player.MainPlayerStore;
-    handleWinner(winner: IWinner) {
+    handlePlayer(player: IPlayer) {
         
     }
 
     eventHandleList = [
         {
-            name: GameServiceMessage.Winner.eventName,
-            handle: this.handleWinner,
+            name: GameServiceMessage.Player.eventName,
+            handle: this.handlePlayer,
         },
     ];
 }
