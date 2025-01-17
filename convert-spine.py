@@ -170,8 +170,8 @@ def convert_json_format(input_json, output_json):
     with open(output_json, 'w') as f:
         json.dump(data, f, indent=1)
 
-def convert_spine_files(input_dir, output_dir):
-    """Convert tất cả file spine từ thư mục input sang thư mục output"""
+def process_folder(input_dir, output_dir):
+    """Xử lý một thư mục và các thư mục con của nó"""
     
     # Chuẩn hóa đường dẫn thư mục để dùng dấu /
     input_dir = input_dir.replace('\\', '/')
@@ -181,29 +181,37 @@ def convert_spine_files(input_dir, output_dir):
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
     
-    # Lấy danh sách tất cả file trong thư mục input
-    for filename in os.listdir(input_dir):
-        input_path = os.path.join(input_dir, filename).replace('\\', '/')
-        output_path = os.path.join(output_dir, filename).replace('\\', '/')
+    # Duyệt qua tất cả file và thư mục trong input_dir
+    for item in os.listdir(input_dir):
+        input_path = os.path.join(input_dir, item).replace('\\', '/')
+        output_path = os.path.join(output_dir, item).replace('\\', '/')
         
-        # Bỏ qua nếu là thư mục
+        # Nếu là thư mục thì xử lý đệ quy
         if os.path.isdir(input_path):
+            process_folder(input_path, output_path)
             continue
             
         # Xử lý file atlas
-        if filename.endswith('.atlas'):
+        if item.endswith('.atlas'):
             convert_atlas_format(input_path, output_path)
-            print(f'Done: {filename}')
             
         # Xử lý file json
-        elif filename.endswith('.json'):
+        elif item.endswith('.json'):
             convert_json_format(input_path, output_path)
-            print(f'Done: {filename}')
             
         # Copy file texture
-        elif filename.lower().endswith(('.png', '.jpg', '.webp')):
+        elif item.lower().endswith(('.png', '.jpg', '.webp')):
             shutil.copy2(input_path, output_path)
-            print(f'Done: {filename}')
+
+def convert_spine_files(input_dir, output_dir):
+    """Convert tất cả file spine từ thư mục input sang thư mục output"""
+    
+    # Chuẩn hóa đường dẫn thư mục để dùng dấu /
+    input_dir = input_dir.replace('\\', '/')
+    output_dir = output_dir.replace('\\', '/')
+    
+    # Xử lý toàn bộ thư mục
+    process_folder(input_dir, output_dir)
 
 # Sử dụng
 input_dir = 'src/assets/game/spines-v4'  # Thư mục chứa file spine v4
