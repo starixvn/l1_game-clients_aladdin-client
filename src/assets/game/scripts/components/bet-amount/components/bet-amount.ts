@@ -35,7 +35,6 @@ export default class BetAmount extends ObserverComponent {
     @property(Node)
     nodeDisabledBetAmount: Node = null;
 
-    private betLevelsContainer: BetLevelsContainer = null;
     private betAmount = 0;
     private betLevels = [];
 
@@ -66,11 +65,14 @@ export default class BetAmount extends ObserverComponent {
 
     @render(BetAmountStore, (store) => store.betLevels)
     assignBetLevel(betLevels: number[]) {
+        if (!betLevels) {
+            return;
+        }
         this.betLevels = betLevels;
         this.nodeBetLevelsContainer.destroyAllChildren();
         const container = instantiate(this.prfBetLevelsContainer);
-        this.betLevelsContainer = container.getComponent(BetLevelsContainer);
-        this.betLevelsContainer.setBetLevels(betLevels);
+        const betLevelsContainer = container.getComponent(BetLevelsContainer);
+        betLevelsContainer.setBetLevels(betLevels);
         this.nodeBetLevelsContainer.addChild(container);
     }
 

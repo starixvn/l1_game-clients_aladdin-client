@@ -19,6 +19,7 @@ export default class BetLevelsContainer extends ObserverComponent {
     private betLevels: number[] = [];
     private readonly itemHeight = 60;
     private readonly itemsOfColumnMax = 4;
+    private readonly itemSpacing = 10;
 
     setBetLevels(betLevels: number[]) {
         if (betLevels.length <= 0) {
@@ -42,14 +43,11 @@ export default class BetLevelsContainer extends ObserverComponent {
     }
 
     private calculateContainerHeight() {
-        let height = 0;
-        if (this.betLevels.length >= this.itemsOfColumnMax) {
-            height = this.itemsOfColumnMax * this.itemHeight + (this.itemsOfColumnMax + 1) * 10;
-        } else {
-            height = this.betLevels.length * this.itemHeight + (this.betLevels.length + 1) * 10;
-        }
-
-        this.content.getComponent(UITransform).height = height;
+        const numItems = Math.min(this.betLevels.length, this.itemsOfColumnMax);
+        const numSpaces = numItems + 1;
+        const totalHeight = (numItems * this.itemHeight) + (numSpaces * this.itemSpacing);
+        
+        this.content.getComponent(UITransform).height = totalHeight;
     }
 
     @render(gc.Bet.BetStore, (store) => store.amount)
