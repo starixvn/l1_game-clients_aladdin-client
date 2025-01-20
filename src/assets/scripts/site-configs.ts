@@ -20,10 +20,10 @@ const defaultConfig: gc.Configs.SiteConfigs = {
     enableMsgpackParserAllGames: false,
     enableMsgpackParserOnNotification: false,
     websocket: {
-        proxyPath: "tapfortune",
-        route: "tapfortune",
+        proxyPath: "coinmining",
+        route: "coinmining",
     },
-    mainObserverNamespace: "Tapfortune",
+    mainObserverNamespace: "coinmining",
     tolgeeUrl: "",
 };
 

@@ -5,9 +5,9 @@ import * as InstantWinFeature from "../scripts";
 import { sharedContainer } from "../../scripts/shared-container";
 
 export const settings = {
-    id: 107,
-    name: "Tapfortune",
-    namespaces: ["TapFortune", "TapGame"],
+    id: 109,
+    name: "coinmining",
+    namespaces: ["coinmining"],
     durations: {
         wholeRound: 14,
         lockingBet: 3,

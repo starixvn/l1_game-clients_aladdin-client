@@ -11,7 +11,10 @@ const { handle, render } = Observer;
 @ccclass
 export default class PlaceBetButton extends ObserverComponent {
     @property(Node)
-    nodeAutoStart: Node = null;
+    cashOutButton: Node = null;
+
+    @property(Node)
+    startBetButton: Node = null;
 
     @property(Node)
     tapArea: Node = null;
@@ -37,22 +40,42 @@ export default class PlaceBetButton extends ObserverComponent {
     }
 
     resetEffect() {
-        // this.effect && this.effect.setAnimation(0, "kick_3", true);
+        this.effect && this.effect.setAnimation(0, "levitation", true);
     }
 
     @handle(BetHandler, (handler) => handler.handle())
     onBet() {
         if(this.isStart) {
             this.unschedule(this.resetEffect);
-            this.effect.setAnimation(0, "kick_3", false);
+            this.effect.setAnimation(0, "tap_3", false);
             this.scheduleOnce(this.resetEffect, 1);
         }
     }
 
+    onClickStartBet(){
+        this.updateStatusStart(true);
+        this.tapAnim.node.active = true;
+        this.cashOutButton.active = true;
+        this.startBetButton.active = false;
+    }
+
+    onClickCashOut(){
+        this.updateStatusStart(false);
+        this.tapAnim.node.active = false;
+        this.cashOutButton.active = false;
+        this.startBetButton.active = true;
+    }
+
+
     @handle(BetHandler, (handler, isStart: boolean) => handler.updateStatusStart(isStart))
-    updateStatusStart() {
-        this.isStart = !this.isStart;
-        return this.isStart;
+    updateStatusStart(isStart: boolean) {
+        this.isStart = isStart;
+        return isStart;
+    }
+
+    @render(BetStore, (store) => store.isStart)
+    setVisibilityRoundsAutoplay(isStart: boolean) {
+        this.isStart = isStart;
     }
 
     onClickBetButton() {
@@ -75,7 +98,7 @@ export default class PlaceBetButton extends ObserverComponent {
     onTap(event) {
         if (this.touchInPolygon(event) && this.isStart) {
             this.handleBet(false);
-            this.playTapAnimation(event.getUILocation());
+            this.playTapAnimation(new Vec2(815, 685));
         }
     }
 
@@ -86,8 +109,9 @@ export default class PlaceBetButton extends ObserverComponent {
     }
 
     playTapAnimation(location: Vec2) {
-        this.tapAnim.node.position = this.tapAnim.node.parent.getComponent(UITransform).convertToNodeSpaceAR(v3(815, 685, 0));
+        this.tapAnim.node.position = this.tapAnim.node.parent.getComponent(UITransform).convertToNodeSpaceAR(v3(location.x, location.y, 0));
         this.tapAnim.setAnimation(0, "kick_3", false);
+        this.effect.setAnimation(0, "tap_3", false);
     }
 
     handleBet(byButton: boolean) {
@@ -105,7 +129,7 @@ export default class PlaceBetButton extends ObserverComponent {
     cancelAutoStart() {}
 
     playEffectBetButton() {
-        this.effect.setAnimation(0, "kick_3", false);
+        this.effect.setAnimation(0, "tap_3", false);
     }
 
     resetCursor() {
