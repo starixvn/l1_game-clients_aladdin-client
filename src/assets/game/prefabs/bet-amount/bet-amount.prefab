@@ -51,8 +51,8 @@
     },
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": -358.168,
-      "y": -2.943,
+      "x": -181.025,
+      "y": -14.371,
       "z": 0
     },
     "_lrot": {
@@ -1335,6 +1335,8 @@
       "__id__": 0
     },
     "fileId": "85eMK1FQ9BBrflhOT0aqRU",
+    "instance": null,
+    "targetOverrides": null,
     "nestedPrefabInstanceRoots": null
   },
   {
@@ -2141,12 +2143,23 @@
       "__id__": 96
     },
     "nodeBetLevelsContainer": null,
-    "prfBetLevelsContainer": null,
-    "lblBetLevelDefault": null,
-    "nodeDisabledDescrease": null,
-    "nodeDisabledInscrease": null,
+    "prfBetLevelsContainer": {
+      "__uuid__": "d03727a1-22a1-4ff0-84a7-0194f3e9c41a",
+      "__expectedType__": "cc.Prefab"
+    },
+    "lblBetLevelDefault": {
+      "__id__": 20
+    },
+    "nodeDisabledDescrease": {
+      "__id__": 38
+    },
+    "nodeDisabledInscrease": {
+      "__id__": 65
+    },
     "nodeOverlayBg": null,
-    "nodeDisabledBetAmount": null,
+    "nodeDisabledBetAmount": {
+      "__id__": 85
+    },
     "_id": ""
   },
   {
