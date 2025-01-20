@@ -19,4 +19,8 @@ export class BetHandler extends gc.Bet.BetHandler {
     updateStatusHittingCoin(status: boolean) {
         this.betsStore.isHittingOnCoin = status;
     }
+
+    updateStatusStart(isStart: boolean) {
+        this.betsStore.isStart = isStart;
+    }
 }

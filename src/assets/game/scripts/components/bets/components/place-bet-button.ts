@@ -1,20 +1,29 @@
-import { _decorator, Node, sp } from "cc";
+import { _decorator, EventTouch, Intersection2D, math, Node, PolygonCollider2D, sp, UITransform, v3, Vec2 } from "cc";
 import { ObserverComponent } from "db://shared-components/shared/common-components/observer-component/scripts/observer-component";
 import Observer from "observer";
 import { BetHandler } from "../bet-handler";
+import { AutoStartHandler } from "../../auto-start/auto-start-handler";
+import { BetStore } from "../bet-store";
 
 const { ccclass, property } = _decorator;
-const { handle } = Observer;
+const { handle, render } = Observer;
 
 @ccclass
 export default class PlaceBetButton extends ObserverComponent {
     @property(Node)
     nodeAutoStart: Node = null;
 
+    @property(Node)
+    tapArea: Node = null;
+
+    @property(sp.Skeleton)
+    tapAnim: sp.Skeleton = null;
+
     @property(sp.Skeleton)
     effect: sp.Skeleton = null;
 
     private isAutoStart = false;
+    private isStart = false;
 
     onLoad() {
         this.resetEffect();
@@ -28,14 +37,22 @@ export default class PlaceBetButton extends ObserverComponent {
     }
 
     resetEffect() {
-        this.effect && this.effect.setAnimation(0, "idle", true);
+        // this.effect && this.effect.setAnimation(0, "kick_3", true);
     }
 
     @handle(BetHandler, (handler) => handler.handle())
     onBet() {
-        this.unschedule(this.resetEffect);
-        this.effect.setAnimation(0, "tap-anim", false);
-        this.scheduleOnce(this.resetEffect, 1);
+        if(this.isStart) {
+            this.unschedule(this.resetEffect);
+            this.effect.setAnimation(0, "kick_3", false);
+            this.scheduleOnce(this.resetEffect, 1);
+        }
+    }
+
+    @handle(BetHandler, (handler, isStart: boolean) => handler.updateStatusStart(isStart))
+    updateStatusStart() {
+        this.isStart = !this.isStart;
+        return this.isStart;
     }
 
     onClickBetButton() {
@@ -49,11 +66,61 @@ export default class PlaceBetButton extends ObserverComponent {
     addEvent() {
         this.node.on(Node.EventType.MOUSE_ENTER, this.eventOnEnter, this);
         this.node.on(Node.EventType.MOUSE_LEAVE, this.eventOnLeave, this);
+        this.tapArea.on(Node.EventType.TOUCH_START, this.onTap, this);
+        this.tapArea.on(Node.EventType.MOUSE_ENTER, this.eventOnEnter, this);
+        this.tapArea.on(Node.EventType.MOUSE_MOVE, this.eventOnEnter, this);
+        this.tapArea.on(Node.EventType.MOUSE_LEAVE, this.resetCursor, this);
+    }
+
+    onTap(event) {
+        if (this.touchInPolygon(event) && this.isStart) {
+            this.handleBet(false);
+            this.playTapAnimation(event.getUILocation());
+        }
+    }
+
+    protected touchInPolygon(event: EventTouch) {
+        const location = event.getUILocation();
+        const polygon = this.tapArea.getComponent(PolygonCollider2D).worldPoints;
+        return Intersection2D.pointInPolygon(math.v2(location.x, location.y), polygon);
+    }
+
+    playTapAnimation(location: Vec2) {
+        this.tapAnim.node.position = this.tapAnim.node.parent.getComponent(UITransform).convertToNodeSpaceAR(v3(815, 685, 0));
+        this.tapAnim.setAnimation(0, "kick_3", false);
+    }
+
+    handleBet(byButton: boolean) {
+        if (!this.isAutoStart) {
+            byButton && this.playEffectBetButton();
+            this.onBet();
+            return;
+        }
+
+        this.cancelAutoStart();
+    }
+
+    
+    @handle(AutoStartHandler, (handle) => handle.handleAutoStart())
+    cancelAutoStart() {}
+
+    playEffectBetButton() {
+        this.effect.setAnimation(0, "kick_3", false);
+    }
+
+    resetCursor() {
+        document.body.style.cursor = "default";
     }
 
     removeEvent() {
         this.node.off(Node.EventType.MOUSE_ENTER, this.eventOnEnter, this);
         this.node.off(Node.EventType.MOUSE_LEAVE, this.eventOnLeave, this);
+        if (this.tapArea && this.tapArea.isValid) {
+            this.tapArea.off(Node.EventType.TOUCH_START, this.onTap, this);
+            this.tapArea.off(Node.EventType.MOUSE_ENTER, this.eventOnEnter, this);
+            this.tapArea.off(Node.EventType.MOUSE_MOVE, this.eventOnEnter, this);
+            this.tapArea.off(Node.EventType.MOUSE_LEAVE, this.resetCursor, this);
+        }
     }
 
     eventOnEnter() {

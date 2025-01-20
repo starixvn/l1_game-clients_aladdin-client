@@ -25,6 +25,7 @@ export default class BetLevelItem extends ObserverComponent {
 
     setData(betLevel: number) {
         this.currentBetLevel = betLevel;
+        const demo = FormatUtils.numberWithCommas(betLevel, 2);
         this.lblBet.string = FormatUtils.numberWithCommas(betLevel, 2);
     }
 

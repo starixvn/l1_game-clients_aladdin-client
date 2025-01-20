@@ -7,5 +7,6 @@ const { injectable, inject } = inversify;
 export class BetStore extends gc.Bet.BetStore {
     multiplier = 0;
     isHittingOnCoin = false;
+    isStart = false;
 }
 
