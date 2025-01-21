@@ -13,24 +13,12 @@ export class BalanceInfo extends ObserverComponent {
     @property(Label)
     lblBalance: Label = null;
 
-    @render(MainPlayerStore, (store) => store.balance)
+    @render(BalanceInfoHandler, (store) => store.balance)
     setBalance(value: number) {
         this.lblBalance && (this.lblBalance.string = FormatUtils.truncateFixedDecimals(value, 2).toString());
         tween(this.lblBalance.node)
             .to(0.1, { scale: new Vec3(0.55, 0.55, 1) })
             .to(0.1, { scale: new Vec3(0.5, 0.5, 1) })
             .start();
-    }
-
-    @render(Bet.BetStore, (store) => store.lastReceivedBet)
-    endBetInfo(lastReceivedBet: gc.Bet.ILastReceivedBet) {
-        if (lastReceivedBet && lastReceivedBet.value > 0 && lastReceivedBet.isAnimated) {
-            this.mainPlayerDecreaseBalance(lastReceivedBet.value);
-        }
-    }
-
-    @handle(BalanceInfoHandler, (handle, balance: number) => handle.descreaseBalance(balance))
-    mainPlayerDecreaseBalance(balance: number) {
-        return balance;
     }
 }

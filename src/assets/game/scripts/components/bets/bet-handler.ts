@@ -7,8 +7,11 @@ const { injectable, inject } = inversify;
 @injectable()
 export class BetHandler extends gc.Bet.BetHandler {
     @inject(BetStore) protected readonly betsStore: BetStore;
+
     handle() {
-        const betData = this.createCommonBetData();
+        const betData: any = this.createCommonBetData();
+        betData.action = this.betsStore.betCount === 0 ? "bet" : "mine";
+        this.betsStore.betCount++;
         this.handleBetData(betData);
     }
 
@@ -23,4 +26,12 @@ export class BetHandler extends gc.Bet.BetHandler {
     updateStatusStart(isStart: boolean) {
         this.betsStore.isStart = isStart;
     }
+
+    resetBetCount() {
+        this.betsStore.betCount = 0;
+    }
+
+    override isInPhasePreventBet() {
+        return false;
+    }   
 }

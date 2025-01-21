@@ -52,6 +52,7 @@ export default class PlaceBetButton extends ObserverComponent {
         }
     }
 
+    @handle(BetHandler, (handler) => handler.resetBetCount())
     onClickStartBet(){
         this.updateStatusStart(true);
         this.tapAnim.node.active = true;
@@ -81,9 +82,7 @@ export default class PlaceBetButton extends ObserverComponent {
     onClickBetButton() {
         if (!this.isAutoStart) {
             this.onBet();
-            return;
         }
-        this.isAutoStart = !this.isAutoStart;
     }
 
     addEvent() {
@@ -97,7 +96,7 @@ export default class PlaceBetButton extends ObserverComponent {
 
     onTap(event) {
         if (this.touchInPolygon(event) && this.isStart) {
-            this.handleBet(false);
+            // this.handleBet(false);
             this.playTapAnimation(new Vec2(815, 685));
         }
     }
@@ -114,15 +113,15 @@ export default class PlaceBetButton extends ObserverComponent {
         this.effect.setAnimation(0, "tap_3", false);
     }
 
-    handleBet(byButton: boolean) {
-        if (!this.isAutoStart) {
-            byButton && this.playEffectBetButton();
-            this.onBet();
-            return;
-        }
+    // handleBet(byButton: boolean) {
+    //     if (!this.isAutoStart) {
+    //         byButton && this.playEffectBetButton();
+    //         this.onBet();
+    //         return;
+    //     }
 
-        this.cancelAutoStart();
-    }
+    //     this.cancelAutoStart();
+    // }
 
     
     @handle(AutoStartHandler, (handle) => handle.handleAutoStart())

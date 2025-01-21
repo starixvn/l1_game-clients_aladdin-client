@@ -1,7 +1,7 @@
 export namespace GameServiceMessage {
     export class InstantGameConfigs {
         defaultBetLevel: number;
-        betLevels: number[];
+        chips: number[];
 
         static eventName = "gameConfigs";
     }

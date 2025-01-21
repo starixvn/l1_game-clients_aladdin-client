@@ -9,7 +9,7 @@ export class InstantWinConfigHandler implements gc.Shared.IMultipleHandlers {
     @inject(InstantWinConfigStore) protected readonly instantWinConfigStore: InstantWinConfigStore;
     handleGameConfigs(gameConfigs: GameServiceMessage.InstantGameConfigs) {
         this.instantWinConfigStore.defaultBetLevel = gameConfigs.defaultBetLevel;
-        this.instantWinConfigStore.betLevels = gameConfigs.betLevels;
+        this.instantWinConfigStore.betLevels = gameConfigs.chips;
     }
 
     eventHandleList = [

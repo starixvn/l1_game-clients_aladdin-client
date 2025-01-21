@@ -8,5 +8,6 @@ export class BetStore extends gc.Bet.BetStore {
     multiplier = 0;
     isHittingOnCoin = false;
     isStart = false;
+    betCount = 0;
 }
 

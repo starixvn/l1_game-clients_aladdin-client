@@ -130,7 +130,7 @@ export default class BetAmount extends ObserverComponent {
     @handle(BetAmountHandlers, (handle, amount: number) => handle.updateBetAmount(amount))
     onClickInscreaseButton() {
         let index = this.findIndexBetLevel() + 1;
-        return this.betLevels[index];
+        return parseInt(this.betLevels[index]);
     }
 
     findIndexBetLevel(): number {

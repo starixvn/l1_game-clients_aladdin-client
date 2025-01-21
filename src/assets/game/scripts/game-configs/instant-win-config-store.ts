@@ -5,8 +5,8 @@ const { injectable, inject } = inversify;
 @injectable()
 export class InstantWinConfigStore {
     private _defaultBetLevel = 0;
-    private _betLevels = [1,2,5,10,15,20,25,50, 75, 100, 200, 500, 1000, 1500, 2000, 5000];
-
+    private _betLevels = [];
+    // 1,2,5,10,15,20,25,50, 75, 100, 200, 500, 1000, 1500, 2000, 5000
     constructor() {
         mobx.makeAutoObservable(this);
     }
