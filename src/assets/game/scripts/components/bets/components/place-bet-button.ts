@@ -1,9 +1,11 @@
-import { _decorator, EventTouch, Intersection2D, math, Node, PolygonCollider2D, sp, UITransform, v3, Vec2 } from "cc";
+import { _decorator, EventTouch, Intersection2D, Label, math, Node, PolygonCollider2D, sp, UITransform, v3, Vec2 } from "cc";
 import { ObserverComponent } from "db://shared-components/shared/common-components/observer-component/scripts/observer-component";
 import Observer from "observer";
 import { BetHandler } from "../bet-handler";
 import { AutoStartHandler } from "../../auto-start/auto-start-handler";
 import { BetStore } from "../bet-store";
+import { BalanceInfoHandler } from "../../balance/balance-info-handler";
+import { inject } from "inversify";
 
 const { ccclass, property } = _decorator;
 const { handle, render } = Observer;
@@ -15,6 +17,9 @@ export default class PlaceBetButton extends ObserverComponent {
 
     @property(Node)
     startBetButton: Node = null;
+    
+    @property(Label)
+    lblMultiplier: Label = null;
 
     @property(Node)
     tapArea: Node = null;
@@ -58,6 +63,7 @@ export default class PlaceBetButton extends ObserverComponent {
         this.tapAnim.node.active = true;
         this.cashOutButton.active = true;
         this.startBetButton.active = false;
+        this.lblMultiplier.node.active = true;
     }
 
     @handle(BetHandler, (handler) => handler.handleCashOut())
@@ -66,6 +72,7 @@ export default class PlaceBetButton extends ObserverComponent {
         this.tapAnim.node.active = false;
         this.cashOutButton.active = false;
         this.startBetButton.active = true;
+        this.lblMultiplier.node.active = false;
     }
 
 
@@ -75,10 +82,23 @@ export default class PlaceBetButton extends ObserverComponent {
         return isStart;
     }
 
-    @render(BetStore, (store) => store.isStart)
-    setVisibilityRoundsAutoplay(isStart: boolean) {
-        this.isStart = isStart;
+    @render(BetStore, (store) => store.multiplier)
+    updateMultiplier(multiplier: number) {
+        this.lblMultiplier.string = multiplier.toString();
     }
+
+    @render(BetStore, (store) => store.endBet)
+    handleEndBet() {
+        this.updateBalance();
+    }
+
+    @render(BetStore, (store) => store.win)
+    handleWin() {
+        this.updateBalance();
+    }
+
+    @handle(BalanceInfoHandler, (handler) => handler.updateBalance())
+    updateBalance() {}
 
     onClickBetButton() {
         if (this.isStart) {

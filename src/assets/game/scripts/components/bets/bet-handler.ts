@@ -2,6 +2,8 @@ import gc from "@sg/game-client-base";
 import inversify from "inversify";
 import { BetStore } from "./bet-store";
 import { GameServiceMessage } from "../../game-message";
+import { BalanceInfoHandler } from "../balance/balance-info-handler";
+import { handle } from "observer";
 
 const { injectable, inject } = inversify;
 
@@ -9,6 +11,7 @@ const { injectable, inject } = inversify;
 export class BetHandler extends gc.Bet.BetHandler {
     @inject(BetStore) protected readonly betsStore: BetStore;
     @inject(gc.Connection.ConnectionStore) protected readonly connectionStore: gc.Connection.ConnectionStore;
+    @inject(gc.Bet.BetResponseHandlers) protected readonly betResponseHandlers: gc.Bet.BetResponseHandlers;
 
     handle() {
         const betData: any = this.createCommonBetData();
@@ -18,7 +21,19 @@ export class BetHandler extends gc.Bet.BetHandler {
     }
 
     updateMultiplier(multiplier: number) {
+        this.betResponseHandlers.stopProcessingBetAndClearInterval();
         this.betsStore.multiplier = multiplier;
+    }
+
+    updateStatusBet(status: GameServiceMessage.Status) {
+        this.betsStore.win = status.win;
+        this.betsStore.reachMaxWin = status.reachMaxWin;
+        this.betsStore.bet = status.bet;
+        this.betsStore.multiplier = 0;
+    }
+
+    updateEndBet(endBet: number) {
+        this.betsStore.endBet = endBet;
     }
 
     updateStatusStart(isStart: boolean) {
@@ -39,16 +54,46 @@ export class BetHandler extends gc.Bet.BetHandler {
 }
 
 @injectable()
-export class MineHandler implements gc.Shared.IMultipleHandlers {
-    @inject(BetStore) protected readonly betStore: BetStore;
-    handleMine(multiplier: number) {
-        this.betStore.multiplier = multiplier;
+export class EndBetHandler implements gc.Shared.IMultipleHandlers {
+    @inject(BetHandler) protected readonly betHandler: BetHandler;
+    handleEndBet(endBet: number) {
+        this.betHandler.updateEndBet(endBet);
     }
 
     eventHandleList = [
         {
-            name: GameServiceMessage.Bet.eventName,
+            name: GameServiceMessage.EndBetEvent,
+            handle: this.handleEndBet,
+        },
+    ];
+}
+
+@injectable()
+export class MineHandler implements gc.Shared.IMultipleHandlers {
+    @inject(BetHandler) protected readonly betHandler: BetHandler;
+    handleMine(multiplier: number) {
+        this.betHandler.updateMultiplier(multiplier);
+    }
+
+    eventHandleList = [
+        {
+            name: GameServiceMessage.MultiplierEvent,
             handle: this.handleMine,
+        },
+    ];
+}
+
+@injectable()
+export class CashOutHandler implements gc.Shared.IMultipleHandlers {
+    @inject(BetHandler) protected readonly betHandler: BetHandler;
+    handleCashOut(status: GameServiceMessage.Status) {
+        this.betHandler.updateStatusBet(status);
+    }
+
+    eventHandleList = [
+        {
+            name: GameServiceMessage.Status.eventName,
+            handle: this.handleCashOut,
         },
     ];
 }

@@ -6,10 +6,15 @@ export namespace GameServiceMessage {
         static eventName = "gameConfigs";
     }
 
-    export class Bet {
-        multiplier: number;
+    export const MultiplierEvent  = "multiplier";  
+    export const EndBetEvent = "endBet";
 
-        static eventName = "multiplier";   
+    export class Status {
+        win: boolean;
+        bet: number;
+        reachMaxWin: boolean;
+
+        static eventName = "status";
     }
 
     export class Player {

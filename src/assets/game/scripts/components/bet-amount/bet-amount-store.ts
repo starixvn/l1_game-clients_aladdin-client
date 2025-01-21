@@ -7,8 +7,8 @@ const { injectable, inject } = inversify;
 
 @injectable()
 export class BetAmountStore {
-    @inject(gc.Bet.BetStore) private readonly betStore: gc.Bet.BetStore;
-    @inject(BetStore) private readonly betsStore: BetStore;
+    @inject(gc.Bet.BetStore) private readonly betBaseStore: gc.Bet.BetStore;
+    @inject(BetStore) private readonly betStore: BetStore;
     @inject(InstantWinConfigStore) private readonly gameConfig: InstantWinConfigStore;
     constructor() {
         mobx.makeAutoObservable(this);
@@ -21,11 +21,11 @@ export class BetAmountStore {
     }
 
     get disabledBetAmount() {
-        return this.betsStore.isStart;
+        return this.betStore.isStart;
     }
 
     get isMinBetLevelValue() {
-        const index = this.betLevels.findIndex((amount) => amount === this.betStore.amount);
+        const index = this.betLevels.findIndex((amount) => amount === this.betBaseStore.amount);
         if (index <= 0) {
             return true;
         }
@@ -33,7 +33,7 @@ export class BetAmountStore {
     }
 
     get isMaxbetLevelValue() {
-        const index = this.betLevels.findIndex((amount) => amount === this.betStore.amount);
+        const index = this.betLevels.findIndex((amount) => amount === this.betBaseStore.amount);
         if (index >= this.betLevels.length - 1) {
             return true;
         }
