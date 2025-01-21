@@ -32,6 +32,8 @@ export default class PlaceBetButton extends ObserverComponent {
         this.resetEffect();
         super.onLoad();
         this.addEvent();
+        this.isStart = false;
+        this.isAutoStart = false;
     }
 
     onDestroy(): void {
@@ -45,11 +47,9 @@ export default class PlaceBetButton extends ObserverComponent {
 
     @handle(BetHandler, (handler) => handler.handle())
     onBet() {
-        if(this.isStart) {
-            this.unschedule(this.resetEffect);
-            this.effect.setAnimation(0, "tap_3", false);
-            this.scheduleOnce(this.resetEffect, 1);
-        }
+        this.unschedule(this.resetEffect);
+        this.effect.setAnimation(0, "tap_3", false);
+        this.scheduleOnce(this.resetEffect, 1);
     }
 
     @handle(BetHandler, (handler) => handler.resetBetCount())
@@ -60,6 +60,7 @@ export default class PlaceBetButton extends ObserverComponent {
         this.startBetButton.active = false;
     }
 
+    @handle(BetHandler, (handler) => handler.handleCashOut())
     onClickCashOut(){
         this.updateStatusStart(false);
         this.tapAnim.node.active = false;
@@ -80,7 +81,7 @@ export default class PlaceBetButton extends ObserverComponent {
     }
 
     onClickBetButton() {
-        if (!this.isAutoStart) {
+        if (this.isStart) {
             this.onBet();
         }
     }
@@ -96,7 +97,6 @@ export default class PlaceBetButton extends ObserverComponent {
 
     onTap(event) {
         if (this.touchInPolygon(event) && this.isStart) {
-            // this.handleBet(false);
             this.playTapAnimation(new Vec2(815, 685));
         }
     }
@@ -113,17 +113,6 @@ export default class PlaceBetButton extends ObserverComponent {
         this.effect.setAnimation(0, "tap_3", false);
     }
 
-    // handleBet(byButton: boolean) {
-    //     if (!this.isAutoStart) {
-    //         byButton && this.playEffectBetButton();
-    //         this.onBet();
-    //         return;
-    //     }
-
-    //     this.cancelAutoStart();
-    // }
-
-    
     @handle(AutoStartHandler, (handle) => handle.handleAutoStart())
     cancelAutoStart() {}
 

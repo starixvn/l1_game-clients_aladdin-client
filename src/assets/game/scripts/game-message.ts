@@ -6,6 +6,12 @@ export namespace GameServiceMessage {
         static eventName = "gameConfigs";
     }
 
+    export class Bet {
+        multiplier: number;
+
+        static eventName = "multiplier";   
+    }
+
     export class Player {
         name: string;
         betWin: number;

@@ -8,8 +8,8 @@ const { injectable, inject } = inversify;
 export class InstantWinConfigHandler implements gc.Shared.IMultipleHandlers {
     @inject(InstantWinConfigStore) protected readonly instantWinConfigStore: InstantWinConfigStore;
     handleGameConfigs(gameConfigs: GameServiceMessage.InstantGameConfigs) {
+        this.instantWinConfigStore.betLevels = gameConfigs.chips.map(chip => parseInt(chip.toString()));
         this.instantWinConfigStore.defaultBetLevel = gameConfigs.defaultBetLevel;
-        this.instantWinConfigStore.betLevels = gameConfigs.chips;
     }
 
     eventHandleList = [

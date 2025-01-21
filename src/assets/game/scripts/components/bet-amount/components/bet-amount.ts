@@ -45,7 +45,11 @@ export default class BetAmount extends ObserverComponent {
 
     @render(InstantWinConfigStore, (store) => store.defaultBetLevel)
     showDefaultBetLevel(defaultBetLevel: number) {
-        this.updateBetAmount(defaultBetLevel);
+        if (defaultBetLevel === undefined && this.betLevels.length > 0) {
+            this.updateBetAmount(this.betLevels[0]);
+        } else {
+            this.updateBetAmount(defaultBetLevel);
+        }
     }
 
     @handle(BetAmountHandlers, (handle, amount: number) => handle.updateBetAmount(amount))
@@ -130,7 +134,7 @@ export default class BetAmount extends ObserverComponent {
     @handle(BetAmountHandlers, (handle, amount: number) => handle.updateBetAmount(amount))
     onClickInscreaseButton() {
         let index = this.findIndexBetLevel() + 1;
-        return parseInt(this.betLevels[index]);
+        return this.betLevels[index];
     }
 
     findIndexBetLevel(): number {
