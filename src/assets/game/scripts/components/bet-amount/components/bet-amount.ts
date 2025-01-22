@@ -36,6 +36,7 @@ export default class BetAmount extends ObserverComponent {
     nodeDisabledBetAmount: Node = null;
 
     private betAmount = 0;
+    private stakeBetLevel = 0;
     private betLevels = [];
 
     onLoad() {
@@ -47,8 +48,10 @@ export default class BetAmount extends ObserverComponent {
     showDefaultBetLevel(defaultBetLevel: number) {
         if (defaultBetLevel === undefined && this.betLevels.length > 0) {
             this.updateBetAmount(this.betLevels[0]);
+            this.updateStakeBetLevel(this.betLevels[0]);
         } else {
             this.updateBetAmount(defaultBetLevel);
+            this.updateStakeBetLevel(defaultBetLevel);
         }
     }
 
@@ -57,9 +60,19 @@ export default class BetAmount extends ObserverComponent {
         return amount;
     }
 
+    @handle(BetAmountHandlers, (handle, amount: number) => handle.updateStakeBetLevel(amount))
+    updateStakeBetLevel(amount: number) {
+        return amount;
+    }
+
     @render(gc.Bet.BetStore, (store) => store.amount)
     renderBetAmount(betAmount: number) {
         this.setBetAmount(betAmount);
+    }
+
+    @render(BetAmountStore, (store) => store.stakeBetLevel)
+    renderStakeBetLevel(stakeBetLevel: number) {
+        this.stakeBetLevel = stakeBetLevel;
     }
 
     setBetAmount(betAmount: number) {
@@ -127,14 +140,28 @@ export default class BetAmount extends ObserverComponent {
 
     @handle(BetAmountHandlers, (handle, amount: number) => handle.updateBetAmount(amount))
     onClickDescreaseButton() {
-        let index = this.findIndexBetLevel() - 1;
-        return this.betLevels[index];
+        const currentBet = this.betAmount;
+        return Math.max(currentBet - this.getChangeBetAmount(), this.betLevels[0]);
     }
 
     @handle(BetAmountHandlers, (handle, amount: number) => handle.updateBetAmount(amount))
     onClickInscreaseButton() {
-        let index = this.findIndexBetLevel() + 1;
-        return this.betLevels[index];
+        const currentBet = this.betAmount;
+        return Math.max(currentBet + this.getChangeBetAmount(), this.betLevels[0]);
+    }
+
+    private getChangeBetAmount(){
+        const currentBet = this.stakeBetLevel;
+        const thresholds = [
+            { threshold: 99999, decrement: 1_000_000 },
+            { threshold: 9999, decrement: 100_000 },
+            { threshold: 9999, decrement: 10_000 },
+            { threshold: 999, decrement: 1_000 },
+            { threshold: 99, decrement: 100 },
+            { threshold: 9, decrement: 10 }
+        ];
+
+        return thresholds.find(({threshold}) => currentBet > threshold)?.decrement || 1;
     }
 
     findIndexBetLevel(): number {

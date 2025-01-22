@@ -16,6 +16,11 @@ export class BetAmountHandlers implements gc.Shared.IHandler<gc.GameServiceMessa
         this.updateStatusBetAmountPopup(false);
     }
 
+    updateStakeBetLevel(stakeBetLevel: number) {
+        this.betAmountStore.stakeBetLevel = stakeBetLevel;
+        this.updateBetAmount(stakeBetLevel);
+    }
+
     updateStatusBetAmountPopup(isOpen: boolean) {
         this.betAmountStore.isOpenBetAmountPopup = isOpen;
     }

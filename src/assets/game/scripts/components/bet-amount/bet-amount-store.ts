@@ -15,6 +15,7 @@ export class BetAmountStore {
     }
 
     isOpenBetAmountPopup = false;
+    stakeBetLevel = 0;
 
     get betLevels() {
         return this.gameConfig.betLevels;
@@ -25,8 +26,7 @@ export class BetAmountStore {
     }
 
     get isMinBetLevelValue() {
-        const index = this.betLevels.findIndex((amount) => amount === this.betBaseStore.amount);
-        if (index <= 0) {
+        if (this.betLevels.length > 0 && this.betLevels[0] >= this.betBaseStore.amount) {
             return true;
         }
         return false;
