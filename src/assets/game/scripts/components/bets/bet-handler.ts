@@ -26,10 +26,10 @@ export class BetHandler extends gc.Bet.BetHandler {
     }
 
     updateStatusBet(status: GameServiceMessage.Status) {
+        this.betResponseHandlers.stopProcessingBetAndClearInterval();
         this.betsStore.win = status.win;
         this.betsStore.reachMaxWin = status.reachMaxWin;
         this.betsStore.bet = status.bet;
-        this.betsStore.multiplier = 0;
     }
 
     updateEndBet(endBet: number) {
@@ -40,8 +40,10 @@ export class BetHandler extends gc.Bet.BetHandler {
         this.betsStore.isStart = isStart;
     }
 
-    resetBetCount() {
+    resetBet() {
         this.betsStore.betCount = 0;
+        this.updateMultiplier(0);
+        this.updateEndBet(0);
     }
 
     override isInPhasePreventBet() {
@@ -58,6 +60,7 @@ export class EndBetHandler implements gc.Shared.IMultipleHandlers {
     @inject(BetHandler) protected readonly betHandler: BetHandler;
     handleEndBet(endBet: number) {
         this.betHandler.updateEndBet(endBet);
+        this.betHandler.updateMultiplier(1.01);
     }
 
     eventHandleList = [
