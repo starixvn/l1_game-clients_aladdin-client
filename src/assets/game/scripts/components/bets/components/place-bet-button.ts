@@ -100,7 +100,7 @@ export default class PlaceBetButton extends ObserverComponent {
 
     @render(BetStore, (store) => store.endBet)
     handleEndBet(endBet: number) {
-        if(endBet === 1){
+        if(endBet > 0){
             this.updateBalance();
         }
     }
