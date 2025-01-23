@@ -12,6 +12,7 @@ export class BetStore{
 
     multiplier = 0;
     isStart = false;
+    isCrash = false;
     betCount = 0;
     endBet = 0;
     win = false;

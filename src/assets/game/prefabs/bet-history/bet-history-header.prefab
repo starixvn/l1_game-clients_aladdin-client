@@ -176,7 +176,7 @@
     },
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": -451.161,
+      "x": -574.736,
       "y": -5.684341886080802e-14,
       "z": 0
     },
@@ -429,7 +429,7 @@
     },
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": -300.911,
+      "x": -398.328,
       "y": -5.684341886080802e-14,
       "z": 0
     },
@@ -679,7 +679,7 @@
     },
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": -143.245,
+      "x": -202.52300000000002,
       "y": -5.684341886080802e-14,
       "z": 0
     },
@@ -728,7 +728,7 @@
       "b": 2,
       "a": 255
     },
-    "_string": "Multiplier",
+    "_string": "MULTIPLIER",
     "_horizontalAlign": 0,
     "_verticalAlign": 1,
     "_actualFontSize": 20,
@@ -810,7 +810,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 97.33992004394531,
+      "width": 125.21992492675781,
       "height": 55.44
     },
     "_anchorPoint": {
@@ -832,11 +832,11 @@
     "node": {
       "__id__": 31
     },
-    "_enabled": true,
+    "_enabled": false,
     "__prefab": {
       "__id__": 39
     },
-    "key": "Common.multiplier",
+    "key": "CoinMining.header_multiplier",
     "format": 1,
     "prefix": "",
     "suffix": "",
@@ -875,8 +875,6 @@
       "__id__": 0
     },
     "fileId": "eeCldOVkFCG50ynicK15HN",
-    "instance": null,
-    "targetOverrides": null,
     "nestedPrefabInstanceRoots": null
   },
   {
@@ -911,7 +909,7 @@
     },
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": -6.837999999999965,
+      "x": 4.840000000000032,
       "y": -5.684341886080802e-14,
       "z": 0
     },
@@ -960,7 +958,7 @@
       "b": 2,
       "a": 255
     },
-    "_string": "Stack",
+    "_string": "STAKE",
     "_horizontalAlign": 0,
     "_verticalAlign": 1,
     "_actualFontSize": 20,
@@ -1042,7 +1040,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 59.8399658203125,
+      "width": 68.07997131347656,
       "height": 55.44
     },
     "_anchorPoint": {
@@ -1068,7 +1066,7 @@
     "__prefab": {
       "__id__": 51
     },
-    "key": "Common.stack",
+    "key": "Common.stake",
     "format": 1,
     "prefix": "",
     "suffix": "",
@@ -1143,7 +1141,7 @@
     },
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": 131.60500000000002,
+      "x": 150.582,
       "y": -5.684341886080802e-14,
       "z": 0
     },
@@ -1375,7 +1373,7 @@
     },
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": 276.15599999999995,
+      "x": 338.923,
       "y": -5.684341886080802e-14,
       "z": 0
     },
@@ -1424,7 +1422,7 @@
       "b": 2,
       "a": 255
     },
-    "_string": "Win Loss",
+    "_string": "WIN LOSS",
     "_horizontalAlign": 0,
     "_verticalAlign": 1,
     "_actualFontSize": 20,
@@ -1506,7 +1504,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 89.31991577148438,
+      "width": 102.07994079589844,
       "height": 55.44
     },
     "_anchorPoint": {
@@ -1532,7 +1530,7 @@
     "__prefab": {
       "__id__": 75
     },
-    "key": "Common.winloss",
+    "key": "Common.win_loss",
     "format": 1,
     "prefix": "",
     "suffix": "",
@@ -1607,7 +1605,7 @@
     },
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": 406.20900000000006,
+      "x": 549.261,
       "y": -5.684341886080802e-14,
       "z": 0
     },
@@ -1656,7 +1654,7 @@
       "b": 2,
       "a": 255
     },
-    "_string": "Fairness",
+    "_string": "FAIRNESS",
     "_horizontalAlign": 0,
     "_verticalAlign": 1,
     "_actualFontSize": 20,
@@ -1738,7 +1736,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 82.81991577148438,
+      "width": 103.15994262695312,
       "height": 55.44
     },
     "_anchorPoint": {
@@ -1764,7 +1762,7 @@
     "__prefab": {
       "__id__": 87
     },
-    "key": "TapGame.fairness",
+    "key": "Common.pf_fairness",
     "format": 1,
     "prefix": "",
     "suffix": "",
@@ -1840,7 +1838,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 1070,
+      "width": 1298,
       "height": 50
     },
     "_anchorPoint": {
@@ -1881,8 +1879,8 @@
     },
     "_alignFlags": 45,
     "_target": null,
-    "_left": 199,
-    "_right": 199,
+    "_left": 50,
+    "_right": 50,
     "_top": 353,
     "_bottom": 353,
     "_horizontalCenter": 0,
@@ -1936,7 +1934,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 1000,
+      "width": 1298,
       "height": 80.00000000000011
     },
     "_anchorPoint": {

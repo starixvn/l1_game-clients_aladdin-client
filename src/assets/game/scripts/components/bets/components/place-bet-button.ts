@@ -66,12 +66,15 @@ export default class PlaceBetButton extends ObserverComponent {
         this.lblMultiplier.node.active = true;
     }
 
-    handleCrash(){
-        this.updateStatusStart(false);
-        this.tapAnim.node.active = false;
-        this.cashOutButton.active = false;
-        this.startBetButton.active = true;
-        this.lblMultiplier.node.active = false;
+    @render(BetStore, (store) => store.isCrash)
+    handleCrash(isCrash: boolean){
+        if(isCrash){
+            this.updateStatusStart(false);
+            this.tapAnim.node.active = false;
+            this.cashOutButton.active = false;
+            this.startBetButton.active = true;
+            this.lblMultiplier.node.active = false;
+        }
     }
 
     @handle(BetHandler, (handler) => handler.handleCashOut())
@@ -104,8 +107,7 @@ export default class PlaceBetButton extends ObserverComponent {
 
     @render(BetStore, (store) => store.win)
     handleWin(win: boolean) {
-        this.updateBalance();
-        !win && this.handleCrash();
+        win && this.updateBalance();
     }
 
     @handle(BalanceInfoHandler, (handler) => handler.updateBalance())

@@ -32,6 +32,10 @@ export class BetHandler extends gc.Bet.BetHandler {
         this.betsStore.bet = status.bet;
     }
 
+    updateIsCrash(isCrash: boolean) {
+        this.betsStore.isCrash = isCrash;
+    }
+
     updateEndBet(endBet: number) {
         this.betsStore.endBet = endBet;
     }
@@ -44,6 +48,7 @@ export class BetHandler extends gc.Bet.BetHandler {
         this.betsStore.betCount = 0;
         this.updateMultiplier(0);
         this.updateEndBet(0);
+        this.updateIsCrash(false);
     }
 
     override isInPhasePreventBet() {
@@ -90,7 +95,9 @@ export class MineHandler implements gc.Shared.IMultipleHandlers {
 export class CashOutHandler implements gc.Shared.IMultipleHandlers {
     @inject(BetHandler) protected readonly betHandler: BetHandler;
     handleCashOut(status: GameServiceMessage.Status) {
+        this.betHandler.updateStatusStart(false);
         this.betHandler.updateStatusBet(status);
+        !status.win && this.betHandler.updateIsCrash(true);
     }
 
     eventHandleList = [
