@@ -46,6 +46,7 @@ export class BetHandler extends gc.Bet.BetHandler {
 
     resetBet() {
         this.betsStore.betCount = 0;
+        this.betsStore.win = false;
         this.updateMultiplier(0);
         this.updateEndBet(0);
         this.updateIsCrash(false);

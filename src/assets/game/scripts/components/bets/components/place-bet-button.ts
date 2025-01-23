@@ -23,6 +23,9 @@ export default class PlaceBetButton extends ObserverComponent {
 
     @property(Node)
     tapArea: Node = null;
+    
+    @property(sp.Skeleton)
+    crashAnim: sp.Skeleton = null;
 
     @property(sp.Skeleton)
     tapAnim: sp.Skeleton = null;
@@ -74,6 +77,7 @@ export default class PlaceBetButton extends ObserverComponent {
             this.cashOutButton.active = false;
             this.startBetButton.active = true;
             this.lblMultiplier.node.active = false;
+            this.playCrashAnimation(new Vec2(815, 685));
         }
     }
 
@@ -144,6 +148,15 @@ export default class PlaceBetButton extends ObserverComponent {
         this.tapAnim.node.position = this.tapAnim.node.parent.getComponent(UITransform).convertToNodeSpaceAR(v3(location.x, location.y, 0));
         this.tapAnim.setAnimation(0, "kick_3", false);
         this.effect.setAnimation(0, "tap_3", false);
+    }
+
+    playCrashAnimation(location: Vec2){
+        this.crashAnim.node.active = true;
+        this.crashAnim.node.position = this.crashAnim.node.parent.getComponent(UITransform).convertToNodeSpaceAR(v3(location.x, location.y, 0));
+        this.crashAnim.setAnimation(0, "pickaxe_crash_2", false);
+        this.scheduleOnce(() => {
+            this.crashAnim.node.active = false;
+        }, 0.5);
     }
 
     @handle(AutoStartHandler, (handle) => handle.handleAutoStart())
