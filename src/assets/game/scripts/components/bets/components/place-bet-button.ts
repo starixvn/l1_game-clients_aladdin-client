@@ -5,6 +5,7 @@ import { BetHandler } from "../bet-handler";
 import { AutoStartHandler } from "../../auto-start/auto-start-handler";
 import { BetStore } from "../bet-store";
 import { BalanceInfoHandler } from "../../balance/balance-info-handler";
+import { CashOutHistoryHandlers } from "../../cash-out-history/cash-out-history-handlers";
 import { inject } from "inversify";
 
 const { ccclass, property } = _decorator;
@@ -83,11 +84,12 @@ export default class PlaceBetButton extends ObserverComponent {
 
     @handle(BetHandler, (handler) => handler.handleCashOut())
     onClickCashOut(){
-        this.updateStatusStart(false);
         this.tapAnim.node.active = false;
         this.cashOutButton.active = false;
         this.startBetButton.active = true;
         this.lblMultiplier.node.active = false;
+        this.updateStatusStart(false);
+        this.addCashOutHistory();
     }
 
 
@@ -111,8 +113,13 @@ export default class PlaceBetButton extends ObserverComponent {
 
     @render(BetStore, (store) => store.win)
     handleWin(win: boolean) {
-        win && this.updateBalance();
+        if(win) {
+            this.updateBalance();
+        } 
     }
+
+    @handle(CashOutHistoryHandlers, (handler) => handler.addCashOutHistory())
+    addCashOutHistory(){}
 
     @handle(BalanceInfoHandler, (handler) => handler.updateBalance())
     updateBalance() {}

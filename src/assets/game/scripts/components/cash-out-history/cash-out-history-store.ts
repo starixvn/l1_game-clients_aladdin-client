@@ -1,0 +1,14 @@
+import gc from "@sg/game-client-base";
+import inversify from "inversify";
+import mobx from "mobx";
+const { injectable, inject } = inversify;
+
+@injectable()
+export class CashOutHistoryStore {
+    constructor() {
+        mobx.makeAutoObservable(this);
+    }
+    cashOutHistory: number[] = [];
+}
+
+
