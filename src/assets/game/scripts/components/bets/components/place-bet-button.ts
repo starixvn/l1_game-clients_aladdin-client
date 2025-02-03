@@ -14,31 +14,39 @@ const { handle, render } = Observer;
 @ccclass
 export default class PlaceBetButton extends ObserverComponent {
     @property(Node)
-    cashOutButton: Node = null;
+    private cashOutButton: Node = null;
 
     @property(Node)
-    startBetButton: Node = null;
+    private startBetButton: Node = null;
     
     @property(Label)
-    lblMultiplier: Label = null;
+    private lblMultiplier: Label = null;
 
     @property(Node)
-    tapArea: Node = null;
+    private tapArea: Node = null;
     
     @property(sp.Skeleton)
-    crashAnim: sp.Skeleton = null;
+    private effect: sp.Skeleton = null;
+    @property([sp.Skeleton])
+    private TapAnims: sp.Skeleton[] = [];
 
-    @property(sp.Skeleton)
-    tapAnim: sp.Skeleton = null;
-
-    @property(sp.Skeleton)
-    effect: sp.Skeleton = null;
+    @property([sp.Skeleton])
+    private CrashAnims: sp.Skeleton[] = [];
 
     private isAutoStart = false;
     private isStart = false;
 
+    private readonly ANIMATION_DURATION = 0.5;
+    private readonly EFFECT_RESET_DELAY = 1;
+    private readonly MULTIPLIER_THRESHOLDS = {
+        LEVEL_4: 110,
+        LEVEL_3: 11,
+        LEVEL_2: 1.2,
+        LEVEL_1: 0
+    };
+
     onLoad() {
-        this.resetEffect();
+        this.initializeAnimations();
         super.onLoad();
         this.addEvent();
         this.isStart = false;
@@ -50,6 +58,20 @@ export default class PlaceBetButton extends ObserverComponent {
         this.removeEvent();
     }
 
+    private initializeAnimations(): void {
+        this.deactivateAllTapAnimations();
+        this.deactivateAllCrashAnimations();
+        this.resetEffect();
+    }
+
+    private deactivateAllTapAnimations(): void {
+        this.TapAnims.forEach(anim => anim.node.active = false);
+    }
+
+    private deactivateAllCrashAnimations(): void {
+        this.CrashAnims.forEach(anim => anim.node.active = false);
+    }
+
     resetEffect() {
         this.effect && this.effect.setAnimation(0, "levitation", true);
     }
@@ -58,40 +80,48 @@ export default class PlaceBetButton extends ObserverComponent {
     onBet() {
         this.unschedule(this.resetEffect);
         this.effect.setAnimation(0, "tap_3", false);
-        this.scheduleOnce(this.resetEffect, 1);
+        this.scheduleOnce(this.resetEffect, this.EFFECT_RESET_DELAY);
     }
 
     @handle(BetHandler, (handler) => handler.resetBet())
-    onClickStartBet(){
+    onClickStartBet() {
         this.updateStatusStart(true);
-        this.tapAnim.node.active = true;
-        this.cashOutButton.active = true;
-        this.startBetButton.active = false;
-        this.lblMultiplier.node.active = true;
+        const multiplier = this.getCurrentMultiplier();
+        const level = this.getCurrentAnimationLevel(multiplier);
+        
+        this.deactivateAllTapAnimations();
+        this.getTapAnim(level).node.active = true;
+        
+        this.updateUIForBetStart();
     }
 
     @render(BetStore, (store) => store.isCrash)
     handleCrash(isCrash: boolean){
         if(isCrash){
             this.updateStatusStart(false);
-            this.tapAnim.node.active = false;
-            this.cashOutButton.active = false;
-            this.startBetButton.active = true;
-            this.lblMultiplier.node.active = false;
+            const multiplier = this.getCurrentMultiplier();
+            const level = this.getCurrentAnimationLevel(multiplier);
+            const currentTapAnim = this.getTapAnim(level);
+            
+            currentTapAnim.node.active = false;
+            
+            this.updateUIForBetEnd();
             this.playCrashAnimation(new Vec2(815, 685));
         }
     }
 
     @handle(BetHandler, (handler) => handler.handleCashOut())
     onClickCashOut(){
-        this.tapAnim.node.active = false;
-        this.cashOutButton.active = false;
-        this.startBetButton.active = true;
-        this.lblMultiplier.node.active = false;
+        const multiplier = this.getCurrentMultiplier();
+        const level = this.getCurrentAnimationLevel(multiplier);
+        const currentTapAnim = this.getTapAnim(level);
+        
+        currentTapAnim.node.active = false;
+        
+        this.updateUIForBetEnd();
         this.updateStatusStart(false);
         this.addCashOutHistory();
     }
-
 
     @handle(BetHandler, (handler, isStart: boolean) => handler.updateStatusStart(isStart))
     updateStatusStart(isStart: boolean) {
@@ -139,6 +169,16 @@ export default class PlaceBetButton extends ObserverComponent {
         this.tapArea.on(Node.EventType.MOUSE_LEAVE, this.resetCursor, this);
     }
 
+    private getEventHandler(event: string): Function {
+        const handlers = {
+            mouseenter: this.eventOnEnter,
+            mouseleave: this.eventOnLeave,
+            touchstart: this.onTap,
+            mousemove: this.eventOnEnter
+        };
+        return handlers[event] || this.resetCursor;
+    }
+
     onTap(event) {
         if (this.touchInPolygon(event) && this.isStart) {
             this.playTapAnimation(new Vec2(815, 685));
@@ -151,19 +191,47 @@ export default class PlaceBetButton extends ObserverComponent {
         return Intersection2D.pointInPolygon(math.v2(location.x, location.y), polygon);
     }
 
-    playTapAnimation(location: Vec2) {
-        this.tapAnim.node.position = this.tapAnim.node.parent.getComponent(UITransform).convertToNodeSpaceAR(v3(location.x, location.y, 0));
-        this.tapAnim.setAnimation(0, "kick_3", false);
-        this.effect.setAnimation(0, "tap_3", false);
+    private getCurrentMultiplier(): number {
+        return parseFloat(this.lblMultiplier.string);
     }
 
-    playCrashAnimation(location: Vec2){
-        this.crashAnim.node.active = true;
-        this.crashAnim.node.position = this.crashAnim.node.parent.getComponent(UITransform).convertToNodeSpaceAR(v3(location.x, location.y, 0));
-        this.crashAnim.setAnimation(0, "pickaxe_crash_2", false);
+    private getCurrentAnimationLevel(multiplier: number): number {
+        const { LEVEL_4, LEVEL_3, LEVEL_2 } = this.MULTIPLIER_THRESHOLDS;
+        if (multiplier >= LEVEL_4) return 4;
+        if (multiplier >= LEVEL_3) return 3;
+        if (multiplier >= LEVEL_2) return 2;
+        return 1;
+    }
+
+    private getTapAnim(level: number): sp.Skeleton {
+        return this.TapAnims[level - 1] || this.TapAnims[0];
+    }
+
+    private getCrashAnim(level: number): sp.Skeleton {
+        return this.CrashAnims[level - 1] || this.CrashAnims[0];
+    }
+
+    playTapAnimation(location: Vec2) {
+        const multiplier = this.getCurrentMultiplier();
+        const level = this.getCurrentAnimationLevel(multiplier);
+        const currentTapAnim = this.getTapAnim(level);
+        
+        currentTapAnim.node.position = currentTapAnim.node.parent.getComponent(UITransform).convertToNodeSpaceAR(v3(location.x, location.y, 0));
+        currentTapAnim.setAnimation(0, `kick_3`, false);
+        this.effect.setAnimation(0, `tap_3`, false);
+    }
+
+    playCrashAnimation(location: Vec2) {
+        const multiplier = this.getCurrentMultiplier();
+        const level = this.getCurrentAnimationLevel(multiplier);
+        const currentCrashAnim = this.getCrashAnim(level);
+        
+        currentCrashAnim.node.active = true;
+        currentCrashAnim.node.position = currentCrashAnim.node.parent.getComponent(UITransform).convertToNodeSpaceAR(v3(location.x, location.y, 0));
+        currentCrashAnim.setAnimation(0, `pickaxe_crash_2`, false);
         this.scheduleOnce(() => {
-            this.crashAnim.node.active = false;
-        }, 0.5);
+            currentCrashAnim.node.active = false;
+        }, this.ANIMATION_DURATION);
     }
 
     @handle(AutoStartHandler, (handle) => handle.handleAutoStart())
@@ -178,14 +246,11 @@ export default class PlaceBetButton extends ObserverComponent {
     }
 
     removeEvent() {
-        this.node.off(Node.EventType.MOUSE_ENTER, this.eventOnEnter, this);
-        this.node.off(Node.EventType.MOUSE_LEAVE, this.eventOnLeave, this);
-        if (this.tapArea && this.tapArea.isValid) {
-            this.tapArea.off(Node.EventType.TOUCH_START, this.onTap, this);
-            this.tapArea.off(Node.EventType.MOUSE_ENTER, this.eventOnEnter, this);
-            this.tapArea.off(Node.EventType.MOUSE_MOVE, this.eventOnEnter, this);
-            this.tapArea.off(Node.EventType.MOUSE_LEAVE, this.resetCursor, this);
-        }
+        const events = ['mouseenter', 'mouseleave', 'touchstart', 'mousemove', 'mouseleave'];
+        events.forEach(event => {
+            const handler = this.getEventHandler(event);
+            this.node.off(`Node.EventType.${event.toUpperCase()}`, handler, this);
+        });
     }
 
     eventOnEnter() {
@@ -194,5 +259,17 @@ export default class PlaceBetButton extends ObserverComponent {
 
     eventOnLeave() {
         document.body.style.cursor = "default";
+    }
+
+    private updateUIForBetEnd() {
+        this.cashOutButton.active = false;
+        this.startBetButton.active = true;
+        this.lblMultiplier.node.active = false;
+    }
+
+    private updateUIForBetStart() {
+        this.cashOutButton.active = true;
+        this.startBetButton.active = false;
+        this.lblMultiplier.node.active = true;
     }
 }
