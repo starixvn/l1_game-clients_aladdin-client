@@ -150,10 +150,9 @@ export default class PlaceBetButton extends ObserverComponent {
 
     @render(BetStore, (store) => store.multiplier)
     updateMultiplier(multiplier: number) {
-        const formattedMultiplier = multiplier === 0 ? "1.00" : multiplier.toString();
-        this.lblMultiplier.string = `${formattedMultiplier}x`;
+        this.isStart && (this.lblMultiplier.string = `${(multiplier === 0 ? "1.00" : multiplier).toString()}x`);
         multiplier !== 0 && (this.multiplier = multiplier);
-        multiplier > 0 && this.updateUIForCashOut();
+        multiplier === 1.01 && this.updateUIForCashOut();
         this.lblMoney.string = (multiplier * this.endBet).toString();
         this.checkTapAnim();
         this.updateMultiplierColor();
