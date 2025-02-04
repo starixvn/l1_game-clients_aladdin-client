@@ -43,6 +43,7 @@ export default class PlaceBetButton extends ObserverComponent {
     private isAutoStart = false;
     private isStart = false;
     private multiplier = 0;
+    private balance = 0;
     private endBet = 0;
 
     private readonly ANIMATION_DURATION = 0.5;
@@ -101,13 +102,15 @@ export default class PlaceBetButton extends ObserverComponent {
 
     @handle(BetHandler, (handler) => handler.resetBet())
     onClickStartBet() {
-        this.updateStatusStart(true);
-        const level = this.getCurrentAnimationLevel(this.multiplier);
-        
-        this.deactivateAllTapAnimations();
-        this.getTapAnim(level).node.active = true;
-        
-        this.updateUIForBetStart();
+        if(this.balance > 0){
+            this.updateStatusStart(true);
+            const level = this.getCurrentAnimationLevel(this.multiplier);
+            
+            this.deactivateAllTapAnimations();
+            this.getTapAnim(level).node.active = true;
+            
+            this.updateUIForBetStart();
+        }
     }
 
     @render(BetStore, (store) => store.isCrash)
@@ -150,6 +153,11 @@ export default class PlaceBetButton extends ObserverComponent {
         this.lblMoney.string = (multiplier * this.endBet).toString();
         this.checkTapAnim();
         this.updateMultiplierColor();
+    }
+
+    @render(BalanceInfoHandler, (store) => store.balance)
+    setBalance(balance: number) {
+        this.balance = balance;
     }
 
     @render(AutoStartStore, (store) => store.isAutoStart)
