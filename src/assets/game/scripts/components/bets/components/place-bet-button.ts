@@ -149,7 +149,6 @@ export default class PlaceBetButton extends ObserverComponent {
         multiplier === 1.01 && this.updateUIForCashOut();
         this.lblMoney.string = (multiplier * this.endBet).toString();
         this.checkTapAnim();
-        this.checkCrashAnim();
         this.updateMultiplierColor();
     }
 
@@ -168,13 +167,6 @@ export default class PlaceBetButton extends ObserverComponent {
         const currentTapAnim = this.getTapAnim(level);
         this.deactivateAllTapAnimations();
         currentTapAnim.node.active = true;
-    }
-
-    checkCrashAnim(){
-        const level = this.getCurrentAnimationLevel(this.multiplier);
-        const currentCrashAnim = this.getCrashAnim(level);
-        this.deactivateAllCrashAnimations();
-        currentCrashAnim.node.active = true;
     }
 
     @render(BetStore, (store) => store.endBet)
