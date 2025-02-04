@@ -32,6 +32,9 @@ export default class PlaceBetButton extends ObserverComponent {
     @property(Node)
     private tapArea: Node = null;
     
+    @property(Node)
+    tapAnimArea: Node = null;
+
     @property(sp.Skeleton)
     private effect: sp.Skeleton = null;
     @property([sp.Skeleton])
@@ -122,7 +125,7 @@ export default class PlaceBetButton extends ObserverComponent {
             
             currentTapAnim.node.active = false;
             
-            this.playCrashAnimation(new Vec2(815, 685));
+            this.playCrashAnimation();
             this.updateUIForBetEnd();
         }
     }
@@ -147,9 +150,10 @@ export default class PlaceBetButton extends ObserverComponent {
 
     @render(BetStore, (store) => store.multiplier)
     updateMultiplier(multiplier: number) {
-        this.lblMultiplier.string = multiplier.toString();
+        const formattedMultiplier = multiplier === 0 ? "1.00" : multiplier.toString();
+        this.lblMultiplier.string = `${formattedMultiplier}x`;
         multiplier !== 0 && (this.multiplier = multiplier);
-        multiplier === 1.01 && this.updateUIForCashOut();
+        multiplier > 0 && this.updateUIForCashOut();
         this.lblMoney.string = (multiplier * this.endBet).toString();
         this.checkTapAnim();
         this.updateMultiplierColor();
@@ -223,7 +227,7 @@ export default class PlaceBetButton extends ObserverComponent {
 
     onTap(event) {
         if (this.touchInPolygon(event) && this.isStart) {
-            this.playTapAnimation(new Vec2(815, 685));
+            this.playTapAnimation();
         }
     }
 
@@ -249,21 +253,21 @@ export default class PlaceBetButton extends ObserverComponent {
         return this.CrashAnims[level - 1] || this.CrashAnims[0];
     }
 
-    playTapAnimation(location: Vec2) {
+    playTapAnimation() {
         const level = this.getCurrentAnimationLevel(this.multiplier);
         const currentTapAnim = this.getTapAnim(level);
         
-        currentTapAnim.node.position = currentTapAnim.node.parent.getComponent(UITransform).convertToNodeSpaceAR(v3(location.x, location.y, 0));
+        currentTapAnim.node.position = this.tapAnimArea.getPosition();
         currentTapAnim.setAnimation(0, `kick_3`, false);
         this.effect.setAnimation(0, `tap_3`, false);
     }
 
-    playCrashAnimation(location: Vec2) {
+    playCrashAnimation() {
         const level = this.getCurrentAnimationLevel(this.multiplier);
         const currentCrashAnim = this.getCrashAnim(level);
         
         currentCrashAnim.node.active = true;
-        currentCrashAnim.node.position = currentCrashAnim.node.parent.getComponent(UITransform).convertToNodeSpaceAR(v3(location.x, location.y, 0));
+        currentCrashAnim.node.position = this.tapAnimArea.getPosition();
         currentCrashAnim.setAnimation(0, `pickaxe_crash_2`, false);
         this.scheduleOnce(() => {
             currentCrashAnim.node.active = false;
