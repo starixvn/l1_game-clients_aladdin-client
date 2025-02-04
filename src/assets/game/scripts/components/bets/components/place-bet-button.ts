@@ -1,4 +1,4 @@
-import { _decorator, EventTouch, Intersection2D, Label, math, Node, PolygonCollider2D, sp, UITransform, v3, Vec2 } from "cc";
+import { _decorator, Color, EventTouch, Intersection2D, Label, math, Node, PolygonCollider2D, sp, UITransform, v3, Vec2 } from "cc";
 import { ObserverComponent } from "db://shared-components/shared/common-components/observer-component/scripts/observer-component";
 import Observer from "observer";
 import { BetHandler } from "../bet-handler";
@@ -7,6 +7,7 @@ import { BetStore } from "../bet-store";
 import { BalanceInfoHandler } from "../../balance/balance-info-handler";
 import { CashOutHistoryHandlers } from "../../cash-out-history/cash-out-history-handlers";
 import { inject } from "inversify";
+import { AutoStartStore } from "../../auto-start/auto-start-store";
 
 const { ccclass, property } = _decorator;
 const { handle, render } = Observer;
@@ -51,6 +52,13 @@ export default class PlaceBetButton extends ObserverComponent {
         LEVEL_3: 11,
         LEVEL_2: 1.2,
         LEVEL_1: 0
+    };
+
+    private readonly MULTIPLIER_COLORS = {
+        LEVEL_4: "#CE02C0",
+        LEVEL_3: "#FFBE00",
+        LEVEL_2: "#00B815",
+        LEVEL_1: "#0C00BA"
     };
 
     onLoad() {
@@ -111,8 +119,8 @@ export default class PlaceBetButton extends ObserverComponent {
             
             currentTapAnim.node.active = false;
             
-            this.updateUIForBetEnd();
             this.playCrashAnimation(new Vec2(815, 685));
+            this.updateUIForBetEnd();
         }
     }
 
@@ -123,9 +131,9 @@ export default class PlaceBetButton extends ObserverComponent {
         
         currentTapAnim.node.active = false;
         
-        this.updateUIForBetEnd();
         this.updateStatusStart(false);
         this.addCashOutHistory();
+        this.updateUIForBetEnd();
     }
 
     @handle(BetHandler, (handler, isStart: boolean) => handler.updateStatusStart(isStart))
@@ -142,6 +150,17 @@ export default class PlaceBetButton extends ObserverComponent {
         this.lblMoney.string = (multiplier * this.endBet).toString();
         this.checkTapAnim();
         this.checkCrashAnim();
+        this.updateMultiplierColor();
+    }
+
+    @render(AutoStartStore, (store) => store.isAutoStart)
+    updateIsAutoStart(isAutoStart: boolean) {
+        this.isAutoStart = isAutoStart;
+    }
+
+    updateMultiplierColor(){
+        const level = this.getCurrentAnimationLevel(this.multiplier);
+        this.lblMultiplier.color = new Color(this.MULTIPLIER_COLORS[`LEVEL_${level}`]);
     }
 
     checkTapAnim(){
@@ -251,9 +270,6 @@ export default class PlaceBetButton extends ObserverComponent {
         }, this.ANIMATION_DURATION);
     }
 
-    @handle(AutoStartHandler, (handle) => handle.handleAutoStart())
-    cancelAutoStart() {}
-
     playEffectBetButton() {
         this.effect.setAnimation(0, "tap_3", false);
     }
@@ -271,7 +287,7 @@ export default class PlaceBetButton extends ObserverComponent {
     }
 
     eventOnEnter() {
-        !this.isAutoStart && (document.body.style.cursor = "pointer");
+        document.body.style.cursor = "pointer";
     }
 
     eventOnLeave() {
@@ -284,6 +300,7 @@ export default class PlaceBetButton extends ObserverComponent {
         this.lblMultiplier.node.active = false;
         this.hitStoneButton.active = false;
         this.multiplier = 0;
+        this.isAutoStart && this.onClickStartBet();
     }
 
     private updateUIForCashOut() {

@@ -45,8 +45,8 @@
     },
     "_lscale": {
       "__type__": "cc.Vec3",
-      "x": 1,
-      "y": 1,
+      "x": 0.5,
+      "y": 0.5,
       "z": 1
     },
     "_mobility": 0,
@@ -73,7 +73,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 50.044921875,
+      "width": 33.407958984375,
       "height": 45.36
     },
     "_anchorPoint": {
@@ -118,8 +118,11 @@
     "_lineHeight": 36,
     "_overflow": 0,
     "_enableWrapText": true,
-    "_font": null,
-    "_isSystemFontUsed": true,
+    "_font": {
+      "__uuid__": "0f6981e6-5811-45ce-ac30-f06164d111a7",
+      "__expectedType__": "cc.TTFFont"
+    },
+    "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_isItalic": false,
     "_isBold": false,
