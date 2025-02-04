@@ -26,6 +26,7 @@ export const languages = {
         "details": "รายละเอียด",
         "enter_your_name": "กรอกชื่อเล่น",
         "even_win": "คู่ชนะ",
+        "from": "จาก",
         "game_category_ph_1": "เกมทั้งหมด",
         "game_category_ph_2": "ปินอยพิเศษ",
         "game_category_ph_3": "เกมสล็อต",
@@ -39,8 +40,10 @@ export const languages = {
         "invalid_bet": "เดิมพันไม่ถูกต้อง",
         "invalid_deal_hands": "จำนวนมือไม่ถูกต้อง",
         "invalid_position": "ตำแหน่งไม่ถูกต้อง",
+        "invalid_stake_level": "ระดับเงินเดิมพันไม่ถูกต้อง",
         "join_game": "เข้าเกมส์",
         "join_next_round": "คุณจะเข้าร่วมเกมในรอบถัดไป",
+        "maintenance_time": "เวลาปรับปรุงระบบ",
         "max_stake_hand": "เดิมพันรวมสูงสุดในมือคือ %{maxBet}",
         "md5_copy": "คัดลอก",
         "md5_key": "คีย์ MD5",
@@ -173,6 +176,7 @@ export const languages = {
         "powered_by_vgaming": "สนับสนุนโดย Vgaming",
         "promotion": "โปรโมชั่น",
         "promotion_terms_and_conditions": "ข้อกำหนด\nและเงื่อนไข",
+        "reconnect": "เชื่อมต่ออีกครั้ง",
         "result": "ผลลัพธ์",
         "rotateDevice": "กรุณาหมุนอุปกรณ์ของคุณ",
         "round": "รอบ",
@@ -185,6 +189,7 @@ export const languages = {
         "submit": "ตกลง",
         "terms_and_conditions_content": "- ผู้เล่นทั้งใหม่และเก่ามีสิทธิ์เข้าร่วมโปรโมชั่น และมีโอกาสชนะรางวัลใหญ่ \n- จำนวนเงินที่ชนะจะจ่ายตามกฎโปรโมชั่น และการจ่ายเงิน \n- โปรโมชั่นจะนำไปใช้ตามช่วงเวลาเงื่อนไขที่บริษัทกำหนด เมื่อโปรโมชั่นหมดเขตลง อัตราการเดิมพันจะถูกตั้งค่ากลับไปเป็นค่าก่อนหน้านี้\n- บริษัทขอสงวนสิทธิ์ในการเปลี่ยนแปลงข้อกำหนดในการเข้าร่วมโปรโมชั่นหรือแก้ไขยุติระงับหรือสามารถทำการแก้ไขโปรโมชั่นนี้ได้ตลอดเวลา\n- ข้อพิพาทใดๆที่เกิดขึ้นจากหรือที่เกี่ยวข้องกับโปรโมชั่นนี้จะถูกตัดสินโดยบริษัท",
         "time": "เวลา",
+        "to": "ถึง",
         "total": "รวม",
         "total_stake": "เดิมพันรวม",
         "total_win": "ชนะทั้งหมด",
@@ -194,17 +199,12 @@ export const languages = {
         "win_loss": "ชนะ แพ้",
         "you_reach_max_win": "คุณถึงยอดชนะสูงสุด"
     },
-    "TapFortune": {
-        "game_icon_name": "แตะโชค",
-        "game_name": "แตะโชค"
-    },
-    "TapGame": {
-        "Bet": "เดิมพัน",
-        "auto_play": "เล่นอัตโนมัติ",
-        "balance": "ยอดคงเหลือ",
-        "number_of_auto_play": "จำนวนการ เล่นอัตโนมัติ:",
-        "start": "เริ่ม",
-        "turboMode": "โหมด Turbo"
+    "CoinMining": {
+        "cash_out": "ถอนเงิน",
+        "header_crash_point": "แต้มการพังของจรวด",
+        "header_mining_attempts": "Số Lần Đào",
+        "header_multiplier": "ตัวคูณ",
+        "stake": "เดิมพัน"
     }
 };
 

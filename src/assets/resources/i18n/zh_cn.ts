@@ -26,6 +26,7 @@ export const languages = {
         "details": "详情",
         "enter_your_name": "输入你的昵称。",
         "even_win": "双赢",
+        "from": "從",
         "game_category_ph_1": "所有游戏",
         "game_category_ph_2": "菲律宾特色游戏",
         "game_category_ph_3": "老虎机游戏",
@@ -39,8 +40,10 @@ export const languages = {
         "invalid_bet": "无效投注",
         "invalid_deal_hands": "这数量手牌无效",
         "invalid_position": "无效位置",
+        "invalid_stake_level": "无效的赌注级别",
         "join_game": "加入游戏",
         "join_next_round": "您将在下一轮加入游戏。",
+        "maintenance_time": "维护时间",
         "max_stake_hand": "手头上的最的大赌注为 %{maxBet}",
         "md5_copy": "复制",
         "md5_key": "MD5 钥匙",
@@ -173,6 +176,7 @@ export const languages = {
         "powered_by_vgaming": "由Vgaming提供技术支持",
         "promotion": "促销活动",
         "promotion_terms_and_conditions": "条款和条件",
+        "reconnect": "重新连接",
         "result": "结果",
         "rotateDevice": "请旋转您的设备。",
         "round": "回合",
@@ -185,6 +189,7 @@ export const languages = {
         "submit": "提交",
         "terms_and_conditions_content": "- 所有新的和现有的投注者都有资格参加促销活动并抓住机会赢得更大的奖品。\n- 中奖金额根据促销规则和奖金支付。\n- 促销适用于公司规定的特定时期。 促销期满后，投注赔率将恢复为之前的值。\n- 公司保留随时更改适用于此促销活动的任何参赛条款或修改、终止、暂停或重新安排此促销活动的权利。\n- 因本推广活动引起或与之相关的任何争议均由本公司决定。",
         "time": "时间",
+        "to": "到",
         "total": "全部的",
         "total_stake": "总赌注",
         "total_win": "总赢",
@@ -194,17 +199,11 @@ export const languages = {
         "win_loss": "赢 输",
         "you_reach_max_win": "您达到了最大胜利"
     },
-    "TapFortune": {
-        "game_icon_name": "金钱树",
-        "game_name": "金钱树"
-    },
-    "TapGame": {
-        "Bet": "赌注",
-        "auto_play": "自动游戏",
-        "balance": "余额",
-        "number_of_auto_play": "数量 自动游戏:",
-        "start": "开始",
-        "turboMode": "涡轮模式"
+    "CoinMining": {
+        "cash_out": "兑现",
+        "header_crash_point": "崩溃点",
+        "header_multiplier": "乘数",
+        "stake": "赌注"
     }
 };
 

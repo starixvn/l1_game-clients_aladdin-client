@@ -26,6 +26,7 @@ export const languages = {
         "details": "Chi tiết",
         "enter_your_name": "Nhập tên nhân vật",
         "even_win": "CHẴN THẮNG",
+        "from": "Từ",
         "game_category_ph_1": "Tất Cả",
         "game_category_ph_2": "Pinoy Games",
         "game_category_ph_3": "Slot Games",
@@ -39,8 +40,10 @@ export const languages = {
         "invalid_bet": "Cược không hợp lệ",
         "invalid_deal_hands": "Số lượng tay bài không hợp lệ.",
         "invalid_position": "Vị trí tay bài không đúng",
+        "invalid_stake_level": "Mức cược không hợp lệ.",
         "join_game": "Vào Bàn",
         "join_next_round": "Bạn vui lòng chờ hết ván nhé.",
+        "maintenance_time": "Thời Gian Bảo Trì",
         "max_stake_hand": "Tổng tiền cược tối đa của tay bài này là %{maxBet}",
         "md5_copy": "COPY",
         "md5_key": "CHUỖI MD5",
@@ -173,6 +176,7 @@ export const languages = {
         "powered_by_vgaming": "Được cung cấp bởi Vgaming",
         "promotion": "Khuyến Mãi",
         "promotion_terms_and_conditions": "Điều Khoản Khuyến Mãi",
+        "reconnect": "Kết nối",
         "result": "Kết Quả",
         "rotateDevice": "Vui lòng xoay thiết bị của bạn.",
         "round": "Phiên",
@@ -185,6 +189,7 @@ export const languages = {
         "submit": "XÁC NHẬN",
         "terms_and_conditions_content": "- Tất cả người chơi đều có thể tham gia các chương trình khuyến mãi và có cơ hội giành được những giải thưởng hấp dẫn.\n- Tiền thắng được tính toán dựa theo quy định của chương trình khuyến mãi và tỷ lệ trả thưởng.\n- Chương trình khuyến mãi chỉ được áp dụng trong một khoảng thời gian nhất định do Công ty quy định. Khi chương trình khuyến mãi kết thúc, tỷ lệ trả thưởng sẽ được điều chỉnh trở về như ban đầu.\n- Trong một số tình huống, thể lệ chương trình có thể thay đổi mà không cần thông báo trước.\nTrong mọi trường hợp xảy ra tranh chấp, quyết định của Công ty sẽ là quyết định cuối cùng.",
         "time": "Thời Gian",
+        "to": "Đến",
         "total": "Tổng",
         "total_stake": "Tổng Cược",
         "total_win": "Tổng Thắng",
@@ -194,17 +199,19 @@ export const languages = {
         "win_loss": "Thắng Thua",
         "you_reach_max_win": "Bạn Đã Đạt Mức Tiền Thắng Tối Đa"
     },
-    "TapFortune": {
-        "game_icon_name": "HÁI LỘC",
-        "game_name": "Hái Lộc"
-    },
-    "TapGame": {
-        "Bet": "TIỀN CƯỢC",
-        "auto_play": "CHƠI TỰ ĐỘNG",
-        "balance": "SỐ DƯ",
-        "number_of_auto_play": "Chọn Số Lượt Chơi:",
-        "start": "Bắt Đầu",
-        "turboMode": "Siêu Tốc"
+    "CoinMining": {
+        "auto_start": "Tự Động Bắt Đầu",
+        "big_win_banner": "Thắng Lớn!",
+        "cash_out": "Rút Tiền",
+        "game_name": "Kho Báu Tiền Số",
+        "header_crash_point": "Điểm Nổ",
+        "header_mining_attempts": "Số Lần Đào",
+        "header_multiplier": "Số Nhân",
+        "hit_rock": "Đào Kho Báu!",
+        "leaderboard_highest_multipliers": "Hệ Số Nhân Cao Nhất",
+        "leaderboard_highest_wins": "Thắng Lớn Nhất",
+        "stake": "Tiền Cược",
+        "start_mining": "Bắt Đầu Đào"
     }
 };
 

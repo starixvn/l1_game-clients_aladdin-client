@@ -18,9 +18,15 @@ export default class PlaceBetButton extends ObserverComponent {
 
     @property(Node)
     private startBetButton: Node = null;
+
+    @property(Node)
+    private hitStoneButton: Node = null;
     
     @property(Label)
     private lblMultiplier: Label = null;
+
+    @property(Label)
+    private lblMoney: Label = null;
 
     @property(Node)
     private tapArea: Node = null;
@@ -35,6 +41,8 @@ export default class PlaceBetButton extends ObserverComponent {
 
     private isAutoStart = false;
     private isStart = false;
+    private multiplier = 0;
+    private endBet = 0;
 
     private readonly ANIMATION_DURATION = 0.5;
     private readonly EFFECT_RESET_DELAY = 1;
@@ -86,8 +94,7 @@ export default class PlaceBetButton extends ObserverComponent {
     @handle(BetHandler, (handler) => handler.resetBet())
     onClickStartBet() {
         this.updateStatusStart(true);
-        const multiplier = this.getCurrentMultiplier();
-        const level = this.getCurrentAnimationLevel(multiplier);
+        const level = this.getCurrentAnimationLevel(this.multiplier);
         
         this.deactivateAllTapAnimations();
         this.getTapAnim(level).node.active = true;
@@ -99,8 +106,7 @@ export default class PlaceBetButton extends ObserverComponent {
     handleCrash(isCrash: boolean){
         if(isCrash){
             this.updateStatusStart(false);
-            const multiplier = this.getCurrentMultiplier();
-            const level = this.getCurrentAnimationLevel(multiplier);
+            const level = this.getCurrentAnimationLevel(this.multiplier);
             const currentTapAnim = this.getTapAnim(level);
             
             currentTapAnim.node.active = false;
@@ -112,8 +118,7 @@ export default class PlaceBetButton extends ObserverComponent {
 
     @handle(BetHandler, (handler) => handler.handleCashOut())
     onClickCashOut(){
-        const multiplier = this.getCurrentMultiplier();
-        const level = this.getCurrentAnimationLevel(multiplier);
+        const level = this.getCurrentAnimationLevel(this.multiplier);
         const currentTapAnim = this.getTapAnim(level);
         
         currentTapAnim.node.active = false;
@@ -132,20 +137,38 @@ export default class PlaceBetButton extends ObserverComponent {
     @render(BetStore, (store) => store.multiplier)
     updateMultiplier(multiplier: number) {
         this.lblMultiplier.string = multiplier.toString();
+        multiplier !== 0 && (this.multiplier = multiplier);
+        multiplier === 1.01 && this.updateUIForCashOut();
+        this.lblMoney.string = (multiplier * this.endBet).toString();
+        this.checkTapAnim();
+        this.checkCrashAnim();
+    }
+
+    checkTapAnim(){
+        const level = this.getCurrentAnimationLevel(this.multiplier);
+        const currentTapAnim = this.getTapAnim(level);
+        this.deactivateAllTapAnimations();
+        currentTapAnim.node.active = true;
+    }
+
+    checkCrashAnim(){
+        const level = this.getCurrentAnimationLevel(this.multiplier);
+        const currentCrashAnim = this.getCrashAnim(level);
+        this.deactivateAllCrashAnimations();
+        currentCrashAnim.node.active = true;
     }
 
     @render(BetStore, (store) => store.endBet)
     handleEndBet(endBet: number) {
         if(endBet > 0){
+            this.endBet = endBet;
             this.updateBalance();
-        }
+        } 
     }
 
     @render(BetStore, (store) => store.win)
     handleWin(win: boolean) {
-        if(win) {
-            this.updateBalance();
-        } 
+        win && this.updateBalance();
     }
 
     @handle(CashOutHistoryHandlers, (handler) => handler.addCashOutHistory())
@@ -191,10 +214,6 @@ export default class PlaceBetButton extends ObserverComponent {
         return Intersection2D.pointInPolygon(math.v2(location.x, location.y), polygon);
     }
 
-    private getCurrentMultiplier(): number {
-        return parseFloat(this.lblMultiplier.string);
-    }
-
     private getCurrentAnimationLevel(multiplier: number): number {
         const { LEVEL_4, LEVEL_3, LEVEL_2 } = this.MULTIPLIER_THRESHOLDS;
         if (multiplier >= LEVEL_4) return 4;
@@ -212,8 +231,7 @@ export default class PlaceBetButton extends ObserverComponent {
     }
 
     playTapAnimation(location: Vec2) {
-        const multiplier = this.getCurrentMultiplier();
-        const level = this.getCurrentAnimationLevel(multiplier);
+        const level = this.getCurrentAnimationLevel(this.multiplier);
         const currentTapAnim = this.getTapAnim(level);
         
         currentTapAnim.node.position = currentTapAnim.node.parent.getComponent(UITransform).convertToNodeSpaceAR(v3(location.x, location.y, 0));
@@ -222,8 +240,7 @@ export default class PlaceBetButton extends ObserverComponent {
     }
 
     playCrashAnimation(location: Vec2) {
-        const multiplier = this.getCurrentMultiplier();
-        const level = this.getCurrentAnimationLevel(multiplier);
+        const level = this.getCurrentAnimationLevel(this.multiplier);
         const currentCrashAnim = this.getCrashAnim(level);
         
         currentCrashAnim.node.active = true;
@@ -265,11 +282,21 @@ export default class PlaceBetButton extends ObserverComponent {
         this.cashOutButton.active = false;
         this.startBetButton.active = true;
         this.lblMultiplier.node.active = false;
+        this.hitStoneButton.active = false;
+        this.multiplier = 0;
+    }
+
+    private updateUIForCashOut() {
+        this.cashOutButton.active = true;
+        this.startBetButton.active = false;
+        this.hitStoneButton.active = false;
+        this.lblMultiplier.node.active = true;
     }
 
     private updateUIForBetStart() {
-        this.cashOutButton.active = true;
+        this.cashOutButton.active = false;
         this.startBetButton.active = false;
         this.lblMultiplier.node.active = true;
+        this.hitStoneButton.active = true;
     }
 }

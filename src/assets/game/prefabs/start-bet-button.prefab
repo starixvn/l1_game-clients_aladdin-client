@@ -42,8 +42,8 @@
     },
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": -6.5750000000000455,
-      "y": 0,
+      "x": 335.6379999999999,
+      "y": -5.684341886080802e-14,
       "z": 0
     },
     "_lrot": {
@@ -544,8 +544,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 250,
-      "height": 250
+      "width": 142.9,
+      "height": 144
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -571,10 +571,24 @@
       "__id__": 25
     },
     "cashOutButton": null,
-    "startBetButton": null,
+    "startBetButton": {
+      "__id__": 1
+    },
+    "lblMultiplier": null,
     "tapArea": null,
-    "tapAnim": null,
     "effect": null,
+    "TapAnims": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "CrashAnims": [
+      null,
+      null,
+      null,
+      null
+    ],
     "_id": ""
   },
   {
@@ -653,7 +667,7 @@
     },
     "component": "",
     "_componentId": "e9408N/76ZD7ouDiMy12FK/",
-    "handler": "updateStatusStart",
+    "handler": "onClickStartBet",
     "customEventData": ""
   },
   {
@@ -831,7 +845,6 @@
       "__id__": 0
     },
     "fileId": "c46/YsCPVOJYA4mWEpNYRx",
-    "instance": null,
-    "targetOverrides": null
+    "targetOverrides": []
   }
 ]
