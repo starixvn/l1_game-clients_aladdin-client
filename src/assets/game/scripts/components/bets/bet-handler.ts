@@ -2,8 +2,6 @@ import gc from "@sg/game-client-base";
 import inversify from "inversify";
 import { BetStore } from "./bet-store";
 import { GameServiceMessage } from "../../game-message";
-import { BalanceInfoHandler } from "../balance/balance-info-handler";
-import { handle } from "observer";
 
 const { injectable, inject } = inversify;
 

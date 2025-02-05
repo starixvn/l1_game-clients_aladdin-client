@@ -8,6 +8,12 @@ export namespace GameServiceMessage {
 
     export const MultiplierEvent  = "multiplier";  
     export const EndBetEvent = "endBet";
+    
+    export class ResultHash {
+        hashValue: string;
+
+        static eventName = "resultHash";
+    }
 
     export class Status {
         win: boolean;
