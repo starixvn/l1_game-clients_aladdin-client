@@ -33,7 +33,19 @@ export default class PlaceBetButton extends ObserverComponent {
     private tapArea: Node = null;
     
     @property(Node)
-    tapAnimArea: Node = null;
+    private tapAnimArea: Node = null;
+
+    @property(Node)
+    private cashOutAnim: Node = null;
+
+    @property(Label)
+    private lblCashOutMoney: Label = null;
+
+    @property(Node)
+    private bigWinAnim: Node = null;
+
+    @property(Label)
+    private lblBigWinMoney: Label = null;
 
     @property(sp.Skeleton)
     private effect: sp.Skeleton = null;
@@ -137,9 +149,31 @@ export default class PlaceBetButton extends ObserverComponent {
         
         currentTapAnim.node.active = false;
         
+        this.playCashOutAnimation();
+        this.playBigWinAnimation();
         this.updateStatusStart(false);
         this.addCashOutHistory();
         this.updateUIForBetEnd();
+    }
+
+    playCashOutAnimation(){
+        if(this.multiplier < 2.5){
+            this.cashOutAnim.active = true;
+            this.lblCashOutMoney.string = (this.multiplier * this.endBet).toString();
+            this.scheduleOnce(() => {
+                this.cashOutAnim.active = false;
+            }, this.ANIMATION_DURATION);
+        }
+    }
+
+    playBigWinAnimation(){
+        if(this.multiplier >= 2.5){
+            this.bigWinAnim.active = true;
+            this.lblBigWinMoney.string = (this.multiplier * this.endBet).toString();
+            this.scheduleOnce(() => {
+                this.bigWinAnim.active = false;
+            }, this.ANIMATION_DURATION);
+        }
     }
 
     @handle(BetHandler, (handler, isStart: boolean) => handler.updateStatusStart(isStart))
