@@ -10,10 +10,12 @@ export class BetHandler extends gc.Bet.BetHandler {
     @inject(BetStore) protected readonly betsStore: BetStore;
     @inject(gc.Connection.ConnectionStore) protected readonly connectionStore: gc.Connection.ConnectionStore;
     @inject(gc.Bet.BetResponseHandlers) protected readonly betResponseHandlers: gc.Bet.BetResponseHandlers;
+    @inject(gc.RoundBasePF.ProvablyFairStore) protected readonly pfStore: gc.RoundBasePF.ProvablyFairStore;
 
     handle() {
         const betData: any = this.createCommonBetData();
         betData.action = this.betsStore.betCount === 0 ? "bet" : "mine";
+        betData.clientSeed = this.pfStore.clientSeed;
         this.betsStore.betCount++;
         this.handleBetData(betData);
     }
@@ -96,7 +98,7 @@ export class CashOutHandler implements gc.Shared.IMultipleHandlers {
     handleCashOut(status: GameServiceMessage.Status) {
         this.betHandler.updateStatusStart(false);
         this.betHandler.updateStatusBet(status);
-        !status.win && this.betHandler.updateIsCrash(true);
+        this.betHandler.updateIsCrash(!status.win);
     }
 
     eventHandleList = [

@@ -63,6 +63,7 @@ export default class PlaceBetButton extends ObserverComponent {
 
     private readonly ANIMATION_DURATION = 0.5;
     private readonly EFFECT_RESET_DELAY = 1;
+    private readonly BIG_WIN_MULTIPLIER = 2.5;
     private readonly MULTIPLIER_THRESHOLDS = {
         LEVEL_4: 110,
         LEVEL_3: 11,
@@ -157,7 +158,7 @@ export default class PlaceBetButton extends ObserverComponent {
     }
 
     playCashOutAnimation(){
-        if(this.multiplier < 2.5){
+        if(this.multiplier < this.BIG_WIN_MULTIPLIER){
             this.cashOutAnim.active = true;
             this.lblCashOutMoney.string = (this.multiplier * this.endBet).toString();
             this.scheduleOnce(() => {
@@ -167,7 +168,7 @@ export default class PlaceBetButton extends ObserverComponent {
     }
 
     playBigWinAnimation(){
-        if(this.multiplier >= 2.5){
+        if(this.multiplier >= this.BIG_WIN_MULTIPLIER){
             this.bigWinAnim.active = true;
             this.lblBigWinMoney.string = (this.multiplier * this.endBet).toString();
             this.scheduleOnce(() => {
@@ -242,6 +243,8 @@ export default class PlaceBetButton extends ObserverComponent {
     addEvent() {
         this.node.on(Node.EventType.MOUSE_ENTER, this.eventOnEnter, this);
         this.node.on(Node.EventType.MOUSE_LEAVE, this.eventOnLeave, this);
+        this.cashOutButton.on(Node.EventType.MOUSE_MOVE, this.eventOnEnter, this);
+        this.cashOutButton.on(Node.EventType.MOUSE_LEAVE, this.eventOnLeave, this);
         this.tapArea.on(Node.EventType.TOUCH_START, this.onTap, this);
         this.tapArea.on(Node.EventType.MOUSE_ENTER, this.eventOnEnter, this);
         this.tapArea.on(Node.EventType.MOUSE_MOVE, this.eventOnEnter, this);
