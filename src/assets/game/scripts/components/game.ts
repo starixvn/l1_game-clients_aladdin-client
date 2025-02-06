@@ -31,12 +31,8 @@ export default class Game extends GameComponent {
     override containerOptions = containerOptions;
     effectContainer: EffectContainer = null;
 
-    onLoad() {
-        super.onLoad();
-    }
-
     @render(BetStore, (store) => store.roundId)
-    renderRoundId(roundId: number) {
+    renderlblRound(roundId: number) {
         this.lblRoundId && roundId !== 0 && (this.lblRoundId.string = `#${roundId}`);
     }
 }
