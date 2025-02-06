@@ -2,6 +2,7 @@ import gc from "@sg/game-client-base";
 import { _decorator, Color, Label, Prefab } from "cc";
 import { BetHistoryNewBodyItem } from "db://shared-components/game/bet-history-new/scripts/bet-history-new-body-item";
 const { ccclass, property } = _decorator;
+const { DateTimeUtils } = gc;
 
 export type BetHistoryBodyItemType = {
     betHistoryLog: gc.BetHistory.BetHistoryLog & {
@@ -17,10 +18,12 @@ export class InstantWinBetHistoryBodyItem extends BetHistoryNewBodyItem {
     lblMultiplier: Label = null;
 
    setData(data: BetHistoryBodyItemType) {
-       const { betwin, multiplier } = data.betHistoryLog;
+       const { betwin, multiplier, time } = data.betHistoryLog;
        super.setData(data);
        this.lblWin.color = betwin > 0 ? new Color().fromHEX("F1E344") : new Color().fromHEX("ffffff");
        this.lblMultiplier.color = multiplier > 0 ? new Color().fromHEX("F1E344") : new Color().fromHEX("ffffff");
        this.lblMultiplier.string = multiplier === 0 ? "-" : `${multiplier}x`;
+       this.lblTime.string = `${DateTimeUtils.getStringHourByTime(time).slice(0, -3)} ${DateTimeUtils.getStringDate(time)}`;
+
    }
 }
