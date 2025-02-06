@@ -52,6 +52,10 @@ export class BetHandler extends gc.Bet.BetHandler {
         this.updateIsCrash(false);
     }
 
+    updateRoundId(roundId: number) {
+        this.betsStore.roundId = roundId;
+    }
+
     override isInPhasePreventBet() {
         return false;
     }   
@@ -105,6 +109,21 @@ export class CashOutHandler implements gc.Shared.IMultipleHandlers {
         {
             name: GameServiceMessage.Status.eventName,
             handle: this.handleCashOut,
+        },
+    ];
+}
+
+@injectable()
+export class RoundIdHandler implements gc.Shared.IMultipleHandlers {
+    @inject(BetHandler) protected readonly betHandler: BetHandler;
+    handleRoundId(roundId: number) {
+        this.betHandler.updateRoundId(roundId);
+    }
+
+    eventHandleList = [
+        {
+            name: GameServiceMessage.RoundId,
+            handle: this.handleRoundId,
         },
     ];
 }

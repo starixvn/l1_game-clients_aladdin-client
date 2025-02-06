@@ -8,6 +8,7 @@ export namespace GameServiceMessage {
 
     export const MultiplierEvent  = "multiplier";  
     export const EndBetEvent = "endBet";
+    export const RoundId = "roundId";
     
     export class ResultHash {
         hashValue: string;

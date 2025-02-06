@@ -9,6 +9,7 @@ import { siteConfigs } from "../../../scripts/site-configs";
 import { containerOptions, settings } from "../game-settings";
 import "./../../../resources/i18n";
 import { EffectContainer } from "./win/effect-container";
+import { BetStore } from "./bets/bet-store";
 
 startGame(settings.name, containerOptions, siteConfigs, settings.namespaces);
 
@@ -31,36 +32,11 @@ export default class Game extends GameComponent {
     effectContainer: EffectContainer = null;
 
     onLoad() {
-        // this.effectContainer = this.nodeEffectContainer.getComponent(EffectContainer);
         super.onLoad();
     }
 
-    // async showResult(result: IWinInstantResult, hasAnimation: boolean, settlementResult: gc.GameServiceMessage.TSettlementResult) {
-    //     if (!result) {
-    //         return;
-    //     }
-    //     if (result.betWin > 0) {
-    //         this.effectContainer.showMainPlayerWinning(result);
-    //     }
-    //     await FunctionUtils.delay(1000);
-    //     this.checkSpinNextRound();
-    // }
-
-    // isValidResult(result: gc.GameServiceMessage.TResult, settlementResult: gc.GameServiceMessage.TSettlementResult) {
-    //     return !!result;
-    // }
-
-    // // @handle(AutoPlayHandler, (handle) => handle.checkSpinNextRound())
-    // checkSpinNextRound() {}
-
-    // renderRoundId(roundId: number) {
-    //     //override parent component
-    // }
-
-    // @render(gc.Settlements.SettlementStore, (store) => store.currentFinish, {
-    //     fireImmediately: false,
-    // })
-    // showRoundId(currentFinish: any) {
-    //     this.lblRoundId && (this.lblRoundId.string = `#${currentFinish.roundId}`);
-    // }
+    @render(BetStore, (store) => store.roundId)
+    renderRoundId(roundId: number) {
+        this.lblRoundId && roundId !== 0 && (this.lblRoundId.string = `#${roundId}`);
+    }
 }

@@ -15,6 +15,7 @@ export class BetStore{
     isCrash = false;
     betCount = 0;
     endBet = 0;
+    roundId = 0;
     win = false;
     reachMaxWin = false;
     bet = 0;

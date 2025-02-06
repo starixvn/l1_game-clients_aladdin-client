@@ -1,7 +1,7 @@
 export * from "./instant-win-config-handler";
 export * from "./instant-win-config-store";
 
-export {MineHandler, EndBetHandler, CashOutHandler} from "../components/bets/bet-handler";
+export {MineHandler, EndBetHandler, CashOutHandler, RoundIdHandler} from "../components/bets/bet-handler";
 export {HashValueHandler} from "../components/hash/hash-handlers";
 
 
