@@ -67,7 +67,7 @@ export class ProvablyFairPopup extends ObserverComponent {
 
         const { serverSeed, serverSeedHash, finalHash, clientSeeds, result, roundId } = verification;
         this.lblRoundId.string = roundId.toString();
-        result && this.renderResult({ value: { number: result } } as gc.BetHistory.DynamicObject<object>);
+       // result && this.renderResult(result);
 
         serverSeed && this.lblServerSeed.setString(serverSeed);
         this.lblServerSeed.setActive(!!serverSeed);
@@ -75,20 +75,20 @@ export class ProvablyFairPopup extends ObserverComponent {
         serverSeedHash && this.lblServerSeedHash.setString(serverSeedHash);
         this.lblServerSeedHash.setActive(!!serverSeedHash);
 
-        finalHash && this.lblFinalHash.setString(finalHash);
-        this.lblFinalHash.setActive(!!finalHash);
+        // finalHash && this.lblFinalHash.setString(finalHash);
+        // this.lblFinalHash.setActive(!!finalHash);
 
         this.listClientSeedInfo.forEach((clientSeedInfo) => {
             clientSeedInfo.activeDisabledBg(true);
         });
-        if (clientSeeds && clientSeeds.length > 0) {
-            clientSeeds.forEach((clientSeed, index) => {
-                const info = this.listClientSeedInfo[index];
-                info.setDisplay(clientSeed);
-                info.activeDisabledBg(false);
-            });
-        }
-        this.nodeDisabledVerification.active = !result;
+        // if (clientSeeds && clientSeeds.length > 0) {
+        //     clientSeeds.forEach((clientSeed, index) => {
+        //         const info = this.listClientSeedInfo[index];
+        //         info.setDisplay(clientSeed);
+        //         info.activeDisabledBg(false);
+        //     });
+        // }
+        // this.nodeDisabledVerification.active = !result;
     }
 
     private renderResult(result: gc.BetHistory.DynamicObject<object>) {
