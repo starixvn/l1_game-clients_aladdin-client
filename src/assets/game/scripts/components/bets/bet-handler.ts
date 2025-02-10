@@ -6,7 +6,7 @@ import { GameServiceMessage } from "../../game-message";
 const { injectable, inject } = inversify;
 
 @injectable()
-export class BetHandler extends gc.Bet.BetHandler {
+export class BetHandler extends gc.Bet.BetHandler implements gc.Shared.IMultipleHandlers  {
     @inject(BetStore) protected readonly betsStore: BetStore;
     @inject(gc.Connection.ConnectionStore) protected readonly connectionStore: gc.Connection.ConnectionStore;
     @inject(gc.Bet.BetResponseHandlers) protected readonly betResponseHandlers: gc.Bet.BetResponseHandlers;
@@ -63,65 +63,37 @@ export class BetHandler extends gc.Bet.BetHandler {
     handleCashOut() {
         this.connectionStore.send("cashOut", {});
     }
-}
 
-@injectable()
-export class EndBetHandler implements gc.Shared.IMultipleHandlers {
-    @inject(BetHandler) protected readonly betHandler: BetHandler;
     handleEndBet(endBet: number) {
-        this.betHandler.updateEndBet(endBet);
-        this.betHandler.updateMultiplier(1.01);
+        this.updateEndBet(endBet);
+        this.updateMultiplier(1.01);
+    }
+
+    handleMine(multiplier: number) {
+        this.updateMultiplier(multiplier);
+    }
+
+    handleEventCashOut(status: GameServiceMessage.Status) {
+        this.updateStatusStart(false);
+        this.updateStatusBet(status);
+        this.updateIsCrash(!status.win);
+    }
+
+    handleRoundId(roundId: number) {
+        this.updateRoundId(roundId);
     }
 
     eventHandleList = [
         {
             name: GameServiceMessage.EndBetEvent,
             handle: this.handleEndBet,
-        },
-    ];
-}
-
-@injectable()
-export class MineHandler implements gc.Shared.IMultipleHandlers {
-    @inject(BetHandler) protected readonly betHandler: BetHandler;
-    handleMine(multiplier: number) {
-        this.betHandler.updateMultiplier(multiplier);
-    }
-
-    eventHandleList = [
-        {
+        },{
             name: GameServiceMessage.MultiplierEvent,
             handle: this.handleMine,
-        },
-    ];
-}
-
-@injectable()
-export class CashOutHandler implements gc.Shared.IMultipleHandlers {
-    @inject(BetHandler) protected readonly betHandler: BetHandler;
-    handleCashOut(status: GameServiceMessage.Status) {
-        this.betHandler.updateStatusStart(false);
-        this.betHandler.updateStatusBet(status);
-        this.betHandler.updateIsCrash(!status.win);
-    }
-
-    eventHandleList = [
-        {
+        },{
             name: GameServiceMessage.Status.eventName,
-            handle: this.handleCashOut,
-        },
-    ];
-}
-
-@injectable()
-export class RoundIdHandler implements gc.Shared.IMultipleHandlers {
-    @inject(BetHandler) protected readonly betHandler: BetHandler;
-    handleRoundId(roundId: number) {
-        this.betHandler.updateRoundId(roundId);
-    }
-
-    eventHandleList = [
-        {
+            handle: this.handleEventCashOut,
+        },{
             name: GameServiceMessage.RoundId,
             handle: this.handleRoundId,
         },

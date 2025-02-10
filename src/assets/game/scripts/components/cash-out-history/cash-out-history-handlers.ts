@@ -10,6 +10,8 @@ export class CashOutHistoryHandlers {
     @inject(CashOutHistoryStore) protected readonly cashOutHistoryStore: CashOutHistoryStore;   
     @inject(BetStore) protected readonly betStore: BetStore;
 
+    private maxCashOutHistory = 10;
+
     updateCashOutHistory(cashOutHistory: number[]) {
         this.cashOutHistoryStore.cashOutHistory = cashOutHistory;
     }
@@ -17,7 +19,7 @@ export class CashOutHistoryHandlers {
     addCashOutHistory() {
         let cashOutHistory = [...this.cashOutHistoryStore.cashOutHistory];
         cashOutHistory.push(this.betStore.multiplier);
-        if (cashOutHistory.length > 8) {
+        if (cashOutHistory.length > this.maxCashOutHistory) {
             cashOutHistory.shift();
         }
         this.updateCashOutHistory(cashOutHistory);

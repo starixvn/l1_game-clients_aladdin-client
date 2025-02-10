@@ -12,21 +12,15 @@ export class HashHandlers {
     updateHashValue(hashValue: string) {
         this.hashStore.hashValue = hashValue;
     }
-}
 
-@injectable()
-export class HashValueHandler implements gc.Shared.IMultipleHandlers {
-    @inject(HashHandlers) protected readonly hashHandlers: HashHandlers;
     handleHashValue(resultHash: GameServiceMessage.ResultHash) {
-        this.hashHandlers.updateHashValue(resultHash.hashValue);
+        this.updateHashValue(resultHash.hashValue);
     }
 
     eventHandleList = [
         {
             name: GameServiceMessage.ResultHash.eventName,
-            handle: this.handleHashValue,
+            handle: this.handleHashValue
         },
     ];
 }
-
-
