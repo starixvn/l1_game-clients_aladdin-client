@@ -25,5 +25,5 @@ export const containerOptions: gc.IContainerOptions = {
         container.bind(gc.GameConfigs.GameSetting).toConstantValue(settings);
         container.bind(LogStore).to(LogStore);
     },
-    features: [InstantWinFeature, ...gc.defaultFeatures],
+    features: [InstantWinFeature, gc.BetDetailsNew, ...gc.defaultFeatures],
 };
