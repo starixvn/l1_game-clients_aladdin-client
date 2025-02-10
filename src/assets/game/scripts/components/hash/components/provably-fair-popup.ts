@@ -18,6 +18,12 @@ export class ProvablyFairPopup extends ObserverComponent {
     @property(Label)
     lblRoundId: Label = null;
 
+    @property(Label)
+    lblCrashPoint: Label = null;
+
+    @property(Label)
+    lblClientSeed: Label = null;
+
     @property(LabelCopyComponent)
     lblServerSeed: LabelCopyComponent = null;
 
@@ -33,21 +39,11 @@ export class ProvablyFairPopup extends ObserverComponent {
     @property(Node)
     nodeDisabledVerification: Node = null;
 
-    @property(Node)
-    nodeResult: Node = null;
-
-    private listClientSeedInfo: ClientSeedInfo[] = [];
-
     onLoad() {
         super.onLoad();
         const para = `${gc.Translator.commonTranslate("pf_provably_fair_para_2")}`;
         this.lblParaVerification.string = para;
         this.handleGATracking();
-    }
-
-
-    initResultNode(customResultPrefab: Prefab) {
-        this.nodeResult.addChild(instantiate(customResultPrefab));
     }
 
     handleGATracking() {
@@ -67,7 +63,11 @@ export class ProvablyFairPopup extends ObserverComponent {
 
         const { serverSeed, serverSeedHash, finalHash, clientSeeds, result, roundId } = verification;
         this.lblRoundId.string = roundId.toString();
-       // result && this.renderResult(result);
+        this.lblCrashPoint.string = result.toString();
+
+        if (clientSeeds) {
+            this.lblClientSeed.string = clientSeeds[0].toString();
+        }
 
         serverSeed && this.lblServerSeed.setString(serverSeed);
         this.lblServerSeed.setActive(!!serverSeed);
@@ -78,24 +78,7 @@ export class ProvablyFairPopup extends ObserverComponent {
         // finalHash && this.lblFinalHash.setString(finalHash);
         // this.lblFinalHash.setActive(!!finalHash);
 
-        this.listClientSeedInfo.forEach((clientSeedInfo) => {
-            clientSeedInfo.activeDisabledBg(true);
-        });
-        // if (clientSeeds && clientSeeds.length > 0) {
-        //     clientSeeds.forEach((clientSeed, index) => {
-        //         const info = this.listClientSeedInfo[index];
-        //         info.setDisplay(clientSeed);
-        //         info.activeDisabledBg(false);
-        //     });
-        // }
-        // this.nodeDisabledVerification.active = !result;
-    }
-
-    private renderResult(result: gc.BetHistory.DynamicObject<object>) {
-        if (this.nodeResult) {
-            const resultComp = this.nodeResult.getComponentInChildren(BaseResultBodyItem);
-            resultComp.setData(result, null);
-        }
+        this.nodeDisabledVerification.active = !result;
     }
 
     @handle(gc.Audios.AudioHandler, (handle) => handle.playSFX(gc.Audios.AudioIds.CLICK))

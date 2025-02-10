@@ -138,30 +138,32 @@ export default class BetAmount extends ObserverComponent {
         return this.nodeBetLevelsContainer && this.nodeBetLevelsContainer.active && this.nodeBetLevelsContainer.scale.y === 1;
     }
 
+    private getChangeBetAmount() {
+        const BET_THRESHOLDS = [
+            { threshold: 99999, increment: 1_000_000 },
+            { threshold: 9999, increment: 100_000 },
+            { threshold: 9999, increment: 10_000 },
+            { threshold: 999, increment: 1_000 },
+            { threshold: 99, increment: 100 },
+            { threshold: 9, increment: 10 }
+        ];
+
+        return BET_THRESHOLDS.find(({threshold}) => this.stakeBetLevel > threshold)?.increment || 1;
+    }
+
     @handle(BetAmountHandlers, (handle, amount: number) => handle.updateBetAmount(amount))
     onClickDescreaseButton() {
-        const currentBet = this.betAmount;
-        return Math.max(currentBet - this.getChangeBetAmount(), this.betLevels[0]);
+        return this.calculateNewBetAmount(-this.getChangeBetAmount());
     }
 
     @handle(BetAmountHandlers, (handle, amount: number) => handle.updateBetAmount(amount))
     onClickInscreaseButton() {
-        const currentBet = this.betAmount;
-        return Math.max(currentBet + this.getChangeBetAmount(), this.betLevels[0]);
+        return this.calculateNewBetAmount(this.getChangeBetAmount());
     }
 
-    private getChangeBetAmount(){
-        const currentBet = this.stakeBetLevel;
-        const thresholds = [
-            { threshold: 99999, decrement: 1_000_000 },
-            { threshold: 9999, decrement: 100_000 },
-            { threshold: 9999, decrement: 10_000 },
-            { threshold: 999, decrement: 1_000 },
-            { threshold: 99, decrement: 100 },
-            { threshold: 9, decrement: 10 }
-        ];
-
-        return thresholds.find(({threshold}) => currentBet > threshold)?.decrement || 1;
+    private calculateNewBetAmount(change: number): number {
+        const [minBet, maxBet] = [this.betLevels[0], this.betLevels[this.betLevels.length - 1]];
+        return Math.min(Math.max(this.betAmount + change, minBet), maxBet);
     }
 
     findIndexBetLevel(): number {
