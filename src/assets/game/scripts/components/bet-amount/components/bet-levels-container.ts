@@ -60,9 +60,11 @@ export default class BetLevelsContainer extends ObserverComponent {
         this.content.children.forEach((child) => {
             child.getComponent(BetLevelItem).setSelectedNode(false);
         });
-        const index = this.betLevels.findIndex((amount) => amount === amount);
-        const selectedNode = this.content.children[index];
-        const comp = selectedNode.getComponent(BetLevelItem);
-        comp.setSelectedNode(true);
+        const index = this.betLevels.findIndex((betLevel) => betLevel === amount);
+        if (index >= 0) {
+            const selectedNode = this.content.children[index];
+            const comp = selectedNode.getComponent(BetLevelItem);
+            comp.setSelectedNode(true);
+        }
     }
 }
