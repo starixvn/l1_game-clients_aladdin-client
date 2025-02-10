@@ -4,6 +4,7 @@ import { ObserverComponent } from "db://shared-components/shared/common-componen
 import Observer from "observer";
 import BetLevelItem from "./bet-level-item";
 import { BetAmountStore } from "../bet-amount-store";
+import { BetStore } from "../../bets/bet-store";
 
 const { Connection } = gc;
 const { ccclass, property } = _decorator;
@@ -51,15 +52,15 @@ export default class BetLevelsContainer extends ObserverComponent {
         this.content.getComponent(UITransform).height = totalHeight;
     }
 
-    @render(BetAmountStore, (store) => store.stakeBetLevel)
-    renderBetAmount(stakeBetLevel: number) {
+    @render(gc.Bet.BetStore, (store) => store.amount)
+    renderBetAmount(amount: number) {
         if (this.content.children.length <= 0) {
             return;
         }
         this.content.children.forEach((child) => {
             child.getComponent(BetLevelItem).setSelectedNode(false);
         });
-        const index = this.betLevels.findIndex((amount) => amount === stakeBetLevel);
+        const index = this.betLevels.findIndex((amount) => amount === amount);
         const selectedNode = this.content.children[index];
         const comp = selectedNode.getComponent(BetLevelItem);
         comp.setSelectedNode(true);

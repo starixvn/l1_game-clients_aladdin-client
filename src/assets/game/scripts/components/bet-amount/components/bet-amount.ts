@@ -36,7 +36,6 @@ export default class BetAmount extends ObserverComponent {
     nodeDisabledBetAmount: Node = null;
 
     private betAmount = 0;
-    private stakeBetLevel = 0;
     private betLevels = [];
 
     onLoad() {
@@ -48,10 +47,8 @@ export default class BetAmount extends ObserverComponent {
     showDefaultBetLevel(defaultBetLevel: number) {
         if (defaultBetLevel === undefined && this.betLevels.length > 0) {
             this.updateBetAmount(this.betLevels[0]);
-            this.updateStakeBetLevel(this.betLevels[0]);
         } else {
             this.updateBetAmount(defaultBetLevel);
-            this.updateStakeBetLevel(defaultBetLevel);
         }
     }
 
@@ -60,19 +57,9 @@ export default class BetAmount extends ObserverComponent {
         return amount;
     }
 
-    @handle(BetAmountHandlers, (handle, amount: number) => handle.updateStakeBetLevel(amount))
-    updateStakeBetLevel(amount: number) {
-        return amount;
-    }
-
     @render(gc.Bet.BetStore, (store) => store.amount)
     renderBetAmount(betAmount: number) {
         this.setBetAmount(betAmount);
-    }
-
-    @render(BetAmountStore, (store) => store.stakeBetLevel)
-    renderStakeBetLevel(stakeBetLevel: number) {
-        this.stakeBetLevel = stakeBetLevel;
     }
 
     setBetAmount(betAmount: number) {
@@ -138,27 +125,40 @@ export default class BetAmount extends ObserverComponent {
         return this.nodeBetLevelsContainer && this.nodeBetLevelsContainer.active && this.nodeBetLevelsContainer.scale.y === 1;
     }
 
-    private getChangeBetAmount() {
+    private getChangeInscreaseBetAmount() {
         const BET_THRESHOLDS = [
-            { threshold: 99999, increment: 1_000_000 },
-            { threshold: 9999, increment: 100_000 },
+            { threshold: 999999, increment: 1_000_000 },
+            { threshold: 99999, increment: 100_000 },
             { threshold: 9999, increment: 10_000 },
             { threshold: 999, increment: 1_000 },
             { threshold: 99, increment: 100 },
             { threshold: 9, increment: 10 }
         ];
 
-        return BET_THRESHOLDS.find(({threshold}) => this.stakeBetLevel > threshold)?.increment || 1;
+        return BET_THRESHOLDS.find(({threshold}) => this.betAmount > threshold)?.increment || 1;
+    }
+
+    private getChangeDescreaseBetAmount() {
+        const BET_THRESHOLDS = [
+            { threshold: 1000000, increment: 1_000_000 },
+            { threshold: 100000, increment: 100_000 },
+            { threshold: 10000, increment: 10_000 },
+            { threshold: 1000, increment: 1_000 },
+            { threshold: 100, increment: 100 },
+            { threshold: 10, increment: 10 }
+        ];
+
+        return BET_THRESHOLDS.find(({threshold}) => this.betAmount > threshold)?.increment || 1;
     }
 
     @handle(BetAmountHandlers, (handle, amount: number) => handle.updateBetAmount(amount))
     onClickDescreaseButton() {
-        return this.calculateNewBetAmount(-this.getChangeBetAmount());
+        return this.calculateNewBetAmount(-this.getChangeDescreaseBetAmount());
     }
 
     @handle(BetAmountHandlers, (handle, amount: number) => handle.updateBetAmount(amount))
     onClickInscreaseButton() {
-        return this.calculateNewBetAmount(this.getChangeBetAmount());
+        return this.calculateNewBetAmount(this.getChangeInscreaseBetAmount());
     }
 
     private calculateNewBetAmount(change: number): number {

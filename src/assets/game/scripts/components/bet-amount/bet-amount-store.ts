@@ -15,7 +15,6 @@ export class BetAmountStore {
     }
 
     isOpenBetAmountPopup = false;
-    stakeBetLevel = 0;
 
     get betLevels() {
         return this.gameConfig.betLevels;

@@ -18,7 +18,7 @@ export default class BetLevelItem extends ObserverComponent {
 
     private currentBetLevel: number = 0;
 
-    @handle(BetAmountHandlers, (handler, amount: number) => handler.updateStakeBetLevel(amount))
+    @handle(BetAmountHandlers, (handler, amount: number) => handler.updateBetAmount(amount))
     onClickBetItem() {
         return +this.currentBetLevel;
     }
