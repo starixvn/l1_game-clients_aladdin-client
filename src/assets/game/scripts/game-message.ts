@@ -3,6 +3,8 @@ export namespace GameServiceMessage {
         defaultBetLevel: number;
         chips: number[];
 
+        
+
         static eventName = "gameConfigs";
     }
 
