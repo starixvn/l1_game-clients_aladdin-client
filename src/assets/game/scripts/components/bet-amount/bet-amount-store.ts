@@ -21,7 +21,7 @@ export class BetAmountStore {
     }
 
     get disabledBetAmount() {
-        return this.betStore.isStart;
+        return this.betStore.endBet > 0;
     }
 
     get isMinBetLevelValue() {

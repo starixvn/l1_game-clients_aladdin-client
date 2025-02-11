@@ -62,6 +62,7 @@ export class BetHandler extends gc.Bet.BetHandler implements gc.Shared.IMultiple
 
     handleCashOut() {
         this.connectionStore.send("cashOut", {});
+        this.updateEndBet(0);
     }
 
     handleEndBet(endBet: number) {
