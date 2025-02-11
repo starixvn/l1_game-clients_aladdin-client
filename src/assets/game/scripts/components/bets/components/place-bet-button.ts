@@ -1,4 +1,4 @@
-import { _decorator, Color, EventTouch, Intersection2D, Label, math, Node, PolygonCollider2D, sp, UITransform, v3, Vec2 } from "cc";
+import { _decorator, Color, EventTouch, Font, Intersection2D, Label, math, Node, PolygonCollider2D, sp, UITransform, v3, Vec2 } from "cc";
 import { ObserverComponent } from "db://shared-components/shared/common-components/observer-component/scripts/observer-component";
 import Observer from "observer";
 import { BetHandler } from "../bet-handler";
@@ -54,6 +54,9 @@ export default class PlaceBetButton extends ObserverComponent {
 
     @property([sp.Skeleton])
     private CrashAnims: sp.Skeleton[] = [];
+
+    @property([Font])
+    private fontMultipliers: Font[] = [];
 
     private isAutoStart = false;
     private isStart = false;
@@ -205,7 +208,7 @@ export default class PlaceBetButton extends ObserverComponent {
 
     updateMultiplierColor(){
         const level = this.getCurrentAnimationLevel(this.multiplier);
-        this.lblMultiplier.color = new Color(this.MULTIPLIER_COLORS[`LEVEL_${level}`]);
+        this.lblMultiplier.font = this.fontMultipliers[level - 1];
     }
 
     checkTapAnim(){
