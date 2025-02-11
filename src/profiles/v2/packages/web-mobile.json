@@ -12,11 +12,6 @@
       "startScene": "cdeb5c24-9ba8-4cab-a306-8a562fd04b39",
       "scenes": [
         {
-          "url": "db://assets/game/game.scene",
-          "uuid": "4229fd91-1ded-407f-b130-7b678b820c27",
-          "inBundle": false
-        },
-        {
           "url": "db://assets/game/splash/splash.scene",
           "uuid": "cdeb5c24-9ba8-4cab-a306-8a562fd04b39",
           "inBundle": false
@@ -35,6 +30,15 @@
           "url": "db://shared-components/under-maintenance/under-maintenance.scene",
           "uuid": "3640a00f-a2ed-4aec-b369-779ede63f5df",
           "inBundle": false
+        },
+        {
+          "url": "db://shared-components/shared/common-components/integrations/identifier.scene",
+          "uuid": "8fa0d7ef-6c87-40c2-bd73-c63184ba47ff",
+          "inBundle": false
+        },
+        {
+          "url": "db://assets/game/game.scene",
+          "uuid": "8704bca1-d5f7-4f3c-b0bc-99d64502e283"
         }
       ],
       "polyfills": {
