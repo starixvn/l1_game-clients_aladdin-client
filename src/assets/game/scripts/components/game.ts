@@ -28,6 +28,7 @@ export default class Game extends GameComponent {
     nodeEffectContainer: Node = null;
 
     override namespace = settings.name;
+    protected override enableEventShowHideGame = false;
     override containerOptions = containerOptions;
     effectContainer: EffectContainer = null;
 
