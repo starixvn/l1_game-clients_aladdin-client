@@ -466,8 +466,8 @@
     },
     "_lscale": {
       "__type__": "cc.Vec3",
-      "x": 1,
-      "y": 1,
+      "x": 0.8,
+      "y": 0.8,
       "z": 1
     },
     "_mobility": 0,
@@ -495,7 +495,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 200,
-      "height": 45.36
+      "height": 40
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -533,15 +533,15 @@
     "_string": "0.25",
     "_horizontalAlign": 1,
     "_verticalAlign": 1,
-    "_actualFontSize": 27,
-    "_fontSize": 26,
+    "_actualFontSize": 28,
+    "_fontSize": 32,
     "_fontFamily": "Arial",
-    "_lineHeight": 26,
+    "_lineHeight": 45,
     "_overflow": 2,
     "_enableWrapText": true,
     "_font": {
-      "__uuid__": "0f6981e6-5811-45ce-ac30-f06164d111a7",
-      "__expectedType__": "cc.TTFFont"
+      "__uuid__": "08d8ea39-0578-4381-b57e-0de7387b7015",
+      "__expectedType__": "cc.BitmapFont"
     },
     "_isSystemFontUsed": false,
     "_spacingX": 0,
@@ -2308,6 +2308,7 @@
       "__id__": 0
     },
     "fileId": "c46/YsCPVOJYA4mWEpNYRx",
+    "instance": null,
     "targetOverrides": []
   }
 ]
