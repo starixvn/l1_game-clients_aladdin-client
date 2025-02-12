@@ -27,7 +27,7 @@ export class BetHandler extends gc.Bet.BetHandler implements gc.Shared.IMultiple
 
     handleBetData(data: any) {
         const amount = data.amount;
-        const isValid = data.aciton === BetAction.Bet ? this.isValidBet(amount) : true;
+        const isValid = data.action === BetAction.Bet ? this.isValidBet(amount) : true;
 
         if (isValid) {
             this.betStore.isProcessingBet = true;
