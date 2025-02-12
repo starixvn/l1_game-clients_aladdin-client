@@ -18,6 +18,17 @@ export namespace GameServiceMessage {
         static eventName = "resultHash";
     }
 
+    export class ProvablyFair {
+        serverSeed: string;
+        serverSeedHash: string;
+        finalHash: string;
+        clientSeed: string;
+        finalResult: number;
+        roundId: number;
+
+        static eventName = "provablyFair";
+    }
+
     export class Status {
         win: boolean;
         bet: number;

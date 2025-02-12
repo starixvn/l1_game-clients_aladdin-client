@@ -2,7 +2,7 @@ import gc from "@sg/game-client-base";
 import { _decorator, Color, Label, Prefab } from "cc";
 import { BetHistoryNewBodyItem } from "db://shared-components/game/bet-history-new/scripts/bet-history-new-body-item";
 import Observer from "observer";
-import { CashOutHistoryHandlers } from "../cash-out-history/cash-out-history-handlers";
+import { HashHandlers } from "../hash/hash-handlers";
 
 const { ccclass, property } = _decorator;
 const { DateTimeUtils } = gc;
@@ -31,7 +31,7 @@ export class InstantWinBetHistoryBodyItem extends BetHistoryNewBodyItem {
 
    }
 
-   @handle(CashOutHistoryHandlers, (handle, roundId: number) => handle.openVerificationHistory(roundId))
+   @handle(HashHandlers, (handle, roundId: number) => handle.openVerificationHistory(roundId))
    onClickVerifyProvablyFair() {
        this.playSoundClick();
        return this.betHistoryLog.roundId;

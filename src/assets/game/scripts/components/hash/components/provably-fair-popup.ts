@@ -7,6 +7,7 @@ import { BaseResultBodyItem } from "db://shared-components/game/bet-history/scri
 import { LabelCopyComponent } from "db://shared-components/shared/common-components/copy-label/scripts/label-copy-component";
 import { ClientSeedInfo } from "db://shared-components/shared/common-components/provably-fair/client-seed-info";
 import { FunctionUtils } from "db://shared-components/shared/utils";
+import { HashStore, ProvablyFair } from "../hash-store";
 const { ccclass, property } = _decorator;
 const { render, handle } = Observer;
 
@@ -55,19 +56,16 @@ export class ProvablyFairPopup extends ObserverComponent {
         });
     }
 
-    @render(RoundBasePF.PFVerificationStore, (store) => store.verification)
-    private renderVerification(verification: gc.GameServiceMessage.ProvablyFair) {
+    @render(HashStore, (store) => store.verification)
+    private renderVerification(verification: ProvablyFair) {
         if (!verification) {
             return;
         }
 
-        const { serverSeed, serverSeedHash, finalHash, clientSeeds, result, roundId } = verification;
+        const { serverSeed, serverSeedHash, finalHash, clientSeed  , finalResult, roundId } = verification;
         this.lblRoundId.string = roundId.toString();
-        this.lblCrashPoint.string = result.toString();
-
-        if (clientSeeds) {
-            this.lblClientSeed.string = clientSeeds[0].toString();
-        }
+        this.lblCrashPoint.string = finalResult.toString();
+        this.lblClientSeed.string = clientSeed.toString();
 
         serverSeed && this.lblServerSeed.setString(serverSeed);
         this.lblServerSeed.setActive(!!serverSeed);
@@ -75,10 +73,10 @@ export class ProvablyFairPopup extends ObserverComponent {
         serverSeedHash && this.lblServerSeedHash.setString(serverSeedHash);
         this.lblServerSeedHash.setActive(!!serverSeedHash);
 
-        // finalHash && this.lblFinalHash.setString(finalHash);
-        // this.lblFinalHash.setActive(!!finalHash);
+        finalHash && this.lblFinalHash.setString(finalHash);
+        this.lblFinalHash.setActive(!!finalHash);
 
-        this.nodeDisabledVerification.active = !result;
+        this.nodeDisabledVerification.active = !finalResult;
     }
 
     @handle(gc.Audios.AudioHandler, (handle) => handle.playSFX(gc.Audios.AudioIds.CLICK))
