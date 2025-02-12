@@ -31,10 +31,10 @@ export class BetStore {
     betCount = 0;
     endBet = 0;
     roundId = 0;
-    // win = false;
-    // reachMaxWin = false;
-    // bet = 0;
-
     settleStatus: SettleStatus = {};
     uiState = BetUIState.Start;
+
+    get cashOutValue() {
+        return this.endBet * this.multiplier;
+    }
 }

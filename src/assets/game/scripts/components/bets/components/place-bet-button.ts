@@ -1,3 +1,4 @@
+import gc from "@sg/game-client-base";
 import { _decorator, EventTouch, Font, Intersection2D, Label, math, Node, PolygonCollider2D, sp } from "cc";
 import { ObserverComponent } from "db://shared-components/shared/common-components/observer-component/scripts/observer-component";
 import Observer from "observer";
@@ -46,8 +47,7 @@ export default class PlaceBetButton extends ObserverComponent {
     private isAutoStart = false;
     private isStart = false;
     private multiplier = 0;
-    private balance = 0;
-    private endBet = 0;
+    private currentTapAnim: sp.Skeleton = null;
 
     private readonly ANIMATION_DURATION = 0.5;
     private readonly EFFECT_RESET_DELAY = 1;
@@ -104,44 +104,47 @@ export default class PlaceBetButton extends ObserverComponent {
 
     @handle(BetHandler, (handler) => handler.changeStarted())
     onClickStartBet() {
-        const level = this.getCurrentAnimationLevel(this.multiplier);
-
         this.deactivateAllTapAnimations();
-        this.getTapAnim(level).node.active = true;
+        this.showAxe();
     }
 
     @render(BetStore, (store) => store.isCrash)
     handleCrash(isCrash: boolean) {
         if (isCrash) {
-            const level = this.getCurrentAnimationLevel(this.multiplier);
-            const currentTapAnim = this.getTapAnim(level);
-
-            currentTapAnim.node.active = false;
-
+            this.hideAxe();
             this.playCrashAnimation();
+        }
+    }
+
+    showAxe() {
+        if (this.currentTapAnim) {
+            this.currentTapAnim.node.active = true;
+        }
+    }
+
+    hideAxe() {
+        if (this.currentTapAnim) {
+            this.currentTapAnim.node.active = false;
         }
     }
 
     @handle(BetHandler, (handler) => handler.handleCashOut())
     onClickCashOut() {
-        const level = this.getCurrentAnimationLevel(this.multiplier);
-        const currentTapAnim = this.getTapAnim(level);
-        currentTapAnim.node.active = false;
+        this.hideAxe();
     }
 
     @render(BetStore, (store) => store.multiplier)
     updateMultiplier(multiplier: number) {
         this.multiplier = multiplier;
-
-        this.lblMultiplier.string = `${(multiplier === 0 ? "1.00" : multiplier).toString()}x`;
-        this.lblMoney.string = (multiplier * this.endBet).toString();
-        this.checkTapAnim();
-        this.updateMultiplierColor();
+        this.lblMultiplier.string = gc.FormatUtils.numberWithCommas(multiplier, 2, true);
+        const level = this.getCurrentAnimationLevel(multiplier);
+        this.updateTapAnim(level);
+        this.updateMultiplierColor(level);
     }
 
-    @render(BalanceInfoHandler, (store) => store.balance)
-    setBalance(balance: number) {
-        this.balance = balance;
+    @render(BetStore, (store) => store.cashOutValue)
+    updateCashOutValue(cashOutValue: number) {
+        this.lblMoney.string = gc.FormatUtils.numberWithCommas(cashOutValue, 2, true);
     }
 
     @render(AutoStartStore, (store) => store.isAutoStart)
@@ -149,22 +152,21 @@ export default class PlaceBetButton extends ObserverComponent {
         this.isAutoStart = isAutoStart;
     }
 
-    updateMultiplierColor() {
-        const level = this.getCurrentAnimationLevel(this.multiplier);
+    updateMultiplierColor(multiplier: number) {
+        const level = this.getCurrentAnimationLevel(multiplier);
         this.lblMultiplier.font = this.fontMultipliers[level - 1];
     }
 
-    checkTapAnim() {
-        const level = this.getCurrentAnimationLevel(this.multiplier);
-        const currentTapAnim = this.getTapAnim(level);
+    updateTapAnim(level: number) {
+        this.currentTapAnim = this.getTapAnim(level);
+
         this.deactivateAllTapAnimations();
-        currentTapAnim.node.active = true;
+        this.showAxe();
     }
 
     @render(BetStore, (store) => store.endBet)
     handleEndBet(endBet: number) {
         if (endBet > 0) {
-            this.endBet = endBet;
             this.updateBalance();
         }
     }
@@ -228,11 +230,10 @@ export default class PlaceBetButton extends ObserverComponent {
     }
 
     playTapAnimation() {
-        const level = this.getCurrentAnimationLevel(this.multiplier);
-        const currentTapAnim = this.getTapAnim(level);
-
+        const currentTapAnim = this.currentTapAnim;
         currentTapAnim.node.position = this.tapAnimArea.getPosition();
         currentTapAnim.setAnimation(0, `kick_3`, false);
+
         this.effect.setAnimation(0, `tap_3`, false);
     }
 
