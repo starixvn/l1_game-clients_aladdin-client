@@ -33,6 +33,8 @@ export class BetHandler extends gc.Bet.BetHandler implements gc.Shared.IMultiple
             this.betStore.isProcessingBet = true;
             this.connectionStore.send(gc.GameClientEmitMessage.Bet.eventName, data);
             this.retryGameHandler.handle();
+        } else {
+            this.resetBet();
         }
     }
 
@@ -97,6 +99,10 @@ export class BetHandler extends gc.Bet.BetHandler implements gc.Shared.IMultiple
     }
 
     handleEndBet(endBet: number) {
+        if (endBet < 0) {
+            this.resetBet();
+            return;
+        }
         this.updateEndBet(endBet);
         this.updateMultiplier(1.01);
     }
