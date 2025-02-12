@@ -1,8 +1,12 @@
 import gc from "@sg/game-client-base";
 import { _decorator, Color, Label, Prefab } from "cc";
 import { BetHistoryNewBodyItem } from "db://shared-components/game/bet-history-new/scripts/bet-history-new-body-item";
+import Observer from "observer";
+import { CashOutHistoryHandlers } from "../cash-out-history/cash-out-history-handlers";
+
 const { ccclass, property } = _decorator;
 const { DateTimeUtils } = gc;
+const { handle } = Observer;
 
 export type BetHistoryBodyItemType = {
     betHistoryLog: gc.BetHistory.BetHistoryLog & {
@@ -25,5 +29,11 @@ export class InstantWinBetHistoryBodyItem extends BetHistoryNewBodyItem {
        this.lblMultiplier.string = multiplier === 0 ? "-" : `${multiplier}x`;
        this.lblTime.string = `${DateTimeUtils.getStringHourByTime(time).slice(0, -3)} ${DateTimeUtils.getStringDate(time)}`;
 
+   }
+
+   @handle(CashOutHistoryHandlers, (handle, roundId: number) => handle.openVerificationHistory(roundId))
+   onClickVerifyProvablyFair() {
+       this.playSoundClick();
+       return this.betHistoryLog.roundId;
    }
 }

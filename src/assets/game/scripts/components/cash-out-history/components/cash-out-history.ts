@@ -5,6 +5,7 @@ import { ObserverComponent } from "db://shared-components/shared/common-componen
 import Observer from "observer"; 
 
 import { CashOutHistoryStore } from '../cash-out-history-store';
+import { CashOutHistoryHandlers } from "../cash-out-history-handlers";
 const { FormatUtils, GameCrash } = gc;
 
 const { ccclass, property } = _decorator;
@@ -60,7 +61,7 @@ export default class CashOutHistory extends ObserverComponent {
         return gc.Audios.AudioIds.CLICK;
     }
 
-    @handle(gc.RoundBasePF.ProvablyFairHandler, (handle, roundId: number) => handle.openVerificationHistory(roundId))
+    @handle(CashOutHistoryHandlers, (handle, roundId: number) => handle.openVerificationHistory(roundId))
     onClickRoundItem(roundId: number) {
         this.playSoundClick();
         return roundId;
