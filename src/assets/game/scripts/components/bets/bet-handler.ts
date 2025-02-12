@@ -1,12 +1,17 @@
 import gc from "@sg/game-client-base";
 import inversify from "inversify";
-import { BetStore } from "./bet-store";
 import { GameServiceMessage } from "../../game-message";
+import { BetStore } from "./bet-store";
 
 const { injectable, inject } = inversify;
 
+enum BetAction {
+    Bet = "bet",
+    Mine = "mine",
+}
+
 @injectable()
-export class BetHandler extends gc.Bet.BetHandler implements gc.Shared.IMultipleHandlers  {
+export class BetHandler extends gc.Bet.BetHandler implements gc.Shared.IMultipleHandlers {
     @inject(BetStore) protected readonly betsStore: BetStore;
     @inject(gc.Connection.ConnectionStore) protected readonly connectionStore: gc.Connection.ConnectionStore;
     @inject(gc.Bet.BetResponseHandlers) protected readonly betResponseHandlers: gc.Bet.BetResponseHandlers;
@@ -14,10 +19,36 @@ export class BetHandler extends gc.Bet.BetHandler implements gc.Shared.IMultiple
 
     handle() {
         const betData: any = this.createCommonBetData();
-        betData.action = this.betsStore.betCount === 0 ? "bet" : "mine";
+        betData.action = this.betsStore.betCount === 0 ? BetAction.Bet : BetAction.Mine;
         betData.clientSeed = this.pfStore.clientSeed;
         this.betsStore.betCount++;
         this.handleBetData(betData);
+    }
+
+    handleBetData(data: any) {
+        const amount = data.amount;
+        const isValid = data.aciton === BetAction.Bet ? this.isValidBet(amount) : true;
+
+        if (isValid) {
+            this.betStore.isProcessingBet = true;
+            this.connectionStore.send(gc.GameClientEmitMessage.Bet.eventName, data);
+            this.retryGameHandler.handle();
+        }
+    }
+
+    isValidBet(amount: number) {
+        if (this.betStore.isProcessingBet) {
+            this.showWarningProcessingBet();
+            return false;
+        }
+
+        const availableBalance = this.betStore.availableBalance;
+        if (this.gameSetting?.validateBalanceWhenBet && amount > availableBalance) {
+            this.showNoticePlaceBetFailure();
+            return false;
+        }
+
+        return true;
     }
 
     updateMultiplier(multiplier: number) {
@@ -58,7 +89,7 @@ export class BetHandler extends gc.Bet.BetHandler implements gc.Shared.IMultiple
 
     override isInPhasePreventBet() {
         return false;
-    }   
+    }
 
     handleCashOut() {
         this.connectionStore.send("cashOut", {});
@@ -88,13 +119,16 @@ export class BetHandler extends gc.Bet.BetHandler implements gc.Shared.IMultiple
         {
             name: GameServiceMessage.EndBetEvent,
             handle: this.handleEndBet,
-        },{
+        },
+        {
             name: GameServiceMessage.MultiplierEvent,
             handle: this.handleMine,
-        },{
+        },
+        {
             name: GameServiceMessage.Status.eventName,
             handle: this.handleEventCashOut,
-        },{
+        },
+        {
             name: GameServiceMessage.RoundId,
             handle: this.handleRoundId,
         },
