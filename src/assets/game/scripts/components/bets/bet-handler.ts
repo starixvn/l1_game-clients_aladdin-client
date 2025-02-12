@@ -1,7 +1,7 @@
 import gc from "@sg/game-client-base";
 import inversify from "inversify";
 import { GameServiceMessage } from "../../game-message";
-import { BetStore } from "./bet-store";
+import { BetStore, BetUIState } from "./bet-store";
 
 const { injectable, inject } = inversify;
 
@@ -73,13 +73,14 @@ export class BetHandler extends gc.Bet.BetHandler implements gc.Shared.IMultiple
         this.betsStore.endBet = endBet;
     }
 
-    updateStatusStart(isStart: boolean) {
-        this.betsStore.isStart = isStart;
+    changeStarted() {
+        this.betsStore.uiState = BetUIState.Started;
     }
 
     resetBet() {
         this.betsStore.betCount = 0;
         this.betsStore.win = false;
+        this.betsStore.uiState = BetUIState.Start;
         this.updateMultiplier(0);
         this.updateEndBet(0);
         this.updateIsCrash(false);
@@ -95,7 +96,6 @@ export class BetHandler extends gc.Bet.BetHandler implements gc.Shared.IMultiple
 
     handleCashOut() {
         this.connectionStore.send("cashOut", {});
-        this.updateEndBet(0);
     }
 
     handleEndBet(endBet: number) {
@@ -104,17 +104,25 @@ export class BetHandler extends gc.Bet.BetHandler implements gc.Shared.IMultiple
             return;
         }
         this.updateEndBet(endBet);
-        this.updateMultiplier(1.01);
+        this.handleMine(1.01);
     }
 
     handleMine(multiplier: number) {
+        this.betsStore.uiState = multiplier === 1.01 ? BetUIState.Bet : BetUIState.Mining;
+
         this.updateMultiplier(multiplier);
     }
 
     handleEventCashOut(status: GameServiceMessage.Status) {
-        this.updateStatusStart(false);
+        this.betsStore.uiState = BetUIState.Start;
+        const isWin = status.win;
         this.updateStatusBet(status);
-        this.updateIsCrash(!status.win);
+        this.updateIsCrash(!isWin);
+
+        const delayResetBet = isWin ? 3000 : 1000;
+        setTimeout(() => {
+            this.resetBet();
+        }, delayResetBet);
     }
 
     handleRoundId(roundId: number) {

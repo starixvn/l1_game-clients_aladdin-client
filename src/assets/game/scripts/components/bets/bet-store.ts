@@ -4,14 +4,22 @@ import mobx from "mobx";
 
 const { injectable, inject } = inversify;
 
+export enum BetUIState {
+    Start = 0,
+    Started,
+    Bet,
+    Mining,
+    CashOut,
+    End,
+}
+
 @injectable()
-export class BetStore{
+export class BetStore {
     constructor() {
         mobx.makeAutoObservable(this);
     }
 
     multiplier = 0;
-    isStart = false;
     isCrash = false;
     betCount = 0;
     endBet = 0;
@@ -19,5 +27,5 @@ export class BetStore{
     win = false;
     reachMaxWin = false;
     bet = 0;
+    uiState = BetUIState.Start;
 }
-
