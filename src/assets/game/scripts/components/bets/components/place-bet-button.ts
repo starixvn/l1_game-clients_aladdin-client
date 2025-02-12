@@ -3,7 +3,6 @@ import { ObserverComponent } from "db://shared-components/shared/common-componen
 import Observer from "observer";
 import { AutoStartStore } from "../../auto-start/auto-start-store";
 import { BalanceInfoHandler } from "../../balance/balance-info-handler";
-import { CashOutHistoryHandlers } from "../../cash-out-history/cash-out-history-handlers";
 import { BetHandler } from "../bet-handler";
 import { BetStore, BetUIState } from "../bet-store";
 
@@ -33,18 +32,6 @@ export default class PlaceBetButton extends ObserverComponent {
     @property(Node)
     private tapAnimArea: Node = null;
 
-    @property(Node)
-    private cashOutAnim: Node = null;
-
-    @property(Label)
-    private lblCashOutMoney: Label = null;
-
-    @property(Node)
-    private bigWinAnim: Node = null;
-
-    @property(Label)
-    private lblBigWinMoney: Label = null;
-
     @property(sp.Skeleton)
     private effect: sp.Skeleton = null;
     @property([sp.Skeleton])
@@ -64,7 +51,6 @@ export default class PlaceBetButton extends ObserverComponent {
 
     private readonly ANIMATION_DURATION = 0.5;
     private readonly EFFECT_RESET_DELAY = 1;
-    private readonly BIG_WIN_MULTIPLIER = 2.5;
     private readonly MULTIPLIER_THRESHOLDS = {
         LEVEL_4: 110,
         LEVEL_3: 11,
@@ -133,7 +119,6 @@ export default class PlaceBetButton extends ObserverComponent {
             currentTapAnim.node.active = false;
 
             this.playCrashAnimation();
-            this.updateUIForBetEnd();
         }
     }
 
@@ -141,32 +126,7 @@ export default class PlaceBetButton extends ObserverComponent {
     onClickCashOut() {
         const level = this.getCurrentAnimationLevel(this.multiplier);
         const currentTapAnim = this.getTapAnim(level);
-
         currentTapAnim.node.active = false;
-
-        this.playCashOutAnimation();
-        this.playBigWinAnimation();
-        this.addCashOutHistory();
-    }
-
-    playCashOutAnimation() {
-        if (this.multiplier < this.BIG_WIN_MULTIPLIER) {
-            this.cashOutAnim.active = true;
-            this.lblCashOutMoney.string = (this.multiplier * this.endBet).toString();
-            this.scheduleOnce(() => {
-                this.cashOutAnim.active = false;
-            }, this.ANIMATION_DURATION);
-        }
-    }
-
-    playBigWinAnimation() {
-        if (this.multiplier >= this.BIG_WIN_MULTIPLIER) {
-            this.bigWinAnim.active = true;
-            this.lblBigWinMoney.string = (this.multiplier * this.endBet).toString();
-            this.scheduleOnce(() => {
-                this.bigWinAnim.active = false;
-            }, this.ANIMATION_DURATION);
-        }
     }
 
     @render(BetStore, (store) => store.multiplier)
@@ -208,14 +168,6 @@ export default class PlaceBetButton extends ObserverComponent {
             this.updateBalance();
         }
     }
-
-    @render(BetStore, (store) => store.win)
-    handleWin(win: boolean) {
-        win && this.updateBalance();
-    }
-
-    @handle(CashOutHistoryHandlers, (handler) => handler.addCashOutHistory())
-    addCashOutHistory() {}
 
     @handle(BalanceInfoHandler, (handler) => handler.updateBalance())
     updateBalance() {}

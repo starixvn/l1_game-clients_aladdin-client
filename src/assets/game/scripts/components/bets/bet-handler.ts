@@ -17,6 +17,8 @@ export class BetHandler extends gc.Bet.BetHandler implements gc.Shared.IMultiple
     @inject(gc.Bet.BetResponseHandlers) protected readonly betResponseHandlers: gc.Bet.BetResponseHandlers;
     @inject(gc.RoundBasePF.ProvablyFairStore) protected readonly pfStore: gc.RoundBasePF.ProvablyFairStore;
 
+    private readonly BIG_WIN_MULTIPLIER = 2.5;
+
     handle() {
         const betData: any = this.createCommonBetData();
         betData.action = this.betsStore.betCount === 0 ? BetAction.Bet : BetAction.Mine;
@@ -60,9 +62,11 @@ export class BetHandler extends gc.Bet.BetHandler implements gc.Shared.IMultiple
 
     updateStatusBet(status: GameServiceMessage.Status) {
         this.betResponseHandlers.stopProcessingBetAndClearInterval();
-        this.betsStore.win = status.win;
-        this.betsStore.reachMaxWin = status.reachMaxWin;
-        this.betsStore.bet = status.bet;
+        // this.betsStore.win = status.win;
+        // this.betsStore.reachMaxWin = status.reachMaxWin;
+        // this.betsStore.bet = status.bet;
+
+        this.betsStore.settleStatus = { ...status, isBigWin: this.betsStore.multiplier >= this.BIG_WIN_MULTIPLIER };
     }
 
     updateIsCrash(isCrash: boolean) {
@@ -79,8 +83,9 @@ export class BetHandler extends gc.Bet.BetHandler implements gc.Shared.IMultiple
 
     resetBet() {
         this.betsStore.betCount = 0;
-        this.betsStore.win = false;
         this.betsStore.uiState = BetUIState.Start;
+
+        this.betsStore.settleStatus = {};
         this.updateMultiplier(0);
         this.updateEndBet(0);
         this.updateIsCrash(false);
