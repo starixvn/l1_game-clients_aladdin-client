@@ -18,7 +18,10 @@ export class CashOutHistoryHandlers {
 
     addCashOutHistory() {
         let cashOutHistory = [...this.cashOutHistoryStore.cashOutHistory];
-        cashOutHistory.push(this.betStore.multiplier);
+        cashOutHistory.push({
+            multiplier: this.betStore.multiplier,
+            roundId: this.betStore.roundId
+        });
         if (cashOutHistory.length > this.maxCashOutHistory) {
             cashOutHistory.shift();
         }

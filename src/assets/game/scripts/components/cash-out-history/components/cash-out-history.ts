@@ -1,8 +1,11 @@
+import gc from "@sg/game-client-base";
+
 import { _decorator, Component, Node, Prefab, Label, instantiate, Color } from 'cc';
 import { ObserverComponent } from "db://shared-components/shared/common-components/observer-component/scripts/observer-component";
 import Observer from "observer"; 
 
 import { CashOutHistoryStore } from '../cash-out-history-store';
+const { FormatUtils, GameCrash } = gc;
 
 const { ccclass, property } = _decorator;
 const { handle, render } = Observer;
@@ -29,20 +32,38 @@ export default class CashOutHistory extends ObserverComponent {
         LEVEL_1: "#0C00BA"
     };
 
+    private rounds: gc.RoundHistories.RoundHistory[]
+
+    @render(gc.GameCrash.RoundHistory.CrashRoundHistoryStore, (store) => store, { fireImmediately: false })
+    setRoundsInfo(rounds: gc.GameCrash.RoundHistory.CrashRoundHistoryStore) {
+        this.rounds = rounds.roundHistories;
+    }
+
     @render(CashOutHistoryStore, (store) => store.cashOutHistory)
-    updateCashOutHistory(cashOutHistory: number[]) {
+    updateCashOutHistory(cashOutHistory: any[]) {
         this.cashOutHistoryPanel.removeAllChildren();
         [...cashOutHistory].reverse().forEach((item, index) => {
             const lblCashOutHistory = instantiate(this.lblCashOutHistory);
-            const label = lblCashOutHistory.getComponent(Label);
-            label.string = `${item.toString()}x`;
-            
-            const level = this.getCurrentAnimationLevel(item);
-            label.color = new Color(this.MULTIPLIER_COLORS[`LEVEL_${level}`]);
-            
+            const label = lblCashOutHistory.getComponentInChildren(Label);
+            label.string = `${item.multiplier.toString()}x`;
             lblCashOutHistory.setPosition(0, index * -40);
+            lblCashOutHistory.on(Node.EventType.TOUCH_END, () => {
+                this.onClickRoundItem(item.roundId);
+            });
+            
             this.cashOutHistoryPanel.addChild(lblCashOutHistory);
         });
+    }
+
+    @handle(gc.Audios.AudioHandler, (handle, id: string) => handle.playSFX(id))
+    playSoundClick() {
+        return gc.Audios.AudioIds.CLICK;
+    }
+
+    @handle(gc.RoundBasePF.ProvablyFairHandler, (handle, roundId: number) => handle.openVerificationHistory(roundId))
+    onClickRoundItem(roundId: number) {
+        this.playSoundClick();
+        return roundId;
     }
 
     private getCurrentAnimationLevel(multiplier: number): number {

@@ -8,7 +8,7 @@ export class CashOutHistoryStore {
     constructor() {
         mobx.makeAutoObservable(this);
     }
-    cashOutHistory: number[] = [];
+    cashOutHistory: any[] = [];
 }
 
 
