@@ -214,7 +214,7 @@ def convert_spine_files(input_dir, output_dir):
     process_folder(input_dir, output_dir)
 
 # Sử dụng
-input_dir = 'src/assets/game/spines-v4'  # Thư mục chứa file spine v4
+input_dir = 'src/assets/game/spines/v4'  # Thư mục chứa file spine v4
 output_dir = 'src/assets/game/spines/v3'  # Thư mục output cho file spine v3
 
 convert_spine_files(input_dir, output_dir)
