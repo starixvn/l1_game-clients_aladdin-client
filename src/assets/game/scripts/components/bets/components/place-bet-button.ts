@@ -1,6 +1,8 @@
 import gc from "@sg/game-client-base";
 import { _decorator, EventTouch, Font, Intersection2D, Label, math, Node, PolygonCollider2D, sp } from "cc";
+import { bundleManager } from "db://shared-components/shared/common-components/bundle-magager/bundle-manager";
 import { ObserverComponent } from "db://shared-components/shared/common-components/observer-component/scripts/observer-component";
+import { AnimationUtils } from "db://shared-components/shared/utils";
 import Observer from "observer";
 import { BalanceInfoHandler } from "../../balance/balance-info-handler";
 import { BetHandler } from "../bet-handler";
@@ -29,26 +31,20 @@ export default class PlaceBetButton extends ObserverComponent {
     @property(Node)
     private tapArea: Node = null;
 
-    @property(Node)
-    private tapAnimArea: Node = null;
-
     @property(sp.Skeleton)
     private effect: sp.Skeleton = null;
-    @property([sp.Skeleton])
-    private TapAnims: sp.Skeleton[] = [];
 
-    @property([sp.Skeleton])
-    private CrashAnims: sp.Skeleton[] = [];
+    @property(sp.Skeleton)
+    private spineAxe: sp.Skeleton = null;
 
     @property([Font])
     private fontMultipliers: Font[] = [];
 
-    private isAutoStart = false;
     private isStart = false;
     private multiplier = 0;
     private currentTapAnim: sp.Skeleton = null;
+    private currentAnimationName = "";
 
-    private readonly ANIMATION_DURATION = 0.5;
     private readonly EFFECT_RESET_DELAY = 1;
     private readonly MULTIPLIER_THRESHOLDS = {
         LEVEL_4: 110,
@@ -68,7 +64,6 @@ export default class PlaceBetButton extends ObserverComponent {
         this.initializeAnimations();
         super.onLoad();
         this.addEvent();
-        this.isAutoStart = false;
     }
 
     onDestroy(): void {
@@ -77,17 +72,8 @@ export default class PlaceBetButton extends ObserverComponent {
     }
 
     private initializeAnimations(): void {
-        this.deactivateAllTapAnimations();
-        this.deactivateAllCrashAnimations();
+        this.hideAxe();
         this.resetEffect();
-    }
-
-    private deactivateAllTapAnimations(): void {
-        this.TapAnims.forEach((anim) => (anim.node.active = false));
-    }
-
-    private deactivateAllCrashAnimations(): void {
-        this.CrashAnims.forEach((anim) => (anim.node.active = false));
     }
 
     resetEffect() {
@@ -103,14 +89,12 @@ export default class PlaceBetButton extends ObserverComponent {
 
     @handle(BetHandler, (handler) => handler.changeStarted())
     onClickStartBet() {
-        this.deactivateAllTapAnimations();
         this.showAxe();
     }
 
     @render(BetStore, (store) => store.isCrash)
     handleCrash(isCrash: boolean) {
         if (isCrash) {
-            this.hideAxe();
             this.playCrashAnimation();
         }
     }
@@ -156,11 +140,22 @@ export default class PlaceBetButton extends ObserverComponent {
         this.lblMultiplier.font = this.fontMultipliers[level - 1];
     }
 
-    updateTapAnim(level: number) {
-        this.currentTapAnim = this.getTapAnim(level);
+    async updateTapAnim(level: number) {
+        this.currentTapAnim = this.spineAxe;
+        try {
+            const kickSpineInfo = this.getKickSpineInfo(level);
+            this.currentAnimationName = kickSpineInfo.animation;
+            const skeletonData = await this.loadAxeSpine(kickSpineInfo.name);
+            this.currentTapAnim.skeletonData = skeletonData;
 
-        this.deactivateAllTapAnimations();
-        this.showAxe();
+            this.playTapAnimation();
+            this.showAxe();
+        } catch (e) {}
+    }
+
+    loadAxeSpine(name: string) {
+        console.log("loadAxeSpine  ", name);
+        return bundleManager.loadResourcesAsset<sp.SkeletonData>(`spines/axe/${name}`, sp.SkeletonData);
     }
 
     @render(BetStore, (store) => store.endBet)
@@ -202,7 +197,7 @@ export default class PlaceBetButton extends ObserverComponent {
 
     onTap(event) {
         if (this.touchInPolygon(event) && this.isStart) {
-            this.playTapAnimation();
+            this.onBet();
         }
     }
 
@@ -220,32 +215,35 @@ export default class PlaceBetButton extends ObserverComponent {
         return 1;
     }
 
-    private getTapAnim(level: number): sp.Skeleton {
-        return this.TapAnims[level - 1] || this.TapAnims[0];
+    getKickSpineInfo(level: number) {
+        return { name: `kick/pickaxe-${level}-kick-animation`, animation: `pickaxe-${level}-kick` };
     }
 
-    private getCrashAnim(level: number): sp.Skeleton {
-        return this.CrashAnims[level - 1] || this.CrashAnims[0];
+    getCrashSpineInfo(level: number) {
+        return { name: `crash/pickaxe-${level}-crash-animation`, animation: `pickaxe-${level}-crash-animation` };
+    }
+
+    getTransformSpineInfo(level: number) {
+        return { name: `transformation/pickaxe_transformation${level - 1}_${level}`, animation: `pickaxe_${level - 1}_${level}` };
     }
 
     playTapAnimation() {
         const currentTapAnim = this.currentTapAnim;
-        currentTapAnim.node.position = this.tapAnimArea.getPosition();
-        currentTapAnim.setAnimation(0, `kick_3`, false);
+        currentTapAnim.setAnimation(0, this.currentAnimationName, false);
 
         this.effect.setAnimation(0, `tap_3`, false);
     }
 
-    playCrashAnimation() {
-        const level = this.getCurrentAnimationLevel(this.multiplier);
-        const currentCrashAnim = this.getCrashAnim(level);
+    async playCrashAnimation() {
+        try {
+            const level = this.getCurrentAnimationLevel(this.multiplier);
+            const crashSpineInfo = this.getCrashSpineInfo(level);
+            const skeletonData = await this.loadAxeSpine(crashSpineInfo.name);
+            this.currentTapAnim.skeletonData = skeletonData;
 
-        currentCrashAnim.node.active = true;
-        currentCrashAnim.node.position = this.tapAnimArea.getPosition();
-        currentCrashAnim.setAnimation(0, `pickaxe_crash_2`, false);
-        this.scheduleOnce(() => {
-            currentCrashAnim.node.active = false;
-        }, this.ANIMATION_DURATION);
+            await AnimationUtils.playSpine(this.currentTapAnim, crashSpineInfo.animation, false);
+            this.hideAxe();
+        } catch (e) {}
     }
 
     playEffectBetButton() {
