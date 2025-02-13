@@ -42,7 +42,6 @@ export default class PlaceBetButton extends ObserverComponent {
 
     private isStart = false;
     private multiplier = 0;
-    private currentTapAnim: sp.Skeleton = null;
     private currentAnimationName = "";
 
     private readonly EFFECT_RESET_DELAY = 1;
@@ -85,22 +84,25 @@ export default class PlaceBetButton extends ObserverComponent {
         this.showAxe();
     }
 
-    @render(BetStore, (store) => store.isCrash)
-    handleCrash(isCrash: boolean) {
-        if (isCrash) {
-            this.playCrashAnimation();
+    @render(BetStore, (store) => store.settleStatus, { fireImmediately: false })
+    handleCrash(settleStatus: any) {
+        if (settleStatus) {
+            !settleStatus.win && this.playCrashAnimation();
+        } else {
+            this.hideAxe();
         }
     }
 
     showAxe() {
-        if (this.currentTapAnim) {
-            this.currentTapAnim.node.active = true;
+        if (this.spineAxe) {
+            this.spineAxe.node.active = true;
         }
     }
 
     hideAxe() {
-        if (this.currentTapAnim) {
-            this.currentTapAnim.node.active = false;
+        console.log("hideAxe");
+        if (this.spineAxe) {
+            this.spineAxe.node.active = false;
         }
     }
 
@@ -110,12 +112,15 @@ export default class PlaceBetButton extends ObserverComponent {
     }
 
     @render(BetStore, (store) => store.multiplier)
-    updateMultiplier(multiplier: number) {
-        this.multiplier = multiplier;
-        this.lblMultiplier.string = `${gc.FormatUtils.numberWithCommas(multiplier, 2, false)}x`;
-        const level = this.getCurrentAnimationLevel(multiplier);
-        this.updateTapAnim(level);
-        this.updateMultiplierColor(level);
+    async updateMultiplier(multiplier: number) {
+        try {
+            this.multiplier = multiplier;
+            this.lblMultiplier.string = `${gc.FormatUtils.numberWithCommas(multiplier, 2, false)}x`;
+            const level = this.getCurrentAnimationLevel(multiplier);
+            await this.updateTapAnim(level);
+            this.playTapAnimation();
+            this.updateMultiplierColor(level);
+        } catch (e) {}
     }
 
     @render(BetStore, (store) => store.cashOutValue)
@@ -129,15 +134,12 @@ export default class PlaceBetButton extends ObserverComponent {
     }
 
     async updateTapAnim(level: number) {
-        this.currentTapAnim = this.spineAxe;
+        this.spineAxe = this.spineAxe;
         try {
             const kickSpineInfo = this.getKickSpineInfo(level);
             this.currentAnimationName = kickSpineInfo.animation;
             const skeletonData = await this.loadAxeSpine(kickSpineInfo.name);
-            this.currentTapAnim.skeletonData = skeletonData;
-
-            this.playTapAnimation();
-            this.showAxe();
+            this.spineAxe.skeletonData = skeletonData;
         } catch (e) {}
     }
 
@@ -216,7 +218,7 @@ export default class PlaceBetButton extends ObserverComponent {
     }
 
     playTapAnimation() {
-        const currentTapAnim = this.currentTapAnim;
+        const currentTapAnim = this.spineAxe;
         currentTapAnim.setAnimation(0, this.currentAnimationName, false);
 
         this.effect.setAnimation(0, `tap_3`, false);
@@ -227,9 +229,9 @@ export default class PlaceBetButton extends ObserverComponent {
             const level = this.getCurrentAnimationLevel(this.multiplier);
             const crashSpineInfo = this.getCrashSpineInfo(level);
             const skeletonData = await this.loadAxeSpine(crashSpineInfo.name);
-            this.currentTapAnim.skeletonData = skeletonData;
+            this.spineAxe.skeletonData = skeletonData;
 
-            await AnimationUtils.playSpine(this.currentTapAnim, crashSpineInfo.animation, false);
+            await AnimationUtils.playSpine(this.spineAxe, crashSpineInfo.animation, false);
             this.hideAxe();
         } catch (e) {}
     }

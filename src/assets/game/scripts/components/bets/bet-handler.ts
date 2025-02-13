@@ -66,10 +66,6 @@ export class BetHandler extends gc.Bet.BetHandler implements gc.Shared.IMultiple
         this.betsStore.settleStatus = { ...status, isBigWin: this.betsStore.multiplier >= this.BIG_WIN_MULTIPLIER };
     }
 
-    updateIsCrash(isCrash: boolean) {
-        this.betsStore.isCrash = isCrash;
-    }
-
     updateEndBet(endBet: number) {
         this.betsStore.endBet = endBet;
     }
@@ -83,10 +79,9 @@ export class BetHandler extends gc.Bet.BetHandler implements gc.Shared.IMultiple
         this.betsStore.betCount = 0;
         this.betsStore.uiState = BetUIState.Start;
 
-        this.betsStore.settleStatus = {};
-        this.updateMultiplier(0);
+        this.betsStore.settleStatus = null;
+        this.updateMultiplier(1.0);
         this.updateEndBet(0);
-        this.updateIsCrash(false);
     }
 
     updateRoundId(roundId: number) {
@@ -111,6 +106,9 @@ export class BetHandler extends gc.Bet.BetHandler implements gc.Shared.IMultiple
     }
 
     handleMine(multiplier: number) {
+        if (multiplier === 0) {
+            return;
+        }
         if (multiplier >= 1.01) {
             this.betsStore.uiState = multiplier === 1.01 ? BetUIState.Bet : BetUIState.Mining;
         }
@@ -122,7 +120,6 @@ export class BetHandler extends gc.Bet.BetHandler implements gc.Shared.IMultiple
         this.betsStore.uiState = BetUIState.Start;
         const isWin = status.win;
         this.updateStatusBet(status);
-        this.updateIsCrash(!isWin);
 
         const delayResetBet = isWin ? 3000 : 1000;
         setTimeout(() => {

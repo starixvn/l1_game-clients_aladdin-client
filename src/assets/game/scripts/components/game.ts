@@ -50,7 +50,7 @@ export default class Game extends GameComponent {
 
     @render(BetStore, (store) => store.settleStatus)
     renderSettleStatus(settleStatus: SettleStatus) {
-        if (Object.keys(settleStatus).length === 0) {
+        if (!settleStatus || Object.keys(settleStatus).length === 0) {
             return;
         }
 

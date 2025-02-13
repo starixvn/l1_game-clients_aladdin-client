@@ -17,7 +17,7 @@ export class GameWinNotice extends ObserverComponent {
 
     @render(BetStore, (store) => store.settleStatus)
     renderSettleStatus(settleStatus: SettleStatus) {
-        if (Object.keys(settleStatus).length === 0) {
+        if (!settleStatus || Object.keys(settleStatus).length === 0) {
             this.hide();
             return;
         }

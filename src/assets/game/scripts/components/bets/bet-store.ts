@@ -26,12 +26,11 @@ export class BetStore {
         mobx.makeAutoObservable(this);
     }
 
-    multiplier = 0;
-    isCrash = false;
+    multiplier = 1.0;
     betCount = 0;
     endBet = 0;
     roundId = 0;
-    settleStatus: SettleStatus = {};
+    settleStatus: SettleStatus = null;
     uiState = BetUIState.Start;
     isAutoStart = false;
 
