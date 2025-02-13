@@ -136,6 +136,10 @@ export class BetHandler extends gc.Bet.BetHandler implements gc.Shared.IMultiple
 
     updateAutoStart() {
         this.betsStore.isAutoStart = !this.betsStore.isAutoStart;
+
+        if (this.betsStore.isAutoStart && this.betsStore.uiState === BetUIState.Start) {
+            this.changeStarted();
+        }
     }
 
     handleRoundId(roundId: number) {
