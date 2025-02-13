@@ -13,6 +13,8 @@ export class InstantWinConfigHandler implements gc.Shared.IMultipleHandlers {
     handleGameConfigs(gameConfigs: GameServiceMessage.InstantGameConfigs) {
         this.instantWinConfigStore.minBet = Math.max(this.gameConfigStore.minBet, this.mainPlayerStore.stakeLevel.minBet);
         this.instantWinConfigStore.maxBet = Math.min(this.gameConfigStore.maxBet, this.mainPlayerStore.stakeLevel.maxBet);
+        this.gameConfigStore.minBet = this.instantWinConfigStore.minBet;
+        this.gameConfigStore.maxBet = this.instantWinConfigStore.maxBet;
         this.instantWinConfigStore.betLevels = gameConfigs.chips
             .map(chip => parseInt(chip.toString()))
             .filter((value) => value >= this.instantWinConfigStore.minBet && value <= this.instantWinConfigStore.maxBet);
