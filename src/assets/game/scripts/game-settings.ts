@@ -6,8 +6,8 @@ import { sharedContainer } from "../../scripts/shared-container";
 
 export const settings = {
     id: 109,
-    name: "coinmining",
-    namespaces: ["coinmining"],
+    name: "CoinMining",
+    namespaces: ["CoinMining"],
     durations: {
         wholeRound: 14,
         lockingBet: 3,
