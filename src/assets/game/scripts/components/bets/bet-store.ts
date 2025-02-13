@@ -33,6 +33,7 @@ export class BetStore {
     roundId = 0;
     settleStatus: SettleStatus = {};
     uiState = BetUIState.Start;
+    isAutoStart = false;
 
     get cashOutValue() {
         return this.endBet * this.multiplier;

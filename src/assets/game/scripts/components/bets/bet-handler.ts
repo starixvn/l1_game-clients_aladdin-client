@@ -62,9 +62,6 @@ export class BetHandler extends gc.Bet.BetHandler implements gc.Shared.IMultiple
 
     updateStatusBet(status: GameServiceMessage.Status) {
         this.betResponseHandlers.stopProcessingBetAndClearInterval();
-        // this.betsStore.win = status.win;
-        // this.betsStore.reachMaxWin = status.reachMaxWin;
-        // this.betsStore.bet = status.bet;
 
         this.betsStore.settleStatus = { ...status, isBigWin: this.betsStore.multiplier >= this.BIG_WIN_MULTIPLIER };
     }
@@ -127,7 +124,15 @@ export class BetHandler extends gc.Bet.BetHandler implements gc.Shared.IMultiple
         const delayResetBet = isWin ? 3000 : 1000;
         setTimeout(() => {
             this.resetBet();
+
+            if (this.betsStore.isAutoStart) {
+                this.changeStarted();
+            }
         }, delayResetBet);
+    }
+
+    updateAutoStart() {
+        this.betsStore.isAutoStart = !this.betsStore.isAutoStart;
     }
 
     handleRoundId(roundId: number) {

@@ -2,7 +2,6 @@ import gc from "@sg/game-client-base";
 import { _decorator, EventTouch, Font, Intersection2D, Label, math, Node, PolygonCollider2D, sp } from "cc";
 import { ObserverComponent } from "db://shared-components/shared/common-components/observer-component/scripts/observer-component";
 import Observer from "observer";
-import { AutoStartStore } from "../../auto-start/auto-start-store";
 import { BalanceInfoHandler } from "../../balance/balance-info-handler";
 import { BetHandler } from "../bet-handler";
 import { BetStore, BetUIState } from "../bet-store";
@@ -147,7 +146,7 @@ export default class PlaceBetButton extends ObserverComponent {
         this.lblMoney.string = gc.FormatUtils.numberWithCommas(cashOutValue, 2, true);
     }
 
-    @render(AutoStartStore, (store) => store.isAutoStart)
+    @render(BetStore, (store) => store.isAutoStart)
     updateIsAutoStart(isAutoStart: boolean) {
         this.isAutoStart = isAutoStart;
     }
