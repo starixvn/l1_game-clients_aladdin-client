@@ -44,6 +44,10 @@ export default class Game extends GameComponent {
         this.lblRoundId && roundId !== 0 && (this.lblRoundId.string = `#${roundId}`);
     }
 
+    override renderRoundId(roundId: number) {
+        // override to not use round id from round store
+    }
+
     @render(BetStore, (store) => store.settleStatus)
     renderSettleStatus(settleStatus: SettleStatus) {
         if (Object.keys(settleStatus).length === 0) {
