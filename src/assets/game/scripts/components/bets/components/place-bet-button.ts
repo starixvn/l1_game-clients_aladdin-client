@@ -53,13 +53,6 @@ export default class PlaceBetButton extends ObserverComponent {
         LEVEL_1: 0,
     };
 
-    private readonly MULTIPLIER_COLORS = {
-        LEVEL_4: "#CE02C0",
-        LEVEL_3: "#FFBE00",
-        LEVEL_2: "#00B815",
-        LEVEL_1: "#0C00BA",
-    };
-
     onLoad() {
         this.initializeAnimations();
         super.onLoad();
@@ -128,11 +121,6 @@ export default class PlaceBetButton extends ObserverComponent {
     @render(BetStore, (store) => store.cashOutValue)
     updateCashOutValue(cashOutValue: number) {
         this.lblMoney.string = gc.FormatUtils.numberWithCommas(cashOutValue, 2, true);
-    }
-
-    @render(BetStore, (store) => store.isAutoStart)
-    updateIsAutoStart(isAutoStart: boolean) {
-        this.isAutoStart = isAutoStart;
     }
 
     updateMultiplierColor(multiplier: number) {
