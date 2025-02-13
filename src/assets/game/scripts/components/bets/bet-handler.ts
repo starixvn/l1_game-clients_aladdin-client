@@ -76,6 +76,7 @@ export class BetHandler extends gc.Bet.BetHandler implements gc.Shared.IMultiple
 
     changeStarted() {
         this.betsStore.uiState = BetUIState.Started;
+        this.handleMine(1.0);
     }
 
     resetBet() {
@@ -110,7 +111,9 @@ export class BetHandler extends gc.Bet.BetHandler implements gc.Shared.IMultiple
     }
 
     handleMine(multiplier: number) {
-        this.betsStore.uiState = multiplier === 1.01 ? BetUIState.Bet : BetUIState.Mining;
+        if (multiplier >= 1.01) {
+            this.betsStore.uiState = multiplier === 1.01 ? BetUIState.Bet : BetUIState.Mining;
+        }
 
         this.updateMultiplier(multiplier);
     }

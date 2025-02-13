@@ -135,7 +135,7 @@ export default class PlaceBetButton extends ObserverComponent {
     @render(BetStore, (store) => store.multiplier)
     updateMultiplier(multiplier: number) {
         this.multiplier = multiplier;
-        this.lblMultiplier.string = `${gc.FormatUtils.numberWithCommas(multiplier, 2, true)}x`;
+        this.lblMultiplier.string = `${gc.FormatUtils.numberWithCommas(multiplier, 2, false)}x`;
         const level = this.getCurrentAnimationLevel(multiplier);
         this.updateTapAnim(level);
         this.updateMultiplierColor(level);
@@ -278,7 +278,7 @@ export default class PlaceBetButton extends ObserverComponent {
         this.startBetButton.active = uiState === BetUIState.Start;
         this.cashOutButton.active = uiState === BetUIState.Bet || uiState === BetUIState.Mining;
         this.hitStoneButton.active = uiState === BetUIState.Started;
-        this.lblMultiplier.node.active = uiState !== BetUIState.Start && uiState !== BetUIState.Started;
+        this.lblMultiplier.node.active = uiState !== BetUIState.Start;
 
         this.isStart = uiState > BetUIState.Start;
     }
