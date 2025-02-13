@@ -136,7 +136,7 @@ export default class PlaceBetButton extends ObserverComponent {
     @render(BetStore, (store) => store.multiplier)
     updateMultiplier(multiplier: number) {
         this.multiplier = multiplier;
-        this.lblMultiplier.string = gc.FormatUtils.numberWithCommas(multiplier, 2, true);
+        this.lblMultiplier.string = `${gc.FormatUtils.numberWithCommas(multiplier, 2, true)}x`;
         const level = this.getCurrentAnimationLevel(multiplier);
         this.updateTapAnim(level);
         this.updateMultiplierColor(level);
