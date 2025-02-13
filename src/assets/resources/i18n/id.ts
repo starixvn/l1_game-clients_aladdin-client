@@ -200,9 +200,20 @@ export const languages = {
         "you_reach_max_win": "Anda mencapai Maksimal Menang"
     },
     "CoinMining": {
+        "auto_start": "Mulai Otomatis",
+        "big_win_banner": "Kemenangan Besar!",
+        "cash_out": "Uang Tunai",
+        "crashed": "Jatuh",
+        "game_name": "Penambangan Kripto",
         "header_crash_point": "Titik jatuh",
+        "header_mining_attempts": "Upaya Penambangan",
         "header_multiplier": "Pengali",
-        "stake": "Taruhan"
+        "hit_rock": "Pukul Batu!",
+        "hit_rock_tooltip": "Klik pada batu untuk menambang.",
+        "leaderboard_highest_multipliers": "Pengganda Tertinggi",
+        "leaderboard_highest_wins": "Kemenangan Tertinggi",
+        "stake": "Taruhan",
+        "start_mining": "Mulai Menambang"
     }
 };
 

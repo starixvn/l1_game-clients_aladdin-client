@@ -200,10 +200,20 @@ export const languages = {
         "you_reach_max_win": "您達到了最大勝利"
     },
     "CoinMining": {
+        "auto_start": "自動開始",
+        "big_win_banner": "大贏！",
         "cash_out": "兌現",
+        "crashed": "崩潰",
+        "game_name": "加密幣挖礦",
         "header_crash_point": "崩潰點",
+        "header_mining_attempts": "採礦嘗試",
         "header_multiplier": "乘數",
-        "stake": "賭注"
+        "hit_rock": "擊中岩石！",
+        "hit_rock_tooltip": "點擊岩石進行開採。",
+        "leaderboard_highest_multipliers": "最高乘數",
+        "leaderboard_highest_wins": "最高勝利",
+        "stake": "賭注",
+        "start_mining": "開始採礦"
     }
 };
 

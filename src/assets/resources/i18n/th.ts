@@ -200,11 +200,20 @@ export const languages = {
         "you_reach_max_win": "คุณถึงยอดชนะสูงสุด"
     },
     "CoinMining": {
+        "auto_start": "เริ่มอัตโนมัติ",
+        "big_win_banner": "ชัยชนะครั้งใหญ่!",
         "cash_out": "ถอนเงิน",
+        "crashed": "พังแล้ว",
+        "game_name": "การขุดคริปโต",
         "header_crash_point": "แต้มการพังของจรวด",
-        "header_mining_attempts": "Số Lần Đào",
+        "header_mining_attempts": "ความพยายามในการขุด",
         "header_multiplier": "ตัวคูณ",
-        "stake": "เดิมพัน"
+        "hit_rock": "ตีก้อนหิน!",
+        "hit_rock_tooltip": "คลิกที่ก้อนหินเพื่อขุด",
+        "leaderboard_highest_multipliers": "ตัวคูณสูงสุด",
+        "leaderboard_highest_wins": "ชัยชนะสูงสุด",
+        "stake": "เดิมพัน",
+        "start_mining": "เริ่มการขุด"
     }
 };
 
