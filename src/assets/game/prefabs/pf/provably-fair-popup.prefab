@@ -10066,6 +10066,8 @@
       "__id__": 0
     },
     "fileId": "b7SaaVHrFKzJF/g3H5oSc3",
+    "instance": null,
+    "targetOverrides": null,
     "nestedPrefabInstanceRoots": null
   },
   {
@@ -11646,6 +11648,8 @@
       "__id__": 0
     },
     "fileId": "f28Y+inItKLKeeBdsKEjPb",
+    "instance": null,
+    "targetOverrides": null,
     "nestedPrefabInstanceRoots": null
   },
   {
@@ -12074,6 +12078,8 @@
       "__id__": 0
     },
     "fileId": "c5Cb1YQe5M5blLM9bcmWm7",
+    "instance": null,
+    "targetOverrides": null,
     "nestedPrefabInstanceRoots": null
   },
   {
@@ -12823,6 +12829,8 @@
       "__id__": 0
     },
     "fileId": "69TihRkwxIDp62749ldovf",
+    "instance": null,
+    "targetOverrides": null,
     "nestedPrefabInstanceRoots": null
   },
   {
@@ -12955,6 +12963,15 @@
       },
       {
         "__id__": 680
+      },
+      {
+        "__id__": 683
+      },
+      {
+        "__id__": 685
+      },
+      {
+        "__id__": 687
       }
     ],
     "nestedPrefabInstanceRoots": [
@@ -13093,6 +13110,72 @@
     "__type__": "cc.TargetInfo",
     "localID": [
       "fcig/cOGxOzrKDPnopT7dR"
+    ]
+  },
+  {
+    "__type__": "cc.TargetOverrideInfo",
+    "source": {
+      "__id__": 668
+    },
+    "sourceInfo": null,
+    "propertyPath": [
+      "lblServerSeed"
+    ],
+    "target": {
+      "__id__": 103
+    },
+    "targetInfo": {
+      "__id__": 684
+    }
+  },
+  {
+    "__type__": "cc.TargetInfo",
+    "localID": [
+      "873qpoATpIrJD37DtDpPHl"
+    ]
+  },
+  {
+    "__type__": "cc.TargetOverrideInfo",
+    "source": {
+      "__id__": 668
+    },
+    "sourceInfo": null,
+    "propertyPath": [
+      "lblServerSeedHash"
+    ],
+    "target": {
+      "__id__": 238
+    },
+    "targetInfo": {
+      "__id__": 686
+    }
+  },
+  {
+    "__type__": "cc.TargetInfo",
+    "localID": [
+      "873qpoATpIrJD37DtDpPHl"
+    ]
+  },
+  {
+    "__type__": "cc.TargetOverrideInfo",
+    "source": {
+      "__id__": 668
+    },
+    "sourceInfo": null,
+    "propertyPath": [
+      "lblFinalHash"
+    ],
+    "target": {
+      "__id__": 414
+    },
+    "targetInfo": {
+      "__id__": 688
+    }
+  },
+  {
+    "__type__": "cc.TargetInfo",
+    "localID": [
+      "873qpoATpIrJD37DtDpPHl"
     ]
   }
 ]
