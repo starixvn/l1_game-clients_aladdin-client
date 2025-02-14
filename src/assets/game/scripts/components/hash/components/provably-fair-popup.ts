@@ -11,7 +11,7 @@ import { HashStore, ProvablyFair } from "../hash-store";
 const { ccclass, property } = _decorator;
 const { render, handle } = Observer;
 
-const { Shared, RoundBasePF } = gc;
+const { Shared, RoundBasePF, FormatUtils } = gc;
 const { utils } = Shared;
 
 @ccclass()
@@ -64,7 +64,7 @@ export class ProvablyFairPopup extends ObserverComponent {
 
         const { serverSeed, serverSeedHash, finalHash, clientSeed  , finalResult, roundId } = verification;
         this.lblRoundId.string = roundId.toString();
-        this.lblCrashPoint.string = finalResult.toString();
+        this.lblCrashPoint.string = `${FormatUtils.numberWithCommas(finalResult, 2, false)}x`;
         this.lblClientSeed.string = clientSeed.toString();
 
         serverSeed && this.lblServerSeed.setString(serverSeed);
