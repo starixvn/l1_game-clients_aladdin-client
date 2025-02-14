@@ -5,7 +5,7 @@ import Observer from "observer";
 import { HashHandlers } from "../hash/hash-handlers";
 
 const { ccclass, property } = _decorator;
-const { DateTimeUtils } = gc;
+const { DateTimeUtils, FormatUtils } = gc;
 const { handle } = Observer;
 
 export type BetHistoryBodyItemType = {
@@ -21,19 +21,18 @@ export class InstantWinBetHistoryBodyItem extends BetHistoryNewBodyItem {
     @property(Label)
     lblMultiplier: Label = null;
 
-   setData(data: BetHistoryBodyItemType) {
-       const { betwin, multiplier, time } = data.betHistoryLog;
-       super.setData(data);
-       this.lblWin.color = betwin > 0 ? new Color().fromHEX("F1E344") : new Color().fromHEX("ffffff");
-       this.lblMultiplier.color = multiplier > 0 ? new Color().fromHEX("F1E344") : new Color().fromHEX("ffffff");
-       this.lblMultiplier.string = multiplier === 0 ? "-" : `${multiplier}x`;
-       this.lblTime.string = `${DateTimeUtils.getStringHourByTime(time).slice(0, -3)} ${DateTimeUtils.getStringDate(time)}`;
+    setData(data: BetHistoryBodyItemType) {
+        const { betwin, multiplier, time } = data.betHistoryLog;
+        super.setData(data);
+        this.lblWin.color = betwin > 0 ? new Color().fromHEX("F1E344") : new Color().fromHEX("ffffff");
+        this.lblMultiplier.color = multiplier > 0 ? new Color().fromHEX("F1E344") : new Color().fromHEX("ffffff");
+        this.lblMultiplier.string = multiplier === 0 ? "-" : `${FormatUtils.numberWithCommas(multiplier, 2, false)}x`;
+        this.lblTime.string = `${DateTimeUtils.getStringHourByTime(time).slice(0, -3)} ${DateTimeUtils.getStringDate(time)}`;
+    }
 
-   }
-
-   @handle(HashHandlers, (handle, roundId: number) => handle.openVerificationHistory(roundId))
-   onClickVerifyProvablyFair() {
-       this.playSoundClick();
-       return this.betHistoryLog.roundId;
-   }
+    @handle(HashHandlers, (handle, roundId: number) => handle.openVerificationHistory(roundId))
+    onClickVerifyProvablyFair() {
+        this.playSoundClick();
+        return this.betHistoryLog.roundId;
+    }
 }
