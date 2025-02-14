@@ -282,4 +282,7 @@ export default class PlaceBetButton extends ObserverComponent {
 
         this.isStart = uiState > BetUIState.Start;
     }
+
+    @render(BetStore, (store) => store.uiState)
+    updateButtonInteractable(uiState: BetUIState) {}
 }
