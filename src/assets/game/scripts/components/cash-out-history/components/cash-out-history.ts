@@ -1,11 +1,11 @@
 import gc from "@sg/game-client-base";
 
-import { _decorator, Component, Node, Prefab, Label, instantiate, Color } from 'cc';
+import { _decorator, instantiate, Label, Node, Prefab } from "cc";
 import { ObserverComponent } from "db://shared-components/shared/common-components/observer-component/scripts/observer-component";
-import Observer from "observer"; 
+import Observer from "observer";
 
-import { CashOutHistoryStore } from '../cash-out-history-store';
 import { HashHandlers } from "../../hash/hash-handlers";
+import { CashOutHistoryStore } from "../cash-out-history-store";
 const { FormatUtils, GameCrash } = gc;
 
 const { ccclass, property } = _decorator;
@@ -23,17 +23,17 @@ export default class CashOutHistory extends ObserverComponent {
         LEVEL_4: 110,
         LEVEL_3: 11,
         LEVEL_2: 1.2,
-        LEVEL_1: 0
+        LEVEL_1: 0,
     };
 
     private readonly MULTIPLIER_COLORS = {
         LEVEL_4: "#CE02C0",
         LEVEL_3: "#FFBE00",
         LEVEL_2: "#00B815",
-        LEVEL_1: "#0C00BA"
+        LEVEL_1: "#0C00BA",
     };
 
-    private rounds: gc.RoundHistories.RoundHistory[]
+    private rounds: gc.RoundHistories.RoundHistory[];
 
     @render(gc.GameCrash.RoundHistory.CrashRoundHistoryStore, (store) => store, { fireImmediately: false })
     setRoundsInfo(rounds: gc.GameCrash.RoundHistory.CrashRoundHistoryStore) {
@@ -46,12 +46,12 @@ export default class CashOutHistory extends ObserverComponent {
         [...cashOutHistory].reverse().forEach((item, index) => {
             const lblCashOutHistory = instantiate(this.lblCashOutHistory);
             const label = lblCashOutHistory.getComponentInChildren(Label);
-            label.string = `${item.multiplier.toString()}x`;
+            label.string = `${FormatUtils.numberWithCommas(item.multiplier, 2, false)}x`;
             lblCashOutHistory.setPosition(0, index * -40);
             lblCashOutHistory.on(Node.EventType.TOUCH_END, () => {
                 this.onClickRoundItem(item.roundId);
             });
-            
+
             this.cashOutHistoryPanel.addChild(lblCashOutHistory);
         });
     }
@@ -75,5 +75,3 @@ export default class CashOutHistory extends ObserverComponent {
         return 1;
     }
 }
-
-
