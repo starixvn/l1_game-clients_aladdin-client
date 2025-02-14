@@ -213,6 +213,7 @@ export const languages = {
         "leaderboard_highest_multipliers": "Highest Multipliers",
         "leaderboard_highest_wins": "Highest Wins",
         "pf_provably_fair_para_1": "The Combined SHA512 hash is determined by a combination of the Server Seed and the Client seed, then converted into a SHA512 hash.",
+        "pf_settings_para_1": "The final result is determined by a combination of the Server Seed and the Client Seed.",
         "stake": "Stake",
         "start_mining": "Start Mining"
     }

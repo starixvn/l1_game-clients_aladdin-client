@@ -213,6 +213,7 @@ export const languages = {
         "leaderboard_highest_multipliers": "Hệ Số Nhân Cao Nhất",
         "leaderboard_highest_wins": "Thắng Lớn Nhất",
         "pf_provably_fair_para_1": "Chuỗi SHA512 hash được xác định dựa trên sự kết hợp giữa Server Seed và Client Seed, sau đó được mã hóa bằng SHA512 hash.",
+        "pf_settings_para_1": "Kết quả cuối cùng được xác định dựa trên sự kết hợp giữa Server Seed và Client Seed.",
         "stake": "Tiền Cược",
         "start_mining": "Bắt Đầu Đào"
     }
