@@ -42,6 +42,7 @@ export default class PlaceBetButton extends ObserverComponent {
 
     private isStart = false;
     private multiplier = 0;
+    private axeLevel = 1;
     private currentAnimationName = "";
 
     private readonly EFFECT_RESET_DELAY = 1;
@@ -117,10 +118,21 @@ export default class PlaceBetButton extends ObserverComponent {
             this.multiplier = multiplier;
             this.lblMultiplier.string = `${gc.FormatUtils.numberWithCommas(multiplier, 2, false)}x`;
             const level = this.getCurrentAnimationLevel(multiplier);
+            if (this.axeLevel < level) {
+                await this.playAxeTransformation(level);
+            }
+            this.axeLevel = level;
             await this.updateTapAnim(level);
             this.playTapAnimation();
             this.updateMultiplierColor(level);
         } catch (e) {}
+    }
+
+    async playAxeTransformation(level: number) {
+        const spineInfo = this.getTransformSpineInfo(level);
+        const skeletonData = await this.loadAxeSpine(spineInfo.name);
+        this.spineAxe.skeletonData = skeletonData;
+        await AnimationUtils.playSpine(this.spineAxe, spineInfo.animation, false);
     }
 
     @render(BetStore, (store) => store.cashOutValue)
