@@ -212,6 +212,7 @@ export const languages = {
         "hit_rock_tooltip": "Chạm vào tảng đá để đào.",
         "leaderboard_highest_multipliers": "Hệ Số Nhân Cao Nhất",
         "leaderboard_highest_wins": "Thắng Lớn Nhất",
+        "pf_provably_fair_para_1": "Chuỗi SHA512 hash được xác định dựa trên sự kết hợp giữa Server Seed và Client Seed, sau đó được mã hóa bằng SHA512 hash.",
         "stake": "Tiền Cược",
         "start_mining": "Bắt Đầu Đào"
     }

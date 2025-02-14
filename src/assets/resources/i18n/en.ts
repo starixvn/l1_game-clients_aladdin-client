@@ -192,7 +192,7 @@ export const languages = {
         "to": "to",
         "total": "Total",
         "total_stake": "Total Stake",
-        "total_win": "Total win",
+        "total_win": "Total Win",
         "under_maintenance_suggest": "Please kindly re-login to continue playing games after the maintenance is complete.",
         "under_maintenance_time": "Starting from %{startTime} to %{endTime} (GMT+8)",
         "win": "Win",
@@ -212,6 +212,7 @@ export const languages = {
         "hit_rock_tooltip": "Click on the rock to mine.",
         "leaderboard_highest_multipliers": "Highest Multipliers",
         "leaderboard_highest_wins": "Highest Wins",
+        "pf_provably_fair_para_1": "The Combined SHA512 hash is determined by a combination of the Server Seed and the Client seed, then converted into a SHA512 hash.",
         "stake": "Stake",
         "start_mining": "Start Mining"
     }

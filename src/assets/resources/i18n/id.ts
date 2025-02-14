@@ -192,7 +192,7 @@ export const languages = {
         "to": "ke",
         "total": "Total",
         "total_stake": "Total Taruhan",
-        "total_win": "Total menang",
+        "total_win": "Total Menang",
         "under_maintenance_suggest": "Silakan login kembali untuk melanjutkan permainan setelah maintenance selesai.",
         "under_maintenance_time": "Mulai dari %{startTime} hingga %{endTime} (GMT+8)",
         "win": "Menang",
