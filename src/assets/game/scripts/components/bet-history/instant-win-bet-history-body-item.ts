@@ -22,12 +22,11 @@ export class InstantWinBetHistoryBodyItem extends BetHistoryNewBodyItem {
     lblMultiplier: Label = null;
 
     setData(data: BetHistoryBodyItemType) {
-        const { betwin, multiplier, time } = data.betHistoryLog;
+        const { betwin, multiplier } = data.betHistoryLog;
         super.setData(data);
         this.lblWin.color = betwin > 0 ? new Color().fromHEX("F1E344") : new Color().fromHEX("ffffff");
         this.lblMultiplier.color = multiplier > 0 ? new Color().fromHEX("F1E344") : new Color().fromHEX("ffffff");
         this.lblMultiplier.string = multiplier === 0 ? "-" : `${FormatUtils.numberWithCommas(multiplier, 2, false)}x`;
-        this.lblTime.string = `${DateTimeUtils.getStringHourByTime(time).slice(0, -3)} ${DateTimeUtils.getStringDate(time)}`;
     }
 
     @handle(HashHandlers, (handle, roundId: number) => handle.openVerificationHistory(roundId))
