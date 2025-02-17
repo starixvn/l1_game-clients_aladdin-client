@@ -19,6 +19,7 @@ export class BetHandler extends gc.Bet.BetHandler implements gc.Shared.IMultiple
     @inject(gc.RoundBasePF.ProvablyFairStore) protected readonly pfStore: gc.RoundBasePF.ProvablyFairStore;
 
     private readonly BIG_WIN_MULTIPLIER = 2.5;
+    private autoCashOutTimeOut = null;
 
     handle() {
         const betData: any = this.createCommonBetData();
@@ -94,6 +95,7 @@ export class BetHandler extends gc.Bet.BetHandler implements gc.Shared.IMultiple
     }
 
     handleCashOut() {
+        this.clearAutoCashOut();
         this.connectionStore.send("cashOut", {});
     }
 
@@ -108,16 +110,46 @@ export class BetHandler extends gc.Bet.BetHandler implements gc.Shared.IMultiple
 
     handleMine(multiplier: number) {
         if (multiplier === 0) {
+            this.clearAutoCashOut();
             return;
         }
         if (multiplier >= 1.01) {
             this.betsStore.uiState = multiplier === 1.01 ? BetUIState.Bet : BetUIState.Mining;
+            this.triggerAutoCashOut();
         }
 
         this.updateMultiplier(multiplier);
     }
 
+    triggerAutoCashOut() {
+        if (this.betsStore.autoCashOutEnable) {
+            this.betsStore.resetAutoCashOutTimer();
+            return;
+        }
+
+        this.betsStore.autoCashOutEnable = true;
+
+        const countDown = () => {
+            this.betsStore.autoCashOutTimer--;
+            console.log(`auto cashout in ${this.betsStore.autoCashOutTimer}s`);
+            if (this.betsStore.autoCashOutTimer <= 0) {
+                this.handleCashOut();
+            } else {
+                setTimeout(countDown, 1000);
+            }
+        };
+
+        this.autoCashOutTimeOut = setTimeout(countDown, 1000);
+    }
+
+    clearAutoCashOut() {
+        this.autoCashOutTimeOut && clearTimeout(this.autoCashOutTimeOut);
+        this.betsStore.autoCashOutEnable = false;
+    }
+
     handleEventCashOut(status: GameServiceMessage.Status) {
+        this.clearAutoCashOut();
+
         this.betsStore.uiState = BetUIState.Settle;
         this.updateStatusBet(status);
 

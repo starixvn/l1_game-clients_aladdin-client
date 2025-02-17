@@ -21,6 +21,11 @@ export interface SettleStatus {
     bet?: number;
 }
 
+enum AutoCashOutTiming {
+    Start = 30,
+    LastSeconds = 5,
+}
+
 @injectable()
 export class BetStore {
     constructor() {
@@ -35,6 +40,13 @@ export class BetStore {
     uiState = BetUIState.Start;
     isAutoStart = false;
 
+    autoCashOutTimer = AutoCashOutTiming.Start;
+    autoCashOutEnable = false;
+
+    get autoCashOutTimerVisible() {
+        return this.autoCashOutEnable && this.autoCashOutTimer <= AutoCashOutTiming.LastSeconds;
+    }
+
     get multiplierVisible() {
         if (this.settleStatus && !this.settleStatus.win) {
             return false;
@@ -45,5 +57,9 @@ export class BetStore {
 
     get cashOutValue() {
         return this.endBet * this.multiplier;
+    }
+
+    resetAutoCashOutTimer() {
+        this.autoCashOutTimer = AutoCashOutTiming.Start;
     }
 }
