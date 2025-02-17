@@ -1,5 +1,5 @@
 import gc from "@sg/game-client-base";
-import { _decorator, Button, EventTouch, Font, Intersection2D, Label, math, Node, PolygonCollider2D, sp } from "cc";
+import { _decorator, Button, EventTouch, Font, Intersection2D, Label, math, Node, ParticleSystem2D, PolygonCollider2D, sp } from "cc";
 import { bundleManager } from "db://shared-components/shared/common-components/bundle-magager/bundle-manager";
 import { ObserverComponent } from "db://shared-components/shared/common-components/observer-component/scripts/observer-component";
 import { AnimationUtils } from "db://shared-components/shared/utils";
@@ -45,6 +45,9 @@ export default class PlaceBetButton extends ObserverComponent {
 
     @property(Font)
     private disableMoneyFont: Font = null;
+
+    @property(ParticleSystem2D)
+    private levelUpParticle: ParticleSystem2D = null;
 
     private canBet = false;
     private multiplier = 0;
@@ -136,10 +139,17 @@ export default class PlaceBetButton extends ObserverComponent {
     }
 
     async playAxeTransformation(level: number) {
-        const spineInfo = this.getTransformSpineInfo(level);
-        const skeletonData = await this.loadAxeSpine(spineInfo.name);
-        this.spineAxe.skeletonData = skeletonData;
-        await AnimationUtils.playSpine(this.spineAxe, spineInfo.animation, false);
+        try {
+            const spineInfo = this.getTransformSpineInfo(level);
+            const skeletonData = await this.loadAxeSpine(spineInfo.name);
+            this.spineAxe.skeletonData = skeletonData;
+            await AnimationUtils.playSpine(this.spineAxe, spineInfo.animation, false);
+            this.playLevelUpParticle();
+        } catch (e) {}
+    }
+
+    playLevelUpParticle() {
+        this.levelUpParticle.resetSystem();
     }
 
     @render(BetStore, (store) => store.cashOutValue)
