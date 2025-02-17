@@ -1,6 +1,7 @@
 import gc from "@sg/game-client-base";
 import inversify from "inversify";
 import { GameServiceMessage } from "../../game-message";
+import { settings } from "../../game-settings";
 import { BetStore, BetUIState } from "./bet-store";
 
 const { injectable, inject } = inversify;
@@ -118,17 +119,20 @@ export class BetHandler extends gc.Bet.BetHandler implements gc.Shared.IMultiple
 
     handleEventCashOut(status: GameServiceMessage.Status) {
         this.betsStore.uiState = BetUIState.Settle;
-        const isWin = status.win;
         this.updateStatusBet(status);
 
-        const delayResetBet = isWin ? 3000 : 1000;
+        const delayResetBet = this.betsStore.settleStatus.win
+            ? this.betsStore.settleStatus.isBigWin
+                ? settings.durations.bigWinNotice
+                : settings.durations.normalWinNotice
+            : settings.durations.loseNotice;
         setTimeout(() => {
             this.resetBet();
 
             if (this.betsStore.isAutoStart) {
                 this.changeStarted();
             }
-        }, delayResetBet);
+        }, delayResetBet * 1000);
     }
 
     updateAutoStart() {
