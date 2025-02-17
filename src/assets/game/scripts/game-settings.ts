@@ -14,6 +14,9 @@ export const settings = {
         placingBet: 10,
         generatingResult: 0,
         startRound: 1,
+
+        bigWinNotice: 5,
+        normalWinNotice: 3,
     },
     numberOfRoundHistory: 11,
     validateBalanceWhenBet: true,

@@ -61,8 +61,9 @@ export default class Game extends GameComponent {
         const isBigWin = settleStatus.isBigWin;
 
         const node = isBigWin ? this.bigWinNotice : this.normalWinNotice;
+        const duration = isBigWin ? settings.durations.bigWinNotice : settings.durations.normalWinNotice;
         const winNotice = node.getComponent(GameWinNotice);
-        winNotice.show();
+        winNotice.show(settleStatus.bet, duration);
 
         this.addCashOutHistory();
     }
