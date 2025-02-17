@@ -287,6 +287,10 @@ export default class PlaceBetButton extends ObserverComponent {
         this.hitStoneButton.active = uiState === BetUIState.Started;
 
         this.canBet = uiState > BetUIState.Start && uiState !== BetUIState.Settle;
+
+        if (uiState === BetUIState.Started) {
+            this.showAxe();
+        }
     }
 
     @render(BetStore, (store) => store.multiplierVisible)
