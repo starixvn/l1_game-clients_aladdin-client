@@ -1,14 +1,14 @@
 {
-"skeleton": { "hash": "XBzwFEkxDU1Eo5QqVLzZEamR7/E", "spine": "3.8.99", "x": -173.37, "y": -172.43, "width": 336, "height": 336 },
+"skeleton": { "hash": "FMe8Wq37GxJohxXd/6RO9bNmIPY", "spine": "3.8.99", "x": -81, "y": -70.21, "width": 162, "height": 140.41 },
 "bones": [
 	{ "name": "root" },
-	{ "name": "all", "parent": "root" },
+	{ "name": "all", "parent": "root", "scaleX": 0.45, "scaleY": 0.45 },
 	{ "name": "pickaxe", "parent": "all" },
 	{ "name": "pickaxe_1", "parent": "pickaxe" },
 	{ "name": "pickaxe_2", "parent": "pickaxe" },
 	{ "name": "pickaxe1", "parent": "pickaxe_1", "length": 259.09, "rotation": -178.45, "x": 116.5, "y": -16 },
 	{ "name": "pickaxe2", "parent": "pickaxe_2", "length": 259.09, "rotation": -178.45, "x": 116.5, "y": -16 },
-	{ "name": "smoke_all", "parent": "all", "scaleX": 0.7, "scaleY": 0.7 },
+	{ "name": "smoke_all", "parent": "all", "scaleX": 0.5, "scaleY": 0.5 },
 	{ "name": "smoke", "parent": "smoke_all", "x": -7.67, "y": -6.33 },
 	{ "name": "smoke1", "parent": "smoke" },
 	{ "name": "smoke2", "parent": "smoke" },
@@ -24,7 +24,9 @@
 	{ "name": "smoke12", "parent": "smoke8" },
 	{ "name": "smoke13", "parent": "smoke8" },
 	{ "name": "smoke14", "parent": "smoke8" },
-	{ "name": "smoke15", "parent": "smoke8" }
+	{ "name": "smoke15", "parent": "smoke8" },
+	{ "name": "particles", "parent": "all", "scaleX": 2.4, "scaleY": 2.4 },
+	{ "name": "flare", "parent": "all", "x": -109.58, "y": -2.56, "scaleX": 2, "scaleY": 2 }
 ],
 "slots": [
 	{ "name": "pickaxe_1", "bone": "pickaxe1", "color": "ffffff00", "attachment": "pickaxe_1" },
@@ -43,12 +45,36 @@
 	{ "name": "smoke4", "bone": "smoke4", "color": "ffffff00", "attachment": "smoke", "blend": "additive" },
 	{ "name": "smoke5", "bone": "smoke5", "color": "ffffff00", "attachment": "smoke", "blend": "additive" },
 	{ "name": "smoke6", "bone": "smoke6", "color": "ffffff00", "attachment": "smoke", "blend": "additive" },
-	{ "name": "smoke7", "bone": "smoke7", "color": "ffffff00", "attachment": "smoke", "blend": "additive" }
+	{ "name": "smoke7", "bone": "smoke7", "color": "ffffff00", "attachment": "smoke", "blend": "additive" },
+	{ "name": "particle/particle_00000", "bone": "particles", "color": "a3fffbff", "attachment": "particle/particle_00000", "blend": "additive" },
+	{ "name": "optical/optical_00000", "bone": "flare", "color": "a3fffbff", "blend": "additive" }
 ],
 "skins": [
 	{
 		"name": "default",
 		"attachments": {
+			"optical/optical_00000": {
+				"optical/optical_00000": { "width": 114, "height": 108 },
+				"optical/optical_00001": { "width": 114, "height": 108 },
+				"optical/optical_00002": { "width": 114, "height": 108 },
+				"optical/optical_00003": { "width": 114, "height": 108 },
+				"optical/optical_00004": { "width": 114, "height": 108 },
+				"optical/optical_00005": { "width": 114, "height": 108 },
+				"optical/optical_00006": { "width": 114, "height": 108 },
+				"optical/optical_00007": { "width": 114, "height": 108 },
+				"optical/optical_00008": { "width": 114, "height": 108 }
+			},
+			"particle/particle_00000": {
+				"particle/particle_00000": { "y": 0.5, "width": 150, "height": 125 },
+				"particle/particle_00001": { "y": 0.77, "width": 150, "height": 125 },
+				"particle/particle_00002": { "y": 0.77, "width": 150, "height": 125 },
+				"particle/particle_00003": { "y": 0.77, "width": 150, "height": 125 },
+				"particle/particle_00004": { "y": 0.77, "width": 150, "height": 125 },
+				"particle/particle_00005": { "y": 0.77, "width": 150, "height": 125 },
+				"particle/particle_00006": { "y": 0.77, "width": 150, "height": 125 },
+				"particle/particle_00007": { "y": 0.77, "width": 150, "height": 125 },
+				"particle/particle_00008": { "y": 0.77, "width": 150, "height": 125 }
+			},
 			"pickaxe_1": {
 				"pickaxe_1": {
 					"type": "mesh",
@@ -124,6 +150,31 @@
 "animations": {
 	"pickaxe_1_2": {
 		"slots": {
+			"optical/optical_00000": {
+				"attachment": [
+					{ "time": 0.5667, "name": "optical/optical_00000" },
+					{ "time": 0.6, "name": "optical/optical_00001" },
+					{ "time": 0.6333, "name": "optical/optical_00002" },
+					{ "time": 0.6667, "name": "optical/optical_00003" },
+					{ "time": 0.7, "name": "optical/optical_00004" },
+					{ "time": 0.7333, "name": "optical/optical_00005" },
+					{ "time": 0.7667, "name": "optical/optical_00006" },
+					{ "time": 0.8, "name": "optical/optical_00007" },
+					{ "time": 0.8333, "name": "optical/optical_00008" }
+				]
+			},
+			"particle/particle_00000": {
+				"attachment": [
+					{ "time": 0.4, "name": "particle/particle_00001" },
+					{ "time": 0.4333, "name": "particle/particle_00002" },
+					{ "time": 0.4667, "name": "particle/particle_00003" },
+					{ "time": 0.5333, "name": "particle/particle_00004" },
+					{ "time": 0.5667, "name": "particle/particle_00005" },
+					{ "time": 0.6, "name": "particle/particle_00006" },
+					{ "time": 0.6333, "name": "particle/particle_00007" },
+					{ "time": 0.6667, "name": "particle/particle_00008" }
+				]
+			},
 			"pickaxe_1": {
 				"color": [
 					{ "color": "ffffffff", "curve": "stepped" },
