@@ -13,12 +13,19 @@ export class BalanceInfo extends ObserverComponent {
     @property(Label)
     lblBalance: Label = null;
 
+    private originalScale = 1;
+
+    onLoad() {
+        this.originalScale = this.lblBalance.node.scale.x;
+        super.onLoad();
+    }
+
     @render(BalanceInfoHandler, (store) => store.balance)
     setBalance(value: number) {
         this.lblBalance && (this.lblBalance.string = FormatUtils.truncateFixedDecimals(value, 2).toString());
         tween(this.lblBalance.node)
-            .to(0.1, { scale: new Vec3(0.55, 0.55, 1) })
-            .to(0.1, { scale: new Vec3(0.5, 0.5, 1) })
+            .to(0.1, { scale: new Vec3(1, 1, 1).multiplyScalar(this.originalScale * 1.1) })
+            .to(0.1, { scale: new Vec3(1, 1, 1).multiplyScalar(this.originalScale) })
             .start();
     }
 }
