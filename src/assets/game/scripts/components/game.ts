@@ -1,4 +1,4 @@
-import { _decorator, Label, Node } from "cc";
+import { _decorator, Label, Node, Tween, tween, Vec3 } from "cc";
 import { startGame } from "db://shared-components/shared/scripts/startup";
 import Observer from "observer";
 
@@ -38,6 +38,9 @@ export default class Game extends GameComponent {
     @property(Node)
     private crashedNotice: Node = null;
 
+    @property(Node)
+    private centerNode: Node = null;
+
     override namespace = settings.name;
     protected override enableEventShowHideGame = false;
     override containerOptions = containerOptions;
@@ -65,6 +68,7 @@ export default class Game extends GameComponent {
 
         if (!settleStatus.win) {
             this.crashedNotice.active = true;
+            this.shake(this.centerNode, settings.durations.loseNotice);
             return;
         }
 
@@ -80,4 +84,22 @@ export default class Game extends GameComponent {
 
     @handle(CashOutHistoryHandlers, (handler) => handler.addCashOutHistory())
     addCashOutHistory() {}
+
+    shake(node: Node, duration: number = 1, strength: number = 10) {
+        const originalPosition = new Vec3(node.position);
+        const shakes: Tween<any>[] = [];
+        const steps = Math.floor(duration / 0.02);
+
+        for (let i = 0; i < steps; i++) {
+            const offsetX = (Math.random() - 0.5) * strength * 2;
+            const offsetY = (Math.random() - 0.5) * strength * 2;
+            shakes.push(tween(node).to(0.02, { position: new Vec3(offsetX, offsetY, 0).add(originalPosition) }));
+        }
+
+        shakes.push(tween(node).to(0.02, { position: originalPosition }));
+
+        tween(node)
+            .sequence(...shakes)
+            .start();
+    }
 }

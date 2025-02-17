@@ -46,7 +46,7 @@ export default class PlaceBetButton extends ObserverComponent {
     @property(Font)
     private disableMoneyFont: Font = null;
 
-    private isStart = false;
+    private canBet = false;
     private multiplier = 0;
     private axeLevel = 1;
     private currentAnimationName = "";
@@ -101,6 +101,7 @@ export default class PlaceBetButton extends ObserverComponent {
     }
 
     showAxe() {
+        console.log("showAxe");
         if (this.spineAxe) {
             this.spineAxe.node.active = true;
         }
@@ -177,7 +178,7 @@ export default class PlaceBetButton extends ObserverComponent {
     updateBalance() {}
 
     onClickBetButton() {
-        if (this.isStart) {
+        if (this.canBet) {
             this.onBet();
         }
     }
@@ -204,7 +205,7 @@ export default class PlaceBetButton extends ObserverComponent {
     }
 
     onTap(event) {
-        if (this.touchInPolygon(event) && this.isStart) {
+        if (this.touchInPolygon(event) && this.canBet) {
             this.onBet();
         }
     }
@@ -285,7 +286,7 @@ export default class PlaceBetButton extends ObserverComponent {
         this.cashOutButton.active = uiState === BetUIState.Bet || uiState === BetUIState.Mining || uiState === BetUIState.Settle;
         this.hitStoneButton.active = uiState === BetUIState.Started;
 
-        this.isStart = uiState > BetUIState.Start;
+        this.canBet = uiState > BetUIState.Start && uiState !== BetUIState.Settle;
     }
 
     @render(BetStore, (store) => store.multiplierVisible)
