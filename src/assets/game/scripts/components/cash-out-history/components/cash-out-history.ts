@@ -1,6 +1,6 @@
 import gc from "@sg/game-client-base";
 
-import { _decorator, Font, instantiate, Label, Node, Prefab } from "cc";
+import { _decorator, Font, instantiate, Label, Node, Prefab, Sprite, SpriteFrame } from "cc";
 import { ObserverComponent } from "db://shared-components/shared/common-components/observer-component/scripts/observer-component";
 import Observer from "observer";
 
@@ -18,10 +18,12 @@ export default class CashOutHistory extends ObserverComponent {
 
     @property(Node)
     cashOutHistoryPanel: Node = null;
-
     
     @property([Font])
     private fontMultipliers: Font[] = [];
+
+    @property([SpriteFrame])
+    private bgMultipliers: SpriteFrame[] = [];
 
     private readonly MULTIPLIER_THRESHOLDS = {
         LEVEL_4: 110,
@@ -42,9 +44,11 @@ export default class CashOutHistory extends ObserverComponent {
         this.cashOutHistoryPanel.removeAllChildren();
         [...cashOutHistory].reverse().forEach((item, index) => {
             const lblCashOutHistory = instantiate(this.lblCashOutHistory);
+            const background = lblCashOutHistory.getComponentInChildren(Sprite);
             const label = lblCashOutHistory.getComponentInChildren(Label);
             label.string = `${FormatUtils.numberWithCommas(item.multiplier, 2, false)}x`;
             label.font = this.fontMultipliers[this.getCurrentAnimationLevel(item.multiplier) - 1];
+            background.spriteFrame = this.bgMultipliers[this.getCurrentAnimationLevel(item.multiplier) - 1];
             lblCashOutHistory.setPosition(0, index * -40);
             lblCashOutHistory.on(Node.EventType.TOUCH_END, () => {
                 this.onClickRoundItem(item.roundId);
