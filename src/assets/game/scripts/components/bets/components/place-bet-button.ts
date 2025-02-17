@@ -284,9 +284,13 @@ export default class PlaceBetButton extends ObserverComponent {
         this.startBetButton.active = uiState === BetUIState.Start;
         this.cashOutButton.active = uiState === BetUIState.Bet || uiState === BetUIState.Mining || uiState === BetUIState.Settle;
         this.hitStoneButton.active = uiState === BetUIState.Started;
-        this.lblMultiplier.node.active = uiState !== BetUIState.Start;
 
         this.isStart = uiState > BetUIState.Start;
+    }
+
+    @render(BetStore, (store) => store.multiplierVisible)
+    updateMultiplierVisible(multiplierVisible: boolean) {
+        this.lblMultiplier.node.active = multiplierVisible;
     }
 
     @render(BetStore, (store) => store.uiState)

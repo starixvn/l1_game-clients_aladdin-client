@@ -35,6 +35,14 @@ export class BetStore {
     uiState = BetUIState.Start;
     isAutoStart = false;
 
+    get multiplierVisible() {
+        if (this.settleStatus && !this.settleStatus.win) {
+            return false;
+        }
+
+        return this.uiState !== BetUIState.Start;
+    }
+
     get cashOutValue() {
         return this.endBet * this.multiplier;
     }

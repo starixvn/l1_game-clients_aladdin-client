@@ -35,9 +35,17 @@ export default class Game extends GameComponent {
     @property(Node)
     private bigWinNotice: Node = null;
 
+    @property(Node)
+    private crashedNotice: Node = null;
+
     override namespace = settings.name;
     protected override enableEventShowHideGame = false;
     override containerOptions = containerOptions;
+
+    onLoad() {
+        this.crashedNotice.active = false;
+        super.onLoad();
+    }
 
     @render(BetStore, (store) => store.roundId)
     renderlblRound(roundId: number) {
@@ -51,10 +59,12 @@ export default class Game extends GameComponent {
     @render(BetStore, (store) => store.settleStatus)
     renderSettleStatus(settleStatus: SettleStatus) {
         if (!settleStatus || Object.keys(settleStatus).length === 0) {
+            this.crashedNotice.active = false;
             return;
         }
 
         if (!settleStatus.win) {
+            this.crashedNotice.active = true;
             return;
         }
 
