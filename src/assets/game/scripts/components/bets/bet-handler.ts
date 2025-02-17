@@ -117,7 +117,7 @@ export class BetHandler extends gc.Bet.BetHandler implements gc.Shared.IMultiple
     }
 
     handleEventCashOut(status: GameServiceMessage.Status) {
-        this.betsStore.uiState = BetUIState.Start;
+        this.betsStore.uiState = BetUIState.Settle;
         const isWin = status.win;
         this.updateStatusBet(status);
 

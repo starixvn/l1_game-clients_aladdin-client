@@ -1,5 +1,5 @@
 import gc from "@sg/game-client-base";
-import { _decorator, EventTouch, Font, Intersection2D, Label, math, Node, PolygonCollider2D, sp } from "cc";
+import { _decorator, Button, EventTouch, Font, Intersection2D, Label, math, Node, PolygonCollider2D, sp } from "cc";
 import { bundleManager } from "db://shared-components/shared/common-components/bundle-magager/bundle-manager";
 import { ObserverComponent } from "db://shared-components/shared/common-components/observer-component/scripts/observer-component";
 import { AnimationUtils } from "db://shared-components/shared/utils";
@@ -39,6 +39,12 @@ export default class PlaceBetButton extends ObserverComponent {
 
     @property([Font])
     private fontMultipliers: Font[] = [];
+
+    @property(Font)
+    private activeMoneyFont: Font = null;
+
+    @property(Font)
+    private disableMoneyFont: Font = null;
 
     private isStart = false;
     private multiplier = 0;
@@ -276,7 +282,7 @@ export default class PlaceBetButton extends ObserverComponent {
     updateUIState(uiState: BetUIState) {
         console.log("uiState ", uiState);
         this.startBetButton.active = uiState === BetUIState.Start;
-        this.cashOutButton.active = uiState === BetUIState.Bet || uiState === BetUIState.Mining;
+        this.cashOutButton.active = uiState === BetUIState.Bet || uiState === BetUIState.Mining || uiState === BetUIState.Settle;
         this.hitStoneButton.active = uiState === BetUIState.Started;
         this.lblMultiplier.node.active = uiState !== BetUIState.Start;
 
@@ -284,5 +290,10 @@ export default class PlaceBetButton extends ObserverComponent {
     }
 
     @render(BetStore, (store) => store.uiState)
-    updateButtonInteractable(uiState: BetUIState) {}
+    updateButtonInteractable(uiState: BetUIState) {
+        const buttonCashOut = this.cashOutButton.getComponent(Button);
+        buttonCashOut.interactable = uiState !== BetUIState.Settle;
+
+        this.lblMoney.font = buttonCashOut.interactable ? this.activeMoneyFont : this.disableMoneyFont;
+    }
 }

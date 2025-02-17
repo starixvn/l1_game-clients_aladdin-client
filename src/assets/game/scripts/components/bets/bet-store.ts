@@ -10,6 +10,7 @@ export enum BetUIState {
     Bet,
     Mining,
     CashOut,
+    Settle,
     End,
 }
 
