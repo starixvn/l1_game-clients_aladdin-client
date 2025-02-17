@@ -147,8 +147,7 @@ export default class PlaceBetButton extends ObserverComponent {
         this.lblMoney.string = gc.FormatUtils.numberWithCommas(cashOutValue, 2, true);
     }
 
-    updateMultiplierColor(multiplier: number) {
-        const level = this.getCurrentAnimationLevel(multiplier);
+    updateMultiplierColor(level: number) {
         this.lblMultiplier.font = this.fontMultipliers[level - 1];
     }
 
