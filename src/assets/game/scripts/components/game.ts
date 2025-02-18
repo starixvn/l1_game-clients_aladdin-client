@@ -1,3 +1,4 @@
+import gc from "@sg/game-client-base";
 import { _decorator, Label, Node, Tween, tween, Vec3 } from "cc";
 import { startGame } from "db://shared-components/shared/scripts/startup";
 import Observer from "observer";
@@ -82,9 +83,13 @@ export default class Game extends GameComponent {
 
         this.mainPlayerIncreaseBalance(settleStatus.bet);
         this.mainPlayerPlayWinningEffect();
+        this.getBalance();
 
         this.addCashOutHistory();
     }
+
+    @handle(gc.Auth.AuthHandlers.GetBalance)
+    getBalance() {}
 
     @handle(BalanceEffectHandlers.MainPlayerIncreaseBalance)
     mainPlayerIncreaseBalance(balance: number) {
