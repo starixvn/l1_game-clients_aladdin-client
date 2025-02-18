@@ -78,19 +78,25 @@ export default class BetAmount extends ObserverComponent {
         const betLevelsContainer = container.getComponent(BetLevelsContainer);
         betLevelsContainer.setBetLevels(betLevels);
         this.nodeBetLevelsContainer.addChild(container);
+        this.hideBetLevelsContainer(true);
     }
 
-    hideBetLevelsContainer() {
+    hideBetLevelsContainer(quickly = false) {
         if (!this.nodeBetLevelsContainer) {
             return;
         }
         this.nodeOverlayBg.active = false;
-        tween(this.nodeBetLevelsContainer)
-            .to(0.2, { scale: new Vec3(1, 0, 1) })
-            .call(() => {
-                this.nodeBetLevelsContainer.active = false;
-            })
-            .start();
+
+        if (quickly) {
+            this.nodeBetLevelsContainer.active = false;
+        } else {
+            tween(this.nodeBetLevelsContainer)
+                .to(0.2, { scale: new Vec3(1, 0, 1) })
+                .call(() => {
+                    this.nodeBetLevelsContainer.active = false;
+                })
+                .start();
+        }
     }
 
     showBetLevelsContainer() {
@@ -108,10 +114,8 @@ export default class BetAmount extends ObserverComponent {
     onBetLevelButtonClick() {
         const isShowing = this.isShowStakeLevels();
         if (!isShowing) {
-            this.showBetLevelsContainer();
             this.openBetAmountPopup(true);
         } else {
-            this.hideBetLevelsContainer();
             this.openBetAmountPopup(false);
         }
     }
@@ -132,10 +136,10 @@ export default class BetAmount extends ObserverComponent {
             { threshold: 9999, increment: 10_000 },
             { threshold: 999, increment: 1_000 },
             { threshold: 99, increment: 100 },
-            { threshold: 9, increment: 10 }
+            { threshold: 9, increment: 10 },
         ];
 
-        return BET_THRESHOLDS.find(({threshold}) => this.betAmount > threshold)?.increment || 1;
+        return BET_THRESHOLDS.find(({ threshold }) => this.betAmount > threshold)?.increment || 1;
     }
 
     private getChangeDescreaseBetAmount() {
@@ -145,10 +149,10 @@ export default class BetAmount extends ObserverComponent {
             { threshold: 10000, increment: 10_000 },
             { threshold: 1000, increment: 1_000 },
             { threshold: 100, increment: 100 },
-            { threshold: 10, increment: 10 }
+            { threshold: 10, increment: 10 },
         ];
 
-        return BET_THRESHOLDS.find(({threshold}) => this.betAmount > threshold)?.increment || 1;
+        return BET_THRESHOLDS.find(({ threshold }) => this.betAmount > threshold)?.increment || 1;
     }
 
     @handle(BetAmountHandlers, (handle, amount: number) => handle.updateBetAmount(amount))
@@ -171,7 +175,7 @@ export default class BetAmount extends ObserverComponent {
     }
 
     onClickOverlayBg() {
-        this.hideBetLevelsContainer();
+        this.openBetAmountPopup(false);
     }
 
     @render(BetAmountStore, (store) => store.isOpenBetAmountPopup)
