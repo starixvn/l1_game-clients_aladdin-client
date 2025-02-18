@@ -45,6 +45,8 @@ export class BetStore {
 
     reachMaxWin = false;
 
+    winAmount = 0;
+
     get autoCashOutTimerVisible() {
         return this.autoCashOutEnable && this.autoCashOutTimer <= AutoCashOutTiming.LastSeconds;
     }
@@ -55,10 +57,6 @@ export class BetStore {
         }
 
         return this.uiState !== BetUIState.Start;
-    }
-
-    get cashOutValue() {
-        return this.endBet * this.multiplier;
     }
 
     resetAutoCashOutTimer() {

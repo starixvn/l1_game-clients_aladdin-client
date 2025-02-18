@@ -44,4 +44,5 @@ export namespace GameServiceMessage {
     }
 
     export const ReachMaxWinEvent = "reachMaxWin";
+    export const WinAmountEvent = "winAmount";
 }

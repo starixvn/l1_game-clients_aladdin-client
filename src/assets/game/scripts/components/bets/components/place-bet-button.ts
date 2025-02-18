@@ -166,7 +166,7 @@ export default class PlaceBetButton extends ObserverComponent {
         this.levelUpParticle.resetSystem();
     }
 
-    @render(BetStore, (store) => store.cashOutValue)
+    @render(BetStore, (store) => store.winAmount)
     updateCashOutValue(cashOutValue: number) {
         this.lblMoney.string = gc.FormatUtils.numberWithCommas(cashOutValue, 2, true);
     }
