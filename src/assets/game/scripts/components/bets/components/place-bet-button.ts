@@ -200,6 +200,13 @@ export default class PlaceBetButton extends ObserverComponent {
         }
     }
 
+    @render(BetStore, (store) => store.settleStatus)
+    handleSettleStatus(settleStatus: any) {
+        if (settleStatus.win) {
+            this.updateBalance();
+        }
+    }
+
     @handle(BalanceInfoHandler, (handler) => handler.updateBalance())
     updateBalance() {}
 
