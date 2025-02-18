@@ -2,6 +2,7 @@ import { _decorator, Label, Node, Tween, tween, Vec3 } from "cc";
 import { startGame } from "db://shared-components/shared/scripts/startup";
 import Observer from "observer";
 
+import { BalanceEffectHandlers } from "db://shared-components/game/balance-effect/scripts/handlers/balance-effect-handlers";
 import GameComponent from "db://shared-components/game/scripts/components/game-component";
 import { siteConfigs } from "../../../scripts/site-configs";
 import { containerOptions, settings } from "../game-settings";
@@ -79,7 +80,20 @@ export default class Game extends GameComponent {
         const winNotice = node.getComponent(GameWinNotice);
         winNotice.show(settleStatus.bet, duration);
 
+        this.mainPlayerIncreaseBalance(settleStatus.bet);
+        this.mainPlayerPlayWinningEffect();
+
         this.addCashOutHistory();
+    }
+
+    @handle(BalanceEffectHandlers.MainPlayerIncreaseBalance)
+    mainPlayerIncreaseBalance(balance: number) {
+        return balance;
+    }
+
+    @handle(BalanceEffectHandlers.MainPlayerWinEffect)
+    mainPlayerPlayWinningEffect() {
+        return true;
     }
 
     @handle(CashOutHistoryHandlers, (handler) => handler.addCashOutHistory())
