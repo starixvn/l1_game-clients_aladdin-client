@@ -43,6 +43,8 @@ export class BetStore {
     autoCashOutTimer = AutoCashOutTiming.Start;
     autoCashOutEnable = false;
 
+    reachMaxWin = false;
+
     get autoCashOutTimerVisible() {
         return this.autoCashOutEnable && this.autoCashOutTimer <= AutoCashOutTiming.LastSeconds;
     }

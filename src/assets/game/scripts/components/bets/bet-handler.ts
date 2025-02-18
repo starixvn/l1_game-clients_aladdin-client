@@ -80,7 +80,7 @@ export class BetHandler extends gc.Bet.BetHandler implements gc.Shared.IMultiple
     resetBet() {
         this.betsStore.betCount = 0;
         this.betsStore.uiState = BetUIState.Start;
-
+        this.betsStore.reachMaxWin = false;
         this.betsStore.settleStatus = null;
         this.updateMultiplier(1.0);
         this.updateEndBet(0);
@@ -179,6 +179,10 @@ export class BetHandler extends gc.Bet.BetHandler implements gc.Shared.IMultiple
         this.updateRoundId(roundId);
     }
 
+    handleReachMaxWin(reachMaxWin: boolean) {
+        this.betsStore.reachMaxWin = reachMaxWin;
+    }
+
     eventHandleList = [
         {
             name: GameServiceMessage.EndBetEvent,
@@ -195,6 +199,10 @@ export class BetHandler extends gc.Bet.BetHandler implements gc.Shared.IMultiple
         {
             name: GameServiceMessage.RoundId,
             handle: this.handleRoundId,
+        },
+        {
+            name: GameServiceMessage.ReachMaxWinEvent,
+            handle: this.handleReachMaxWin,
         },
     ];
 }

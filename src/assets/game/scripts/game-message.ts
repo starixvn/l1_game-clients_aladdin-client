@@ -3,15 +3,13 @@ export namespace GameServiceMessage {
         defaultBetLevel: number;
         chips: number[];
 
-        
-
         static eventName = "gameConfigs";
     }
 
-    export const MultiplierEvent  = "multiplier";  
+    export const MultiplierEvent = "multiplier";
     export const EndBetEvent = "endBet";
     export const RoundId = "roundId";
-    
+
     export class ResultHash {
         hashValue: string;
 
@@ -44,4 +42,6 @@ export namespace GameServiceMessage {
 
         static eventName = "player";
     }
+
+    export const ReachMaxWinEvent = "reachMaxWin";
 }
