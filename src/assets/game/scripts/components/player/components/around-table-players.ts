@@ -6,11 +6,12 @@ import { IAroundTablePlayers, IHiddenPlayers } from "../../../../../../extension
 import { AroundTablePlayerUtils } from "../../../../../../extensions/shared-components/assets/game/around-table-player/scripts/utils/around-table-player-utils";
 import { ObserverComponent } from "db://shared-components/shared/common-components/observer-component/scripts/observer-component";
 import { AroundTablePlayerComponent } from "../../../../../../extensions/shared-components/assets/game/around-table-player/scripts/components/around-table-player-component";
-
+import { PlayerHandlers } from "../player-handler";
+import { Player } from "../player-store";
 const { ccclass, property } = _decorator;
 
 const { Rounds } = gc;
-const { render } = Observer;
+const { render, handle } = Observer;
 
 @ccclass
 export class AroundTablePlayers extends ObserverComponent {
@@ -25,7 +26,10 @@ export class AroundTablePlayers extends ObserverComponent {
 
     @render(gc.AroundTablePlayers.AroundTablePlayersStore, (store) => store.aroundTablePlayer)
     renderAroundTablePlayer(aroundTablePlayer: IAroundTablePlayers) {
-        aroundTablePlayer && this.addNewPlayer(aroundTablePlayer);
+        if (aroundTablePlayer) {
+            this.addAroundTablePlayer(aroundTablePlayer);
+            this.addNewPlayer(aroundTablePlayer);
+        }
     }
 
     @render(gc.AroundTablePlayers.AroundTablePlayersStore, (store) => store.aroundTablePlayers)
@@ -36,9 +40,18 @@ export class AroundTablePlayers extends ObserverComponent {
             const sortedPlayers: IAroundTablePlayers[] = players.sort((playerA, playerB) => (playerA.type === false ? -1 : 1)); //NOSONAR
 
             sortedPlayers.forEach((player) => {
+                this.addAroundTablePlayer(player);  
                 this.addNewPlayer(player);
             });
         }
+    }
+
+    @handle(PlayerHandlers, (handle, player: Player) => handle.addPlayer(player))
+    addAroundTablePlayer(player: Player) {
+    }
+
+    @handle(PlayerHandlers, (handle, id: string) => handle.removePlayer(id))
+    removeAroundTablePlayer(id: string) {
     }
 
     protected addNewPlayer(aroundTablePlayer: IAroundTablePlayers) {
@@ -76,6 +89,7 @@ export class AroundTablePlayers extends ObserverComponent {
             }
         } else {
             delete this.hiddenPlayers[outGamePlayerId.id];
+            this.removeAroundTablePlayer(outGamePlayerId.id);
         }
     }
 
