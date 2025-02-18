@@ -3,6 +3,7 @@ import { LogStore } from "db://shared-components/game/scripts/stores/log-store";
 import * as InstantWinFeature from "../scripts";
 
 import { sharedContainer } from "../../scripts/shared-container";
+import { NullRoundTimeHandlers } from "./handlers/null-round-time-handlers";
 
 export const settings = {
     id: 109,
@@ -28,6 +29,8 @@ export const containerOptions: gc.IContainerOptions = {
     onContainerCreated: (container) => {
         container.bind(gc.GameConfigs.GameSetting).toConstantValue(settings);
         container.bind(LogStore).to(LogStore);
+
+        container.bind(gc.Rounds.RoundTimeHandlers).to(NullRoundTimeHandlers);
     },
     features: [InstantWinFeature, gc.BetDetailsNew, ...gc.defaultFeatures],
 };
