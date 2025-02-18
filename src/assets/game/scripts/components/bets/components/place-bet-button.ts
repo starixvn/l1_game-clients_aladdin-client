@@ -99,7 +99,6 @@ export default class PlaceBetButton extends ObserverComponent {
     @handle(BetHandler, (handler) => handler.handle())
     onBet() {
         this.unschedule(this.resetEffect);
-        this.effect.setAnimation(0, "tap_3", false);
         this.scheduleOnce(this.resetEffect, this.EFFECT_RESET_DELAY);
     }
 
@@ -147,7 +146,11 @@ export default class PlaceBetButton extends ObserverComponent {
             }
             this.axeLevel = level;
             await this.updateTapAnim(level);
-            this.playTapAnimation();
+
+            const needPlayTapAnimation = this.multiplier > 1.0;
+            if (needPlayTapAnimation) {
+                this.playTapAnimation();
+            }
             this.updateMultiplierColor(level);
         } catch (e) {}
     }
@@ -276,10 +279,6 @@ export default class PlaceBetButton extends ObserverComponent {
             await AnimationUtils.playSpine(this.spineAxe, crashSpineInfo.animation, false);
             this.hideAxe();
         } catch (e) {}
-    }
-
-    playEffectBetButton() {
-        this.effect.setAnimation(0, "tap_3", false);
     }
 
     resetCursor() {
