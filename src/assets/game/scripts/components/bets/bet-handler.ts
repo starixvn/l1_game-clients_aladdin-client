@@ -149,7 +149,7 @@ export class BetHandler extends gc.Bet.BetHandler implements gc.Shared.IMultiple
 
     handleEventCashOut(status: GameServiceMessage.Status) {
         this.clearAutoCashOut();
-
+        this.betsStore.reachMaxWin = false;
         this.betsStore.uiState = BetUIState.Settle;
         this.updateStatusBet(status);
 
