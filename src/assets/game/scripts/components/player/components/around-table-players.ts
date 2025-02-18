@@ -7,7 +7,8 @@ import { AroundTablePlayerUtils } from "../../../../../../extensions/shared-comp
 import { ObserverComponent } from "db://shared-components/shared/common-components/observer-component/scripts/observer-component";
 import { AroundTablePlayerComponent } from "../../../../../../extensions/shared-components/assets/game/around-table-player/scripts/components/around-table-player-component";
 import { PlayerHandlers } from "../player-handler";
-import { Player } from "../player-store";
+import { Player, PlayerStore } from "../player-store";
+import { inject } from "inversify";
 const { ccclass, property } = _decorator;
 
 const { Rounds } = gc;
@@ -46,12 +47,14 @@ export class AroundTablePlayers extends ObserverComponent {
         }
     }
 
-    @handle(PlayerHandlers, (handle, player: Player) => handle.addPlayer(player))
-    addAroundTablePlayer(player: Player) {
+    @handle(PlayerHandlers, (handle, player: IAroundTablePlayers) => handle.addPlayer(player))
+    addAroundTablePlayer(player: IAroundTablePlayers) {
+        return player;
     }
 
     @handle(PlayerHandlers, (handle, id: string) => handle.removePlayer(id))
     removeAroundTablePlayer(id: string) {
+        return id;
     }
 
     protected addNewPlayer(aroundTablePlayer: IAroundTablePlayers) {
@@ -104,12 +107,17 @@ export class AroundTablePlayers extends ObserverComponent {
         }
     }
 
-    @render(Rounds.RoundTimeStore, (store) => store.isStartPlacingBet)
-    renderAroundTablePlayerWhenStartBet(isStartPlacingBet: boolean) {
-        isStartPlacingBet && this.figureOutAroundTablePlayers();
+    @render(PlayerStore, store => ({players: store.players, updatePlayerInfoIndex: store.updatePlayerInfoIndex}))
+    renderAroundTablePlayerWhenStartBet(data: {players: Player[], updatePlayerInfoIndex: number}) {
+        if (data.updatePlayerInfoIndex != -1) {
+            this.figureOutAroundTablePlayers(data.players, data.updatePlayerInfoIndex);
+        }
     }
 
-    protected async figureOutAroundTablePlayers() {
+    @handle(PlayerHandlers, (handle) => handle.updatePlayerInfo())
+    updatePlayerInfo() {}
+
+    protected async figureOutAroundTablePlayers(players: Player[], updatePlayerInfoIndex: number) {
         const hiddenPlayers: IAroundTablePlayers[] = values(this.hiddenPlayers);
         for (const player of this.aroundTablePlayerComponents) {
             const aroundTablePlayer = player.aroundTablePlayer;
@@ -121,8 +129,14 @@ export class AroundTablePlayers extends ObserverComponent {
             aroundTablePlayer.idleCount++;
             AroundTablePlayerUtils.storePlayerToCache(aroundTablePlayer);
 
-            if (AroundTablePlayerUtils.isIdle(player)) {
-                await this.handleIdleAroundTablePlayer(player, aroundTablePlayer, hiddenPlayers);
+            const index = players.findIndex(p => p.id === aroundTablePlayer.id);
+            if (index != -1 && index === updatePlayerInfoIndex) {
+                aroundTablePlayer.red = players[index].red;
+                AroundTablePlayerUtils.addAroundTablePlayerInfo({
+                    playerComp: player,
+                    value: aroundTablePlayer,
+                });
+                this.updatePlayerInfo();
             }
         }
 
