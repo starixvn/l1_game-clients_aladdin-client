@@ -1,5 +1,19 @@
 import gc from "@sg/game-client-base";
-import { _decorator, Button, EventTouch, Font, Intersection2D, Label, math, Node, ParticleSystem2D, PolygonCollider2D, sp } from "cc";
+import {
+    _decorator,
+    Animation,
+    Button,
+    EventTouch,
+    Font,
+    Intersection2D,
+    Label,
+    math,
+    Node,
+    ParticleSystem2D,
+    PolygonCollider2D,
+    sp,
+    v3,
+} from "cc";
 import { bundleManager } from "db://shared-components/shared/common-components/bundle-magager/bundle-manager";
 import { ObserverComponent } from "db://shared-components/shared/common-components/observer-component/scripts/observer-component";
 import { AnimationUtils } from "db://shared-components/shared/utils";
@@ -313,5 +327,14 @@ export default class PlaceBetButton extends ObserverComponent {
         buttonCashOut.interactable = uiState !== BetUIState.Settle;
 
         this.lblMoney.font = buttonCashOut.interactable ? this.activeMoneyFont : this.disableMoneyFont;
+        const animation = this.lblMoney.getComponent(Animation);
+        if (animation) {
+            if (buttonCashOut.interactable) {
+                animation.play();
+            } else {
+                animation.stop();
+                this.lblMoney.node.scale = v3(1, 1, 1);
+            }
+        }
     }
 }
