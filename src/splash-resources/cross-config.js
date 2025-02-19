@@ -1,4 +1,4 @@
 window.crossConfig = {
     backgroundLocalized: true,
-    storagePrefixKey: "tapfortune",
+    storagePrefixKey: "crypto-mining",
 };
