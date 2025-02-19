@@ -18,7 +18,6 @@ import { bundleManager } from "db://shared-components/shared/common-components/b
 import { ObserverComponent } from "db://shared-components/shared/common-components/observer-component/scripts/observer-component";
 import { AnimationUtils } from "db://shared-components/shared/utils";
 import Observer from "observer";
-import { BalanceInfoHandler } from "../../balance/balance-info-handler";
 import { BetHandler } from "../bet-handler";
 import { BetStore, BetUIState } from "../bet-store";
 
@@ -192,23 +191,6 @@ export default class PlaceBetButton extends ObserverComponent {
         console.log("loadAxeSpine  ", name);
         return bundleManager.loadResourcesAsset<sp.SkeletonData>(`spines/axe/${name}`, sp.SkeletonData);
     }
-
-    @render(BetStore, (store) => store.endBet)
-    handleEndBet(endBet: number) {
-        if (endBet > 0) {
-            this.updateBalance();
-        }
-    }
-
-    @render(BetStore, (store) => store.settleStatus)
-    handleSettleStatus(settleStatus: any) {
-        if (settleStatus.win) {
-            this.updateBalance();
-        }
-    }
-
-    @handle(BalanceInfoHandler, (handler) => handler.updateBalance())
-    updateBalance() {}
 
     onClickBetButton() {
         if (this.canBet) {
