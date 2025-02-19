@@ -25,6 +25,13 @@ import { BetStore, BetUIState } from "../bet-store";
 const { ccclass, property } = _decorator;
 const { handle, render } = Observer;
 
+export const MULTIPLIER_THRESHOLDS = {
+    LEVEL_4: 110,
+    LEVEL_3: 11,
+    LEVEL_2: 1.2,
+    LEVEL_1: 0,
+};
+
 @ccclass
 export default class PlaceBetButton extends ObserverComponent {
     @property(Node)
@@ -69,12 +76,7 @@ export default class PlaceBetButton extends ObserverComponent {
     private currentAnimationName = "";
 
     private readonly EFFECT_RESET_DELAY = 1;
-    private readonly MULTIPLIER_THRESHOLDS = {
-        LEVEL_4: 110,
-        LEVEL_3: 11,
-        LEVEL_2: 1.2,
-        LEVEL_1: 0,
-    };
+
 
     private hitToolTip: Node = null;
 
@@ -265,7 +267,7 @@ export default class PlaceBetButton extends ObserverComponent {
     }
 
     private getCurrentAnimationLevel(multiplier: number): number {
-        const { LEVEL_4, LEVEL_3, LEVEL_2 } = this.MULTIPLIER_THRESHOLDS;
+        const { LEVEL_4, LEVEL_3, LEVEL_2 } = MULTIPLIER_THRESHOLDS;
         if (multiplier >= LEVEL_4) return 4;
         if (multiplier >= LEVEL_3) return 3;
         if (multiplier >= LEVEL_2) return 2;

@@ -1,6 +1,6 @@
 import gc from "@sg/game-client-base";
 import inversify from "inversify";
-import { Player, PlayerChipMessage, PlayerStore, PlayerWinMessage } from "./player-store";
+import { Player, PlayerChipMessage, PlayerStore, PlayerWinMessage, PlayerMineMessage } from "./player-store";
 
 const { injectable, inject } = inversify;
 import { IAroundTablePlayers } from "../../../../../extensions/shared-components/assets/game/around-table-player/scripts/stores/around-table-players-chip-store";
@@ -40,6 +40,7 @@ export class PlayerHandlers {
                 this.playerStore.players[index].red += status.bet,
                 this.playerStore.updatePlayerInfoIndex = index
             );
+            this.playerStore.players[index].multiplier = 0;
         }
     }
 
@@ -47,6 +48,15 @@ export class PlayerHandlers {
         const index = this.playerStore.players.findIndex(p => p.id === message.playerId);
         if (index !== -1) {
             this.playerStore.players[index].red = message.red;
+            this.playerStore.players[index].multiplier = message.multiplier;
+            this.playerStore.updatePlayerInfoIndex = index;
+        }
+    }
+
+    updatePlayerMine(message: PlayerMineMessage) {
+        const index = this.playerStore.players.findIndex(p => p.id === message.playerId);
+        if (index !== -1) {
+            this.playerStore.players[index].multiplier = message.multiplier;
             this.playerStore.updatePlayerInfoIndex = index;
         }
     }
@@ -59,6 +69,10 @@ export class PlayerHandlers {
         {
             name: PlayerChipMessage.eventName,
             handle: this.updatePlayerRed
+        },
+        {
+            name: PlayerMineMessage.eventName,
+            handle: this.updatePlayerMine
         }
     ];
 }

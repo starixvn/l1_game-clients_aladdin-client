@@ -11,6 +11,8 @@ export class Player {
     rate?: number;
     multiplier?: number;
     status?: PlayerWinMessage;
+    mine?: PlayerMineMessage;
+    chip?: PlayerChipMessage;
     
     constructor(config: {
         id: string;
@@ -36,15 +38,25 @@ export class PlayerWinMessage {
 }
 
 export class PlayerChipMessage {
-    amount: number;
     maxBet: number;
     minBet: number;
+    multiplier: number;
     name: string;
     playerId: string;
+    rate: number;
     red: number;
     scoins: number;
 
     static eventName = "playerChip";
+}
+
+export class PlayerMineMessage {
+    multiplier: number;
+    playerId: string;
+    reachMaxWin: boolean;
+    winAmount: number;
+
+    static eventName = "playerMine";
 }
 
 @injectable()
