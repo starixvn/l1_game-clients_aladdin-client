@@ -3,8 +3,6 @@ import { _decorator, instantiate, Layout, Node, Prefab, UITransform } from "cc";
 import { ObserverComponent } from "db://shared-components/shared/common-components/observer-component/scripts/observer-component";
 import Observer from "observer";
 import BetLevelItem from "./bet-level-item";
-import { BetAmountStore } from "../bet-amount-store";
-import { BetStore } from "../../bets/bet-store";
 
 const { Connection } = gc;
 const { ccclass, property } = _decorator;
@@ -19,9 +17,6 @@ export default class BetLevelsContainer extends ObserverComponent {
     prfBetLevelItem: Prefab = null;
 
     private betLevels: number[] = [];
-    private readonly itemHeight = 60;
-    private readonly itemsOfColumnMax = 4;
-    private readonly itemSpacing = 10;
 
     setBetLevels(betLevels: number[]) {
         if (betLevels.length <= 0) {
@@ -29,13 +24,12 @@ export default class BetLevelsContainer extends ObserverComponent {
         }
         betLevels.sort((a, b) => a - b);
         this.betLevels = betLevels;
-        this.initBetLevelItems();
-        this.calculateContainerHeight();
-        this.content.getComponent(Layout).updateLayout();
+        this.initBetLevelItems(betLevels);
+        this.calculateContainerWidth();
     }
 
-    initBetLevelItems() {
-        this.betLevels.forEach((value) => {
+    initBetLevelItems(betLevels: number[]) {
+        betLevels.forEach((value) => {
             const node = instantiate(this.prfBetLevelItem);
             this.content.addChild(node);
 
@@ -44,12 +38,15 @@ export default class BetLevelsContainer extends ObserverComponent {
         });
     }
 
-    private calculateContainerHeight() {
-        const numItems = Math.min(this.betLevels.length, this.itemsOfColumnMax);
-        const numSpaces = numItems + 1;
-        const totalHeight = (numItems * this.itemHeight) + (numSpaces * this.itemSpacing);
-        
-        this.content.getComponent(UITransform).height = totalHeight;
+    private calculateContainerWidth() {
+        const layout = this.content.getComponent(Layout);
+        layout.updateLayout();
+
+        const itemCount = this.content.children.length;
+        const columnCount = Math.min(itemCount, layout.constraintNum);
+        const itemWidth = this.content.children.length > 0 ? this.content.children[0].getComponent(UITransform).width : 0;
+        const width = columnCount * itemWidth + (columnCount - 1) * layout.spacingX + layout.paddingLeft + layout.paddingRight;
+        this.content.getComponent(UITransform).width = width;
     }
 
     @render(gc.Bet.BetStore, (store) => store.amount)
