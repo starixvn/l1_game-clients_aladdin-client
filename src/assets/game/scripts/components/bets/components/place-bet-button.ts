@@ -75,7 +75,10 @@ export default class PlaceBetButton extends ObserverComponent {
         LEVEL_1: 0,
     };
 
+    private hitToolTip: Node = null;
+
     onLoad() {
+        this.hitToolTip = this.hitStoneButton.getChildByName("tooltip");
         this.initializeAnimations();
         super.onLoad();
         this.addEvent();
@@ -199,35 +202,49 @@ export default class PlaceBetButton extends ObserverComponent {
     }
 
     addEvent() {
-        this.node.on(Node.EventType.MOUSE_ENTER, this.eventOnEnter, this);
-        this.node.on(Node.EventType.MOUSE_LEAVE, this.eventOnLeave, this);
-        this.cashOutButton.on(Node.EventType.MOUSE_MOVE, this.eventOnEnter, this);
-        this.cashOutButton.on(Node.EventType.MOUSE_LEAVE, this.eventOnLeave, this);
+        this.node.on(Node.EventType.MOUSE_MOVE, this.changeCursorPointer, this);
+        this.node.on(Node.EventType.MOUSE_LEAVE, this.resetCursor, this);
+
+        this.cashOutButton.on(Node.EventType.MOUSE_MOVE, this.changeCursorPointer, this);
+        this.cashOutButton.on(Node.EventType.MOUSE_LEAVE, this.resetCursor, this);
+
         this.tapArea.on(Node.EventType.TOUCH_START, this.onTap, this);
-        this.tapArea.on(Node.EventType.MOUSE_ENTER, this.eventOnEnter, this);
-        this.tapArea.on(Node.EventType.MOUSE_MOVE, this.eventOnEnter, this);
+        this.tapArea.on(Node.EventType.MOUSE_MOVE, this.changeCursorPointer, this);
         this.tapArea.on(Node.EventType.MOUSE_LEAVE, this.resetCursor, this);
+
+        this.hitStoneButton.on(Node.EventType.MOUSE_MOVE, this.showHitToolTip, this);
+        this.hitStoneButton.on(Node.EventType.MOUSE_LEAVE, this.hideHitToolTip, this);
     }
 
     private getEventHandler(event: string): Function {
         const handlers = {
-            mouseenter: this.eventOnEnter,
-            mouseleave: this.eventOnLeave,
+            mouseenter: this.changeCursorPointer,
+            mouseleave: this.resetCursor,
             touchstart: this.onTap,
-            mousemove: this.eventOnEnter,
+            mousemove: this.changeCursorPointer,
         };
         return handlers[event] || this.resetCursor;
     }
 
+    showHitToolTip(event) {
+        if (this.touchInPolygon(event, this.hitStoneButton)) {
+            AnimationUtils.fadeIn(this.hitToolTip, 0.3);
+        }
+    }
+
+    hideHitToolTip(event) {
+        AnimationUtils.fadeOut(this.hitToolTip, 0.3);
+    }
+
     onTap(event) {
-        if (this.touchInPolygon(event) && this.canBet) {
+        if (this.touchInPolygon(event, this.tapArea) && this.canBet) {
             this.onBet();
         }
     }
 
-    protected touchInPolygon(event: EventTouch) {
+    protected touchInPolygon(event: EventTouch, node: Node) {
         const location = event.getUILocation();
-        const polygon = this.tapArea.getComponent(PolygonCollider2D).worldPoints;
+        const polygon = node.getComponent(PolygonCollider2D).worldPoints;
         return Intersection2D.pointInPolygon(math.v2(location.x, location.y), polygon);
     }
 
@@ -282,12 +299,8 @@ export default class PlaceBetButton extends ObserverComponent {
         });
     }
 
-    eventOnEnter() {
+    changeCursorPointer() {
         document.body.style.cursor = "pointer";
-    }
-
-    eventOnLeave() {
-        document.body.style.cursor = "default";
     }
 
     @render(BetStore, (store) => store.uiState)
