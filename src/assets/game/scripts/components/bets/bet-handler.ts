@@ -2,6 +2,7 @@ import gc from "@sg/game-client-base";
 import inversify from "inversify";
 import { GameServiceMessage } from "../../game-message";
 import { settings } from "../../game-settings";
+import { HashHandlers } from "../hash/hash-handlers";
 import { BetStore, BetUIState } from "./bet-store";
 
 const { injectable, inject } = inversify;
@@ -17,6 +18,7 @@ export class BetHandler extends gc.Bet.BetHandler implements gc.Shared.IMultiple
     @inject(gc.Connection.ConnectionStore) protected readonly connectionStore: gc.Connection.ConnectionStore;
     @inject(gc.Bet.BetResponseHandlers) protected readonly betResponseHandlers: gc.Bet.BetResponseHandlers;
     @inject(gc.RoundBasePF.ProvablyFairStore) protected readonly pfStore: gc.RoundBasePF.ProvablyFairStore;
+    @inject(HashHandlers) protected readonly hashHandlers: HashHandlers;
 
     private readonly BIG_WIN_MULTIPLIER = 2.5;
     private autoCashOutTimeOut = null;
@@ -85,6 +87,7 @@ export class BetHandler extends gc.Bet.BetHandler implements gc.Shared.IMultiple
         this.betsStore.winAmount = 0;
         this.updateMultiplier(1.0);
         this.updateEndBet(0);
+        this.hashHandlers.handleGenerateRandomClientSeed();
     }
 
     updateRoundId(roundId: number) {

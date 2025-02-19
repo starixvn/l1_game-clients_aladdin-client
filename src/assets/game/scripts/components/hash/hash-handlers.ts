@@ -1,7 +1,7 @@
 import gc from "@sg/game-client-base";
 import inversify from "inversify";
-import { HashStore } from "./hash-store";
 import { GameServiceMessage } from "../../game-message";
+import { HashStore } from "./hash-store";
 
 const { injectable, inject } = inversify;
 
@@ -40,14 +40,19 @@ export class HashHandlers {
         this.hashStore.verification = provablyFair;
     }
 
+    handleGenerateRandomClientSeed() {
+        this.provablyFairStore.generateRandomClientSeed();
+        this.provablyFairHandler.clearLastBetClientSeed();
+    }
+
     eventHandleList = [
         {
             name: GameServiceMessage.ResultHash.eventName,
-            handle: this.handleHashValue
+            handle: this.handleHashValue,
         },
         {
             name: GameServiceMessage.ProvablyFair.eventName,
-            handle: this.handleProvablyFair
+            handle: this.handleProvablyFair,
         },
     ];
 }
