@@ -18,6 +18,7 @@ import { bundleManager } from "db://shared-components/shared/common-components/b
 import { ObserverComponent } from "db://shared-components/shared/common-components/observer-component/scripts/observer-component";
 import { AnimationUtils } from "db://shared-components/shared/utils";
 import Observer from "observer";
+import { AudioIds } from "../../../../audios/AudioIds";
 import { BetHandler } from "../bet-handler";
 import { BetStore, BetUIState } from "../bet-store";
 
@@ -106,6 +107,7 @@ export default class PlaceBetButton extends ObserverComponent {
 
     @handle(BetHandler, (handler) => handler.changeStarted())
     onClickStartBet() {
+        this.playSound(AudioIds.BTN_START);
         this.showAxe();
     }
 
@@ -134,6 +136,7 @@ export default class PlaceBetButton extends ObserverComponent {
 
     @handle(BetHandler, (handler) => handler.handleCashOut())
     onClickCashOut() {
+        this.playSound(AudioIds.BTN_CASHOUT);
         this.hideAxe();
     }
 
@@ -144,6 +147,7 @@ export default class PlaceBetButton extends ObserverComponent {
             this.lblMultiplier.string = `${gc.FormatUtils.numberWithCommas(multiplier, 2, false)}x`;
             const level = this.getCurrentAnimationLevel(multiplier);
             if (this.axeLevel < level) {
+                this.playSound(AudioIds.CHANGE_AXE);
                 await this.playAxeTransformation(level);
             }
             this.axeLevel = level;
@@ -151,10 +155,22 @@ export default class PlaceBetButton extends ObserverComponent {
 
             const needPlayTapAnimation = this.multiplier > 1.0;
             if (needPlayTapAnimation) {
+                this.playRandomHitSfx(level);
                 this.playTapAnimation();
             }
             this.updateMultiplierColor(level);
         } catch (e) {}
+    }
+
+    playRandomHitSfx(level: number) {
+        const randomIndex = Math.floor(Math.random() * 5);
+        const hitSfx = `hit_lv${level}_0${randomIndex + 1}`;
+        this.playSound(hitSfx);
+    }
+
+    @handle(gc.Audios.AudioHandler, (handle, id: string) => handle.playSFX(id))
+    playSound(id: string) {
+        return id;
     }
 
     async playAxeTransformation(level: number) {
@@ -281,7 +297,7 @@ export default class PlaceBetButton extends ObserverComponent {
             const crashSpineInfo = this.getCrashSpineInfo(level);
             const skeletonData = await this.loadAxeSpine(crashSpineInfo.name);
             this.spineAxe.skeletonData = skeletonData;
-
+            this.playSound(AudioIds.CRASHED);
             await AnimationUtils.playSpine(this.spineAxe, crashSpineInfo.animation, false);
             this.hideAxe();
         } catch (e) {}

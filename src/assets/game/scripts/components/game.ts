@@ -6,6 +6,7 @@ import Observer from "observer";
 import { BalanceEffectHandlers } from "db://shared-components/game/balance-effect/scripts/handlers/balance-effect-handlers";
 import GameComponent from "db://shared-components/game/scripts/components/game-component";
 import { siteConfigs } from "../../../scripts/site-configs";
+import { AudioIds } from "../../audios/AudioIds";
 import { containerOptions, settings } from "../game-settings";
 import "./../../../resources/i18n";
 import { BetStore, SettleStatus } from "./bets/bet-store";
@@ -79,6 +80,7 @@ export default class Game extends GameComponent {
         const node = isBigWin ? this.bigWinNotice : this.normalWinNotice;
         const duration = isBigWin ? settings.durations.bigWinNotice : settings.durations.normalWinNotice;
         const winNotice = node.getComponent(GameWinNotice);
+        this.playSound(AudioIds.BIGWIN);
         winNotice.show(settleStatus.bet, duration);
 
         this.mainPlayerIncreaseBalance(settleStatus.bet);
