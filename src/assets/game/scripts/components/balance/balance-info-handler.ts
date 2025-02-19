@@ -53,6 +53,7 @@ export class BalanceInfoHandler implements gc.Shared.IHandler<number> {
         const timeStamp = Date.now();
         this.syncTime = timeStamp;
         await this.balanceHandler.handle();
+        this.balance = this.mainPlayerStore.balance;
         setTimeout(() => {
             this.checkSyncBalance(timeStamp);
         }, 100);
