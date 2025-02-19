@@ -14,7 +14,7 @@ export class BalanceInfo extends MainPlayerProfile {
     balanceFrame: Node = null;
 
     private minWidth: number = 180;
-    private maxWidth: number = 210;
+    private maxWidth: number = 200;
 
     onLoad() {
         super.onLoad();
