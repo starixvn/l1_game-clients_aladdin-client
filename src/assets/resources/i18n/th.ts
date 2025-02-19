@@ -4,6 +4,7 @@ export const languages = {
         "Loss": "เสีย",
         "back": "กลับ",
         "betChoice2": "ตัวเลือกเดิมพัน",
+        "betChoice_shorten": "ตัวเลือกเดิมพัน",
         "bet_amount_of_any_choice_incorrect": "จำนวนเงินเดิมพันไม่ถูกต้อง",
         "bet_choice": "ตัวเลือกการเดิมพัน",
         "bet_choice_away": "ทีมเยือน",
@@ -200,10 +201,11 @@ export const languages = {
         "you_reach_max_win": "คุณถึงยอดชนะสูงสุด"
     },
     "CoinMining": {
+        "auto_cash_out_in": "ถอนเงินอัตโนมัติใน",
         "auto_start": "เริ่มอัตโนมัติ",
         "big_win_banner": "ชัยชนะครั้งใหญ่!",
         "cash_out": "ถอนเงิน",
-        "crashed": "พังแล้ว",
+        "crashed": "พังทลาย",
         "game_name": "การขุดคริปโต",
         "header_crash_point": "แต้มการพังของจรวด",
         "header_mining_attempts": "ความพยายามในการขุด",
@@ -212,6 +214,10 @@ export const languages = {
         "hit_rock_tooltip": "คลิกที่ก้อนหินเพื่อขุด",
         "leaderboard_highest_multipliers": "ตัวคูณสูงสุด",
         "leaderboard_highest_wins": "ชัยชนะสูงสุด",
+        "pf_provably_fair_para_1": "แฮช SHA512 แบบรวมจะถูกกำหนดโดยการผสมผสานระหว่าง Server Seed และ Client Seed จากนั้นจึงแปลงเป็นแฮช SHA512",
+        "pf_settings_para_1": "ผลลัพธ์สุดท้ายจะถูกกำหนดโดยการรวมกันของ Server Seed และ Client Seed",
+        "reached_max_win": "(ถึงขีดสูงสุดแล้ว)",
+        "reached_maximum_cashout_limit": "คุณได้ถึงขีดจำกัดการถอนเงินสูงสุดแล้ว",
         "stake": "เดิมพัน",
         "start_mining": "เริ่มการขุด"
     }

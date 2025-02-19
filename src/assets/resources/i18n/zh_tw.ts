@@ -4,6 +4,7 @@ export const languages = {
         "Loss": "輸",
         "back": "回",
         "betChoice2": "投注選擇",
+        "betChoice_shorten": "投注選擇",
         "bet_amount_of_any_choice_incorrect": "投注金額無效",
         "bet_choice": "投注選擇",
         "bet_choice_away": "客隊",
@@ -200,18 +201,23 @@ export const languages = {
         "you_reach_max_win": "您達到了最大勝利"
     },
     "CoinMining": {
-        "auto_start": "自動開始",
+        "auto_cash_out_in": "自動提現\n",
+        "auto_start": "自動啟動\n",
         "big_win_banner": "大贏！",
         "cash_out": "兌現",
         "crashed": "崩潰",
         "game_name": "加密幣挖礦",
         "header_crash_point": "崩潰點",
-        "header_mining_attempts": "採礦嘗試",
+        "header_mining_attempts": "挖礦嘗試\n",
         "header_multiplier": "乘數",
         "hit_rock": "擊中岩石！",
         "hit_rock_tooltip": "點擊岩石進行開採。",
         "leaderboard_highest_multipliers": "最高乘數",
         "leaderboard_highest_wins": "最高勝利",
+        "pf_provably_fair_para_1": "組合 SHA512 hash由伺服器種子和客戶端種子的組合決定，然後轉換為 SHA512 hash。",
+        "pf_settings_para_1": "最終結果由伺服器種子和客戶端種子的組合決定。",
+        "reached_max_win": "(達到最大勝利）",
+        "reached_maximum_cashout_limit": "您已達最高提現限額",
         "stake": "賭注",
         "start_mining": "開始採礦"
     }

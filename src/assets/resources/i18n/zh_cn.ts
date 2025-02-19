@@ -4,6 +4,7 @@ export const languages = {
         "Loss": "输",
         "back": "回",
         "betChoice2": "投注选择",
+        "betChoice_shorten": "投注选择",
         "bet_amount_of_any_choice_incorrect": "投注金额无效",
         "bet_choice": "投注选择",
         "bet_choice_away": "客队",
@@ -200,18 +201,23 @@ export const languages = {
         "you_reach_max_win": "您达到了最大胜利"
     },
     "CoinMining": {
-        "auto_start": "自动开始",
+        "auto_cash_out_in": "自动提现",
+        "auto_start": "自动启动",
         "big_win_banner": "大赢！",
         "cash_out": "兑现",
         "crashed": "崩溃",
         "game_name": "加密币挖矿",
         "header_crash_point": "崩溃点",
-        "header_mining_attempts": "采矿尝试",
+        "header_mining_attempts": "挖矿尝试",
         "header_multiplier": "乘数",
         "hit_rock": "击中岩石！",
         "hit_rock_tooltip": "点击岩石进行开采。",
         "leaderboard_highest_multipliers": "最高乘数",
         "leaderboard_highest_wins": "最高胜利",
+        "pf_provably_fair_para_1": "组合 SHA512 hash由服务器种子和客户端种子的组合决定，然后转换为 SHA512 hash。",
+        "pf_settings_para_1": "最终结果由服务器种子和客户端种子的组合决定。",
+        "reached_max_win": "（达到最大胜利）",
+        "reached_maximum_cashout_limit": "您已达到最高提现限额",
         "stake": "赌注",
         "start_mining": "开始采矿"
     }

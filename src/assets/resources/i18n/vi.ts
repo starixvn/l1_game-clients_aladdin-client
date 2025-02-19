@@ -4,6 +4,7 @@ export const languages = {
         "Loss": "Thua",
         "back": "Quay Lại",
         "betChoice2": "Đặt",
+        "betChoice_shorten": "Đặt",
         "bet_amount_of_any_choice_incorrect": "Tiền cược của một trong các cửa không hợp lệ.",
         "bet_choice": "Lựa Chọn",
         "bet_choice_away": "Đội Khách",
@@ -200,6 +201,7 @@ export const languages = {
         "you_reach_max_win": "Bạn Đã Đạt Mức Tiền Thắng Tối Đa"
     },
     "CoinMining": {
+        "auto_cash_out_in": "Tự động rút tiền sau",
         "auto_start": "Tự Động Bắt Đầu",
         "big_win_banner": "Thắng Lớn!",
         "cash_out": "Rút Tiền",
@@ -214,6 +216,8 @@ export const languages = {
         "leaderboard_highest_wins": "Thắng Lớn Nhất",
         "pf_provably_fair_para_1": "Chuỗi SHA512 hash được xác định dựa trên sự kết hợp giữa Server Seed và Client Seed, sau đó được mã hóa bằng SHA512 hash.",
         "pf_settings_para_1": "Kết quả cuối cùng được xác định dựa trên sự kết hợp giữa Server Seed và Client Seed.",
+        "reached_max_win": "(Mức Thắng Tối Đa)",
+        "reached_maximum_cashout_limit": "Bạn đã đạt giới hạn rút tiền tối đa",
         "stake": "Tiền Cược",
         "start_mining": "Bắt Đầu Đào"
     }

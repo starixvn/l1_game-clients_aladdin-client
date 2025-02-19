@@ -4,6 +4,7 @@ export const languages = {
         "Loss": "Kalah",
         "back": "Kembali",
         "betChoice2": "Pilihan Taruhan",
+        "betChoice_shorten": "Pilihan \nTaruhan",
         "bet_amount_of_any_choice_incorrect": "Jumlah Taruhan Tidak Valid",
         "bet_choice": "Pilihan Taruhan",
         "bet_choice_away": "Tandang",
@@ -200,6 +201,7 @@ export const languages = {
         "you_reach_max_win": "Anda mencapai Maksimal Menang"
     },
     "CoinMining": {
+        "auto_cash_out_in": "Pencairan otomatis masuk",
         "auto_start": "Mulai Otomatis",
         "big_win_banner": "Kemenangan Besar!",
         "cash_out": "Uang Tunai",
@@ -212,6 +214,10 @@ export const languages = {
         "hit_rock_tooltip": "Klik pada batu untuk menambang.",
         "leaderboard_highest_multipliers": "Pengganda Tertinggi",
         "leaderboard_highest_wins": "Kemenangan Tertinggi",
+        "pf_provably_fair_para_1": "Gabungan hash SHA512 ditentukan oleh kombinasi Server Seed dan Client seed, kemudian diubah menjadi hash SHA512.",
+        "pf_settings_para_1": "Hasil akhir ditentukan oleh kombinasi Server Seed dan Client Seed.",
+        "reached_max_win": "(Mencapai Kemenangan Maks)",
+        "reached_maximum_cashout_limit": "Anda telah mencapai batas maksimum pembayaran",
         "stake": "Taruhan",
         "start_mining": "Mulai Menambang"
     }

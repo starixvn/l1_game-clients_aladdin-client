@@ -4,6 +4,7 @@ export const languages = {
         "Loss": "Loss",
         "back": "Back",
         "betChoice2": "Bet Choice",
+        "betChoice_shorten": "Bet Choice",
         "bet_amount_of_any_choice_incorrect": "Invalid Bet Amount",
         "bet_choice": "Bet Choice",
         "bet_choice_away": "Away",
@@ -200,6 +201,7 @@ export const languages = {
         "you_reach_max_win": "You reached the max win"
     },
     "CoinMining": {
+        "auto_cash_out_in": "Auto cash out in",
         "auto_start": "Auto Start",
         "big_win_banner": "Big Win!",
         "cash_out": "Cash Out",
@@ -214,6 +216,8 @@ export const languages = {
         "leaderboard_highest_wins": "Highest Wins",
         "pf_provably_fair_para_1": "The Combined SHA512 hash is determined by a combination of the Server Seed and the Client seed, then converted into a SHA512 hash.",
         "pf_settings_para_1": "The final result is determined by a combination of the Server Seed and the Client Seed.",
+        "reached_max_win": "(Reached Max Win)",
+        "reached_maximum_cashout_limit": "You have reached the maximum cashout limit",
         "stake": "Stake",
         "start_mining": "Start Mining"
     }
