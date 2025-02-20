@@ -1,4 +1,6 @@
+import gc from "@sg/game-client-base";
 import { _decorator, Node } from "cc";
+import { AudioIds } from "db://assets/game/audios/AudioIds";
 import { ObserverComponent } from "db://shared-components/shared/common-components/observer-component/scripts/observer-component";
 import Observer from "observer";
 import { BetHandler } from "../../bets/bet-handler";
@@ -24,6 +26,7 @@ export class AutoStartButton extends ObserverComponent {
     }
 
     @handle(BetHandler, (handle) => handle.updateAutoStart())
+    @handle(gc.Audios.AudioHandler, (handle) => handle.playSFX(AudioIds.CLICK))
     onClickAutoStartButton() {}
 
     @render(BetStore, (store) => store.isAutoStart)

@@ -3,6 +3,7 @@ import { _decorator, instantiate, Label, Node, Prefab, tween, Vec3 } from "cc";
 import { ObserverComponent } from "db://shared-components/shared/common-components/observer-component/scripts/observer-component";
 import Observer from "observer";
 
+import { AudioIds } from "db://assets/game/audios/AudioIds";
 import { InstantWinConfigStore } from "../../../game-configs/instant-win-config-store";
 import { BetAmountHandlers } from "../bet-amount-handlers";
 import { BetAmountStore } from "../bet-amount-store";
@@ -112,6 +113,7 @@ export default class BetAmount extends ObserverComponent {
     }
 
     onBetLevelButtonClick() {
+        this.playSound(AudioIds.CLICK);
         const isShowing = this.isShowStakeLevels();
         if (!isShowing) {
             this.openBetAmountPopup(true);
@@ -155,13 +157,20 @@ export default class BetAmount extends ObserverComponent {
         return BET_THRESHOLDS.find(({ threshold }) => this.betAmount > threshold)?.increment || 1;
     }
 
+    @handle(gc.Audios.AudioHandler, (handle, id: string) => handle.playSFX(id))
+    playSound(id: string) {
+        return id;
+    }
+
     @handle(BetAmountHandlers, (handle, amount: number) => handle.updateBetAmount(amount))
     onClickDescreaseButton() {
+        this.playSound(AudioIds.CLICK);
         return this.calculateNewBetAmount(-this.getChangeDescreaseBetAmount());
     }
 
     @handle(BetAmountHandlers, (handle, amount: number) => handle.updateBetAmount(amount))
     onClickInscreaseButton() {
+        this.playSound(AudioIds.CLICK);
         return this.calculateNewBetAmount(this.getChangeInscreaseBetAmount());
     }
 
