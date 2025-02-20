@@ -32,13 +32,17 @@ def update_audio_config():
                 
                 audio_data.append((audio_name, rel_path))
                 
-                # Nếu audio chưa có trong config, thêm vào
+                # Nếu audio chưa có trong config
                 if audio_name not in config:
-                    config[audio_name] = {
-                        "bundle": "resources",
-                        "path": rel_path
+                    config_entry = {
+                        "bundle": "resources"
                     }
-                elif "path" not in config[audio_name]:
+                    # Chỉ thêm path nếu khác với key
+                    if rel_path != audio_name:
+                        config_entry["path"] = rel_path
+                    config[audio_name] = config_entry
+                # Nếu audio đã có trong config nhưng chưa có path và path khác key
+                elif "path" not in config[audio_name] and rel_path != audio_name:
                     config[audio_name]["path"] = rel_path
 
     # Lưu lại file config với định dạng đẹp
