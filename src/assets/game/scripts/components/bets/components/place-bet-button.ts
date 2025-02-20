@@ -77,7 +77,6 @@ export default class PlaceBetButton extends ObserverComponent {
 
     private readonly EFFECT_RESET_DELAY = 1;
 
-
     private hitToolTip: Node = null;
 
     onLoad() {
@@ -123,14 +122,12 @@ export default class PlaceBetButton extends ObserverComponent {
     }
 
     showAxe() {
-        console.log("showAxe");
         if (this.spineAxe) {
             this.spineAxe.node.active = true;
         }
     }
 
     hideAxe() {
-        console.log("hideAxe");
         if (this.spineAxe) {
             this.spineAxe.node.active = false;
         }
@@ -209,7 +206,6 @@ export default class PlaceBetButton extends ObserverComponent {
     }
 
     loadAxeSpine(name: string) {
-        console.log("loadAxeSpine  ", name);
         return bundleManager.loadResourcesAsset<sp.SkeletonData>(`spines/axe/${name}`, sp.SkeletonData);
     }
 
@@ -227,11 +223,17 @@ export default class PlaceBetButton extends ObserverComponent {
         this.cashOutButton.on(Node.EventType.MOUSE_LEAVE, this.resetCursor, this);
 
         this.tapArea.on(Node.EventType.TOUCH_START, this.onTap, this);
-        this.tapArea.on(Node.EventType.MOUSE_MOVE, this.changeCursorPointer, this);
+        this.tapArea.on(Node.EventType.MOUSE_MOVE, this.validTapArea, this);
         this.tapArea.on(Node.EventType.MOUSE_LEAVE, this.resetCursor, this);
 
         this.hitStoneButton.on(Node.EventType.MOUSE_MOVE, this.showHitToolTip, this);
         this.hitStoneButton.on(Node.EventType.MOUSE_LEAVE, this.hideHitToolTip, this);
+    }
+
+    validTapArea() {
+        if (this.canBet) {
+            this.changeCursorPointer();
+        }
     }
 
     private getEventHandler(event: string): Function {
@@ -323,7 +325,6 @@ export default class PlaceBetButton extends ObserverComponent {
 
     @render(BetStore, (store) => store.uiState)
     updateUIState(uiState: BetUIState) {
-        console.log("uiState ", uiState);
         this.startBetButton.active = uiState === BetUIState.Start;
         this.cashOutButton.active = uiState === BetUIState.Bet || uiState === BetUIState.Mining || uiState === BetUIState.Settle;
         this.hitStoneButton.active = uiState === BetUIState.Started;
