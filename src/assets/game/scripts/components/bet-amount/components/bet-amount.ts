@@ -188,13 +188,13 @@ export default class BetAmount extends ObserverComponent {
         this.nodeDisabledBetAmount.active = disabledBetAmount;
     }
 
-    @render(BetAmountStore, (store) => store.isMaxbetLevelValue)
-    disabledMaxBetLevel(isMaxbetLevelValue: boolean) {
-        this.nodeDisabledInscrease.active = isMaxbetLevelValue;
+    @render(BetAmountStore, (store) => store.isMaxbetLevelValue || store.disabledBetAmount)
+    disabledMaxBetLevel(disabled: boolean) {
+        this.nodeDisabledInscrease.active = disabled;
     }
 
-    @render(BetAmountStore, (store) => store.isMinBetLevelValue)
-    disabledMinBetLevel(isMinBetLevelValue: boolean) {
-        this.nodeDisabledDescrease.active = isMinBetLevelValue;
+    @render(BetAmountStore, (store) => store.isMinBetLevelValue || store.disabledBetAmount)
+    disabledMinBetLevel(disabled: boolean) {
+        this.nodeDisabledDescrease.active = disabled;
     }
 }
