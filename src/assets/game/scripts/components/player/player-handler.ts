@@ -52,7 +52,7 @@ export class PlayerHandlers {
         const index = this.playerStore.players.findIndex(p => p.id === message.playerId);
         if (index !== -1) {
             this.playerStore.players[index].red = message.red;
-            this.playerStore.players[index].multiplier = message.multiplier;
+            this.playerStore.players[index].multiplier = message.multiplier ?? 0;
             this.playerStore.updatePlayerInfoIndex = index;
         }
     }

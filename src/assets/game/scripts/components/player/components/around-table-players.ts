@@ -210,7 +210,7 @@ export class AroundTablePlayers extends ObserverComponent {
             AroundTablePlayerUtils.storePlayerToCache(aroundTablePlayer);
 
             const index = players.findIndex((p) => p.id === aroundTablePlayer.id);
-            if (index != -1 && index === updatePlayerInfoIndex) {
+            if (index === updatePlayerInfoIndex) {
                 aroundTablePlayer.red = players[index].red;
                 AroundTablePlayerUtils.updatePlayerSlotDataStorage(
                     {
@@ -227,18 +227,17 @@ export class AroundTablePlayers extends ObserverComponent {
                 }
 
                 this.updatePlayerInfo(index);
-            }
 
-            if (players[index].multiplier > 1.0 && index === updatePlayerInfoIndex) {
-                player.node.getChildByName("axe").active = true;
-                const spineAxe = player.node.getChildByName("axe").getChildByName("axe-skeleton").getComponent(sp.Skeleton);
-                const levelUpParticle = player.node.getChildByName("axe").getChildByName("level-up").getComponent(ParticleSystem2D);
-                await this.updateMultiplier(players[index].multiplier, spineAxe, levelUpParticle);
-            }
-
-            if ((!players[index].multiplier || players[index].multiplier <= 1.0) && index === updatePlayerInfoIndex) {
-                player.node.getChildByName("axe").active = false;
-            }
+                if (players[index].multiplier > 1.0) {
+                    player.node.getChildByName("axe").active = true;
+                    const spineAxe = player.node.getChildByName("axe").getChildByName("axe-skeleton").getComponent(sp.Skeleton);
+                    const levelUpParticle = player.node.getChildByName("axe").getChildByName("level-up").getComponent(ParticleSystem2D);
+                    await this.updateMultiplier(players[index].multiplier, spineAxe, levelUpParticle);
+                }  
+                else {
+                    player.node.getChildByName("axe").active = false;
+                }
+            }            
         }
 
         const botAroundTablePlayerPlayerComps = AroundTablePlayerUtils.getBotAroundTablePlayerComps(this.aroundTablePlayerComponents);
