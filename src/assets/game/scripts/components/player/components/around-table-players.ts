@@ -204,10 +204,9 @@ export class AroundTablePlayers extends ObserverComponent {
             const index = players.findIndex(p => p.id === aroundTablePlayer.id);
             if (index != -1 && index === updatePlayerInfoIndex) {
                 aroundTablePlayer.red = players[index].red;
-                AroundTablePlayerUtils.addAroundTablePlayerInfo({
-                    playerComp: player,
-                    value: aroundTablePlayer,
-                });
+                AroundTablePlayerUtils.updatePlayerSlotDataStorage({
+                    red: aroundTablePlayer.red
+                } as gc.GameServiceMessage.PlayerChip, player);
                 this.updatePlayerInfo();
             }
 
