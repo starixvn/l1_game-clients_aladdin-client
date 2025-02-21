@@ -18,6 +18,7 @@ import { bundleManager } from "db://shared-components/shared/common-components/b
 import { ObserverComponent } from "db://shared-components/shared/common-components/observer-component/scripts/observer-component";
 import { AnimationUtils } from "db://shared-components/shared/utils";
 import Observer from "observer";
+import { Vec3 } from "../../../../../../tests/cocos-testing/cc";
 import { AudioIds } from "../../../../audios/AudioIds";
 import { BetHandler } from "../bet-handler";
 import { BetStore, BetUIState } from "../bet-store";
@@ -70,6 +71,9 @@ export default class PlaceBetButton extends ObserverComponent {
     @property(ParticleSystem2D)
     private levelUpParticle: ParticleSystem2D = null;
 
+    @property(Node)
+    debugNode: Node = null;
+
     private canBet = false;
     private multiplier = 0;
     private axeLevel = 1;
@@ -79,7 +83,10 @@ export default class PlaceBetButton extends ObserverComponent {
 
     private hitToolTip: Node = null;
 
+    private realColliderRock: PolygonCollider2D = null;
+
     onLoad() {
+        this.realColliderRock = this.effect.getComponent(PolygonCollider2D);
         this.hitToolTip = this.hitStoneButton.getChildByName("tooltip");
         this.initializeAnimations();
         super.onLoad();
@@ -256,10 +263,75 @@ export default class PlaceBetButton extends ObserverComponent {
         AnimationUtils.fadeOut(this.hitToolTip, 0.3);
     }
 
-    onTap(event) {
+    onTap(event: EventTouch) {
         if (this.touchInPolygon(event, this.tapArea) && this.canBet) {
             this.onBet();
+
+            const location = event.getUILocation();
+            let tapLocation = v3(location.x, location.y, 0);
+            if (!this.touchInPolygon(event, this.realColliderRock.node)) {
+                tapLocation = this.findNearestPoint(tapLocation, this.realColliderRock);
+            }
+
+            this.debugNode.worldPosition = tapLocation;
+            this.spineAxe.node.parent.worldPosition = tapLocation;
         }
+    }
+
+    findNearestPoint(tapLocation: Vec3, collider: PolygonCollider2D) {
+        const points = collider.worldPoints;
+        let nearestIntersection = null;
+        let minDistance = Number.MAX_VALUE;
+
+        // Tìm tất cả giao điểm của đường thẳng đứng với các cạnh của polygon
+        for (let i = 0; i < points.length; i++) {
+            const p1 = points[i];
+            const p2 = points[(i + 1) % points.length];
+
+            // Kiểm tra nếu điểm tap nằm giữa x của 2 điểm đầu mút
+            if ((tapLocation.x >= p1.x && tapLocation.x <= p2.x) || (tapLocation.x <= p1.x && tapLocation.x >= p2.x)) {
+                // Tính y của giao điểm bằng phương trình đường thẳng
+                const slope = (p2.y - p1.y) / (p2.x - p1.x);
+                const intersectY = p1.y + slope * (tapLocation.x - p1.x);
+
+                // Tính khoảng cách từ điểm tap đến giao điểm
+                const distance = Math.abs(tapLocation.y - intersectY);
+
+                // Cập nhật điểm gần nhất
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    nearestIntersection = v3(tapLocation.x, intersectY);
+                }
+            }
+        }
+
+        // Nếu không tìm thấy giao điểm nào, tìm điểm gần nhất trên các cạnh
+        if (!nearestIntersection) {
+            for (let i = 0; i < points.length; i++) {
+                const p1 = points[i];
+                const p2 = points[(i + 1) % points.length];
+
+                // Tính điểm gần nhất trên cạnh
+                const dx = p2.x - p1.x;
+                const dy = p2.y - p1.y;
+                const t = ((tapLocation.x - p1.x) * dx + (tapLocation.y - p1.y) * dy) / (dx * dx + dy * dy);
+
+                // Giới hạn t trong đoạn [0,1]
+                const clampedT = Math.max(0, Math.min(1, t));
+
+                const nearestX = p1.x + clampedT * dx;
+                const nearestY = p1.y + clampedT * dy;
+
+                const distance = Math.sqrt(Math.pow(tapLocation.x - nearestX, 2) + Math.pow(tapLocation.y - nearestY, 2));
+
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    nearestIntersection = v3(nearestX, nearestY);
+                }
+            }
+        }
+
+        return nearestIntersection || v3(tapLocation.x, tapLocation.y);
     }
 
     protected touchInPolygon(event: EventTouch, node: Node) {
