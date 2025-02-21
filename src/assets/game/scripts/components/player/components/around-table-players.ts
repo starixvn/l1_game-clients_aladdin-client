@@ -12,6 +12,9 @@ import { inject } from "inversify";
 import {MULTIPLIER_THRESHOLDS} from "../../bets/components/place-bet-button";
 import { bundleManager } from "db://shared-components/shared/common-components/bundle-magager/bundle-manager";
 import { AnimationUtils } from "db://shared-components/shared/utils/utils";
+import { TBalanceEffect } from "db://shared-components/game/balance-effect/scripts/stores/balance-effect-store";
+import { BalanceEffectHandlers } from "db://shared-components/game/balance-effect/scripts/handlers/balance-effect-handlers";
+import { TWinningEffect } from "db://shared-components/game/balance-effect/scripts/stores/balance-effect-store";
 const { ccclass, property } = _decorator;
 
 const { Rounds } = gc;
@@ -120,8 +123,10 @@ export class AroundTablePlayers extends ObserverComponent {
         }
     }
 
-    @handle(PlayerHandlers, (handle) => handle.updatePlayerInfo())
-    updatePlayerInfo() {}
+    @handle(PlayerHandlers, (handle, index: number) => handle.updatePlayerInfo(index))
+    updatePlayerInfo(index: number) {
+        return index;
+    }
 
     async updateMultiplier(multiplier: number, spineAxe: sp.Skeleton, levelUpParticle: ParticleSystem2D) {
         const level = this.getCurrentAnimationLevel(multiplier);
@@ -191,6 +196,8 @@ export class AroundTablePlayers extends ObserverComponent {
 
     protected async figureOutAroundTablePlayers(players: Player[], updatePlayerInfoIndex: number) {
         const hiddenPlayers: IAroundTablePlayers[] = values(this.hiddenPlayers);
+        const winningEffects: TWinningEffect[] = [];
+        const balanceEffects: TBalanceEffect[] = [];
         for (const player of this.aroundTablePlayerComponents) {
             const aroundTablePlayer = player.aroundTablePlayer;
 
@@ -207,7 +214,15 @@ export class AroundTablePlayers extends ObserverComponent {
                 AroundTablePlayerUtils.updatePlayerSlotDataStorage({
                     red: aroundTablePlayer.red
                 } as gc.GameServiceMessage.PlayerChip, player);
-                this.updatePlayerInfo();
+                
+                if(players[index].status?.win){
+                    winningEffects.push({ effectNode: player.node, status: true });
+                    balanceEffects.push({ effectNode: player.node, balance: players[index].status.bet });
+                    this.aroundTablePlayersShowWinningEffect(winningEffects);
+                    this.updateAroundTablePlayersIncreaseBalance(balanceEffects);
+                }
+
+                this.updatePlayerInfo(index);
             }
 
             if(players[index].multiplier > 1.0 && index === updatePlayerInfoIndex) {
@@ -234,6 +249,16 @@ export class AroundTablePlayers extends ObserverComponent {
                 remove(realPlayers, realPlayer);
             }
         }
+    }
+
+    @handle(BalanceEffectHandlers.AroundTablePlayersWinEffect)
+    aroundTablePlayersShowWinningEffect(winningEffects: TWinningEffect[]) {
+        return winningEffects;
+    }
+
+    @handle(BalanceEffectHandlers.AroundTablePlayersIncreaseBalance)
+    updateAroundTablePlayersIncreaseBalance(balanceEffects: TBalanceEffect[]) {
+        return balanceEffects;
     }
 
     protected async handleIdleAroundTablePlayer(

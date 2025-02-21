@@ -28,8 +28,9 @@ export class PlayerHandlers {
         }
     }
 
-    updatePlayerInfo() {
+    updatePlayerInfo(index: number) {
         this.playerStore.updatePlayerInfoIndex = -1;
+        this.playerStore.players[index].status = null;
     }
 
     updatePlayerStatus(status: PlayerWinMessage) {
