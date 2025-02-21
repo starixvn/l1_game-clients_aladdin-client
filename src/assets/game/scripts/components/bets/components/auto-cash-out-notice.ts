@@ -21,12 +21,19 @@ export default class AutoCashOutNotice extends ObserverComponent {
     updateMultiplierVisible(autoCashOutTimerVisible: boolean) {
         this.node.active = autoCashOutTimerVisible;
         if (autoCashOutTimerVisible) {
-            this.playSound(AudioIds.COUNTDOWN_CASHOUT);
+            this.playStoppableSFX(AudioIds.COUNTDOWN_CASHOUT);
+        } else {
+            this.stopStoppableSFX(AudioIds.COUNTDOWN_CASHOUT);
         }
     }
 
-    @handle(gc.Audios.AudioHandler, (handle, id: string) => handle.playSFX(id))
-    playSound(id: string) {
+    @handle(gc.Audios.AudioHandler, (handle, id: string) => handle.playStoppableSFX(id))
+    playStoppableSFX(id: string) {
+        return id;
+    }
+
+    @handle(gc.Audios.AudioHandler, (handle, id: string) => handle.stopStoppableSFX(id))
+    stopStoppableSFX(id: string) {
         return id;
     }
 }
