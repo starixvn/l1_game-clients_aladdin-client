@@ -14,7 +14,7 @@ import {
     sp,
     v3,
 } from "cc";
-import { bundleManager } from "db://shared-components/shared/common-components/bundle-magager/bundle-manager";
+import { bundleManager } from "db://shared-components/shared/common-components/bundle-manager/bundle-manager";
 import { ObserverComponent } from "db://shared-components/shared/common-components/observer-component/scripts/observer-component";
 import { AnimationUtils } from "db://shared-components/shared/utils";
 import Observer from "observer";

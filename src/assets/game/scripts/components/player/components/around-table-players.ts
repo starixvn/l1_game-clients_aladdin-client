@@ -1,20 +1,21 @@
 import gc from "@sg/game-client-base";
 import { _decorator, ParticleSystem2D, sp } from "cc";
+import { BalanceEffectHandlers } from "db://shared-components/game/balance-effect/scripts/handlers/balance-effect-handlers";
+import { TBalanceEffect, TWinningEffect } from "db://shared-components/game/balance-effect/scripts/stores/balance-effect-store";
+import { bundleManager } from "db://shared-components/shared/common-components/bundle-manager/bundle-manager";
+import { ObserverComponent } from "db://shared-components/shared/common-components/observer-component/scripts/observer-component";
+import { AnimationUtils } from "db://shared-components/shared/utils/utils";
 import { remove, values } from "lodash-es";
 import Observer from "observer";
-import { IAroundTablePlayers, IHiddenPlayers } from "../../../../../../extensions/shared-components/assets/game/around-table-player/scripts/stores/around-table-players-chip-store";
-import { AroundTablePlayerUtils } from "../../../../../../extensions/shared-components/assets/game/around-table-player/scripts/utils/around-table-player-utils";
-import { ObserverComponent } from "db://shared-components/shared/common-components/observer-component/scripts/observer-component";
 import { AroundTablePlayerComponent } from "../../../../../../extensions/shared-components/assets/game/around-table-player/scripts/components/around-table-player-component";
+import {
+    IAroundTablePlayers,
+    IHiddenPlayers,
+} from "../../../../../../extensions/shared-components/assets/game/around-table-player/scripts/stores/around-table-players-chip-store";
+import { AroundTablePlayerUtils } from "../../../../../../extensions/shared-components/assets/game/around-table-player/scripts/utils/around-table-player-utils";
+import { MULTIPLIER_THRESHOLDS } from "../../bets/components/place-bet-button";
 import { PlayerHandlers } from "../player-handler";
 import { Player, PlayerStore } from "../player-store";
-import { inject } from "inversify";
-import {MULTIPLIER_THRESHOLDS} from "../../bets/components/place-bet-button";
-import { bundleManager } from "db://shared-components/shared/common-components/bundle-magager/bundle-manager";
-import { AnimationUtils } from "db://shared-components/shared/utils/utils";
-import { TBalanceEffect } from "db://shared-components/game/balance-effect/scripts/stores/balance-effect-store";
-import { BalanceEffectHandlers } from "db://shared-components/game/balance-effect/scripts/handlers/balance-effect-handlers";
-import { TWinningEffect } from "db://shared-components/game/balance-effect/scripts/stores/balance-effect-store";
 const { ccclass, property } = _decorator;
 
 const { Rounds } = gc;
@@ -49,7 +50,7 @@ export class AroundTablePlayers extends ObserverComponent {
             const sortedPlayers: IAroundTablePlayers[] = players.sort((playerA, playerB) => (playerA.type === false ? -1 : 1)); //NOSONAR
 
             sortedPlayers.forEach((player) => {
-                this.addAroundTablePlayer(player);  
+                this.addAroundTablePlayer(player);
                 this.addNewPlayer(player);
             });
         }
@@ -116,8 +117,8 @@ export class AroundTablePlayers extends ObserverComponent {
         }
     }
 
-    @render(PlayerStore, store => ({players: store.players, updatePlayerInfoIndex: store.updatePlayerInfoIndex}))
-    renderAroundTablePlayerWhenStartBet(data: {players: Player[], updatePlayerInfoIndex: number}) {
+    @render(PlayerStore, (store) => ({ players: store.players, updatePlayerInfoIndex: store.updatePlayerInfoIndex }))
+    renderAroundTablePlayerWhenStartBet(data: { players: Player[]; updatePlayerInfoIndex: number }) {
         if (data.updatePlayerInfoIndex != -1) {
             this.figureOutAroundTablePlayers(data.players, data.updatePlayerInfoIndex);
         }
@@ -162,7 +163,7 @@ export class AroundTablePlayers extends ObserverComponent {
     getTransformSpineInfo(level: number) {
         return { name: `transformation/pickaxe_transformation${level - 1}_${level}`, animation: `pickaxe_${level - 1}_${level}` };
     }
-    
+
     loadAxeSpine(name: string) {
         console.log("loadAxeSpine  ", name);
         return bundleManager.loadResourcesAsset<sp.SkeletonData>(`spines/axe/${name}`, sp.SkeletonData);
@@ -208,14 +209,17 @@ export class AroundTablePlayers extends ObserverComponent {
             aroundTablePlayer.idleCount++;
             AroundTablePlayerUtils.storePlayerToCache(aroundTablePlayer);
 
-            const index = players.findIndex(p => p.id === aroundTablePlayer.id);
+            const index = players.findIndex((p) => p.id === aroundTablePlayer.id);
             if (index != -1 && index === updatePlayerInfoIndex) {
                 aroundTablePlayer.red = players[index].red;
-                AroundTablePlayerUtils.updatePlayerSlotDataStorage({
-                    red: aroundTablePlayer.red
-                } as gc.GameServiceMessage.PlayerChip, player);
-                
-                if(players[index].status?.win){
+                AroundTablePlayerUtils.updatePlayerSlotDataStorage(
+                    {
+                        red: aroundTablePlayer.red,
+                    } as gc.GameServiceMessage.PlayerChip,
+                    player
+                );
+
+                if (players[index].status?.win) {
                     winningEffects.push({ effectNode: player.node, status: true });
                     balanceEffects.push({ effectNode: player.node, balance: players[index].status.bet });
                     this.aroundTablePlayersShowWinningEffect(winningEffects);
@@ -225,16 +229,16 @@ export class AroundTablePlayers extends ObserverComponent {
                 this.updatePlayerInfo(index);
             }
 
-            if(players[index].multiplier > 1.0 && index === updatePlayerInfoIndex) {
+            if (players[index].multiplier > 1.0 && index === updatePlayerInfoIndex) {
                 player.node.getChildByName("axe").active = true;
                 const spineAxe = player.node.getChildByName("axe").getChildByName("axe-skeleton").getComponent(sp.Skeleton);
                 const levelUpParticle = player.node.getChildByName("axe").getChildByName("level-up").getComponent(ParticleSystem2D);
                 await this.updateMultiplier(players[index].multiplier, spineAxe, levelUpParticle);
             }
 
-            if((!players[index].multiplier || players[index].multiplier <= 1.0) && index === updatePlayerInfoIndex) {
+            if ((!players[index].multiplier || players[index].multiplier <= 1.0) && index === updatePlayerInfoIndex) {
                 player.node.getChildByName("axe").active = false;
-            }   
+            }
         }
 
         const botAroundTablePlayerPlayerComps = AroundTablePlayerUtils.getBotAroundTablePlayerComps(this.aroundTablePlayerComponents);
