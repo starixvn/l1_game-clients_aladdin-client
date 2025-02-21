@@ -3,11 +3,13 @@ import inversify from "inversify";
 import { Player, PlayerChipMessage, PlayerStore, PlayerWinMessage, PlayerMineMessage } from "./player-store";
 
 const { injectable, inject } = inversify;
+const { NumberUtils } = gc.Shared.utils;
 import { IAroundTablePlayers } from "../../../../../extensions/shared-components/assets/game/around-table-player/scripts/stores/around-table-players-chip-store";
 
 @injectable()
 export class PlayerHandlers {
     @inject(PlayerStore) private readonly playerStore: PlayerStore;
+    @inject(gc.Player.MainPlayerStore) private readonly mainPlayerStore: gc.Player.MainPlayerStore;
    
     addPlayer(player: IAroundTablePlayers) {
         this.playerStore.players.push(new Player({
@@ -36,6 +38,7 @@ export class PlayerHandlers {
     updatePlayerStatus(status: PlayerWinMessage) {
         const index = this.playerStore.players.findIndex(p => p.id === status.playerId);
         if (index !== -1) {
+            status.bet = NumberUtils.getValueByCurrency(status.bet, this.mainPlayerStore.rate, status.rate);
             this.playerStore.players[index].status = status;
             status.win && (
                 this.playerStore.players[index].red += status.bet,
