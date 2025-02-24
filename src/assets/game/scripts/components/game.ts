@@ -9,6 +9,7 @@ import { siteConfigs } from "../../../scripts/site-configs";
 import { AudioIds } from "../../audios/AudioIds";
 import { containerOptions, settings } from "../game-settings";
 import "./../../../resources/i18n";
+import { BetHandler } from "./bets/bet-handler";
 import { BetStore, SettleStatus } from "./bets/bet-store";
 import { CashOutHistoryHandlers } from "./cash-out-history/cash-out-history-handlers";
 import { GameWinNotice } from "./game-win-notice";
@@ -88,7 +89,14 @@ export default class Game extends GameComponent {
         this.getBalance();
 
         this.addCashOutHistory();
+
+        this.scheduleOnce(() => {
+            this.completeSettle();
+        }, duration);
     }
+
+    @handle(BetHandler, (handler) => handler.completeSettle())
+    completeSettle() {}
 
     @handle(gc.Auth.AuthHandlers.GetBalance)
     getBalance() {}

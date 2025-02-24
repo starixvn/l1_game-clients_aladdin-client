@@ -13,12 +13,12 @@ import {
     PolygonCollider2D,
     sp,
     v3,
+    Vec3,
 } from "cc";
 import { bundleManager } from "db://shared-components/shared/common-components/bundle-manager/bundle-manager";
 import { ObserverComponent } from "db://shared-components/shared/common-components/observer-component/scripts/observer-component";
 import { AnimationUtils } from "db://shared-components/shared/utils";
 import Observer from "observer";
-import { Vec3 } from "../../../../../../tests/cocos-testing/cc";
 import { AudioIds } from "../../../../audios/AudioIds";
 import { BetHandler } from "../bet-handler";
 import { BetStore, BetUIState } from "../bet-store";
@@ -85,7 +85,10 @@ export default class PlaceBetButton extends ObserverComponent {
 
     private realColliderRock: PolygonCollider2D = null;
 
+    private startAxePosition: Vec3 = null;
+
     onLoad() {
+        this.startAxePosition = v3(this.spineAxe.node.parent.position);
         this.realColliderRock = this.effect.getComponent(PolygonCollider2D);
         this.hitToolTip = this.hitStoneButton.getChildByName("tooltip");
         this.initializeAnimations();
@@ -131,6 +134,8 @@ export default class PlaceBetButton extends ObserverComponent {
     showAxe() {
         if (this.spineAxe) {
             this.spineAxe.node.active = true;
+
+            this.resetAxe();
         }
     }
 
@@ -367,6 +372,17 @@ export default class PlaceBetButton extends ObserverComponent {
         this.effect.setAnimation(0, `tap_3`, false);
     }
 
+    async resetAxe() {
+        await this.updateTapAnim(this.axeLevel);
+        const currentTapAnim = this.spineAxe;
+        currentTapAnim.setAnimation(0, this.currentAnimationName, false);
+
+        const trackEntry = currentTapAnim.getCurrent(0);
+        trackEntry.trackTime = trackEntry.animationEnd * 0.9999;
+
+        this.spineAxe.node.parent.position = v3(this.startAxePosition);
+    }
+
     async playCrashAnimation() {
         try {
             const level = this.getCurrentAnimationLevel(this.multiplier);
@@ -376,8 +392,12 @@ export default class PlaceBetButton extends ObserverComponent {
             this.playSound(AudioIds.CRASHED);
             await AnimationUtils.playSpine(this.spineAxe, crashSpineInfo.animation, false);
             this.hideAxe();
+            this.completeSettle();
         } catch (e) {}
     }
+
+    @handle(BetHandler, (handler) => handler.completeSettle())
+    completeSettle() {}
 
     resetCursor() {
         document.body.style.cursor = "default";

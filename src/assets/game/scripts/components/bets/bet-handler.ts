@@ -1,7 +1,6 @@
 import gc from "@sg/game-client-base";
 import inversify from "inversify";
 import { GameServiceMessage } from "../../game-message";
-import { settings } from "../../game-settings";
 import { HashHandlers } from "../hash/hash-handlers";
 import { BetStore, BetUIState } from "./bet-store";
 
@@ -135,7 +134,6 @@ export class BetHandler extends gc.Bet.BetHandler implements gc.Shared.IMultiple
 
         const countDown = () => {
             this.betsStore.autoCashOutTimer--;
-            console.log(`auto cashout in ${this.betsStore.autoCashOutTimer}s`);
             if (this.betsStore.autoCashOutTimer <= 0) {
                 this.handleCashOut();
             } else {
@@ -156,19 +154,14 @@ export class BetHandler extends gc.Bet.BetHandler implements gc.Shared.IMultiple
         this.betsStore.reachMaxWin = false;
         this.betsStore.uiState = BetUIState.Settle;
         this.updateStatusBet(status);
+    }
 
-        const delayResetBet = this.betsStore.settleStatus.win
-            ? this.betsStore.settleStatus.isBigWin
-                ? settings.durations.bigWinNotice
-                : settings.durations.normalWinNotice
-            : settings.durations.loseNotice;
-        setTimeout(() => {
-            this.resetBet();
+    completeSettle() {
+        this.resetBet();
 
-            if (this.betsStore.isAutoStart) {
-                this.changeStarted();
-            }
-        }, delayResetBet * 1000);
+        if (this.betsStore.isAutoStart) {
+            this.changeStarted();
+        }
     }
 
     updateAutoStart() {
