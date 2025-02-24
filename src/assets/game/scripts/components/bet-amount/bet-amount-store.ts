@@ -25,17 +25,10 @@ export class BetAmountStore {
     }
 
     get isMinBetLevelValue() {
-        if (this.betLevels.length > 0 && this.betLevels[0] >= this.betBaseStore.amount) {
-            return true;
-        }
-        return false;
+        return this.betBaseStore.amount <= this.gameConfig.minBet;
     }
 
     get isMaxbetLevelValue() {
-        const index = this.betLevels.findIndex((amount) => amount === this.betBaseStore.amount);
-        if (index >= this.betLevels.length - 1) {
-            return true;
-        }
-        return false;
+        return this.betBaseStore.amount >= this.gameConfig.maxBet;
     }
 }
