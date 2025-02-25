@@ -27,12 +27,33 @@ export class AroundTablePlayers extends ObserverComponent {
     aroundTablePlayerComponents: AroundTablePlayerComponent[] = [];
     private axeLevel = 1;
     private currentAnimationName = "";
+    private isTabVisible = true;
 
     onLoad(): void {
         super.onLoad();
         this.aroundTablePlayerComponents =
             this.node.getComponentsInChildren(AroundTablePlayerComponent).filter((component) => component && component.node.active) ?? [];
+        
+        document.addEventListener('visibilitychange', this.handleVisibilityChange.bind(this));
     }
+
+    private handleVisibilityChange(): void {
+        this.isTabVisible = document.visibilityState === 'visible';
+        this.renderUserActive();
+    }
+
+    onDestroy(): void {
+        document.removeEventListener('visibilitychange', this.handleVisibilityChange.bind(this));
+    }
+
+    isUserActive(): boolean {
+        return this.isTabVisible;
+    }
+
+    @handle(PlayerHandlers, (handle, isActive: boolean) => handle.updateUserActive(isActive))
+    renderUserActive() {
+       return this.isTabVisible;
+    }   
 
     @render(gc.AroundTablePlayers.AroundTablePlayersStore, (store) => store.aroundTablePlayer)
     renderAroundTablePlayer(aroundTablePlayer: IAroundTablePlayers) {
@@ -219,7 +240,7 @@ export class AroundTablePlayers extends ObserverComponent {
                     player
                 );
 
-                if (players[index].status?.win) {
+                if (players[index].status?.win && this.isUserActive()) {
                     winningEffects.push({ effectNode: player.node, status: true });
                     balanceEffects.push({ effectNode: player.node, balance: players[index].status.bet });
                     this.aroundTablePlayersShowWinningEffect(winningEffects);

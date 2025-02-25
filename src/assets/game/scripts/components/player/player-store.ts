@@ -67,6 +67,7 @@ export class PlayerStore {
 
     players: Player[] = [];
     updatePlayerInfoIndex: number = -1;
+    isUserActive: boolean = true;
 }
 
 

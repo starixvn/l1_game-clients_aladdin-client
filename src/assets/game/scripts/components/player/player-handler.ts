@@ -65,6 +65,10 @@ export class PlayerHandlers {
         }
     }
 
+    updateUserActive(isActive: boolean) {
+        this.playerStore.isUserActive = isActive;
+    }
+
     eventHandleList = [
         {
             name: PlayerWinMessage.eventName,
