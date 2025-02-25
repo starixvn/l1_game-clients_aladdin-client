@@ -131,52 +131,19 @@ export default class BetAmount extends ObserverComponent {
         return this.nodeBetLevelsContainer && this.nodeBetLevelsContainer.active && this.nodeBetLevelsContainer.scale.y === 1;
     }
 
-    private getChangeInscreaseBetAmount() {
-        const BET_THRESHOLDS = [
-            { threshold: 999999, increment: 1_000_000 },
-            { threshold: 99999, increment: 100_000 },
-            { threshold: 9999, increment: 10_000 },
-            { threshold: 999, increment: 1_000 },
-            { threshold: 99, increment: 100 },
-            { threshold: 9, increment: 10 },
-        ];
-
-        return BET_THRESHOLDS.find(({ threshold }) => this.betAmount > threshold)?.increment || 1;
-    }
-
-    private getChangeDescreaseBetAmount() {
-        const BET_THRESHOLDS = [
-            { threshold: 1000000, increment: 1_000_000 },
-            { threshold: 100000, increment: 100_000 },
-            { threshold: 10000, increment: 10_000 },
-            { threshold: 1000, increment: 1_000 },
-            { threshold: 100, increment: 100 },
-            { threshold: 10, increment: 10 },
-        ];
-
-        return BET_THRESHOLDS.find(({ threshold }) => this.betAmount > threshold)?.increment || 1;
-    }
-
     @handle(gc.Audios.AudioHandler, (handle, id: string) => handle.playSFX(id))
     playSound(id: string) {
         return id;
     }
 
-    @handle(BetAmountHandlers, (handle, amount: number) => handle.updateBetAmount(amount))
+    @handle(BetAmountHandlers, (handle) => handle.decreaseAmount())
     onClickDescreaseButton() {
         this.playSound(AudioIds.CLICK);
-        return this.calculateNewBetAmount(-this.getChangeDescreaseBetAmount());
     }
 
-    @handle(BetAmountHandlers, (handle, amount: number) => handle.updateBetAmount(amount))
+    @handle(BetAmountHandlers, (handle) => handle.increaseAmount())
     onClickInscreaseButton() {
         this.playSound(AudioIds.CLICK);
-        return this.calculateNewBetAmount(this.getChangeInscreaseBetAmount());
-    }
-
-    private calculateNewBetAmount(change: number): number {
-        const [minBet, maxBet] = [this.betLevels[0], this.betLevels[this.betLevels.length - 1]];
-        return Math.min(Math.max(this.betAmount + change, minBet), maxBet);
     }
 
     findIndexBetLevel(): number {
