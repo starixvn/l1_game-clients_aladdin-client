@@ -1,20 +1,5 @@
 import gc from "@sg/game-client-base";
-import {
-    _decorator,
-    Animation,
-    Button,
-    EventTouch,
-    Font,
-    Intersection2D,
-    Label,
-    math,
-    Node,
-    ParticleSystem2D,
-    PolygonCollider2D,
-    sp,
-    v3,
-    Vec3,
-} from "cc";
+import { _decorator, Animation, Button, EventTouch, Font, Intersection2D, Label, math, Node, PolygonCollider2D, sp, v3, Vec3 } from "cc";
 import { bundleManager } from "db://shared-components/shared/common-components/bundle-manager/bundle-manager";
 import { ObserverComponent } from "db://shared-components/shared/common-components/observer-component/scripts/observer-component";
 import { AnimationUtils } from "db://shared-components/shared/utils";
@@ -68,8 +53,8 @@ export default class PlaceBetButton extends ObserverComponent {
     @property(Font)
     private disableMoneyFont: Font = null;
 
-    @property(ParticleSystem2D)
-    private levelUpParticle: ParticleSystem2D = null;
+    @property(sp.Skeleton)
+    private levelUpSpine: sp.Skeleton = null;
 
     @property(Node)
     debugNode: Node = null;
@@ -88,6 +73,7 @@ export default class PlaceBetButton extends ObserverComponent {
     private startAxePosition: Vec3 = null;
 
     onLoad() {
+        this.levelUpSpine.node.active = false;
         this.startAxePosition = v3(this.spineAxe.node.parent.position);
         this.realColliderRock = this.effect.getComponent(PolygonCollider2D);
         this.hitToolTip = this.hitStoneButton.getChildByName("tooltip");
@@ -186,16 +172,12 @@ export default class PlaceBetButton extends ObserverComponent {
 
     async playAxeTransformation(level: number) {
         try {
-            const spineInfo = this.getTransformSpineInfo(level);
-            const skeletonData = await this.loadAxeSpine(spineInfo.name);
-            this.spineAxe.skeletonData = skeletonData;
-            await AnimationUtils.playSpine(this.spineAxe, spineInfo.animation, false);
-            this.playLevelUpParticle();
+            this.spineAxe.node.active = false;
+            this.levelUpSpine.node.active = true;
+            await AnimationUtils.playSpine(this.levelUpSpine, "lv-up", false);
+            this.levelUpSpine.node.active = false;
+            this.spineAxe.node.active = true;
         } catch (e) {}
-    }
-
-    playLevelUpParticle() {
-        this.levelUpParticle.resetSystem();
     }
 
     @render(BetStore, (store) => store.winAmount)
