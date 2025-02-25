@@ -16,6 +16,7 @@ import { AroundTablePlayerUtils } from "../../../../../../extensions/shared-comp
 import { MULTIPLIER_THRESHOLDS } from "../../bets/components/place-bet-button";
 import { PlayerHandlers } from "../player-handler";
 import { Player, PlayerStore } from "../player-store";
+import { VisibilityStore } from "../../visibility/visibility-store";
 const { ccclass, property } = _decorator;
 
 const { Rounds } = gc;
@@ -27,33 +28,28 @@ export class AroundTablePlayers extends ObserverComponent {
     aroundTablePlayerComponents: AroundTablePlayerComponent[] = [];
     private axeLevel = 1;
     private currentAnimationName = "";
-    private isTabVisible = true;
+    private isTabVisible = false;
 
     onLoad(): void {
         super.onLoad();
         this.aroundTablePlayerComponents =
             this.node.getComponentsInChildren(AroundTablePlayerComponent).filter((component) => component && component.node.active) ?? [];
-        
-        document.addEventListener('visibilitychange', this.handleVisibilityChange.bind(this));
     }
 
-    private handleVisibilityChange(): void {
-        this.isTabVisible = document.visibilityState === 'visible';
-        this.renderUserActive();
-    }
-
-    onDestroy(): void {
-        document.removeEventListener('visibilitychange', this.handleVisibilityChange.bind(this));
-    }
-
-    isUserActive(): boolean {
-        return this.isTabVisible;
+    @render(VisibilityStore, (store) => store.isTabVisible)
+    renderUserActive(isTabVisible: boolean) {
+        return isTabVisible;
     }
 
     @handle(PlayerHandlers, (handle, isActive: boolean) => handle.updateUserActive(isActive))
-    renderUserActive() {
-       return this.isTabVisible;
-    }   
+    updateUserActive(isActive: boolean) {
+        return isActive;
+    }
+
+    @render(VisibilityStore, (store) => store.isTabVisible)
+    setIsTabVisible(isTabVisible: boolean) {
+        this.isTabVisible = isTabVisible;
+    }
 
     @render(gc.AroundTablePlayers.AroundTablePlayersStore, (store) => store.aroundTablePlayer)
     renderAroundTablePlayer(aroundTablePlayer: IAroundTablePlayers) {
@@ -240,7 +236,7 @@ export class AroundTablePlayers extends ObserverComponent {
                     player
                 );
 
-                if (players[index].status?.win && this.isUserActive()) {
+                if (players[index].status?.win && this.isTabVisible) {
                     winningEffects.push({ effectNode: player.node, status: true });
                     balanceEffects.push({ effectNode: player.node, balance: players[index].status.bet });
                     this.aroundTablePlayersShowWinningEffect(winningEffects);
