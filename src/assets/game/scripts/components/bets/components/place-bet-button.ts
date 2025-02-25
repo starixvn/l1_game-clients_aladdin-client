@@ -59,7 +59,8 @@ export default class PlaceBetButton extends ObserverComponent {
     @property(Node)
     debugNode: Node = null;
 
-    private canBet = false;
+    private isStateBet = false;
+    private upgradingAxe = false;
     private multiplier = 0;
     private axeLevel = 1;
     private currentAnimationName = "";
@@ -145,6 +146,7 @@ export default class PlaceBetButton extends ObserverComponent {
             const level = this.getCurrentAnimationLevel(multiplier);
             if (this.axeLevel < level) {
                 this.playSound(AudioIds.CHANGE_AXE);
+                this.upgradingAxe = true;
                 await this.playAxeTransformation(level);
             }
             this.axeLevel = level;
@@ -156,6 +158,7 @@ export default class PlaceBetButton extends ObserverComponent {
                 this.playTapAnimation();
             }
             this.updateMultiplierColor(level);
+            this.upgradingAxe = false;
         } catch (e) {}
     }
 
@@ -222,6 +225,10 @@ export default class PlaceBetButton extends ObserverComponent {
 
         this.hitStoneButton.on(Node.EventType.MOUSE_MOVE, this.showHitToolTip, this);
         this.hitStoneButton.on(Node.EventType.MOUSE_LEAVE, this.hideHitToolTip, this);
+    }
+
+    get canBet() {
+        return this.isStateBet && !this.upgradingAxe;
     }
 
     validTapArea() {
@@ -403,7 +410,7 @@ export default class PlaceBetButton extends ObserverComponent {
         this.cashOutButton.active = uiState === BetUIState.Bet || uiState === BetUIState.Mining || uiState === BetUIState.Settle;
         this.hitStoneButton.active = uiState === BetUIState.Started;
 
-        this.canBet = uiState > BetUIState.Start && uiState !== BetUIState.Settle;
+        this.isStateBet = uiState > BetUIState.Start && uiState !== BetUIState.Settle;
 
         if (uiState === BetUIState.Started) {
             this.showAxe();
