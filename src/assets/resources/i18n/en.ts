@@ -193,6 +193,7 @@ export const languages = {
         "to": "to",
         "total": "Total",
         "total_stake": "Total Stake",
+        "total_stake_shorten": "Total Stake",
         "total_win": "Total Win",
         "under_maintenance_suggest": "Please kindly re-login to continue playing games after the maintenance is complete.",
         "under_maintenance_time": "Starting from %{startTime} to %{endTime} (GMT+8)",

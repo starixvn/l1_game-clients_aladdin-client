@@ -193,6 +193,7 @@ export const languages = {
         "to": "ถึง",
         "total": "รวม",
         "total_stake": "เดิมพันรวม",
+        "total_stake_shorten": "เดิมพันรวม",
         "total_win": "ชนะทั้งหมด",
         "under_maintenance_suggest": "กรุณาเข้าสู่ระบบใหม่อีกครั้งเพื่อเล่นเกมต่อหลังจากการปิดปรับปรุงเสร็จสิ้นแล้ว",
         "under_maintenance_time": "เริ่มต้นจาก %{startTime} ถึง %{endTime} (GMT+8)",

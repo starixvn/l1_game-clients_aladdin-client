@@ -193,6 +193,7 @@ export const languages = {
         "to": "到",
         "total": "全部的",
         "total_stake": "总赌注",
+        "total_stake_shorten": "总赌注",
         "total_win": "总赢",
         "under_maintenance_suggest": "维护完成后请重新登录继续玩游戏。",
         "under_maintenance_time": "从 %{startTime} 到 %{endTime} (GMT+8)",
