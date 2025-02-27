@@ -298,7 +298,12 @@ export default class PlaceBetButton extends ObserverComponent {
             }
 
             this.debugNode.worldPosition = tapLocation;
-            this.spineAxe.node.parent.worldPosition = tapLocation;
+            const axeNode = this.spineAxe.node.parent;
+            axeNode.worldPosition = tapLocation;
+            const flip = axeNode.position.x < 0;
+            const scaleX = flip ? -1 : 1;
+            axeNode.scale = v3(scaleX, 1, 1);
+            axeNode.angle = -scaleX * 30;
         }
     }
 
