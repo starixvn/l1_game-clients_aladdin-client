@@ -12,9 +12,9 @@ const { ccclass, property } = _decorator;
 const { handle, render } = Observer;
 
 export const MULTIPLIER_THRESHOLDS = {
-    LEVEL_4: 110,
-    LEVEL_3: 11,
-    LEVEL_2: 1.2,
+    LEVEL_4: 100,
+    LEVEL_3: 10,
+    LEVEL_2: 1.1,
     LEVEL_1: 0,
 };
 
@@ -61,6 +61,7 @@ export default class PlaceBetButton extends ObserverComponent {
 
     private isStateBet = false;
     private upgradingAxe = false;
+    private upgradeTimeStamp = 0;
     private multiplier = 0;
     private axeLevel = 1;
     private currentAnimationName = "";
@@ -72,9 +73,13 @@ export default class PlaceBetButton extends ObserverComponent {
     private realColliderRock: PolygonCollider2D = null;
 
     private startAxePosition: Vec3 = null;
+    private levelUpAxeSpine: sp.Skeleton = null;
 
     onLoad() {
         this.levelUpSpine.node.active = false;
+        this.levelUpAxeSpine = this.levelUpSpine.node.getChildByName("axe").getComponent(sp.Skeleton);
+        this.levelUpAxeSpine.node.active = false;
+
         this.startAxePosition = v3(this.spineAxe.node.parent.position);
         this.realColliderRock = this.effect.getComponent(PolygonCollider2D);
         this.hitToolTip = this.hitStoneButton.getChildByName("tooltip");
@@ -142,23 +147,30 @@ export default class PlaceBetButton extends ObserverComponent {
     async updateMultiplier(multiplier: number) {
         try {
             this.multiplier = multiplier;
-            this.lblMultiplier.string = `${gc.FormatUtils.numberWithCommas(multiplier, 2, false)}x`;
             const level = this.getCurrentAnimationLevel(multiplier);
-            if (this.axeLevel < level) {
-                this.playSound(AudioIds.CHANGE_AXE);
+            const upgradingAxe = this.axeLevel < level;
+
+            let timeStamp = Date.now();
+            if (upgradingAxe && !this.upgradingAxe) {
                 this.upgradingAxe = true;
-                await this.playAxeTransformation(level);
+                this.upgradeTimeStamp = timeStamp;
             }
-            this.axeLevel = level;
-            await this.updateTapAnim(level);
 
             const needPlayTapAnimation = this.multiplier > 1.0;
             if (needPlayTapAnimation) {
                 this.playRandomHitSfx(level);
-                this.playTapAnimation();
+                await this.playTapAnimation();
             }
+
+            this.lblMultiplier.string = `${gc.FormatUtils.numberWithCommas(multiplier, 2, false)}x`;
             this.updateMultiplierColor(level);
-            this.upgradingAxe = false;
+
+            if (this.upgradingAxe && timeStamp === this.upgradeTimeStamp) {
+                this.playSound(AudioIds.CHANGE_AXE);
+                await this.playAxeTransformation(level);
+                this.upgradingAxe = false;
+            }
+            this.axeLevel = level;
         } catch (e) {}
     }
 
@@ -173,13 +185,31 @@ export default class PlaceBetButton extends ObserverComponent {
         return id;
     }
 
+    showLevelUpAxe(show: boolean) {
+        this.levelUpSpine.node.active = show;
+        this.levelUpAxeSpine.node.active = show;
+        this.spineAxe.node.active = !show;
+    }
+
     async playAxeTransformation(level: number) {
         try {
-            this.spineAxe.node.active = false;
-            this.levelUpSpine.node.active = true;
-            await AnimationUtils.playSpine(this.levelUpSpine, "lv-up", false);
-            this.levelUpSpine.node.active = false;
-            this.spineAxe.node.active = true;
+            this.showLevelUpAxe(true);
+            AnimationUtils.setOpacityNode(this.levelUpSpine.node, 255);
+            AnimationUtils.setOpacityNode(this.levelUpAxeSpine.node, 255);
+
+            this.updateTapAnim(level);
+
+            const lightSpineInfo = this.getTransformSpineInfo(level);
+            const skeletonData = await this.loadAxeSpine(lightSpineInfo.name);
+            this.levelUpAxeSpine.skeletonData = skeletonData;
+            this.levelUpAxeSpine.setAnimation(0, lightSpineInfo.animation, false);
+            AnimationUtils.playSpine(this.levelUpSpine, "light", true);
+            await AnimationUtils.delayTime(2.5);
+            const fadeDuration = 0.5;
+            AnimationUtils.fadeOut(this.levelUpSpine.node, fadeDuration);
+            await AnimationUtils.fadeOut(this.levelUpAxeSpine.node, fadeDuration);
+
+            this.showLevelUpAxe(false);
         } catch (e) {}
     }
 
@@ -193,12 +223,12 @@ export default class PlaceBetButton extends ObserverComponent {
     }
 
     async updateTapAnim(level: number) {
-        this.spineAxe = this.spineAxe;
         try {
             const kickSpineInfo = this.getKickSpineInfo(level);
             this.currentAnimationName = kickSpineInfo.animation;
             const skeletonData = await this.loadAxeSpine(kickSpineInfo.name);
             this.spineAxe.skeletonData = skeletonData;
+            await AnimationUtils.playSpineAtProgress(this.spineAxe, this.currentAnimationName, 0.9999);
         } catch (e) {}
     }
 
@@ -351,24 +381,18 @@ export default class PlaceBetButton extends ObserverComponent {
     }
 
     getTransformSpineInfo(level: number) {
-        return { name: `transformation/pickaxe_transformation${level - 1}_${level}`, animation: `pickaxe_${level - 1}_${level}` };
+        return { name: `level-up/pickaxe${level}/pickaxe${level}`, animation: `pickaxe${level}` };
     }
 
-    playTapAnimation() {
-        const currentTapAnim = this.spineAxe;
-        currentTapAnim.setAnimation(0, this.currentAnimationName, false);
-
+    async playTapAnimation() {
         this.effect.setAnimation(0, `tap_3`, false);
+
+        const currentTapAnim = this.spineAxe;
+        await AnimationUtils.playSpine(currentTapAnim, this.currentAnimationName, false);
     }
 
     async resetAxe() {
         await this.updateTapAnim(this.axeLevel);
-        const currentTapAnim = this.spineAxe;
-        currentTapAnim.setAnimation(0, this.currentAnimationName, false);
-
-        const trackEntry = currentTapAnim.getCurrent(0);
-        trackEntry.trackTime = trackEntry.animationEnd * 0.9999;
-
         this.spineAxe.node.parent.position = v3(this.startAxePosition);
     }
 
