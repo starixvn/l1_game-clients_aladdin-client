@@ -1,5 +1,5 @@
 import gc from "@sg/game-client-base";
-import { _decorator, ParticleSystem2D, sp } from "cc";
+import { _decorator, sp } from "cc";
 import { BalanceEffectHandlers } from "db://shared-components/game/balance-effect/scripts/handlers/balance-effect-handlers";
 import { TBalanceEffect, TWinningEffect } from "db://shared-components/game/balance-effect/scripts/stores/balance-effect-store";
 import { bundleManager } from "db://shared-components/shared/common-components/bundle-manager/bundle-manager";
@@ -14,9 +14,9 @@ import {
 } from "../../../../../../extensions/shared-components/assets/game/around-table-player/scripts/stores/around-table-players-chip-store";
 import { AroundTablePlayerUtils } from "../../../../../../extensions/shared-components/assets/game/around-table-player/scripts/utils/around-table-player-utils";
 import { MULTIPLIER_THRESHOLDS } from "../../bets/components/place-bet-button";
+import { VisibilityStore } from "../../visibility/visibility-store";
 import { PlayerHandlers } from "../player-handler";
 import { Player, PlayerStore } from "../player-store";
-import { VisibilityStore } from "../../visibility/visibility-store";
 const { ccclass, property } = _decorator;
 
 const { Rounds } = gc;
@@ -34,11 +34,6 @@ export class AroundTablePlayers extends ObserverComponent {
         super.onLoad();
         this.aroundTablePlayerComponents =
             this.node.getComponentsInChildren(AroundTablePlayerComponent).filter((component) => component && component.node.active) ?? [];
-    }
-
-    @render(VisibilityStore, (store) => store.isTabVisible)
-    renderUserActive(isTabVisible: boolean) {
-        return isTabVisible;
     }
 
     @handle(PlayerHandlers, (handle, isActive: boolean) => handle.updateUserActive(isActive))
@@ -146,10 +141,10 @@ export class AroundTablePlayers extends ObserverComponent {
         return index;
     }
 
-    async updateMultiplier(multiplier: number, spineAxe: sp.Skeleton, levelUpParticle: ParticleSystem2D) {
+    async updateMultiplier(multiplier: number, spineAxe: sp.Skeleton) {
         const level = this.getCurrentAnimationLevel(multiplier);
         if (this.axeLevel < level) {
-            await this.playAxeTransformation(level, spineAxe, levelUpParticle);
+            await this.playAxeTransformation(level, spineAxe);
         }
         this.axeLevel = level;
         await this.updateTapAnim(level, spineAxe);
@@ -182,21 +177,15 @@ export class AroundTablePlayers extends ObserverComponent {
     }
 
     loadAxeSpine(name: string) {
-        console.log("loadAxeSpine  ", name);
         return bundleManager.loadResourcesAsset<sp.SkeletonData>(`spines/axe/${name}`, sp.SkeletonData);
     }
 
-    playLevelUpParticle(levelUpParticle: ParticleSystem2D) {
-        levelUpParticle.resetSystem();
-    }
-
-    async playAxeTransformation(level: number, spineAxe: sp.Skeleton, levelUpParticle: ParticleSystem2D) {
+    async playAxeTransformation(level: number, spineAxe: sp.Skeleton) {
         try {
             const spineInfo = this.getTransformSpineInfo(level);
             const skeletonData = await this.loadAxeSpine(spineInfo.name);
             spineAxe.skeletonData = skeletonData;
             await AnimationUtils.playSpine(spineAxe, spineInfo.animation, false);
-            this.playLevelUpParticle(levelUpParticle);
         } catch (e) {}
     }
 
@@ -248,13 +237,11 @@ export class AroundTablePlayers extends ObserverComponent {
                 if (players[index].multiplier > 1.0) {
                     player.node.getChildByName("axe").active = true;
                     const spineAxe = player.node.getChildByName("axe").getChildByName("axe-skeleton").getComponent(sp.Skeleton);
-                    const levelUpParticle = player.node.getChildByName("axe").getChildByName("level-up").getComponent(ParticleSystem2D);
-                    await this.updateMultiplier(players[index].multiplier, spineAxe, levelUpParticle);
-                }  
-                else {
+                    await this.updateMultiplier(players[index].multiplier, spineAxe);
+                } else {
                     player.node.getChildByName("axe").active = false;
                 }
-            }            
+            }
         }
 
         const botAroundTablePlayerPlayerComps = AroundTablePlayerUtils.getBotAroundTablePlayerComps(this.aroundTablePlayerComponents);

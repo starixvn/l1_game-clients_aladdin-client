@@ -300,11 +300,15 @@ export default class PlaceBetButton extends ObserverComponent {
             this.debugNode.worldPosition = tapLocation;
             const axeNode = this.spineAxe.node.parent;
             axeNode.worldPosition = tapLocation;
-            const flip = axeNode.position.x < 0;
-            const scaleX = flip ? -1 : 1;
-            axeNode.scale = v3(scaleX, 1, 1);
-            axeNode.angle = -scaleX * 30;
+            this.updateAxeDirection(axeNode);
         }
+    }
+
+    private updateAxeDirection(axeNode: Node) {
+        const flip = axeNode.position.x < 0;
+        const scaleX = flip ? -1 : 1;
+        axeNode.scale = v3(scaleX, 1, 1);
+        axeNode.angle = -scaleX * 30;
     }
 
     findNearestPoint(tapLocation: Vec3, collider: PolygonCollider2D) {
@@ -399,6 +403,7 @@ export default class PlaceBetButton extends ObserverComponent {
     async resetAxe() {
         await this.updateTapAnim(this.axeLevel);
         this.spineAxe.node.parent.position = v3(this.startAxePosition);
+        this.updateAxeDirection(this.spineAxe.node.parent);
     }
 
     async playCrashAnimation() {
