@@ -141,7 +141,7 @@ export default class PlaceBetButton extends ObserverComponent {
     async updateMultiplier(multiplier: number) {
         try {
             this.multiplier = multiplier;
-            const level = this.getCurrentAnimationLevel(multiplier);
+            const level = getCurrentAnimationLevel(multiplier);
             const upgradingAxe = this.axeLevel < level;
 
             let timeStamp = Date.now();
