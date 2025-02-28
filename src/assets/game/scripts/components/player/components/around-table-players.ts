@@ -218,8 +218,11 @@ export class AroundTablePlayers extends ObserverComponent {
                 );
 
                 if (players[index].status?.win && this.isTabVisible) {
-                    winningEffects.push({ effectNode: player.node, status: true });
-                    balanceEffects.push({ effectNode: player.node, balance: players[index].status.bet });
+                    const nodeBalance = player.node.getChildByName("balance");
+                    const nodeWinning = player.node.getChildByName("winning");
+
+                    winningEffects.push({ effectNode: nodeWinning, status: true });
+                    balanceEffects.push({ effectNode: nodeBalance, balance: players[index].status.bet });
                     this.aroundTablePlayersShowWinningEffect(winningEffects);
                     this.updateAroundTablePlayersIncreaseBalance(balanceEffects);
                 }
