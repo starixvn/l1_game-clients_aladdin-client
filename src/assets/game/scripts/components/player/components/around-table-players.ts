@@ -226,12 +226,13 @@ export class AroundTablePlayers extends ObserverComponent {
 
                 this.updatePlayerInfo(index);
 
+                const axeNode = player.node.getChildByName("axe");
                 if (players[index].multiplier > 1.0) {
-                    player.node.getChildByName("axe").active = true;
-                    const spineAxe = player.node.getChildByName("axe").getChildByName("axe-skeleton").getComponent(sp.Skeleton);
+                    axeNode.active = true;
+                    const spineAxe = axeNode.getChildByName("axe-skeleton").getComponent(sp.Skeleton);
                     await this.updateMultiplier(players[index].multiplier, spineAxe);
                 } else {
-                    player.node.getChildByName("axe").active = false;
+                    axeNode.active = false;
                 }
             }
         }
