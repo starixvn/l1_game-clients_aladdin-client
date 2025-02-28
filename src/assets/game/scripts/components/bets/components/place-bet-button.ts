@@ -5,7 +5,7 @@ import { ObserverComponent } from "db://shared-components/shared/common-componen
 import { AnimationUtils } from "db://shared-components/shared/utils";
 import Observer from "observer";
 import { AudioIds } from "../../../../audios/AudioIds";
-import { getCurrentAnimationLevel } from "../../../utils";
+import { changeCursorPointer, changePointerWhenHover, getCurrentAnimationLevel, resetCursor } from "../../../utils";
 import { BetHandler } from "../bet-handler";
 import { BetStore, BetUIState } from "../bet-store";
 
@@ -237,15 +237,14 @@ export default class PlaceBetButton extends ObserverComponent {
     }
 
     addEvent() {
-        this.node.on(Node.EventType.MOUSE_MOVE, this.changeCursorPointer, this);
-        this.node.on(Node.EventType.MOUSE_LEAVE, this.resetCursor, this);
+        changePointerWhenHover(this.node);
 
-        this.cashOutButton.on(Node.EventType.MOUSE_MOVE, this.changeCursorPointer, this);
-        this.cashOutButton.on(Node.EventType.MOUSE_LEAVE, this.resetCursor, this);
+        this.cashOutButton.on(Node.EventType.MOUSE_MOVE, changeCursorPointer, this);
+        this.cashOutButton.on(Node.EventType.MOUSE_LEAVE, resetCursor, this);
 
         this.tapArea.on(Node.EventType.TOUCH_START, this.onTap, this);
         this.tapArea.on(Node.EventType.MOUSE_MOVE, this.validTapArea, this);
-        this.tapArea.on(Node.EventType.MOUSE_LEAVE, this.resetCursor, this);
+        this.tapArea.on(Node.EventType.MOUSE_LEAVE, resetCursor, this);
 
         this.hitStoneButton.on(Node.EventType.MOUSE_MOVE, this.showHitToolTip, this);
         this.hitStoneButton.on(Node.EventType.MOUSE_LEAVE, this.hideHitToolTip, this);
@@ -257,18 +256,8 @@ export default class PlaceBetButton extends ObserverComponent {
 
     validTapArea() {
         if (this.canBet) {
-            this.changeCursorPointer();
+            changeCursorPointer();
         }
-    }
-
-    private getEventHandler(event: string): Function {
-        const handlers = {
-            mouseenter: this.changeCursorPointer,
-            mouseleave: this.resetCursor,
-            touchstart: this.onTap,
-            mousemove: this.changeCursorPointer,
-        };
-        return handlers[event] || this.resetCursor;
     }
 
     showHitToolTip(event) {
@@ -408,15 +397,7 @@ export default class PlaceBetButton extends ObserverComponent {
     @handle(BetHandler, (handler) => handler.completeSettle())
     completeSettle() {}
 
-    resetCursor() {
-        document.body.style.cursor = "default";
-    }
-
     removeEvent() {}
-
-    changeCursorPointer() {
-        document.body.style.cursor = "pointer";
-    }
 
     @render(BetStore, (store) => store.uiState)
     updateUIState(uiState: BetUIState) {

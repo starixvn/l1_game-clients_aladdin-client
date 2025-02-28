@@ -1,3 +1,5 @@
+import { Node } from "cc";
+
 export const MULTIPLIER_THRESHOLDS = {
     LEVEL_4: 100,
     LEVEL_3: 10,
@@ -11,4 +13,17 @@ export const getCurrentAnimationLevel = (multiplier: number): number => {
     if (multiplier >= LEVEL_3) return 3;
     if (multiplier >= LEVEL_2) return 2;
     return 1;
+};
+
+export const resetCursor = () => {
+    document.body.style.cursor = "default";
+};
+
+export const changeCursorPointer = () => {
+    document.body.style.cursor = "pointer";
+};
+
+export const changePointerWhenHover = (node: Node) => {
+    node.on(Node.EventType.MOUSE_MOVE, changeCursorPointer, this);
+    node.on(Node.EventType.MOUSE_LEAVE, resetCursor, this);
 };

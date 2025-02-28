@@ -4,7 +4,7 @@ import { _decorator, Font, instantiate, Label, Node, Prefab, Sprite, SpriteFrame
 import { ObserverComponent } from "db://shared-components/shared/common-components/observer-component/scripts/observer-component";
 import Observer from "observer";
 
-import { getCurrentAnimationLevel } from "../../../utils";
+import { changePointerWhenHover, getCurrentAnimationLevel } from "../../../utils";
 import { HashHandlers } from "../../hash/hash-handlers";
 import { CashOutHistoryStore } from "../cash-out-history-store";
 const { FormatUtils, GameCrash } = gc;
@@ -48,6 +48,8 @@ export default class CashOutHistory extends ObserverComponent {
             lblCashOutHistory.on(Node.EventType.TOUCH_END, () => {
                 this.onClickRoundItem(item.roundId);
             });
+
+            changePointerWhenHover(lblCashOutHistory);
 
             this.cashOutHistoryPanel.addChild(lblCashOutHistory);
         });
