@@ -4,6 +4,7 @@ import { _decorator, Font, instantiate, Label, Node, Prefab, Sprite, SpriteFrame
 import { ObserverComponent } from "db://shared-components/shared/common-components/observer-component/scripts/observer-component";
 import Observer from "observer";
 
+import { getCurrentAnimationLevel } from "../../../utils";
 import { HashHandlers } from "../../hash/hash-handlers";
 import { CashOutHistoryStore } from "../cash-out-history-store";
 const { FormatUtils, GameCrash } = gc;
@@ -18,19 +19,12 @@ export default class CashOutHistory extends ObserverComponent {
 
     @property(Node)
     cashOutHistoryPanel: Node = null;
-    
+
     @property([Font])
     private fontMultipliers: Font[] = [];
 
     @property([SpriteFrame])
     private bgMultipliers: SpriteFrame[] = [];
-
-    private readonly MULTIPLIER_THRESHOLDS = {
-        LEVEL_4: 110,
-        LEVEL_3: 11,
-        LEVEL_2: 1.2,
-        LEVEL_1: 0,
-    };
 
     private rounds: gc.RoundHistories.RoundHistory[];
 
@@ -47,8 +41,9 @@ export default class CashOutHistory extends ObserverComponent {
             const background = lblCashOutHistory.getComponentInChildren(Sprite);
             const label = lblCashOutHistory.getComponentInChildren(Label);
             label.string = `${FormatUtils.numberWithCommas(item.multiplier, 2, false)}x`;
-            label.font = this.fontMultipliers[this.getCurrentAnimationLevel(item.multiplier) - 1];
-            background.spriteFrame = this.bgMultipliers[this.getCurrentAnimationLevel(item.multiplier) - 1];
+            const multiplierIndex = getCurrentAnimationLevel(item.multiplier) - 1;
+            label.font = this.fontMultipliers[multiplierIndex];
+            background.spriteFrame = this.bgMultipliers[multiplierIndex];
             lblCashOutHistory.setPosition(0, index * -40);
             lblCashOutHistory.on(Node.EventType.TOUCH_END, () => {
                 this.onClickRoundItem(item.roundId);
@@ -67,13 +62,5 @@ export default class CashOutHistory extends ObserverComponent {
     onClickRoundItem(roundId: number) {
         this.playSoundClick();
         return roundId;
-    }
-
-    private getCurrentAnimationLevel(multiplier: number): number {
-        const { LEVEL_4, LEVEL_3, LEVEL_2 } = this.MULTIPLIER_THRESHOLDS;
-        if (multiplier >= LEVEL_4) return 4;
-        if (multiplier >= LEVEL_3) return 3;
-        if (multiplier >= LEVEL_2) return 2;
-        return 1;
     }
 }

@@ -13,7 +13,7 @@ import {
     IHiddenPlayers,
 } from "../../../../../../extensions/shared-components/assets/game/around-table-player/scripts/stores/around-table-players-chip-store";
 import { AroundTablePlayerUtils } from "../../../../../../extensions/shared-components/assets/game/around-table-player/scripts/utils/around-table-player-utils";
-import { MULTIPLIER_THRESHOLDS } from "../../bets/components/place-bet-button";
+import { getCurrentAnimationLevel } from "../../../utils";
 import { VisibilityStore } from "../../visibility/visibility-store";
 import { PlayerHandlers } from "../player-handler";
 import { Player, PlayerStore } from "../player-store";
@@ -142,7 +142,7 @@ export class AroundTablePlayers extends ObserverComponent {
     }
 
     async updateMultiplier(multiplier: number, spineAxe: sp.Skeleton) {
-        const level = this.getCurrentAnimationLevel(multiplier);
+        const level = getCurrentAnimationLevel(multiplier);
         if (this.axeLevel < level) {
             await this.playAxeTransformation(level, spineAxe);
         }
@@ -187,14 +187,6 @@ export class AroundTablePlayers extends ObserverComponent {
             spineAxe.skeletonData = skeletonData;
             await AnimationUtils.playSpine(spineAxe, spineInfo.animation, false);
         } catch (e) {}
-    }
-
-    private getCurrentAnimationLevel(multiplier: number): number {
-        const { LEVEL_4, LEVEL_3, LEVEL_2 } = MULTIPLIER_THRESHOLDS;
-        if (multiplier >= LEVEL_4) return 4;
-        if (multiplier >= LEVEL_3) return 3;
-        if (multiplier >= LEVEL_2) return 2;
-        return 1;
     }
 
     playTapAnimation(spineAxe: sp.Skeleton) {

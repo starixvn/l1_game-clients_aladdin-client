@@ -5,18 +5,12 @@ import { ObserverComponent } from "db://shared-components/shared/common-componen
 import { AnimationUtils } from "db://shared-components/shared/utils";
 import Observer from "observer";
 import { AudioIds } from "../../../../audios/AudioIds";
+import { getCurrentAnimationLevel } from "../../../utils";
 import { BetHandler } from "../bet-handler";
 import { BetStore, BetUIState } from "../bet-store";
 
 const { ccclass, property } = _decorator;
 const { handle, render } = Observer;
-
-export const MULTIPLIER_THRESHOLDS = {
-    LEVEL_4: 100,
-    LEVEL_3: 10,
-    LEVEL_2: 1.1,
-    LEVEL_1: 0,
-};
 
 @ccclass
 export default class PlaceBetButton extends ObserverComponent {
@@ -89,8 +83,8 @@ export default class PlaceBetButton extends ObserverComponent {
     }
 
     onDestroy(): void {
-        super.onDestroy();
         this.removeEvent();
+        super.onDestroy();
     }
 
     private initializeAnimations(): void {
@@ -373,14 +367,6 @@ export default class PlaceBetButton extends ObserverComponent {
         return Intersection2D.pointInPolygon(math.v2(location.x, location.y), polygon);
     }
 
-    private getCurrentAnimationLevel(multiplier: number): number {
-        const { LEVEL_4, LEVEL_3, LEVEL_2 } = MULTIPLIER_THRESHOLDS;
-        if (multiplier >= LEVEL_4) return 4;
-        if (multiplier >= LEVEL_3) return 3;
-        if (multiplier >= LEVEL_2) return 2;
-        return 1;
-    }
-
     getKickSpineInfo(level: number) {
         return { name: `kick/pickaxe-${level}-kick-animation`, animation: `pickaxe-${level}-kick` };
     }
@@ -408,7 +394,7 @@ export default class PlaceBetButton extends ObserverComponent {
 
     async playCrashAnimation() {
         try {
-            const level = this.getCurrentAnimationLevel(this.multiplier);
+            const level = getCurrentAnimationLevel(this.multiplier);
             const crashSpineInfo = this.getCrashSpineInfo(level);
             const skeletonData = await this.loadAxeSpine(crashSpineInfo.name);
             this.spineAxe.skeletonData = skeletonData;
@@ -426,13 +412,7 @@ export default class PlaceBetButton extends ObserverComponent {
         document.body.style.cursor = "default";
     }
 
-    removeEvent() {
-        const events = ["mouseenter", "mouseleave", "touchstart", "mousemove", "mouseleave"];
-        events.forEach((event) => {
-            const handler = this.getEventHandler(event);
-            this.node.off(`Node.EventType.${event.toUpperCase()}`, handler, this);
-        });
-    }
+    removeEvent() {}
 
     changeCursorPointer() {
         document.body.style.cursor = "pointer";
