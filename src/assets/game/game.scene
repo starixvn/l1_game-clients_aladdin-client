@@ -1333,7 +1333,7 @@
         "__id__": 100
       },
       {
-        "__id__": 129
+        "__id__": 130
       }
     ],
     "_active": true,
@@ -2640,10 +2640,13 @@
         "__id__": 126
       },
       {
+        "__id__": 127
+      },
+      {
         "__id__": 128
       },
       {
-        "__id__": 132
+        "__id__": 129
       }
     ],
     "removedComponents": []
@@ -2764,117 +2767,39 @@
       "__id__": 124
     },
     "propertyPath": [
-      "levelUpParticle"
+      "fontMultipliers",
+      "2"
     ],
     "value": {
-      "__id__": 127
+      "__uuid__": "87655d57-54ca-47e8-b017-fdc6f61c3a3b",
+      "__expectedType__": "cc.BitmapFont"
     }
   },
   {
-    "__type__": "cc.ParticleSystem2D",
-    "_name": "",
-    "_objFlags": 0,
-    "__editorExtras__": {},
-    "node": null,
-    "_enabled": true,
-    "__prefab": null,
-    "_customMaterial": null,
-    "_srcBlendFactor": 2,
-    "_dstBlendFactor": 1,
-    "_color": {
-      "__type__": "cc.Color",
-      "r": 255,
-      "g": 255,
-      "b": 255,
-      "a": 255
+    "__type__": "CCPropertyOverrideInfo",
+    "targetInfo": {
+      "__id__": 124
     },
-    "duration": 2,
-    "emissionRate": 120,
-    "life": 1,
-    "lifeVar": 0.5,
-    "angle": 90,
-    "angleVar": 0,
-    "startSize": 3.369999885559082,
-    "startSizeVar": 50,
-    "endSize": 30.31999969482422,
-    "endSizeVar": 0,
-    "startSpin": -47.369998931884766,
-    "startSpinVar": 0,
-    "endSpin": -47.369998931884766,
-    "endSpinVar": -142.11000061035156,
-    "sourcePos": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
+    "propertyPath": [
+      "fontMultipliers",
+      "3"
+    ],
+    "value": {
+      "__uuid__": "cdda14ac-f42c-4da7-a794-0d5e3d6c3705",
+      "__expectedType__": "cc.BitmapFont"
+    }
+  },
+  {
+    "__type__": "CCPropertyOverrideInfo",
+    "targetInfo": {
+      "__id__": 124
     },
-    "posVar": {
-      "__type__": "cc.Vec2",
-      "x": 80,
-      "y": 0
-    },
-    "emitterMode": 0,
-    "gravity": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 50
-    },
-    "speed": 70,
-    "speedVar": 50,
-    "tangentialAccel": 0,
-    "tangentialAccelVar": 0,
-    "radialAccel": 0,
-    "radialAccelVar": 0,
-    "rotationIsDir": false,
-    "startRadius": 0,
-    "startRadiusVar": 0,
-    "endRadius": 0,
-    "endRadiusVar": 0,
-    "rotatePerS": 0,
-    "rotatePerSVar": 0,
-    "playOnLoad": false,
-    "autoRemoveOnFinish": false,
-    "_preview": false,
-    "preview": false,
-    "_custom": true,
-    "_file": {
-      "__uuid__": "75003690-8610-44c5-92c4-fa643eea41c1",
-      "__expectedType__": "cc.ParticleAsset"
-    },
-    "_spriteFrame": {
-      "__uuid__": "24c419ea-63a8-4ea1-a9d0-7fc469489bbc@f9941",
-      "__expectedType__": "cc.SpriteFrame"
-    },
-    "_totalParticles": 500,
-    "_startColor": {
-      "__type__": "cc.Color",
-      "r": 203,
-      "g": 201,
-      "b": 86,
-      "a": 163
-    },
-    "_startColorVar": {
-      "__type__": "cc.Color",
-      "r": 0,
-      "g": 0,
-      "b": 0,
-      "a": 0
-    },
-    "_endColor": {
-      "__type__": "cc.Color",
-      "r": 174,
-      "g": 162,
-      "b": 20,
-      "a": 214
-    },
-    "_endColorVar": {
-      "__type__": "cc.Color",
-      "r": 0,
-      "g": 0,
-      "b": 0,
-      "a": 0
-    },
-    "_positionType": 0,
-    "_id": "a9FxQ/IVdKDaLLi96RIvVE"
+    "propertyPath": [
+      "levelUpSpine"
+    ],
+    "value": {
+      "__id__": 67
+    }
   },
   {
     "__type__": "CCPropertyOverrideInfo",
@@ -2885,7 +2810,7 @@
       "debugNode"
     ],
     "value": {
-      "__id__": 129
+      "__id__": 130
     }
   },
   {
@@ -2900,10 +2825,10 @@
     "_active": false,
     "_components": [
       {
-        "__id__": 130
+        "__id__": 131
       },
       {
-        "__id__": 131
+        "__id__": 132
       }
     ],
     "_prefab": null,
@@ -2942,7 +2867,7 @@
     "_objFlags": 0,
     "__editorExtras__": {},
     "node": {
-      "__id__": 129
+      "__id__": 130
     },
     "_enabled": true,
     "__prefab": null,
@@ -2964,7 +2889,7 @@
     "_objFlags": 0,
     "__editorExtras__": {},
     "node": {
-      "__id__": 129
+      "__id__": 130
     },
     "_enabled": true,
     "__prefab": null,
@@ -2996,18 +2921,6 @@
     "_useGrayscale": false,
     "_atlas": null,
     "_id": "74rtjFtDxNcLKqzsgf4qIx"
-  },
-  {
-    "__type__": "CCPropertyOverrideInfo",
-    "targetInfo": {
-      "__id__": 124
-    },
-    "propertyPath": [
-      "levelUpSpine"
-    ],
-    "value": {
-      "__id__": 67
-    }
   },
   {
     "__type__": "cc.Node",
@@ -9931,130 +9844,10 @@
   {
     "__type__": "cc.TargetOverrideInfo",
     "source": {
-      "__id__": 112
-    },
-    "sourceInfo": {
-      "__id__": 434
-    },
-    "propertyPath": [
-      "cashOutButton"
-    ],
-    "target": {
-      "__id__": 112
-    },
-    "targetInfo": {
-      "__id__": 435
-    }
-  },
-  {
-    "__type__": "cc.TargetInfo",
-    "localID": [
-      "e2y2rr5FVK8bGt/ir36ysp"
-    ]
-  },
-  {
-    "__type__": "cc.TargetInfo",
-    "localID": [
-      "c7C5TXwHVJxofe9wamDLfR"
-    ]
-  },
-  {
-    "__type__": "cc.TargetOverrideInfo",
-    "source": {
-      "__id__": 112
-    },
-    "sourceInfo": {
-      "__id__": 437
-    },
-    "propertyPath": [
-      "startBetButton"
-    ],
-    "target": {
-      "__id__": 112
-    },
-    "targetInfo": {
-      "__id__": 438
-    }
-  },
-  {
-    "__type__": "cc.TargetInfo",
-    "localID": [
-      "e2y2rr5FVK8bGt/ir36ysp"
-    ]
-  },
-  {
-    "__type__": "cc.TargetInfo",
-    "localID": [
-      "83CiaP+h1NlqS08neMfCcf"
-    ]
-  },
-  {
-    "__type__": "cc.TargetOverrideInfo",
-    "source": {
-      "__id__": 112
-    },
-    "sourceInfo": {
-      "__id__": 440
-    },
-    "propertyPath": [
-      "hitStoneButton"
-    ],
-    "target": {
-      "__id__": 112
-    },
-    "targetInfo": {
-      "__id__": 441
-    }
-  },
-  {
-    "__type__": "cc.TargetInfo",
-    "localID": [
-      "e2y2rr5FVK8bGt/ir36ysp"
-    ]
-  },
-  {
-    "__type__": "cc.TargetInfo",
-    "localID": [
-      "a2eLxsQWVAxak6JVJstyiM"
-    ]
-  },
-  {
-    "__type__": "cc.TargetOverrideInfo",
-    "source": {
-      "__id__": 112
-    },
-    "sourceInfo": {
-      "__id__": 443
-    },
-    "propertyPath": [
-      "lblMoney"
-    ],
-    "target": {
-      "__id__": 112
-    },
-    "targetInfo": {
-      "__id__": 444
-    }
-  },
-  {
-    "__type__": "cc.TargetInfo",
-    "localID": [
-      "e2y2rr5FVK8bGt/ir36ysp"
-    ]
-  },
-  {
-    "__type__": "cc.TargetInfo",
-    "localID": [
-      "5eP6hM7o5ARZLe31UKuKbD"
-    ]
-  },
-  {
-    "__type__": "cc.TargetOverrideInfo",
-    "source": {
       "__id__": 222
     },
     "sourceInfo": {
-      "__id__": 446
+      "__id__": 434
     },
     "propertyPath": [
       "musicSource"
@@ -10063,7 +9856,7 @@
       "__id__": 222
     },
     "targetInfo": {
-      "__id__": 447
+      "__id__": 435
     }
   },
   {
@@ -10084,7 +9877,7 @@
       "__id__": 222
     },
     "sourceInfo": {
-      "__id__": 449
+      "__id__": 437
     },
     "propertyPath": [
       "sfxSource"
@@ -10093,7 +9886,7 @@
       "__id__": 222
     },
     "targetInfo": {
-      "__id__": 450
+      "__id__": 438
     }
   },
   {
@@ -10114,7 +9907,7 @@
       "__id__": 79
     },
     "sourceInfo": {
-      "__id__": 452
+      "__id__": 440
     },
     "propertyPath": [
       "lblNickname"
@@ -10123,7 +9916,7 @@
       "__id__": 79
     },
     "targetInfo": {
-      "__id__": 453
+      "__id__": 441
     }
   },
   {
@@ -10146,7 +9939,7 @@
       "__id__": 79
     },
     "sourceInfo": {
-      "__id__": 455
+      "__id__": 443
     },
     "propertyPath": [
       "lblBalance"
@@ -10155,7 +9948,7 @@
       "__id__": 79
     },
     "targetInfo": {
-      "__id__": 456
+      "__id__": 444
     }
   },
   {
@@ -10178,7 +9971,7 @@
       "__id__": 79
     },
     "sourceInfo": {
-      "__id__": 458
+      "__id__": 446
     },
     "propertyPath": [
       "avatar"
@@ -10187,7 +9980,7 @@
       "__id__": 79
     },
     "targetInfo": {
-      "__id__": 459
+      "__id__": 447
     }
   },
   {
@@ -10202,6 +9995,126 @@
     "localID": [
       "bbfaVGQQRPc4wkG58S3CMw",
       "d7ZVHhx+5Brrm7A+6ekdwp"
+    ]
+  },
+  {
+    "__type__": "cc.TargetOverrideInfo",
+    "source": {
+      "__id__": 112
+    },
+    "sourceInfo": {
+      "__id__": 449
+    },
+    "propertyPath": [
+      "cashOutButton"
+    ],
+    "target": {
+      "__id__": 112
+    },
+    "targetInfo": {
+      "__id__": 450
+    }
+  },
+  {
+    "__type__": "cc.TargetInfo",
+    "localID": [
+      "e2y2rr5FVK8bGt/ir36ysp"
+    ]
+  },
+  {
+    "__type__": "cc.TargetInfo",
+    "localID": [
+      "c7C5TXwHVJxofe9wamDLfR"
+    ]
+  },
+  {
+    "__type__": "cc.TargetOverrideInfo",
+    "source": {
+      "__id__": 112
+    },
+    "sourceInfo": {
+      "__id__": 452
+    },
+    "propertyPath": [
+      "startBetButton"
+    ],
+    "target": {
+      "__id__": 112
+    },
+    "targetInfo": {
+      "__id__": 453
+    }
+  },
+  {
+    "__type__": "cc.TargetInfo",
+    "localID": [
+      "e2y2rr5FVK8bGt/ir36ysp"
+    ]
+  },
+  {
+    "__type__": "cc.TargetInfo",
+    "localID": [
+      "83CiaP+h1NlqS08neMfCcf"
+    ]
+  },
+  {
+    "__type__": "cc.TargetOverrideInfo",
+    "source": {
+      "__id__": 112
+    },
+    "sourceInfo": {
+      "__id__": 455
+    },
+    "propertyPath": [
+      "hitStoneButton"
+    ],
+    "target": {
+      "__id__": 112
+    },
+    "targetInfo": {
+      "__id__": 456
+    }
+  },
+  {
+    "__type__": "cc.TargetInfo",
+    "localID": [
+      "e2y2rr5FVK8bGt/ir36ysp"
+    ]
+  },
+  {
+    "__type__": "cc.TargetInfo",
+    "localID": [
+      "a2eLxsQWVAxak6JVJstyiM"
+    ]
+  },
+  {
+    "__type__": "cc.TargetOverrideInfo",
+    "source": {
+      "__id__": 112
+    },
+    "sourceInfo": {
+      "__id__": 458
+    },
+    "propertyPath": [
+      "lblMoney"
+    ],
+    "target": {
+      "__id__": 112
+    },
+    "targetInfo": {
+      "__id__": 459
+    }
+  },
+  {
+    "__type__": "cc.TargetInfo",
+    "localID": [
+      "e2y2rr5FVK8bGt/ir36ysp"
+    ]
+  },
+  {
+    "__type__": "cc.TargetInfo",
+    "localID": [
+      "5eP6hM7o5ARZLe31UKuKbD"
     ]
   },
   {
