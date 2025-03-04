@@ -32,13 +32,14 @@ export class TopWinnersContainer extends ObserverComponent {
 
     private addItem(winner: TopWinner) {
         const winnerNode = instantiate(this.topWinnerPrefab);
-        this.container.addChild(winnerNode);
 
         const count = this.container.children.length;
 
         const topWinnerItem = winnerNode.getComponent(TopWinnerItem);
         topWinnerItem.setData(winner);
-        winnerNode.setPosition(0, count * this.itemSize + (count - 1) * this.padding, 0);
+        this.container.addChild(winnerNode);
+
+        winnerNode.setPosition(0, -count * this.itemSize + (count - 1) * this.padding, 0);
     }
 
     @render(TopWinnersStore, (store) => store.newTopWinner)
@@ -49,10 +50,18 @@ export class TopWinnersContainer extends ObserverComponent {
 
     movingUp() {
         const children = this.container.children;
+        const noMoving = children.length <= 10;
+
+        if (noMoving) {
+            return;
+        }
+
         children.forEach((child, index) => {
             const oldest = index === 0;
             if (oldest) {
-                AnimationUtils.fadeOut(child, 0.5);
+                AnimationUtils.fadeOut(child, 0.5).then(() => {
+                    child.destroy();
+                });
             } else {
                 const isNew = index === children.length - 1;
                 if (isNew) {

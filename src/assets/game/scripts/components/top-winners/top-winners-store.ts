@@ -4,7 +4,8 @@ const { injectable, inject } = inversify;
 
 export interface TopWinner {
     name: string;
-    win: number;
+    winningAmount: number;
+    rate: number;
 }
 
 @injectable()

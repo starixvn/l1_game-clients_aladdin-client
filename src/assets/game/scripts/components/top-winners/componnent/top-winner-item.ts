@@ -16,8 +16,12 @@ export class TopWinnerItem extends Component {
     @property(Label)
     lblBalance: Label = null;
 
+    private encryptedName(name: string): string {
+        return `${name.substring(0, 1)}***${name.substring(name.length - 3, name.length)}`;
+    }
+
     setData(data: TopWinner) {
-        this.lblName.string = truncatedNickname(data.name);
-        this.lblBalance.string = FormatUtils.numberWithCommas(data.win, 2);
+        this.lblName.string = this.encryptedName(data.name);
+        this.lblBalance.string = "+" + FormatUtils.numberWithCommas(data.winningAmount, 2);
     }
 }
