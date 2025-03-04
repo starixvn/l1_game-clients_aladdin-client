@@ -7,8 +7,9 @@ import { TopWinner, TopWinnersStore } from "../top-winners-store";
 import { TopWinnerItem } from "./top-winner-item";
 const { ccclass, property } = _decorator;
 
-const { Rounds } = gc;
+const { Rounds, Player } = gc;
 const { render, handle } = Observer;
+const { MainPlayerStore } = Player;
 
 @ccclass
 export class TopWinnersContainer extends ObserverComponent {
@@ -23,6 +24,8 @@ export class TopWinnersContainer extends ObserverComponent {
     @property
     padding = 5;
 
+    playerName: string = "";
+
     @render(TopWinnersStore, (store) => store.winners)
     renderWinners(winners: TopWinner[]) {
         winners.forEach((winner) => {
@@ -30,15 +33,19 @@ export class TopWinnersContainer extends ObserverComponent {
         });
     }
 
+    @render(gc.Player.MainPlayerStore, (store) => store.name)
+    renderPlayerName(name: string) {
+        this.playerName = name;
+    }
+
     private addItem(winner: TopWinner) {
         const winnerNode = instantiate(this.topWinnerPrefab);
-
         const count = this.container.children.length;
-
         const topWinnerItem = winnerNode.getComponent(TopWinnerItem);
-        topWinnerItem.setData(winner);
-        this.container.addChild(winnerNode);
+        const isMainPlayer = winner.name === this.playerName;
 
+        topWinnerItem.setData(winner, isMainPlayer);
+        this.container.addChild(winnerNode);
         winnerNode.setPosition(0, -count * this.itemSize + (count - 1) * this.padding, 0);
     }
 

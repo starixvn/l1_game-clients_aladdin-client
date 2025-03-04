@@ -19,6 +19,7 @@ export class TopWinnersHandlers {
         }
 
         const amount = gc.NumberUtils.getValueByCurrency(winner.winningAmount, this.mainPlayerStore.rate, winner.rate);
+
         winner.winningAmount = amount;
 
         this.store.newTopWinner = winner;
