@@ -88,11 +88,10 @@ export class TopWinnersContainer extends ObserverComponent {
             }
         });
 
-        const destination = this.items[this.items.length - 10].position.y;
-
+        const destination = -this.items[0].position.y - this.itemSize - this.padding;
         Tween.stopAllByTarget(this.container);
         tween(this.container)
-            .to(0.5, { position: v3(0, -destination, 0) })
+            .to(0.5, { position: v3(0, destination, 0) })
             .start();
     }
 }
