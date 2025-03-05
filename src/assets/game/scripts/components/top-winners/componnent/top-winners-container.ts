@@ -1,5 +1,5 @@
 import gc from "@sg/game-client-base";
-import { _decorator, instantiate, Node, Prefab, tween, v3 } from "cc";
+import { _decorator, instantiate, Node, Prefab, Tween, tween, v3 } from "cc";
 import { ObserverComponent } from "db://shared-components/shared/common-components/observer-component/scripts/observer-component";
 import { AnimationUtils } from "db://shared-components/shared/utils";
 import Observer from "observer";
@@ -26,6 +26,8 @@ export class TopWinnersContainer extends ObserverComponent {
 
     playerName: string = "";
 
+    items: Node[] = [];
+
     @render(TopWinnersStore, (store) => store.winners)
     renderWinners(winners: TopWinner[]) {
         winners.forEach((winner) => {
@@ -46,40 +48,51 @@ export class TopWinnersContainer extends ObserverComponent {
 
         topWinnerItem.setData(winner, isMainPlayer);
         this.container.addChild(winnerNode);
-        winnerNode.setPosition(0, -count * this.itemSize + (count - 1) * this.padding, 0);
+
+        let lastItemPositionY = 0;
+        if (count > 0) {
+            lastItemPositionY = this.container.children[count - 1].position.y;
+        }
+        winnerNode.setPosition(0, lastItemPositionY - this.itemSize - this.padding, 0);
+
+        this.items.push(winnerNode);
     }
 
     @render(TopWinnersStore, (store) => store.newTopWinner)
     renderNewTopWinner(newTopWinner: TopWinner) {
+        if (!newTopWinner) {
+            return;
+        }
         this.addItem(newTopWinner);
         this.movingUp();
     }
 
     movingUp() {
-        const children = this.container.children;
-        const noMoving = children.length <= 10;
+        const count = this.items.length;
+        const noMoving = count <= 10;
 
         if (noMoving) {
             return;
         }
 
-        children.forEach((child, index) => {
-            const oldest = index === 0;
-            if (oldest) {
-                AnimationUtils.fadeOut(child, 0.5).then(() => {
-                    child.destroy();
-                });
-            } else {
-                const isNew = index === children.length - 1;
-                if (isNew) {
-                    AnimationUtils.setOpacityNode(child, 1);
-                    AnimationUtils.fadeIn(child, 0.5);
-                }
-            }
-
-            tween(child)
-                .by(0.5, { position: v3(0, this.itemSize, 0) })
-                .start();
+        const oldest = this.items.shift();
+        AnimationUtils.fadeOut(oldest, 0.5).then(() => {
+            oldest.destroy();
         });
+
+        this.items.forEach((child, index) => {
+            const isNew = index === this.items.length - 1;
+            if (isNew) {
+                AnimationUtils.setOpacityNode(child, 1);
+                AnimationUtils.fadeIn(child, 0.5);
+            }
+        });
+
+        const destination = this.items[this.items.length - 10].position.y;
+
+        Tween.stopAllByTarget(this.container);
+        tween(this.container)
+            .to(0.5, { position: v3(0, -destination, 0) })
+            .start();
     }
 }
