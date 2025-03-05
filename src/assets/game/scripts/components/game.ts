@@ -81,7 +81,7 @@ export default class Game extends GameComponent {
         const node = isBigWin ? this.bigWinNotice : this.normalWinNotice;
         const duration = isBigWin ? settings.durations.bigWinNotice : settings.durations.normalWinNotice;
         const winNotice = node.getComponent(GameWinNotice);
-        this.playSound(AudioIds.BIGWIN);
+        isBigWin ? this.playSound(AudioIds.BIGWIN) : this.playSound(AudioIds.NORMALWIN);
         winNotice.show(settleStatus.bet, duration);
 
         this.mainPlayerIncreaseBalance(settleStatus.bet);
