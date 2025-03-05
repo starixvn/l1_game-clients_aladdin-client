@@ -19,7 +19,7 @@ export class BetHandler extends gc.Bet.BetHandler implements gc.Shared.IMultiple
     @inject(gc.RoundBasePF.ProvablyFairStore) protected readonly pfStore: gc.RoundBasePF.ProvablyFairStore;
     @inject(HashHandlers) protected readonly hashHandlers: HashHandlers;
 
-    private readonly BIG_WIN_MULTIPLIER = 2.5;
+    private readonly BIG_WIN_MULTIPLIER = 2.0;
     private autoCashOutTimeOut = null;
 
     handle() {
