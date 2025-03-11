@@ -31,11 +31,11 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 220
+        "__id__": 221
       }
     ],
     "_prefab": {
-      "__id__": 222
+      "__id__": 223
     },
     "_lpos": {
       "__type__": "cc.Vec3",
@@ -88,14 +88,14 @@
         "__id__": 59
       },
       {
-        "__id__": 214
+        "__id__": 215
       },
       {
-        "__id__": 217
+        "__id__": 218
       }
     ],
     "_prefab": {
-      "__id__": 219
+      "__id__": 220
     },
     "_lpos": {
       "__type__": "cc.Vec3",
@@ -1385,8 +1385,8 @@
     },
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": 0,
-      "y": 0,
+      "x": -211.26599999999996,
+      "y": 5.684341886080802e-14,
       "z": 0
     },
     "_lrot": {
@@ -3074,11 +3074,11 @@
         "__id__": 209
       },
       {
-        "__id__": 211
+        "__id__": 212
       }
     ],
     "_prefab": {
-      "__id__": 213
+      "__id__": 214
     },
     "_lpos": {
       "__type__": "cc.Vec3",
@@ -4645,7 +4645,11 @@
     "__prefab": {
       "__id__": 210
     },
-    "clickEvents": [],
+    "clickEvents": [
+      {
+        "__id__": 211
+      }
+    ],
     "_interactable": true,
     "_transition": 0,
     "_normalColor": {
@@ -4686,13 +4690,23 @@
       "__id__": 134
     },
     "polygonCollider2D": {
-      "__id__": 211
+      "__id__": 212
     },
     "_id": ""
   },
   {
     "__type__": "cc.CompPrefabInfo",
     "fileId": "7584CveqFNbqqlYNQexsju"
+  },
+  {
+    "__type__": "cc.ClickEvent",
+    "target": {
+      "__id__": 2
+    },
+    "component": "",
+    "_componentId": "e9408N/76ZD7ouDiMy12FK/",
+    "handler": "onClickBetButton",
+    "customEventData": ""
   },
   {
     "__type__": "cc.PolygonCollider2D",
@@ -4704,7 +4718,7 @@
     },
     "_enabled": true,
     "__prefab": {
-      "__id__": 212
+      "__id__": 213
     },
     "tag": 0,
     "_group": 1,
@@ -4883,11 +4897,11 @@
     },
     "_enabled": true,
     "__prefab": {
-      "__id__": 215
+      "__id__": 216
     },
     "clickEvents": [
       {
-        "__id__": 216
+        "__id__": 217
       }
     ],
     "_interactable": true,
@@ -4930,7 +4944,7 @@
       "__id__": 2
     },
     "polygonCollider2D": {
-      "__id__": 217
+      "__id__": 218
     },
     "_id": ""
   },
@@ -4958,7 +4972,7 @@
     },
     "_enabled": true,
     "__prefab": {
-      "__id__": 218
+      "__id__": 219
     },
     "tag": 0,
     "_group": 1,
@@ -5137,7 +5151,7 @@
     },
     "_enabled": true,
     "__prefab": {
-      "__id__": 221
+      "__id__": 222
     },
     "_contentSize": {
       "__type__": "cc.Size",
@@ -5164,6 +5178,7 @@
       "__id__": 0
     },
     "fileId": "eduR7uW9BL9IFBdVNJGtec",
+    "instance": null,
     "targetOverrides": []
   }
 ]

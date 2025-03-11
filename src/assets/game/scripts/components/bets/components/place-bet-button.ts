@@ -68,6 +68,7 @@ export default class PlaceBetButton extends ObserverComponent {
 
     private startAxePosition: Vec3 = null;
     private levelUpAxeSpine: sp.Skeleton = null;
+    private nodeGuideHit: Node = null;
 
     onLoad() {
         this.levelUpSpine.node.active = false;
@@ -77,6 +78,7 @@ export default class PlaceBetButton extends ObserverComponent {
         this.startAxePosition = v3(this.spineAxe.node.parent.position);
         this.realColliderRock = this.effect.getComponent(PolygonCollider2D);
         this.hitToolTip = this.hitStoneButton.getChildByName("tooltip");
+        this.nodeGuideHit = this.hitStoneButton.getChildByName("hand");
         this.initializeAnimations();
         super.onLoad();
         this.addEvent();
@@ -272,6 +274,7 @@ export default class PlaceBetButton extends ObserverComponent {
 
     onTap(event: EventTouch) {
         if (this.touchInPolygon(event, this.tapArea) && this.canBet) {
+            this.nodeGuideHit.active = false;
             this.onBet();
 
             const location = event.getUILocation();
@@ -403,7 +406,7 @@ export default class PlaceBetButton extends ObserverComponent {
     updateUIState(uiState: BetUIState) {
         this.startBetButton.active = uiState === BetUIState.Start;
         this.cashOutButton.active = uiState === BetUIState.Bet || uiState === BetUIState.Mining || uiState === BetUIState.Settle;
-        this.hitStoneButton.active = uiState === BetUIState.Started;
+        this.hitStoneButton.active = uiState >= BetUIState.Started;
 
         this.isStateBet = uiState > BetUIState.Start && uiState !== BetUIState.Settle;
 
@@ -421,6 +424,9 @@ export default class PlaceBetButton extends ObserverComponent {
     updateButtonInteractable(uiState: BetUIState) {
         const buttonCashOut = this.cashOutButton.getComponent(Button);
         buttonCashOut.interactable = uiState !== BetUIState.Settle;
+
+        const hitStoneButton = this.hitStoneButton.getComponent(Button);
+        hitStoneButton.interactable = uiState !== BetUIState.Settle;
 
         this.lblMoney.font = buttonCashOut.interactable ? this.activeMoneyFont : this.disableMoneyFont;
         const animation = this.lblMoney.getComponent(Animation);
