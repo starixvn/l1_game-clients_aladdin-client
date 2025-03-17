@@ -1,5 +1,21 @@
 import gc from "@sg/game-client-base";
-import { _decorator, Animation, Button, EventTouch, Font, Intersection2D, Label, math, Node, PolygonCollider2D, sp, v3, Vec3 } from "cc";
+import {
+    _decorator,
+    Animation,
+    Button,
+    EventTouch,
+    Font,
+    Intersection2D,
+    Label,
+    math,
+    Node,
+    PolygonCollider2D,
+    sp,
+    v3,
+    Vec3,
+    SpriteFrame,
+    Sprite,
+} from "cc";
 import { bundleManager } from "db://shared-components/shared/common-components/bundle-manager/bundle-manager";
 import { ObserverComponent } from "db://shared-components/shared/common-components/observer-component/scripts/observer-component";
 import { AnimationUtils } from "db://shared-components/shared/utils";
@@ -49,6 +65,9 @@ export default class PlaceBetButton extends ObserverComponent {
 
     @property(sp.Skeleton)
     private levelUpSpine: sp.Skeleton = null;
+
+    @property(Sprite)
+    private bgCashOutButton: Sprite = null;
 
     @property(Node)
     debugNode: Node = null;
@@ -212,6 +231,10 @@ export default class PlaceBetButton extends ObserverComponent {
     @render(BetStore, (store) => store.winAmount)
     updateCashOutValue(cashOutValue: number) {
         this.lblMoney.string = gc.FormatUtils.numberWithCommas(cashOutValue, 2, true);
+        const bgCashOutButton = this.bgCashOutButton.getComponent(Sprite);
+        const spriteAtlas = bgCashOutButton.spriteAtlas;
+        const spriteFrame = spriteAtlas.getSpriteFrame(`cash-out-${cashOutValue > 0 ? "active" : "normal"}`);
+        bgCashOutButton.spriteFrame = spriteFrame;
     }
 
     updateMultiplierColor(level: number) {
@@ -405,7 +428,8 @@ export default class PlaceBetButton extends ObserverComponent {
     @render(BetStore, (store) => store.uiState)
     updateUIState(uiState: BetUIState) {
         this.startBetButton.active = uiState === BetUIState.Start;
-        this.cashOutButton.active = uiState === BetUIState.Bet || uiState === BetUIState.Mining || uiState === BetUIState.Settle;
+        // this.cashOutButton.active = uiState === BetUIState.Bet || uiState === BetUIState.Mining || uiState === BetUIState.Settle;
+
         this.hitStoneButton.active = uiState >= BetUIState.Started;
 
         this.isStateBet = uiState > BetUIState.Start && uiState !== BetUIState.Settle;
