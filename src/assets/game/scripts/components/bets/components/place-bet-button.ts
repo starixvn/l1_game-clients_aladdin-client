@@ -81,7 +81,7 @@ export default class PlaceBetButton extends ObserverComponent {
 
     private readonly EFFECT_RESET_DELAY = 1;
 
-    private hitToolTip: Node = null;
+    //private hitToolTip: Node = null;
 
     private realColliderRock: PolygonCollider2D = null;
 
@@ -96,7 +96,7 @@ export default class PlaceBetButton extends ObserverComponent {
 
         this.startAxePosition = v3(this.spineAxe.node.parent.position);
         this.realColliderRock = this.effect.getComponent(PolygonCollider2D);
-        this.hitToolTip = this.hitStoneButton.getChildByName("tooltip");
+        //this.hitToolTip = this.hitStoneButton.getChildByName("tooltip");
         this.nodeGuideHit = this.hitStoneButton.getChildByName("hand");
         this.initializeAnimations();
         super.onLoad();
@@ -267,12 +267,15 @@ export default class PlaceBetButton extends ObserverComponent {
         this.cashOutButton.on(Node.EventType.MOUSE_MOVE, changeCursorPointer, this);
         this.cashOutButton.on(Node.EventType.MOUSE_LEAVE, resetCursor, this);
 
+        this.hitStoneButton.on(Node.EventType.MOUSE_MOVE, changeCursorPointer, this);
+        this.hitStoneButton.on(Node.EventType.MOUSE_LEAVE, resetCursor, this);
+
         this.tapArea.on(Node.EventType.TOUCH_START, this.onTap, this);
         this.tapArea.on(Node.EventType.MOUSE_MOVE, this.validTapArea, this);
         this.tapArea.on(Node.EventType.MOUSE_LEAVE, resetCursor, this);
 
-        this.hitStoneButton.on(Node.EventType.MOUSE_MOVE, this.showHitToolTip, this);
-        this.hitStoneButton.on(Node.EventType.MOUSE_LEAVE, this.hideHitToolTip, this);
+        //this.hitStoneButton.on(Node.EventType.MOUSE_MOVE, this.showHitToolTip, this);
+        //this.hitStoneButton.on(Node.EventType.MOUSE_LEAVE, this.hideHitToolTip, this);
     }
 
     get canBet() {
@@ -285,15 +288,15 @@ export default class PlaceBetButton extends ObserverComponent {
         }
     }
 
-    showHitToolTip(event) {
-        if (this.touchInPolygon(event, this.hitStoneButton)) {
-            AnimationUtils.fadeIn(this.hitToolTip, 0.3);
-        }
-    }
+    // showHitToolTip(event) {
+    //     if (this.touchInPolygon(event, this.hitStoneButton)) {
+    //         AnimationUtils.fadeIn(this.hitToolTip, 0.3);
+    //     }
+    // }
 
-    hideHitToolTip(event) {
-        AnimationUtils.fadeOut(this.hitToolTip, 0.3);
-    }
+    // hideHitToolTip(event) {
+    //     AnimationUtils.fadeOut(this.hitToolTip, 0.3);
+    // }
 
     onTap(event: EventTouch) {
         if (this.touchInPolygon(event, this.tapArea) && this.canBet) {
