@@ -16,7 +16,7 @@ if __name__ == '__main__':
         'pack.js'
     )
 
-    outputPath = os.path.join(project_dir, '..\\', 'src\\assets\\game\\spines\\v3\\bitcoin')
+    outputPath = os.path.join(project_dir, '..\\', 'src\\assets\\resources\\spines\\axe\\level-up\\light')
     subprocess.Popen([
         'node',
         packer_path,

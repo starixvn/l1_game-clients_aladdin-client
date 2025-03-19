@@ -2,14 +2,14 @@
     "children": [
         {
             "options": {
-                "input_files": [["", "bitcoin-3-899.png"]]
+                "input_files": [["", "light.png"]]
             },
             "children": [
                 {
                     "options": {
                         "params": ["--texture-format", "webp"],
                         "sheet_extension": "webp",
-                        "output_path": ["bitcoin-3-899"]
+                        "output_path": ["light"]
                     }
                 }
             ]
@@ -29,7 +29,7 @@
             ["--max-height", 2048],
             ["--size-constraints", "AnySize"],
             ["--png-opt-level", 0],
-            ["--alpha-handling", "ClearTransparentPixels"],
+            ["--alpha-handling", "ReduceBorderArtifacts"],
             ["--max-width", 2048],
             ["--trim-mode", "Trim"],
             ["--border-padding", 0],

@@ -273,9 +273,6 @@ export default class PlaceBetButton extends ObserverComponent {
         this.tapArea.on(Node.EventType.TOUCH_START, this.onTap, this);
         this.tapArea.on(Node.EventType.MOUSE_MOVE, this.validTapArea, this);
         this.tapArea.on(Node.EventType.MOUSE_LEAVE, resetCursor, this);
-
-        //this.hitStoneButton.on(Node.EventType.MOUSE_MOVE, this.showHitToolTip, this);
-        //this.hitStoneButton.on(Node.EventType.MOUSE_LEAVE, this.hideHitToolTip, this);
     }
 
     get canBet() {
@@ -287,16 +284,6 @@ export default class PlaceBetButton extends ObserverComponent {
             changeCursorPointer();
         }
     }
-
-    // showHitToolTip(event) {
-    //     if (this.touchInPolygon(event, this.hitStoneButton)) {
-    //         AnimationUtils.fadeIn(this.hitToolTip, 0.3);
-    //     }
-    // }
-
-    // hideHitToolTip(event) {
-    //     AnimationUtils.fadeOut(this.hitToolTip, 0.3);
-    // }
 
     onTap(event: EventTouch) {
         if (this.touchInPolygon(event, this.tapArea) && this.canBet) {
@@ -450,7 +437,7 @@ export default class PlaceBetButton extends ObserverComponent {
     @render(BetStore, (store) => store.uiState)
     updateButtonInteractable(uiState: BetUIState) {
         const buttonCashOut = this.cashOutButton.getComponent(Button);
-        buttonCashOut.interactable = uiState !== BetUIState.Settle;
+        buttonCashOut.interactable = uiState !== BetUIState.Settle && uiState !== BetUIState.Start;
 
         const hitStoneButton = this.hitStoneButton.getComponent(Button);
         hitStoneButton.interactable = uiState !== BetUIState.Settle;
