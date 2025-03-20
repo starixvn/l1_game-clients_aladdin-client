@@ -231,10 +231,6 @@ export default class PlaceBetButton extends ObserverComponent {
     @render(BetStore, (store) => store.winAmount)
     updateCashOutValue(cashOutValue: number) {
         this.lblMoney.string = gc.FormatUtils.numberWithCommas(cashOutValue, 2, true);
-        const bgCashOutButton = this.bgCashOutButton.getComponent(Sprite);
-        const spriteAtlas = bgCashOutButton.spriteAtlas;
-        const spriteFrame = spriteAtlas.getSpriteFrame(`cash-out-${cashOutValue > 0 ? "active" : "normal"}`);
-        bgCashOutButton.spriteFrame = spriteFrame;
     }
 
     updateMultiplierColor(level: number) {
@@ -437,7 +433,7 @@ export default class PlaceBetButton extends ObserverComponent {
     @render(BetStore, (store) => store.uiState)
     updateButtonInteractable(uiState: BetUIState) {
         const buttonCashOut = this.cashOutButton.getComponent(Button);
-        buttonCashOut.interactable = uiState !== BetUIState.Settle && uiState !== BetUIState.Start;
+        buttonCashOut.interactable = uiState !== BetUIState.Settle && uiState !== BetUIState.Start && uiState !== BetUIState.Started;
 
         const hitStoneButton = this.hitStoneButton.getComponent(Button);
         hitStoneButton.interactable = uiState !== BetUIState.Settle;
