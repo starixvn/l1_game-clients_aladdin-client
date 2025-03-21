@@ -34,17 +34,13 @@ export default class Game extends GameComponent {
     lblMaxBet: Label = null;
 
     @property(Node)
-    private normalWinNotice: Node = null;
-
-    @property(Node)
-    private bigWinNotice: Node = null;
+    private nodeWinNotice: Node = null;
 
     @property(Node)
     private crashedNotice: Node = null;
 
     @property(Node)
     private centerNode: Node = null;
-
     override namespace = settings.name;
     protected override enableEventShowHideGame = false;
     override containerOptions = containerOptions;
@@ -78,11 +74,11 @@ export default class Game extends GameComponent {
 
         const isBigWin = settleStatus.isBigWin;
 
-        const node = isBigWin ? this.bigWinNotice : this.normalWinNotice;
+        const node = this.nodeWinNotice.getChildByName(isBigWin ? "big" : "normal");
         const duration = isBigWin ? settings.durations.bigWinNotice : settings.durations.normalWinNotice;
-        const winNotice = node.getComponent(GameWinNotice);
+        const winNotice = node.getComponentInChildren(GameWinNotice);
         isBigWin ? this.playSound(AudioIds.BIGWIN) : this.playSound(AudioIds.NORMALWIN);
-        winNotice.show(settleStatus.bet, duration);
+        winNotice?.show(settleStatus.bet, duration);
 
         this.mainPlayerIncreaseBalance(settleStatus.bet);
         this.mainPlayerPlayWinningEffect();
