@@ -1,14 +1,11 @@
 import gc from "@sg/game-client-base";
 import { LogStore } from "db://shared-components/game/scripts/stores/log-store";
-import * as InstantWinFeature from "../scripts";
-
 import { sharedContainer } from "../../scripts/shared-container";
-import { NullRoundTimeHandlers } from "./handlers/null-round-time-handlers";
 
 export const settings = {
-    id: 109,
-    name: "CoinMining",
-    namespaces: ["CoinMining"],
+    id: 66,
+    name: "CandyLand",
+    namespaces: ["CandyLand"],
     durations: {
         wholeRound: 14,
         lockingBet: 3,
@@ -30,7 +27,7 @@ export const containerOptions: gc.IContainerOptions = {
         container.bind(gc.GameConfigs.GameSetting).toConstantValue(settings);
         container.bind(LogStore).to(LogStore);
 
-        container.bind(gc.Rounds.RoundTimeHandlers).to(NullRoundTimeHandlers);
+        //container.bind(gc.Rounds.RoundTimeHandlers).to(NullRoundTimeHandlers);
     },
-    features: [InstantWinFeature, gc.BetDetailsNew, ...gc.defaultFeatures],
+    features: [gc.BetDetailsNew, ...gc.defaultFeatures],
 };
