@@ -1,18 +1,10 @@
-import { _decorator, Animation, Component, Label, Sprite, SpriteAtlas } from "cc";
+import { _decorator, Animation, Component, Label, sp } from "cc";
 import { FunctionUtils } from "db://shared-components/shared/utils";
+import { prefabCache } from "../cascading-slot-utils";
 const { ccclass, property } = _decorator;
 
 @ccclass
 export class MultiplierItem extends Component {
-    @property(Sprite)
-    center: Sprite = null;
-
-    @property(Sprite)
-    centerGlow: Sprite = null;
-
-    @property(SpriteAtlas)
-    atlas: SpriteAtlas = null;
-
     @property(Label)
     value: Label = null;
 
@@ -22,9 +14,14 @@ export class MultiplierItem extends Component {
     private _multiplierValue = 1;
 
     gameId: number;
+    private spine: sp.Skeleton;
 
     get multiplier() {
         return this._multiplierValue;
+    }
+
+    onLoad() {
+        this.spine = this.node.getComponent(sp.Skeleton);
     }
 
     async playAnimationGlow() {
@@ -50,16 +47,16 @@ export class MultiplierItem extends Component {
     }
 
     protected updateColor(value: number) {
-        const color = ["green", "blue", "purple", "yellow"];
+        const level = [10, 11, 12, 13];
         let i = 0;
-        const range = [10, 20, 30];
+        const range = [5, 10, 15];
         for (; i < range.length; i++) {
             if (value <= range[i]) {
                 break;
             }
         }
-        const spriteName = `multiplier-${color[i]}`;
-        this.center.spriteFrame = this.atlas.getSpriteFrame(spriteName);
-        this.centerGlow.spriteFrame = this.atlas.getSpriteFrame(`${spriteName}-glow`);
+        const anim = "idle";
+        this.spine.skeletonData = prefabCache.slotSymbols[level[i]];
+        this.spine.setAnimation(0, anim, true);
     }
 }

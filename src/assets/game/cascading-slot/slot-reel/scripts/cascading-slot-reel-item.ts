@@ -14,7 +14,6 @@ export class CascadingSlotReelItem extends Component {
     content: Node = null;
 
     public index = -1;
-    public gameId: number;
 
     setItem(index: number) {
         this.replaceItem(index);
@@ -22,7 +21,6 @@ export class CascadingSlotReelItem extends Component {
     }
 
     protected replaceItem(index: number) {
-        this.itemPrefabs[1] = prefabCache.multiplierPrefab[this.gameId];
         this.content.removeAllChildren();
         if (index < 0) {
             console.error("replaceItem wrong index: " + index);
@@ -39,7 +37,6 @@ export class CascadingSlotReelItem extends Component {
         if (this.index >= MULTIPLIER_SYMBOL && multiplier.length > 0) {
             const m = multiplier.shift();
             const multiplierItem = this.content.children[0].getComponent(MultiplierItem);
-            multiplierItem.gameId = this.gameId;
             multiplierItem?.setValue(m);
         }
     }

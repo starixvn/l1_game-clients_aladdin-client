@@ -1,7 +1,7 @@
 [
   {
     "__type__": "cc.Prefab",
-    "_name": "effect-background",
+    "_name": "normal-symbol",
     "_objFlags": 0,
     "__editorExtras__": {},
     "_native": "",
@@ -13,7 +13,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "effect-background",
+    "_name": "normal-symbol",
     "_objFlags": 0,
     "__editorExtras__": {},
     "_parent": null,
@@ -25,10 +25,13 @@
       },
       {
         "__id__": 4
+      },
+      {
+        "__id__": 6
       }
     ],
     "_prefab": {
-      "__id__": 6
+      "__id__": 8
     },
     "_lpos": {
       "__type__": "cc.Vec3",
@@ -73,8 +76,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 1920,
-      "height": 1080
+      "width": 0,
+      "height": 0
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -109,28 +112,47 @@
       "b": 255,
       "a": 255
     },
-    "_skeletonData": {
-      "__uuid__": "dd7e7850-bd42-40b3-aeef-62a47665a2ab",
-      "__expectedType__": "sp.SkeletonData"
-    },
-    "defaultSkin": "default",
-    "defaultAnimation": "idle",
-    "_premultipliedAlpha": true,
+    "_skeletonData": null,
+    "defaultSkin": "",
+    "defaultAnimation": "",
+    "_premultipliedAlpha": false,
     "_timeScale": 1,
-    "_preCacheMode": 0,
+    "_preCacheMode": -1,
     "_cacheMode": 0,
     "_sockets": [],
     "_useTint": false,
     "_debugMesh": false,
     "_debugBones": false,
     "_debugSlots": false,
-    "_enableBatch": false,
+    "_enableBatch": true,
     "loop": true,
     "_id": ""
   },
   {
     "__type__": "cc.CompPrefabInfo",
-    "fileId": "368KfkvnhKlL94+va+98k1"
+    "fileId": "f1MeQJblRP+rq6qEe6sjoh"
+  },
+  {
+    "__type__": "514cefRschFE6mBPn65tyF7",
+    "_name": "",
+    "_objFlags": 0,
+    "__editorExtras__": {},
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "__prefab": {
+      "__id__": 7
+    },
+    "effectSpine": {
+      "__id__": 4
+    },
+    "premultipliedAlpha": false,
+    "_id": ""
+  },
+  {
+    "__type__": "cc.CompPrefabInfo",
+    "fileId": "e8+xRIo8RFE4+KWp/RxhV8"
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -141,6 +163,7 @@
       "__id__": 0
     },
     "fileId": "d83lp+6sJCGKxHKTFZF6N3",
+    "instance": null,
     "targetOverrides": null
   }
 ]
