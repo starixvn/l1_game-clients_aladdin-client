@@ -30,6 +30,7 @@ export class CascadingSlotReelItem extends Component {
         const node = instantiate(this.itemPrefabs[symbolPrefabIndex]);
         this.content.addChild(node);
         const reelSymbol = node.getComponent(CascadingSlotReelSymbol);
+
         reelSymbol.setAminamtion(prefabCache.slotSymbols[index]);
     }
 
@@ -47,6 +48,6 @@ export class CascadingSlotReelItem extends Component {
         effectSpine.skeletonData = prefabCache.slotSymbols[SCATTER_SYMBOL];
         effectSpine.setAnimation(0, anim, true);
         const original = effectSpine.findAnimation(anim).duration;
-        await FunctionUtils.delay(original);
+        await FunctionUtils.delay(original * 1000);
     }
 }

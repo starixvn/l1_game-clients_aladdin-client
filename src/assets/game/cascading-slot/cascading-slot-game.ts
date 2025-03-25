@@ -1,15 +1,32 @@
-import { _decorator, Prefab, sp } from "cc";
+import gc from "@sg/game-client-base";
+import { _decorator, Label, Prefab, sp } from "cc";
 import { bundleManager } from "db://shared-components/shared/common-components/bundle-manager/bundle-manager";
 import { ObserverComponent } from "db://shared-components/shared/common-components/observer-component/scripts/observer-component";
+import Observer from "observer";
+
+import { SlotBetHandler } from "./bets/slot-bet-handler";
 import { CascadingSlotConfig } from "./cascading-slot-base-configs";
 import { prefabCache } from "./cascading-slot-utils";
 import { CascadingSlotBoard } from "./slot-board/components/cascading-slot-board";
 const { ccclass, property } = _decorator;
+const { observer, render, handle } = Observer;
+const { Rounds, Connection, HideGame, Settlements, FormatUtils, RoundHistories } = gc;
 
 @ccclass("cascading_slot_game")
 export class CascadingSlotGame extends ObserverComponent {
     @property(CascadingSlotBoard)
     board: CascadingSlotBoard = null;
+
+    @property(Label)
+    lblRoundId: Label = null;
+
+    @property(Label)
+    lblMinBet: Label = null;
+
+    @property(Label)
+    lblMaxBet: Label = null;
+
+    protected enableEventShowHideGame = true;
 
     onLoad() {
         super.onLoad();
@@ -17,7 +34,6 @@ export class CascadingSlotGame extends ObserverComponent {
             await this.loadMultiplierPrefab();
             this.board.initBoardFullItems();
         });
-        console.log(prefabCache);
     }
 
     async loadSlotSymbols() {
@@ -58,5 +74,12 @@ export class CascadingSlotGame extends ObserverComponent {
                 console.warn(`Missing prefab for ${path} `, e);
             }
         }
+    }
+
+    @handle(SlotBetHandler, (handler) => handler.handle())
+    sendBet() {}
+
+    onClickSpin() {
+        this.sendBet();
     }
 }

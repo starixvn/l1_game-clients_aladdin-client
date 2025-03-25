@@ -1,5 +1,6 @@
 import gc from "@sg/game-client-base";
 import { LogStore } from "db://shared-components/game/scripts/stores/log-store";
+import * as CascadingSlotFeature from "../../game/cascading-slot";
 import { sharedContainer } from "../../scripts/shared-container";
 
 export const settings = {
@@ -29,5 +30,5 @@ export const containerOptions: gc.IContainerOptions = {
 
         //container.bind(gc.Rounds.RoundTimeHandlers).to(NullRoundTimeHandlers);
     },
-    features: [gc.BetDetailsNew, ...gc.defaultFeatures],
+    features: [CascadingSlotFeature, gc.BetDetailsNew, ...gc.defaultFeatures],
 };

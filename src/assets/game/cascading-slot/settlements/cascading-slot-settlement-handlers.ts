@@ -2,19 +2,34 @@ import gc from "@sg/game-client-base";
 import inversify from "inversify";
 const { injectable, inject } = inversify;
 
-import { GameServiceMessage } from "../game-messages";
+import { convertData } from "../cascading-slot-utils";
+import { GameServiceMessageCascading } from "../game-messages-cascading";
+import { CascadingSlotBoardHandlers } from "../slot-board";
+import { CascadingSlotTumblesStore } from "../tumbles";
+import { CascadingSlotTumblesHandlers } from "../tumbles/cascading-slot-tumbles-handlers";
 import { CascadingSlotSettlementStore } from "./cascading-slot-settlement-store";
 
 @injectable()
 export class CascadingSlotSettlementHandlers implements gc.Shared.IMultipleHandlers {
     @inject(CascadingSlotSettlementStore) protected readonly settlementStore: CascadingSlotSettlementStore;
-    handleFinish(data: GameServiceMessage.CascadingSlotFinish) {
-        this.settlementStore.dataFinish = data;
+    @inject(CascadingSlotBoardHandlers) protected readonly boardHandler: CascadingSlotBoardHandlers;
+    @inject(CascadingSlotTumblesHandlers) protected readonly tumblesHandler: CascadingSlotTumblesHandlers;
+    @inject(CascadingSlotTumblesStore) protected readonly tumblesStore: CascadingSlotTumblesStore;
+
+    handleFinish(data: any) {
+        const { result, tumbles } = data;
+        this.tumblesHandler.handleTumbles(tumbles);
+        this.boardHandler.handleResult({
+            symbols: convertData(result),
+            multipliers: tumbles[0]?.multipliers,
+            isTurbo: false,
+            tumbles: this.tumblesStore.tumbles,
+        });
     }
 
     eventHandleList = [
         {
-            name: GameServiceMessage.CascadingSlotFinish.eventName,
+            name: GameServiceMessageCascading.CascadingSlotFinish.eventName,
             handle: this.handleFinish,
         },
     ];

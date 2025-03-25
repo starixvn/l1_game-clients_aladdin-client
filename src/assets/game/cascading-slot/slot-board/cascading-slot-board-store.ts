@@ -1,19 +1,20 @@
 import inversify from "inversify";
 import mobx from "mobx";
+import { SymbolBoard } from "../cascading-slot-utils";
 const { injectable, inject } = inversify;
 
 @injectable()
 export class CascadingSlotBoardStore {
-    private _result = "";
+    private _symbolsBoard = null;
     constructor() {
         mobx.makeAutoObservable(this);
     }
 
-    get result() {
-        return this._result;
+    get symbolsBoard() {
+        return this._symbolsBoard;
     }
 
-    set result(_result: string) {
-        this._result = this.result;
+    set symbolsBoard(symbolsBoard: SymbolBoard) {
+        this._symbolsBoard = symbolsBoard;
     }
 }

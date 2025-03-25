@@ -1,11 +1,11 @@
 import inversify from "inversify";
 import mobx from "mobx";
-import { GameServiceMessage } from "../game-messages";
+import { GameServiceMessageCascading } from "../game-messages-cascading";
 const { injectable, inject } = inversify;
 
 @injectable()
 export class CascadingSlotConfigsStore {
-    private _gameConfigs: GameServiceMessage.CascadingSlotConfigs = null;
+    private _gameConfigs: GameServiceMessageCascading.CascadingSlotConfigsMsg = null;
     constructor() {
         mobx.makeAutoObservable(this);
     }
@@ -14,7 +14,7 @@ export class CascadingSlotConfigsStore {
         return this._gameConfigs;
     }
 
-    set gameConfigs(gameConfigs: GameServiceMessage.CascadingSlotConfigs) {
+    set gameConfigs(gameConfigs: GameServiceMessageCascading.CascadingSlotConfigsMsg) {
         this._gameConfigs = gameConfigs;
     }
 }

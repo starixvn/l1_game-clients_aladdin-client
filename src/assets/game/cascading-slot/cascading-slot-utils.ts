@@ -1,3 +1,5 @@
+import { Tumble } from "./game-messages-cascading";
+
 export const SCATTER_SYMBOL = 9;
 export const MULTIPLIER_SYMBOL = 10;
 
@@ -31,3 +33,10 @@ export const prefabCache = {
     slotSymbols: {},
     multiplierPrefab: {},
 };
+
+export interface SymbolBoard {
+    symbols: number[][];
+    multipliers: number[];
+    isTurbo: boolean;
+    tumbles: Tumble[];
+}

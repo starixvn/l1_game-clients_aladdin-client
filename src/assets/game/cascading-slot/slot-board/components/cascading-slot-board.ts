@@ -1,11 +1,18 @@
-import { _decorator, Component } from "cc";
+import { _decorator } from "cc";
+import { ObserverComponent } from "db://shared-components/shared/common-components/observer-component/scripts/observer-component";
+import { FunctionUtils } from "db://shared-components/shared/utils";
 import { random } from "lodash-es";
+import Observer from "observer";
 import { CascadingSlotConfig } from "../../cascading-slot-base-configs";
+import { Tumble } from "../../game-messages-cascading";
 import { CascadingSlotReel } from "../../slot-reel/scripts/cascading-slot-reel";
+import { CascadingSlotBoardStore } from "../cascading-slot-board-store";
+import { convertBoardValue, SymbolBoard } from "./../../cascading-slot-utils";
+const { observer, render, handle } = Observer;
 const { ccclass, property } = _decorator;
 
 @ccclass
-export class CascadingSlotBoard extends Component {
+export class CascadingSlotBoard extends ObserverComponent {
     protected readonly reels: CascadingSlotReel[] = [];
 
     public createReels() {
@@ -19,6 +26,13 @@ export class CascadingSlotBoard extends Component {
                 slotReel.createReel();
                 this.reels.push(slotReel);
             }
+        });
+    }
+
+    public addItems(data: number[][]) {
+        this.reels.forEach((reel, index) => {
+            const items = data[index];
+            reel.addItems(items);
         });
     }
 
@@ -51,5 +65,117 @@ export class CascadingSlotBoard extends Component {
             const itemData = symbols.slice(start, end);
             reel.setItemData(itemData, multipliers);
         });
+    }
+
+    protected async fallOut(isTurbo: boolean, delay: number) {
+        for (let i = 0; i < this.reels.length; i++) {
+            if (!isTurbo && i > 0) {
+                await FunctionUtils.delay(delay * 1000);
+            }
+
+            if (i < this.reels.length - 1) {
+                this.reels[i].fallOut(isTurbo);
+            } else {
+                await this.reels[i].fallOut(isTurbo);
+            }
+        }
+    }
+
+    async handleTumbles(tumbles: Tumble[]) {
+        if (!tumbles || tumbles.length <= 0) {
+            return;
+        }
+        for (let i = 0; i < tumbles.length - 1; i++) {
+            const explode = convertBoardValue(tumbles[i].settlement.explode);
+            const newItems = convertBoardValue(tumbles[i].settlement.new);
+            await this.removeItems(explode, i);
+            this.addItems(newItems);
+            await this.fallIn(false);
+        }
+    }
+
+    @render(CascadingSlotBoardStore, (store) => store.symbolsBoard, { fireImmediately: false })
+    async handleSettlementForBoard(symbolsBoard: SymbolBoard) {
+        await this.spinResult(symbolsBoard);
+        await this.handleTumbles(symbolsBoard.tumbles);
+    }
+
+    public async spinResult(symbolsBoard: SymbolBoard) {
+        const duration = (5 * 145) / this.reels[0].pixelPerSecond;
+        const delay = 0.25 * duration;
+        const { isTurbo, symbols, multipliers } = symbolsBoard;
+
+        // if (isTurbo) {
+        //     this.addSoundBoard(CascadingSlotGameSound.TURBO_DROP_IN);
+        // } else {
+        //     this.addSoundBoard(CascadingSlotGameSound.DROP_IN);
+        // }
+
+        await this.fallOut(isTurbo, delay);
+
+        // const soundArray = [
+        //     CascadingSlotGameSound.REEL_STOP,
+        //     CascadingSlotGameSound.REEL_STOP_1,
+        //     CascadingSlotGameSound.REEL_STOP_2,
+        //     CascadingSlotGameSound.REEL_STOP_3,
+        //     CascadingSlotGameSound.REEL_STOP_4,
+        //     CascadingSlotGameSound.REEL_STOP_5
+        // ];
+        const playSoundOnBottomItem = (index: number) => () => {
+            // if (index % 2 === 1) {
+            //     this.addSoundBoard(soundArray[index]);
+            // }
+        };
+        for (let i = 0; i < this.reels.length; i++) {
+            if (!isTurbo && i > 0) {
+                await FunctionUtils.delay(delay * 1000);
+            }
+
+            if (i < this.reels.length - 1) {
+                this.reels[i].spin(symbols[i], multipliers, isTurbo, playSoundOnBottomItem(i));
+            } else {
+                await this.reels[i].spin(symbols[i], multipliers, isTurbo, playSoundOnBottomItem(i));
+            }
+        }
+    }
+
+    public async removeItems(data: number[][], tumbleIndex: number) {
+        const reelItems = this.reels.map((reel, index) => {
+            return data[index]
+                .map((item, index) => {
+                    return item !== -1 ? index : -1;
+                })
+                .filter((value) => value > -1);
+        });
+
+        await Promise.all(
+            reelItems.map((items, index) => {
+                const reel = this.reels[index];
+                return reel.highlightItems(items);
+            })
+        );
+
+        await Promise.all(
+            reelItems.map((items, index) => {
+                const reel = this.reels[index];
+                return reel.removeItemsByIndex(items);
+            })
+        );
+    }
+
+    public async fallIn(isTurbo: boolean) {
+        await Promise.all(
+            this.reels.map(async (reel) => {
+                await reel.fallIn(isTurbo, null);
+            })
+        );
+    }
+
+    public async shakeItems() {
+        await Promise.all(
+            this.reels.map((reel) => {
+                return reel.shakeItems();
+            })
+        );
     }
 }
