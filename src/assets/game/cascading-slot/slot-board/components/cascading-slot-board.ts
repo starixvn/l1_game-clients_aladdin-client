@@ -3,7 +3,7 @@ import { ObserverComponent } from "db://shared-components/shared/common-componen
 import { FunctionUtils } from "db://shared-components/shared/utils";
 import { random } from "lodash-es";
 import Observer from "observer";
-import { CascadingSlotConfig } from "../../cascading-slot-base-configs";
+import { CascadingSlotConfig, UNIT_SECOND_SPIN } from "../../cascading-slot-base-configs";
 import { Tumble } from "../../game-messages-cascading";
 import { CascadingSlotReel } from "../../slot-reel/scripts/cascading-slot-reel";
 import { CascadingSlotBoardStore } from "../cascading-slot-board-store";
@@ -70,7 +70,7 @@ export class CascadingSlotBoard extends ObserverComponent {
     protected async fallOut(isTurbo: boolean, delay: number) {
         for (let i = 0; i < this.reels.length; i++) {
             if (!isTurbo && i > 0) {
-                await FunctionUtils.delay(delay * 1000);
+                await FunctionUtils.delay(delay * UNIT_SECOND_SPIN);
             }
 
             if (i < this.reels.length - 1) {
@@ -128,7 +128,7 @@ export class CascadingSlotBoard extends ObserverComponent {
         };
         for (let i = 0; i < this.reels.length; i++) {
             if (!isTurbo && i > 0) {
-                await FunctionUtils.delay(delay * 1000);
+                await FunctionUtils.delay(delay * UNIT_SECOND_SPIN);
             }
 
             if (i < this.reels.length - 1) {
@@ -177,5 +177,9 @@ export class CascadingSlotBoard extends ObserverComponent {
                 return reel.shakeItems();
             })
         );
+    }
+
+    async highlightScatterItems() {
+        await Promise.all(this.reels.map((reel) => reel.highlightScatterItems()));
     }
 }

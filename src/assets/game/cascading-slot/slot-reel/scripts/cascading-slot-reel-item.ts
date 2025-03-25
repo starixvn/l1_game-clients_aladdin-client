@@ -1,5 +1,6 @@
 import { _decorator, Component, instantiate, Node, Prefab, sp } from "cc";
 import { FunctionUtils } from "db://shared-components/shared/utils";
+import { UNIT_SECOND_SPIN } from "../../cascading-slot-base-configs";
 import { MULTIPLIER_SYMBOL, prefabCache, SCATTER_SYMBOL } from "../../cascading-slot-utils";
 import { MultiplierItem } from "../../multiplier/multiplier-item";
 import { CascadingSlotReelSymbol } from "./cascading-slot-reel-symbol";
@@ -18,6 +19,10 @@ export class CascadingSlotReelItem extends Component {
     setItem(index: number) {
         this.replaceItem(index);
         this.index = index;
+    }
+
+    get isScatterSymbol(): boolean {
+        return this.index === SCATTER_SYMBOL;
     }
 
     protected replaceItem(index: number) {
@@ -48,6 +53,6 @@ export class CascadingSlotReelItem extends Component {
         effectSpine.skeletonData = prefabCache.slotSymbols[SCATTER_SYMBOL];
         effectSpine.setAnimation(0, anim, true);
         const original = effectSpine.findAnimation(anim).duration;
-        await FunctionUtils.delay(original * 1000);
+        await FunctionUtils.delay(original * UNIT_SECOND_SPIN);
     }
 }

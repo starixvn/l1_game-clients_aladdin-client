@@ -1,6 +1,6 @@
 import { _decorator, Component, instantiate, Node, Prefab, sp, tween, v3 } from "cc";
 import { ComponentUtils, FunctionUtils } from "db://shared-components/shared/utils";
-import { CascadingSlotConfig } from "../../cascading-slot-base-configs";
+import { CascadingSlotConfig, UNIT_SECOND_SPIN } from "../../cascading-slot-base-configs";
 import { CascadingSlotReelItem } from "./cascading-slot-reel-item";
 const { ccclass, property } = _decorator;
 
@@ -116,7 +116,7 @@ export class CascadingSlotReel extends Component {
         effectSpine.setAnimation(0, animation, false);
         const duration = effectSpine.findAnimation(animation)?.duration || 0;
         if (duration > 0) {
-            await FunctionUtils.delay(duration * 1000);
+            await FunctionUtils.delay(duration * UNIT_SECOND_SPIN);
         }
     }
 
@@ -149,7 +149,7 @@ export class CascadingSlotReel extends Component {
             duration = distance / speed;
             const delay = 0.08 * duration;
             if (!isTurbo) {
-                await FunctionUtils.delay(delay * 1000);
+                await FunctionUtils.delay(delay * UNIT_SECOND_SPIN);
             }
             const isBottomItem = i === 0;
             if (isFallOut) {
@@ -165,7 +165,7 @@ export class CascadingSlotReel extends Component {
     }
 
     protected getDelayTimeAfterFall(isFallOut: boolean, duration: number, backDuration: number): number {
-        return isFallOut ? duration * 1000 : (duration + backDuration) * 1000;
+        return isFallOut ? duration * UNIT_SECOND_SPIN : (duration + backDuration) * UNIT_SECOND_SPIN;
     }
 
     fallInWithOffset(item: CascadingSlotReelItem, duration: number, posY: number, isBottomItem: boolean, onBottomItemEnded?: () => void) {
@@ -198,5 +198,12 @@ export class CascadingSlotReel extends Component {
 
     async highlightItems(list: number[]) {
         await Promise.all(list.map((index) => this.highlightItem(index)));
+    }
+
+    async highlightScatterItems() {
+        this.items.forEach((item) => ComponentUtils.moveToOtherNode(item.node, this.effectContainer));
+        const scatterSymbols = this.items.filter((item) => item.isScatterSymbol);
+        await Promise.all(scatterSymbols.map((item) => item.highlightScatterItem()));
+        this.items.forEach((item) => ComponentUtils.moveToOtherNode(item.node, this.node));
     }
 }
