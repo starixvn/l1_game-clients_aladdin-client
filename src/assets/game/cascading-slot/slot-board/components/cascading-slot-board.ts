@@ -5,6 +5,7 @@ import { random } from "lodash-es";
 import Observer from "observer";
 import { CascadingSlotConfig, UNIT_SECOND_SPIN } from "../../cascading-slot-base-configs";
 import { Tumble } from "../../game-messages-cascading";
+import { MultiplierItem } from "../../multiplier/multiplier-item";
 import { CascadingSlotReel } from "../../slot-reel/scripts/cascading-slot-reel";
 import { CascadingSlotBoardStore } from "../cascading-slot-board-store";
 import { convertBoardValue, SymbolBoard } from "./../../cascading-slot-utils";
@@ -85,11 +86,21 @@ export class CascadingSlotBoard extends ObserverComponent {
         if (!tumbles || tumbles.length <= 0) {
             return;
         }
+        let multiplierCount = tumbles[0].multipliers.length;
         for (let i = 0; i < tumbles.length - 1; i++) {
+            const newTumbleMultipliers = [...tumbles[i + 1].multipliers];
+            const getMoreMultiplier = newTumbleMultipliers.length > multiplierCount;
+            if (getMoreMultiplier) {
+                multiplierCount = newTumbleMultipliers.length;
+            }
+            const tumbleMultipliers = newTumbleMultipliers;
+
             const explode = convertBoardValue(tumbles[i].settlement.explode);
             const newItems = convertBoardValue(tumbles[i].settlement.new);
+
             await this.removeItems(explode, i);
             this.addItems(newItems);
+            this.updateMultiplierItems(tumbleMultipliers);
             await this.fallIn(false);
         }
     }
@@ -181,5 +192,24 @@ export class CascadingSlotBoard extends ObserverComponent {
 
     async highlightScatterItems() {
         await Promise.all(this.reels.map((reel) => reel.highlightScatterItems()));
+    }
+
+    public updateMultiplierItems(multipliers: number[]) {
+        const multiplierItems = this.getMultiplierItems();
+        multiplierItems.forEach((multiplierItem, index) => {
+            this.setValueMultiplier(index, multipliers, multiplierItem);
+        });
+    }
+
+    protected setValueMultiplier(index: number, multipliers: number[], multiplierItem: MultiplierItem) {
+        multiplierItem.setValue(multipliers[index]);
+    }
+
+    public getMultiplierItems() {
+        const items = this.reels.flatMap((reel) => [...reel.getItems()].reverse());
+        return items.flatMap((item) => {
+            const comp = item.content.children[0].getComponent(MultiplierItem);
+            return comp ? [comp] : [];
+        });
     }
 }
