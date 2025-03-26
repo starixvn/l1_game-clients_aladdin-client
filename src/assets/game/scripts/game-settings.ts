@@ -1,6 +1,6 @@
 import gc from "@sg/game-client-base";
+import * as CascadingSlotFeature from "db://shared-cascading-slot/index";
 import { LogStore } from "db://shared-components/game/scripts/stores/log-store";
-import * as CascadingSlotFeature from "../../game/cascading-slot";
 import { sharedContainer } from "../../scripts/shared-container";
 
 export const settings = {
