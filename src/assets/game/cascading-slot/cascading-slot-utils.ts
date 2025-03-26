@@ -40,3 +40,8 @@ export interface SymbolBoard {
     isTurbo: boolean;
     tumbles: Tumble[];
 }
+
+export interface WinIconDetail {
+    count: number;
+    win: number;
+}

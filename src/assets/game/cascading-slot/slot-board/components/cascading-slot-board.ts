@@ -1,6 +1,7 @@
-import { _decorator } from "cc";
+import gc from "@sg/game-client-base";
+import { _decorator, instantiate, Label, Node, Prefab, tween, UIOpacity, v3, Vec3 } from "cc";
 import { ObserverComponent } from "db://shared-components/shared/common-components/observer-component/scripts/observer-component";
-import { FunctionUtils } from "db://shared-components/shared/utils";
+import { ComponentUtils, FunctionUtils } from "db://shared-components/shared/utils";
 import { random } from "lodash-es";
 import Observer from "observer";
 import { CascadingSlotConfig, UNIT_SECOND_SPIN } from "../../cascading-slot-base-configs";
@@ -8,12 +9,18 @@ import { Tumble } from "../../game-messages-cascading";
 import { MultiplierItem } from "../../multiplier/multiplier-item";
 import { CascadingSlotReel } from "../../slot-reel/scripts/cascading-slot-reel";
 import { CascadingSlotBoardStore } from "../cascading-slot-board-store";
-import { convertBoardValue, SymbolBoard } from "./../../cascading-slot-utils";
+import { convertBoardValue, SymbolBoard, WinIconDetail } from "./../../cascading-slot-utils";
 const { observer, render, handle } = Observer;
 const { ccclass, property } = _decorator;
 
 @ccclass
 export class CascadingSlotBoard extends ObserverComponent {
+    @property(Prefab)
+    prfFlyLabelWin: Prefab = null;
+
+    @property(Node)
+    effectContainer: Node = null;
+
     protected readonly reels: CascadingSlotReel[] = [];
 
     public createReels() {
@@ -88,6 +95,8 @@ export class CascadingSlotBoard extends ObserverComponent {
         }
         let multiplierCount = tumbles[0].multipliers.length;
         for (let i = 0; i < tumbles.length - 1; i++) {
+            const tumble = tumbles[i];
+            const { icons, win: tumbleWin, settlement } = tumble;
             const newTumbleMultipliers = [...tumbles[i + 1].multipliers];
             const getMoreMultiplier = newTumbleMultipliers.length > multiplierCount;
             if (getMoreMultiplier) {
@@ -95,8 +104,18 @@ export class CascadingSlotBoard extends ObserverComponent {
             }
             const tumbleMultipliers = newTumbleMultipliers;
 
-            const explode = convertBoardValue(tumbles[i].settlement.explode);
-            const newItems = convertBoardValue(tumbles[i].settlement.new);
+            const explode = convertBoardValue(settlement.explode);
+            const newItems = convertBoardValue(settlement.new);
+
+            if (tumbleWin > 0) {
+                Object.keys(icons).forEach((iconKey) => {
+                    const winIconDetail: WinIconDetail = icons[iconKey];
+                    const node = this.getRandomWinItem(explode, +iconKey);
+                    const position = ComponentUtils.convertPosition(this.effectContainer, node);
+                    this.createFlyWinLabel(this.effectContainer, position, winIconDetail.win);
+                });
+                // mainGame.gameData.uiModel.increaseTumbleWin(tumbleWin);
+            }
 
             await this.removeItems(explode, i);
             this.addItems(newItems);
@@ -148,6 +167,21 @@ export class CascadingSlotBoard extends ObserverComponent {
                 await this.reels[i].spin(symbols[i], multipliers, isTurbo, playSoundOnBottomItem(i));
             }
         }
+    }
+
+    getRandomWinItem(data: number[][], winIcon: number): Node {
+        const list = [];
+        for (let i = 0; i < this.reels.length; i++) {
+            const reelData = data[i];
+            for (let j = 0; j < reelData.length; j++) {
+                if (reelData[j] === winIcon) {
+                    list.push({ i, j });
+                }
+            }
+        }
+        const randomIndex = random(0, list.length - 1);
+        const randomItem = list[randomIndex];
+        return this.reels[randomItem.i].getItemNode(randomItem.j);
     }
 
     public async removeItems(data: number[][], tumbleIndex: number) {
@@ -211,5 +245,42 @@ export class CascadingSlotBoard extends ObserverComponent {
             const comp = item.content.children[0].getComponent(MultiplierItem);
             return comp ? [comp] : [];
         });
+    }
+
+    createFlyWinLabel(container: Node, position: Vec3, value: number) {
+        const node = instantiate(this.prfFlyLabelWin);
+        container.addChild(node);
+        node.position = position;
+
+        const label = node.getComponent(Label);
+        label.string = gc.FormatUtils.numberWithCommas(value, 2, false);
+        this.flyWinLabelAnimation(node);
+    }
+
+    flyWinLabelAnimation(node: Node) {
+        node.scale = v3(0, 0, 0);
+        node.getComponent(UIOpacity).opacity = 1;
+        const t = tween(node)
+            .parallel(
+                tween(node.getComponent(UIOpacity))
+                    .to(0.05, { opacity: 255 })
+                    .delay(1)
+                    .to(0.1, { opacity: 255 })
+                    .to(0.1, { opacity: 190 })
+                    .to(0.1, { opacity: 120 })
+                    .to(0.2, { opacity: 0 }, { easing: "sineOut" }),
+                tween(node)
+                    .to(0.05, { scale: v3(1, 1, 1) })
+                    .to(0.1, { scale: v3(1.3, 1.3, 1) })
+                    .to(1.3, { scale: v3(0.9, 0.9, 1) }, { easing: "sineOut" }),
+                tween(node)
+                    .by(0.15, { position: v3(0, -10, 0) })
+                    .by(1.3, { position: v3(0, 60, 0) }, { easing: "sineOut" })
+            )
+
+            .call(() => {
+                node.destroy();
+            })
+            .start();
     }
 }
