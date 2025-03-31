@@ -25,6 +25,7 @@ const defaultConfig: gc.Configs.SiteConfigs = {
         route: "candyland",
     },
     mainObserverNamespace: "CandyLand",
+    storagePrefixKey: "candy_land",
     tolgeeUrl: "",
 };
 
