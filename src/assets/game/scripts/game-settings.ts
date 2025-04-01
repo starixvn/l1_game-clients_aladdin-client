@@ -6,7 +6,7 @@ import { sharedContainer } from "../../scripts/shared-container";
 export const settings = {
     id: 66,
     name: "CandyLand",
-    namespaces: ["CandyLand"],
+    namespaces: ["CandyLand", "cascadingslot"],
     durations: {
         wholeRound: 14,
         lockingBet: 3,
