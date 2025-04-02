@@ -219,7 +219,11 @@ export const languages = {
         "example": "例子：",
         "extra_free_spin": "額外Free Spins",
         "free_spin": "Free Spins",
+        "free_spin_left_amount": "Free Spin剩餘 %{amount}",
         "free_spin_title": "Free Spin",
+        "from_settle_to_spin1": "旋轉獲勝！",
+        "from_settle_to_spin2": "旋轉更多，贏得更多！",
+        "from_settle_to_spin3": "嘗試渦輪模式！",
         "gameNames.47": "寶藏島",
         "header_no": "號",
         "header_result_board": "結果板",
@@ -232,14 +236,29 @@ export const languages = {
         "paytable": "賠率表",
         "press_to_continue": "按任意位置繼續",
         "reach_max_win": "您達到了最大勝利",
+        "round_settle_msg": "祝你好運！",
+        "show_msg_when_spin_desktop": "按住空格鍵或點擊旋轉",
+        "show_msg_when_spin_phone": "點擊或按住旋轉開始",
         "start": "開始",
+        "top_message1": "符號在屏幕上的任何地方支付",
+        "top_message2a": "擊中",
+        "top_message2b": "多次翻滾獲勝",
+        "top_message3": "贏取 2000X 乘數",
         "total_multiplier": "總乘數",
         "total_win": "贏",
         "trial_mode": "試用模式",
         "trial_mode_text": "您處於試用模式",
         "turbo_mode": "渦輪模式",
         "warning_trial_mode": "真玩，\\n贏真錢",
+        "win_tumble_msg": "恭喜！",
         "you_win_free_spin": "您贏得"
+    },
+    "CandyLand": {
+        "big_win": "Big Win",
+        "game_icon_name": "糖果樂園",
+        "game_name": "糖果樂園",
+        "mega_win": "Mega Win",
+        "super_win": "Super Win"
     }
 };
 

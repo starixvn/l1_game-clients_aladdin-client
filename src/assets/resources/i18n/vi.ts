@@ -219,7 +219,11 @@ export const languages = {
         "example": "Ví Dụ:",
         "extra_free_spin": "Free Spins Thêm",
         "free_spin": "Free Spins",
+        "free_spin_left_amount": "Còn %{amount} lượt Free Spin",
         "free_spin_title": "Free Spin",
+        "from_settle_to_spin1": "QUAY SẼ THẮNG!",
+        "from_settle_to_spin2": "CÀNG QUAY, CÀNG THẮNG!",
+        "from_settle_to_spin3": "THỬ BẬT TÍNH NĂNG SIÊU TỐC!",
         "gameNames.47": "Đảo Châu Báu",
         "header_no": "Stt",
         "header_result_board": "Bảng Kết Quả",
@@ -232,14 +236,29 @@ export const languages = {
         "paytable": "Trả thưởng",
         "press_to_continue": "Bấm Vào Vị Trí Bất Kỳ Để Tiếp Tục",
         "reach_max_win": "Bạn Đã Đạt Mức Tiền Thắng Tối Đa",
+        "round_settle_msg": "CHÚC MAY MẮN!",
+        "show_msg_when_spin_desktop": "BẤM QUAY HOẶC GIỮ PHÍM SPACE",
+        "show_msg_when_spin_phone": "BẤM HOẶC GIỮ NÚT QUAY ĐỂ BẮT ĐẦU",
         "start": "Bắt Đầu",
+        "top_message1": "BIỂU TƯỢNG ĐƯỢC TÍNH THẮNG NẰM Ở VỊ TRÍ BẤT KỲ",
+        "top_message2a": "QUAY TRÚNG",
+        "top_message2b": "ĐỂ NHÂN GIÁ TRỊ TIỀN THẮNG",
+        "top_message3": "THẮNG LÊN ĐẾN %{maxWin}X TIỀN CƯỢC",
         "total_multiplier": "Tổng Số Nhân",
         "total_win": "Thắng",
         "trial_mode": "Chơi Thử",
         "trial_mode_text": "Bạn Đang Chơi Thử",
         "turbo_mode": "Siêu Tốc",
         "warning_trial_mode": "Chơi Thật,\\nThắng Thật",
+        "win_tumble_msg": "CHÚC MỪNG!",
         "you_win_free_spin": "Bạn đã thắng"
+    },
+    "CandyLand": {
+        "big_win": "Thắng Lớn",
+        "game_icon_name": "Vương Quốc Kẹo Ngọt",
+        "game_name": "Vương Quốc Kẹo Ngọt",
+        "mega_win": "Thắng Siêu Lớn",
+        "super_win": "Thắng Cực Lớn"
     }
 };
 

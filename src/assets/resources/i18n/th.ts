@@ -219,7 +219,11 @@ export const languages = {
         "example": "ตัวอย่าง:",
         "extra_free_spin": "Free Spins พิเศษ",
         "free_spin": "Free Spins",
+        "free_spin_left_amount": "Free Spin ที่เหลือ %{amount}",
         "free_spin_title": "Free Spin",
+        "from_settle_to_spin1": "หมุนเพื่อชนะ!",
+        "from_settle_to_spin2": "หมุนมากขึ้น ชนะมากขึ้น!",
+        "from_settle_to_spin3": "ลองใช้โหมดเทอร์โบ!",
         "gameNames.47": "เกาะมหาสมบัติ",
         "header_no": "หมายเลข",
         "header_result_board": "กระดานผลการแข่งขัน",
@@ -232,14 +236,29 @@ export const languages = {
         "paytable": "ตารางการจ่ายเงิน",
         "press_to_continue": "กดที่ใดก็ได้เพื่อเดิมพันต่อ",
         "reach_max_win": "คุณถึงยอดชนะสูงสุด",
+        "round_settle_msg": "โชคดี!",
+        "show_msg_when_spin_desktop": "กดที่สเปคบาร์หรือคลิกสปิน",
+        "show_msg_when_spin_phone": "แตะหรือกดค้างเพื่อเริ่มใหม่",
         "start": "เริ่ม",
+        "top_message1": "สัญลักษณ์บนหน้าจอ",
+        "top_message2a": "กด",
+        "top_message2b": "เพื่อเพิ่มอัตราการชนะ",
+        "top_message3": "ชนะถึง 2000X เดิมพัน",
         "total_multiplier": "ตัวคูณทั้งหมด",
         "total_win": "ชนะ",
         "trial_mode": "โหมดทดลอง",
         "trial_mode_text": "คุณอยู่ในโหมดทดลอง",
         "turbo_mode": "โหมด Turbo",
         "warning_trial_mode": "เล่นจริง\\nชนะจริง",
+        "win_tumble_msg": "ขอแสดงความยินดี!",
         "you_win_free_spin": "คุณชนะ"
+    },
+    "CandyLand": {
+        "big_win": "Big Win",
+        "game_icon_name": "Candy Land",
+        "game_name": "Candy Land",
+        "mega_win": "Mega Win",
+        "super_win": "Super Win"
     }
 };
 

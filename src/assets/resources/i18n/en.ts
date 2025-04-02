@@ -219,7 +219,11 @@ export const languages = {
         "example": "Example:",
         "extra_free_spin": "Extra Free Spins",
         "free_spin": "Free Spins",
+        "free_spin_left_amount": "Free Spins Left %{amount}",
         "free_spin_title": "Free Spin",
+        "from_settle_to_spin1": "SPIN TO WIN!",
+        "from_settle_to_spin2": "SPIN MORE, WIN MORE!",
+        "from_settle_to_spin3": "TRY TURBO MODE!",
         "gameNames.47": "Treasure Island",
         "header_no": "No.",
         "header_result_board": "Result Board",
@@ -232,14 +236,29 @@ export const languages = {
         "paytable": "Paytable",
         "press_to_continue": "Press anywhere to continue",
         "reach_max_win": "You reached the Max Win",
+        "round_settle_msg": "GOOD LUCK!",
+        "show_msg_when_spin_desktop": "HOLD SPACE OR CLICK SPIN",
+        "show_msg_when_spin_phone": "TAP OR HOLD SPIN TO BEGIN",
         "start": "Start",
+        "top_message1": "SYMBOLS PAY ANYWHERE ON THE SCREEN",
+        "top_message2a": "HIT",
+        "top_message2b": "TO MULTIPLY TUMBLE WIN",
+        "top_message3": "WIN UP TO %{maxWin}X BET",
         "total_multiplier": "Total Multiplier",
         "total_win": "Win",
         "trial_mode": "Trial Mode",
         "trial_mode_text": "You are in the Trial Mode",
         "turbo_mode": "Turbo Mode",
         "warning_trial_mode": "Play Real,\\nWin Real",
+        "win_tumble_msg": "CONGRATULATION!",
         "you_win_free_spin": "You win"
+    },
+    "CandyLand": {
+        "big_win": "Big Win",
+        "game_icon_name": "Candy Land",
+        "game_name": "Candy Land",
+        "mega_win": "Mega Win",
+        "super_win": "Super Win"
     }
 };
 

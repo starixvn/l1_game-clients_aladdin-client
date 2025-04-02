@@ -219,7 +219,11 @@ export const languages = {
         "example": "Contoh:",
         "extra_free_spin": "Ekstra Free Spins",
         "free_spin": "Free Spins",
+        "free_spin_left_amount": "Sisa Free Spin %{amount}",
         "free_spin_title": "Free Spin",
+        "from_settle_to_spin1": "PUTAR UNTUK MENANG!",
+        "from_settle_to_spin2": "PUTAR LEBIH BANYAK, MENANG LEBIH BANYAK!",
+        "from_settle_to_spin3": "COBA MODE TURBO!",
         "gameNames.47": "Pulau Harta Karun",
         "header_no": "Nomor",
         "header_result_board": "Papan Hasil",
@@ -232,14 +236,29 @@ export const languages = {
         "paytable": "Tabel pembayaran",
         "press_to_continue": "Tekan dimana saja untuk melanjutkan",
         "reach_max_win": "Anda mencapai Maksimal Menang",
+        "round_settle_msg": "SEMOGA BERUNTUNG!",
+        "show_msg_when_spin_desktop": "TAHAN SPASI ATAU KLIK SPIN",
+        "show_msg_when_spin_phone": "KETUK ATAU TAHAN SPIN UNTUK MEMULAI",
         "start": "Mulai",
+        "top_message1": "SIMBOL MEMBAYAR DI MANA SAJA DI LAYAR",
+        "top_message2a": "DAPATKAN",
+        "top_message2b": "UNTUK MENGGANDAKAN KEMENANGAN TUMBLE",
+        "top_message3": "MENANGKAN HINGGA 2000X TARUHAN",
         "total_multiplier": "Pengganda Total",
         "total_win": "Menang",
         "trial_mode": "Masa Percobaan",
         "trial_mode_text": "Anda berada dalam Mode Uji Coba",
         "turbo_mode": "Mode Turbo",
         "warning_trial_mode": "Main Nyata,\\nMenang Nyata",
+        "win_tumble_msg": "SELAMAT!",
         "you_win_free_spin": "Anda memenangkan"
+    },
+    "CandyLand": {
+        "big_win": "Big Win",
+        "game_icon_name": "Candy Land",
+        "game_name": "Candy Land",
+        "mega_win": "Mega Win",
+        "super_win": "Super Win"
     }
 };
 
