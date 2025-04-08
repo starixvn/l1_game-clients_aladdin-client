@@ -23,7 +23,7 @@
     "_active": true,
     "_components": [],
     "_prefab": {
-      "__id__": 158
+      "__id__": 168
     },
     "_lpos": {
       "__type__": "cc.Vec3",
@@ -54,7 +54,7 @@
     },
     "autoReleaseAssets": false,
     "_globals": {
-      "__id__": 167
+      "__id__": 179
     },
     "_id": "8704bca1-d5f7-4f3c-b0bc-99d64502e283"
   },
@@ -80,22 +80,22 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 152
+        "__id__": 162
       },
       {
-        "__id__": 153
+        "__id__": 163
       },
       {
-        "__id__": 154
+        "__id__": 164
       },
       {
-        "__id__": 155
+        "__id__": 165
       },
       {
-        "__id__": 156
+        "__id__": 166
       },
       {
-        "__id__": 157
+        "__id__": 167
       }
     ],
     "_prefab": null,
@@ -187,7 +187,7 @@
     "_priority": 0,
     "_fov": 45,
     "_fovAxis": 0,
-    "_orthoHeight": 400.8411316648531,
+    "_orthoHeight": 393,
     "_near": 0,
     "_far": 1000,
     "_color": {
@@ -411,16 +411,16 @@
         "__id__": 42
       },
       {
-        "__id__": 147
+        "__id__": 157
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 150
+        "__id__": 160
       },
       {
-        "__id__": 151
+        "__id__": 161
       }
     ],
     "_prefab": null,
@@ -491,18 +491,21 @@
       },
       {
         "__id__": 136
+      },
+      {
+        "__id__": 144
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 144
+        "__id__": 154
       },
       {
-        "__id__": 145
+        "__id__": 155
       },
       {
-        "__id__": 146
+        "__id__": 156
       }
     ],
     "_prefab": null,
@@ -1604,7 +1607,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 1398,
-      "height": 785.9999999999998
+      "height": 786
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -3869,6 +3872,140 @@
     }
   },
   {
+    "__type__": "cc.Node",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 11
+    },
+    "_prefab": {
+      "__id__": 145
+    },
+    "__editorExtras__": {}
+  },
+  {
+    "__type__": "cc.PrefabInfo",
+    "root": {
+      "__id__": 144
+    },
+    "asset": {
+      "__uuid__": "cb74d222-a414-4b79-b38c-3e828f45693f",
+      "__expectedType__": "cc.Prefab"
+    },
+    "fileId": "d83lp+6sJCGKxHKTFZF6N3",
+    "instance": {
+      "__id__": 146
+    },
+    "targetOverrides": [],
+    "nestedPrefabInstanceRoots": null
+  },
+  {
+    "__type__": "cc.PrefabInstance",
+    "fileId": "2ey3ahxGtOOqAfIrOEQCnv",
+    "prefabRootNode": null,
+    "mountedChildren": [],
+    "mountedComponents": [],
+    "propertyOverrides": [
+      {
+        "__id__": 147
+      },
+      {
+        "__id__": 149
+      },
+      {
+        "__id__": 150
+      },
+      {
+        "__id__": 151
+      },
+      {
+        "__id__": 152
+      }
+    ],
+    "removedComponents": []
+  },
+  {
+    "__type__": "CCPropertyOverrideInfo",
+    "targetInfo": {
+      "__id__": 148
+    },
+    "propertyPath": [
+      "_name"
+    ],
+    "value": "effect-game-container"
+  },
+  {
+    "__type__": "cc.TargetInfo",
+    "localID": [
+      "d83lp+6sJCGKxHKTFZF6N3"
+    ]
+  },
+  {
+    "__type__": "CCPropertyOverrideInfo",
+    "targetInfo": {
+      "__id__": 148
+    },
+    "propertyPath": [
+      "_lpos"
+    ],
+    "value": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "__type__": "CCPropertyOverrideInfo",
+    "targetInfo": {
+      "__id__": 148
+    },
+    "propertyPath": [
+      "_lrot"
+    ],
+    "value": {
+      "__type__": "cc.Quat",
+      "x": 0,
+      "y": 0,
+      "z": 0,
+      "w": 1
+    }
+  },
+  {
+    "__type__": "CCPropertyOverrideInfo",
+    "targetInfo": {
+      "__id__": 148
+    },
+    "propertyPath": [
+      "_euler"
+    ],
+    "value": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    }
+  },
+  {
+    "__type__": "CCPropertyOverrideInfo",
+    "targetInfo": {
+      "__id__": 153
+    },
+    "propertyPath": [
+      "_contentSize"
+    ],
+    "value": {
+      "__type__": "cc.Size",
+      "width": 1398,
+      "height": 786
+    }
+  },
+  {
+    "__type__": "cc.TargetInfo",
+    "localID": [
+      "04p8rYIx9AIoi7DLkFcUbR"
+    ]
+  },
+  {
     "__type__": "cc.UITransform",
     "_name": "",
     "_objFlags": 0,
@@ -3928,10 +4065,10 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 148
+        "__id__": 158
       },
       {
-        "__id__": 149
+        "__id__": 159
       }
     ],
     "_prefab": null,
@@ -3970,7 +4107,7 @@
     "_objFlags": 0,
     "__editorExtras__": {},
     "node": {
-      "__id__": 147
+      "__id__": 157
     },
     "_enabled": true,
     "__prefab": null,
@@ -3992,7 +4129,7 @@
     "_objFlags": 0,
     "__editorExtras__": {},
     "node": {
-      "__id__": 147
+      "__id__": 157
     },
     "_enabled": true,
     "__prefab": null,
@@ -4015,7 +4152,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 1398,
-      "height": 785.9999999999998
+      "height": 786
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -4067,7 +4204,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 1398,
-      "height": 785.9999999999998
+      "height": 786
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -4164,6 +4301,7 @@
     "effectContainer": {
       "__id__": 42
     },
+    "effectGameContainer": null,
     "lblRoundId": {
       "__id__": 92
     },
@@ -4183,16 +4321,19 @@
     "instance": null,
     "targetOverrides": [
       {
-        "__id__": 159
+        "__id__": 169
       },
       {
-        "__id__": 161
+        "__id__": 171
       },
       {
-        "__id__": 163
+        "__id__": 173
       },
       {
-        "__id__": 165
+        "__id__": 175
+      },
+      {
+        "__id__": 177
       }
     ],
     "nestedPrefabInstanceRoots": [
@@ -4213,6 +4354,9 @@
       },
       {
         "__id__": 136
+      },
+      {
+        "__id__": 144
       }
     ]
   },
@@ -4229,7 +4373,7 @@
       "__id__": 53
     },
     "targetInfo": {
-      "__id__": 160
+      "__id__": 170
     }
   },
   {
@@ -4251,7 +4395,7 @@
       "__id__": 65
     },
     "targetInfo": {
-      "__id__": 162
+      "__id__": 172
     }
   },
   {
@@ -4263,7 +4407,7 @@
   {
     "__type__": "cc.TargetOverrideInfo",
     "source": {
-      "__id__": 157
+      "__id__": 167
     },
     "sourceInfo": null,
     "propertyPath": [
@@ -4273,7 +4417,7 @@
       "__id__": 53
     },
     "targetInfo": {
-      "__id__": 164
+      "__id__": 174
     }
   },
   {
@@ -4285,7 +4429,7 @@
   {
     "__type__": "cc.TargetOverrideInfo",
     "source": {
-      "__id__": 157
+      "__id__": 167
     },
     "sourceInfo": null,
     "propertyPath": [
@@ -4295,7 +4439,7 @@
       "__id__": 65
     },
     "targetInfo": {
-      "__id__": 166
+      "__id__": 176
     }
   },
   {
@@ -4305,30 +4449,50 @@
     ]
   },
   {
+    "__type__": "cc.TargetOverrideInfo",
+    "source": {
+      "__id__": 167
+    },
+    "sourceInfo": null,
+    "propertyPath": [
+      "effectGameContainer"
+    ],
+    "target": null,
+    "targetInfo": {
+      "__id__": 178
+    }
+  },
+  {
+    "__type__": "cc.TargetInfo",
+    "localID": [
+      "4fGZxgcopOeY1E1hQiTPqk"
+    ]
+  },
+  {
     "__type__": "cc.SceneGlobals",
     "ambient": {
-      "__id__": 168
+      "__id__": 180
     },
     "shadows": {
-      "__id__": 169
+      "__id__": 181
     },
     "_skybox": {
-      "__id__": 170
+      "__id__": 182
     },
     "fog": {
-      "__id__": 171
+      "__id__": 183
     },
     "octree": {
-      "__id__": 172
+      "__id__": 184
     },
     "skin": {
-      "__id__": 173
+      "__id__": 185
     },
     "lightProbeInfo": {
-      "__id__": 174
+      "__id__": 186
     },
     "postSettings": {
-      "__id__": 175
+      "__id__": 187
     },
     "bakedWithStationaryMainLight": false,
     "bakedWithHighpLightmap": false
