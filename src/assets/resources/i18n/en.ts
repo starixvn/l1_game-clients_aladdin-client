@@ -230,6 +230,7 @@ export const languages = {
         "header_tumble_win": "Tumble Win",
         "header_win_amount": "Win Amount",
         "header_win_symbols": "Win Symbols",
+        "index": "No.",
         "label_on_game_icon": "Cascading Reels",
         "multiplier": "Multiplier",
         "multiplier_preview_odds": "Multiplier Bonus will apply for Tumble Win.",

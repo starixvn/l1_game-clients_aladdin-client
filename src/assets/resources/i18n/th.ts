@@ -230,6 +230,7 @@ export const languages = {
         "header_tumble_win": "ชนะ Tumble",
         "header_win_amount": "จำนวนยอดชนะ",
         "header_win_symbols": "สัญลักษณ์ชนะ",
+        "index": "หมายเลข",
         "label_on_game_icon": "Cascading Reels",
         "multiplier": "ตัวคูณ",
         "multiplier_preview_odds": "โบนัสตัวคูณจะใช้สำหรับ Tumble Win",

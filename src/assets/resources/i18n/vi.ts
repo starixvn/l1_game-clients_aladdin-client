@@ -230,6 +230,7 @@ export const languages = {
         "header_tumble_win": "Thắng\\nNổ Sập",
         "header_win_amount": "Tiền Thắng",
         "header_win_symbols": "Biểu Tượng Thắng",
+        "index": "STT",
         "label_on_game_icon": "Nổ Sập",
         "multiplier": "Số Nhân",
         "multiplier_preview_odds": "Biểu tượng số nhân sẽ được áp dụng khi có kết quả thắng.",
