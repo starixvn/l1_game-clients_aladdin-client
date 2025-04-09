@@ -227,7 +227,7 @@ export const languages = {
         "gameNames.47": "Đảo Châu Báu",
         "header_no": "Stt",
         "header_result_board": "Bảng Kết Quả",
-        "header_tumble_win": "Thắng\\nNổ Sập",
+        "header_tumble_win": "Thắng\nNổ Sập",
         "header_win_amount": "Tiền Thắng",
         "header_win_symbols": "Biểu Tượng Thắng",
         "index": "STT",
