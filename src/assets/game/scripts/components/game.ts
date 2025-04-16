@@ -1,8 +1,8 @@
-import { _decorator } from "cc";
-import { startGame } from "db://shared-components/shared/scripts/startup";
 import Observer from "observer";
 
-import GameComponent from "db://shared-components/game/scripts/components/game-component";
+import { _decorator } from "cc";
+import { CascadingSlotGame } from "db://shared-cascading-slot/cascading-slot-game";
+import { startGame } from "db://shared-components/shared/scripts/startup";
 import { siteConfigs } from "../../../scripts/site-configs";
 import { containerOptions, settings } from "../game-settings";
 import "./../../../resources/i18n";
@@ -14,4 +14,4 @@ const { observer, render, handle } = Observer;
 
 @ccclass
 @observer(settings.name)
-export default class Game extends GameComponent {}
+export default class Game extends CascadingSlotGame {}
