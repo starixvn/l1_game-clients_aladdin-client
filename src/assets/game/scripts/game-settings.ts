@@ -4,9 +4,9 @@ import { LogStore } from "db://shared-components/game/scripts/stores/log-store";
 import { sharedContainer } from "../../scripts/shared-container";
 
 export const settings = {
-    id: 66,
-    name: "CandyLand",
-    namespaces: ["CandyLand", "cascadingslot"],
+    id: 121,
+    name: "WukongRevenge",
+    namespaces: ["WukongRevenge", "cascadingslot"],
     durations: {
         wholeRound: 14,
         lockingBet: 3,

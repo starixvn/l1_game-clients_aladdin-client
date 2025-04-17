@@ -20,6 +20,7 @@ export const languages = {
         "bet_option_even": "Chẵn",
         "bet_option_odd": "Lẻ",
         "button_change": "Thay Đổi",
+        "button_confirm": "Xác Nhận",
         "character_name": "Tên nhân vật",
         "copy_failed_md5": "Chức năng Copy tạm thời không hoạt động.",
         "copy_successfully_md5": "Copy thành công!",
@@ -214,6 +215,7 @@ export const languages = {
         "auto_spin_left": "Lượt Quay Tự Động Còn Lại",
         "bet_level": "Mức Cược",
         "bet_multiplier_x": "Hệ Số Cược 20X",
+        "big_win": "Thắng Lớn",
         "coin_value": "Giá trị xu",
         "congratulations": "Chúc Mừng",
         "example": "Ví Dụ:",
@@ -232,19 +234,23 @@ export const languages = {
         "header_win_symbols": "Biểu Tượng Thắng",
         "index": "STT",
         "label_on_game_icon": "Nổ Sập",
+        "mega_win": "Thắng Siêu Lớn",
         "multiplier": "Số Nhân",
         "multiplier_preview_odds": "Biểu tượng số nhân sẽ được áp dụng khi có kết quả thắng.",
         "paytable": "Trả thưởng",
         "press_to_continue": "Bấm Vào Vị Trí Bất Kỳ Để Tiếp Tục",
         "reach_max_win": "Bạn Đã Đạt Mức Tiền Thắng Tối Đa",
+        "real_mode": "Chơi Thật",
         "round_settle_msg": "CHÚC MAY MẮN!",
         "show_msg_when_spin_desktop": "BẤM QUAY HOẶC GIỮ PHÍM SPACE",
         "show_msg_when_spin_phone": "BẤM HOẶC GIỮ NÚT QUAY ĐỂ BẮT ĐẦU",
         "start": "Bắt Đầu",
+        "super_win": "Thắng Cực Lớn",
         "top_message1": "BIỂU TƯỢNG ĐƯỢC TÍNH THẮNG NẰM Ở VỊ TRÍ BẤT KỲ",
         "top_message2a": "QUAY TRÚNG",
         "top_message2b": "ĐỂ NHÂN GIÁ TRỊ TIỀN THẮNG",
         "top_message3": "THẮNG LÊN ĐẾN %{maxWin}X TIỀN CƯỢC",
+        "total_bet": "Tổng Cược",
         "total_multiplier": "Tổng Số Nhân",
         "total_win": "Thắng",
         "trial_mode": "Chơi Thử",
@@ -254,12 +260,8 @@ export const languages = {
         "win_tumble_msg": "CHÚC MỪNG!",
         "you_win_free_spin": "Bạn đã thắng"
     },
-    "CandyLand": {
-        "big_win": "Thắng Lớn",
-        "game_icon_name": "Vương Quốc Kẹo Ngọt",
-        "game_name": "Vương Quốc Kẹo Ngọt",
-        "mega_win": "Thắng Siêu Lớn",
-        "super_win": "Thắng Cực Lớn"
+    "WukongsRevenge": {
+        "game_name": "Ngộ Không Báo Thù"
     }
 };
 

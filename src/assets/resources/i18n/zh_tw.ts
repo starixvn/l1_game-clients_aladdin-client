@@ -20,6 +20,7 @@ export const languages = {
         "bet_option_even": "雙",
         "bet_option_odd": "單",
         "button_change": "改變",
+        "button_confirm": "確認",
         "character_name": "暱稱",
         "copy_failed_md5": "複印功能暫時不能用。",
         "copy_successfully_md5": "複製成功！",
@@ -214,6 +215,7 @@ export const languages = {
         "auto_spin_left": "自動旋轉剩餘",
         "bet_level": "賭注級別",
         "bet_multiplier_x": "投注乘數20倍",
+        "big_win": "大贏",
         "coin_value": "硬幣價值",
         "congratulations": "恭喜",
         "example": "例子：",
@@ -232,19 +234,23 @@ export const languages = {
         "header_win_symbols": "贏符號",
         "index": "號",
         "label_on_game_icon": "級聯捲軸",
+        "mega_win": "巨級贏",
         "multiplier": "乘數",
         "multiplier_preview_odds": "乘數獎金將適用於翻滾獲勝。",
         "paytable": "賠率表",
         "press_to_continue": "按任意位置繼續",
         "reach_max_win": "您達到了最大勝利",
+        "real_mode": "真實模式",
         "round_settle_msg": "祝你好運！",
         "show_msg_when_spin_desktop": "按住空格鍵或點擊旋轉",
         "show_msg_when_spin_phone": "點擊或按住旋轉開始",
         "start": "開始",
+        "super_win": "超級贏",
         "top_message1": "符號在屏幕上的任何地方支付",
         "top_message2a": "擊中",
         "top_message2b": "多次翻滾獲勝",
         "top_message3": "贏取 %{maxWin}X 乘數",
+        "total_bet": "總投注",
         "total_multiplier": "總乘數",
         "total_win": "贏",
         "trial_mode": "試用模式",
@@ -254,12 +260,8 @@ export const languages = {
         "win_tumble_msg": "恭喜！",
         "you_win_free_spin": "您贏得"
     },
-    "CandyLand": {
-        "big_win": "Big Win",
-        "game_icon_name": "糖果樂園",
-        "game_name": "糖果樂園",
-        "mega_win": "Mega Win",
-        "super_win": "Super Win"
+    "WukongsRevenge": {
+        "game_name": "悟空復仇"
     }
 };
 

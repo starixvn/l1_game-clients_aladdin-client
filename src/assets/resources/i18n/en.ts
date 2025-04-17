@@ -20,6 +20,7 @@ export const languages = {
         "bet_option_even": "Even",
         "bet_option_odd": "Odd",
         "button_change": "Change",
+        "button_confirm": "Confirm",
         "character_name": "Nickname",
         "copy_failed_md5": "Copy function is temporarily unavailable.",
         "copy_successfully_md5": "Copy successful!",
@@ -214,6 +215,7 @@ export const languages = {
         "auto_spin_left": "Auto Spins Left",
         "bet_level": "Bet Level",
         "bet_multiplier_x": "Bet Multiplier 20x",
+        "big_win": "Big Win",
         "coin_value": "Coin Value",
         "congratulations": "Congratulations",
         "example": "Example:",
@@ -232,19 +234,23 @@ export const languages = {
         "header_win_symbols": "Win Symbols",
         "index": "No.",
         "label_on_game_icon": "Cascading Reels",
+        "mega_win": "Mega Win",
         "multiplier": "Multiplier",
         "multiplier_preview_odds": "Multiplier Bonus will apply for Tumble Win.",
         "paytable": "Paytable",
         "press_to_continue": "Press anywhere to continue",
         "reach_max_win": "You reached the Max Win",
+        "real_mode": "Real Mode",
         "round_settle_msg": "GOOD LUCK!",
         "show_msg_when_spin_desktop": "HOLD SPACE OR CLICK SPIN",
         "show_msg_when_spin_phone": "TAP OR HOLD SPIN TO BEGIN",
         "start": "Start",
+        "super_win": "Super Win",
         "top_message1": "SYMBOLS PAY ANYWHERE ON THE SCREEN",
         "top_message2a": "HIT",
         "top_message2b": "TO MULTIPLY TUMBLE WIN",
         "top_message3": "WIN UP TO %{maxWin}X BET",
+        "total_bet": "Total Bet",
         "total_multiplier": "Total Multiplier",
         "total_win": "Win",
         "trial_mode": "Trial Mode",
@@ -254,12 +260,8 @@ export const languages = {
         "win_tumble_msg": "CONGRATULATION!",
         "you_win_free_spin": "You win"
     },
-    "CandyLand": {
-        "big_win": "Big Win",
-        "game_icon_name": "Candy Land",
-        "game_name": "Candy Land",
-        "mega_win": "Mega Win",
-        "super_win": "Super Win"
+    "WukongsRevenge": {
+        "game_name": "Wukong's Revenge"
     }
 };
 

@@ -21,11 +21,11 @@ const defaultConfig: gc.Configs.SiteConfigs = {
     enableMsgpackParserAllGames: false,
     enableMsgpackParserOnNotification: false,
     websocket: {
-        proxyPath: "candyland",
-        route: "candyland",
+        proxyPath: "wukongsrevenge",
+        route: "wukongsrevenge",
     },
-    mainObserverNamespace: "CandyLand",
-    storagePrefixKey: "candy_land",
+    mainObserverNamespace: "WukongsRevenge",
+    storagePrefixKey: "wukongs_revenge",
     tolgeeUrl: "",
 };
 

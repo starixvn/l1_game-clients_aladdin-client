@@ -20,6 +20,7 @@ export const languages = {
         "bet_option_even": "คู่",
         "bet_option_odd": "คี่",
         "button_change": "เปลี่ยน",
+        "button_confirm": "ยืนยัน",
         "character_name": "ชื่อเล่น",
         "copy_failed_md5": "ฟังก์ชันคัดลอกใช้งานไม่ได้ชั่วคราว",
         "copy_successfully_md5": "คัดลอกสำเร็จ!",
@@ -214,6 +215,7 @@ export const languages = {
         "auto_spin_left": "หมุนอัตโนมัติที่เหลือ",
         "bet_level": "ระดับการเดิมพัน",
         "bet_multiplier_x": "เดิมพัน 20x",
+        "big_win": "รางวัลใหญ่",
         "coin_value": "มูลค่าเหรียญ",
         "congratulations": "ยินดีด้วยค่ะ",
         "example": "ตัวอย่าง:",
@@ -232,19 +234,23 @@ export const languages = {
         "header_win_symbols": "สัญลักษณ์ชนะ",
         "index": "หมายเลข",
         "label_on_game_icon": "Cascading Reels",
+        "mega_win": "เมกะวิน",
         "multiplier": "ตัวคูณ",
         "multiplier_preview_odds": "โบนัสตัวคูณจะใช้สำหรับ Tumble Win",
         "paytable": "ตารางการจ่ายเงิน",
         "press_to_continue": "กดที่ใดก็ได้เพื่อเดิมพันต่อ",
         "reach_max_win": "คุณถึงยอดชนะสูงสุด",
+        "real_mode": "โหมดจริง",
         "round_settle_msg": "โชคดี!",
         "show_msg_when_spin_desktop": "กดที่สเปคบาร์หรือคลิกสปิน",
         "show_msg_when_spin_phone": "แตะหรือกดค้างเพื่อเริ่มใหม่",
         "start": "เริ่ม",
+        "super_win": "ซูเปอร์วิน",
         "top_message1": "สัญลักษณ์บนหน้าจอ",
         "top_message2a": "กด",
         "top_message2b": "เพื่อเพิ่มอัตราการชนะ",
         "top_message3": "ชนะถึง 2000X เดิมพัน",
+        "total_bet": "เดิมพันรวม",
         "total_multiplier": "ตัวคูณทั้งหมด",
         "total_win": "ชนะ",
         "trial_mode": "โหมดทดลอง",
@@ -254,12 +260,8 @@ export const languages = {
         "win_tumble_msg": "ขอแสดงความยินดี!",
         "you_win_free_spin": "คุณชนะ"
     },
-    "CandyLand": {
-        "big_win": "Big Win",
-        "game_icon_name": "Candy Land",
-        "game_name": "Candy Land",
-        "mega_win": "Mega Win",
-        "super_win": "Super Win"
+    "WukongsRevenge": {
+        "game_name": "การล้างแค้นของหงอคง"
     }
 };
 

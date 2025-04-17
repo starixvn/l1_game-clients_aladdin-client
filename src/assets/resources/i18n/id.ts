@@ -20,6 +20,7 @@ export const languages = {
         "bet_option_even": "Genap",
         "bet_option_odd": "Ganjil",
         "button_change": "Mengubah",
+        "button_confirm": "Konfirmasi",
         "character_name": "Nama panggilan",
         "copy_failed_md5": "Fungsi salin untuk sementara tidak tersedia.",
         "copy_successfully_md5": "Salin berhasil!",
@@ -214,6 +215,7 @@ export const languages = {
         "auto_spin_left": "Sisa Putaran Otomatis",
         "bet_level": "Tingkat Taruhan",
         "bet_multiplier_x": "Pengali Taruhan 20x",
+        "big_win": "Kemenangan Besar",
         "coin_value": "Nilai Koin",
         "congratulations": "Selamat",
         "example": "Contoh:",
@@ -232,19 +234,23 @@ export const languages = {
         "header_win_symbols": "Menangkan Simbol",
         "index": "Nomor",
         "label_on_game_icon": "Cascading Reels",
+        "mega_win": "Kemenangan Mega",
         "multiplier": "Pengali",
         "multiplier_preview_odds": "Bonus Pengganda akan berlaku untuk Kemenangan Tumble.",
         "paytable": "Tabel pembayaran",
         "press_to_continue": "Tekan dimana saja untuk melanjutkan",
         "reach_max_win": "Anda mencapai Maksimal Menang",
+        "real_mode": "Mode Nyata",
         "round_settle_msg": "SEMOGA BERUNTUNG!",
         "show_msg_when_spin_desktop": "TAHAN SPASI ATAU KLIK SPIN",
         "show_msg_when_spin_phone": "KETUK ATAU TAHAN SPIN UNTUK MEMULAI",
         "start": "Mulai",
+        "super_win": "Kemenangan Super",
         "top_message1": "SIMBOL MEMBAYAR DI MANA SAJA DI LAYAR",
         "top_message2a": "DAPATKAN",
         "top_message2b": "UNTUK MENGGANDAKAN KEMENANGAN TUMBLE",
         "top_message3": "MENANGKAN HINGGA %{maxWin}X TARUHAN",
+        "total_bet": "Total Taruhan",
         "total_multiplier": "Pengganda Total",
         "total_win": "Menang",
         "trial_mode": "Masa Percobaan",
@@ -254,12 +260,8 @@ export const languages = {
         "win_tumble_msg": "SELAMAT!",
         "you_win_free_spin": "Anda memenangkan"
     },
-    "CandyLand": {
-        "big_win": "Big Win",
-        "game_icon_name": "Candy Land",
-        "game_name": "Candy Land",
-        "mega_win": "Mega Win",
-        "super_win": "Super Win"
+    "WukongsRevenge": {
+        "game_name": "Pembalasan Wukong"
     }
 };
 
