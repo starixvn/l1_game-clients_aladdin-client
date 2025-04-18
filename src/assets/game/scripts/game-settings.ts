@@ -5,8 +5,8 @@ import { sharedContainer } from "../../scripts/shared-container";
 
 export const settings = {
     id: 121,
-    name: "WukongRevenge",
-    namespaces: ["WukongRevenge", "cascadingslot"],
+    name: "WukongsRevenge",
+    namespaces: ["WukongsRevenge", "cascadingslot"],
     durations: {
         wholeRound: 14,
         lockingBet: 3,
