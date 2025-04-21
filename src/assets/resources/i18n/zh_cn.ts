@@ -261,6 +261,7 @@ export const languages = {
         "you_win_free_spin": "您赢得"
     },
     "WukongsRevenge": {
+        "game_icon_name": "悟空复仇",
         "game_name": "悟空复仇"
     }
 };

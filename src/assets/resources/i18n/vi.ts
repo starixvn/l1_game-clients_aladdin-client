@@ -261,6 +261,7 @@ export const languages = {
         "you_win_free_spin": "Bạn đã thắng"
     },
     "WukongsRevenge": {
+        "game_icon_name": "Ngộ Không Báo Thù",
         "game_name": "Ngộ Không Báo Thù"
     }
 };

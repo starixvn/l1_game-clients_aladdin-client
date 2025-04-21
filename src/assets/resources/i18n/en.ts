@@ -261,6 +261,7 @@ export const languages = {
         "you_win_free_spin": "You win"
     },
     "WukongsRevenge": {
+        "game_icon_name": "Wukong's Revenge",
         "game_name": "Wukong's Revenge"
     }
 };

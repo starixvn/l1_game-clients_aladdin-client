@@ -261,6 +261,7 @@ export const languages = {
         "you_win_free_spin": "Anda memenangkan"
     },
     "WukongsRevenge": {
+        "game_icon_name": "Pembalasan Wukong",
         "game_name": "Pembalasan Wukong"
     }
 };

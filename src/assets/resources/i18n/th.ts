@@ -261,6 +261,7 @@ export const languages = {
         "you_win_free_spin": "คุณชนะ"
     },
     "WukongsRevenge": {
+        "game_icon_name": "การล้างแค้น\nของหงอคง",
         "game_name": "การล้างแค้นของหงอคง"
     }
 };
