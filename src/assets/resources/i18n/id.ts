@@ -218,6 +218,8 @@ export const languages = {
         "big_win": "Kemenangan Besar",
         "coin_value": "Nilai Koin",
         "congratulations": "Selamat",
+        "disable_turbo_mode": "Mode Turbo \"MATI\"",
+        "enable_turbo_mode": "Mode Turbo \"ON\"",
         "example": "Contoh:",
         "extra_free_spin": "Ekstra Free Spins",
         "free_spin": "Free Spins",

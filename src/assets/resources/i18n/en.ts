@@ -218,6 +218,8 @@ export const languages = {
         "big_win": "Big Win",
         "coin_value": "Coin Value",
         "congratulations": "Congratulations",
+        "disable_turbo_mode": "Turbo Mode \"OFF\"",
+        "enable_turbo_mode": "Turbo Mode \"ON\"",
         "example": "Example:",
         "extra_free_spin": "Extra Free Spins",
         "free_spin": "Free Spins",

@@ -218,6 +218,8 @@ export const languages = {
         "big_win": "รางวัลใหญ่",
         "coin_value": "มูลค่าเหรียญ",
         "congratulations": "ยินดีด้วยค่ะ",
+        "disable_turbo_mode": "โหมดเทอร์โบ \"ปิด\"",
+        "enable_turbo_mode": "โหมดเทอร์โบ \"เปิด\"",
         "example": "ตัวอย่าง:",
         "extra_free_spin": "Free Spins พิเศษ",
         "free_spin": "Free Spins",

@@ -218,6 +218,8 @@ export const languages = {
         "big_win": "大贏",
         "coin_value": "硬幣價值",
         "congratulations": "恭喜",
+        "disable_turbo_mode": "渦輪模式“關閉”",
+        "enable_turbo_mode": "渦輪模式“開啟”",
         "example": "例子：",
         "extra_free_spin": "額外Free Spins",
         "free_spin": "Free Spins",

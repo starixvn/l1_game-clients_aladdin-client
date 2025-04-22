@@ -218,6 +218,8 @@ export const languages = {
         "big_win": "Thắng Lớn",
         "coin_value": "Giá trị xu",
         "congratulations": "Chúc Mừng",
+        "disable_turbo_mode": "Tắt chế độ Siêu Tốc.",
+        "enable_turbo_mode": "Bật chế độ Siêu Tốc.",
         "example": "Ví Dụ:",
         "extra_free_spin": "Free Spins Thêm",
         "free_spin": "Free Spins",
