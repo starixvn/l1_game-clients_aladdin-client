@@ -214,6 +214,7 @@ export const languages = {
         "auto_spin_guide_text": "Number of Auto Spins",
         "auto_spin_left": "Auto Spins Left",
         "bet_level": "Bet Level",
+        "bet_level_shorten": "Bet Level",
         "bet_multiplier_x": "Bet Multiplier 20x",
         "big_win": "Big Win",
         "coin_value": "Coin Value",

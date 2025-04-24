@@ -214,6 +214,7 @@ export const languages = {
         "auto_spin_guide_text": "Chọn số lượt quay",
         "auto_spin_left": "Lượt Quay Tự Động Còn Lại",
         "bet_level": "Mức Cược",
+        "bet_level_shorten": "Mức Cược",
         "bet_multiplier_x": "Hệ Số Cược 20X",
         "big_win": "Thắng Lớn",
         "coin_value": "Giá trị xu",

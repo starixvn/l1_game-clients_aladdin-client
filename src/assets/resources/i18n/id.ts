@@ -214,6 +214,7 @@ export const languages = {
         "auto_spin_guide_text": "Jumlah Auto Putar",
         "auto_spin_left": "Sisa Putaran Otomatis",
         "bet_level": "Tingkat Taruhan",
+        "bet_level_shorten": "Tingkat\nTaruhan",
         "bet_multiplier_x": "Pengali Taruhan 20x",
         "big_win": "Kemenangan Besar",
         "coin_value": "Nilai Koin",

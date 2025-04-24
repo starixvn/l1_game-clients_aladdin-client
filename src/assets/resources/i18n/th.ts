@@ -214,6 +214,7 @@ export const languages = {
         "auto_spin_guide_text": "จำนวนของสปินฟรีอัตโนมัติ",
         "auto_spin_left": "หมุนอัตโนมัติที่เหลือ",
         "bet_level": "ระดับการเดิมพัน",
+        "bet_level_shorten": "ระดับการเดิมพัน",
         "bet_multiplier_x": "เดิมพัน 20x",
         "big_win": "รางวัลใหญ่",
         "coin_value": "มูลค่าเหรียญ",
