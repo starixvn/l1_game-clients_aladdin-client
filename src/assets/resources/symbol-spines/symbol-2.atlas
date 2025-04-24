@@ -1,43 +1,43 @@
 
 symbol-2.png
-size: 319,106
+size: 182,188
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-monk bg
+gobin bg
   rotate: false
-  xy: 103, 5
-  size: 98, 99
-  orig: 100, 101
+  xy: 2, 93
+  size: 93, 93
+  orig: 95, 95
   offset: 1, 1
   index: -1
-monk body
-  rotate: true
-  xy: 203, 7
-  size: 97, 59
-  orig: 111, 61
-  offset: 1, 1
+gobin body
+  rotate: false
+  xy: 2, 44
+  size: 92, 47
+  orig: 94, 50
+  offset: 1, 2
   index: -1
-monk frame
+gobin frame
   rotate: true
+  xy: 97, 94
+  size: 92, 82
+  orig: 95, 85
+  offset: 1, 2
+  index: -1
+gobin head
+  rotate: true
+  xy: 97, 3
+  size: 89, 83
+  orig: 91, 83
+  offset: 2, 0
+  index: -1
+gobin mouth
+  rotate: false
   xy: 2, 2
-  size: 102, 99
-  orig: 112, 101
+  size: 61, 40
+  orig: 63, 42
   offset: 1, 1
-  index: -1
-monk head
-  rotate: false
-  xy: 264, 41
-  size: 53, 63
-  orig: 58, 66
-  offset: 3, 1
-  index: -1
-monk mouth
-  rotate: true
-  xy: 264, 2
-  size: 37, 33
-  orig: 40, 35
-  offset: 2, 1
   index: -1
 
 symbol-22.jpg
