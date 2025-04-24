@@ -254,6 +254,7 @@ export const languages = {
         "top_message2b": "TO MULTIPLY TUMBLE WIN",
         "top_message3": "WIN UP TO %{maxWin}X BET",
         "total_bet": "Total Bet",
+        "total_bet_shorten": "Total Bet",
         "total_multiplier": "Total Multiplier",
         "total_win": "Win",
         "trial_mode": "Trial Mode",

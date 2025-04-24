@@ -254,6 +254,7 @@ export const languages = {
         "top_message2b": "多次翻滚获胜",
         "top_message3": "赢取 %{maxWin}X 乘数",
         "total_bet": "总投注",
+        "total_bet_shorten": "总投注",
         "total_multiplier": "总乘数",
         "total_win": "赢",
         "trial_mode": "试用模式",

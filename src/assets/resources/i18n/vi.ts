@@ -254,6 +254,7 @@ export const languages = {
         "top_message2b": "ĐỂ NHÂN GIÁ TRỊ TIỀN THẮNG",
         "top_message3": "THẮNG LÊN ĐẾN %{maxWin}X TIỀN CƯỢC",
         "total_bet": "Tổng Cược",
+        "total_bet_shorten": "Tổng Cược",
         "total_multiplier": "Tổng Số Nhân",
         "total_win": "Thắng",
         "trial_mode": "Chơi Thử",

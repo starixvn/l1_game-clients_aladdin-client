@@ -254,6 +254,7 @@ export const languages = {
         "top_message2b": "เพื่อเพิ่มอัตราการชนะ",
         "top_message3": "ชนะถึง 2000X เดิมพัน",
         "total_bet": "เดิมพันรวม",
+        "total_bet_shorten": "เดิมพันรวม",
         "total_multiplier": "ตัวคูณทั้งหมด",
         "total_win": "ชนะ",
         "trial_mode": "โหมดทดลอง",

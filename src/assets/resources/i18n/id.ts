@@ -254,6 +254,7 @@ export const languages = {
         "top_message2b": "UNTUK MENGGANDAKAN KEMENANGAN TUMBLE",
         "top_message3": "MENANGKAN HINGGA %{maxWin}X TARUHAN",
         "total_bet": "Total Taruhan",
+        "total_bet_shorten": "Total \nTaruhan",
         "total_multiplier": "Pengganda Total",
         "total_win": "Menang",
         "trial_mode": "Masa Percobaan",
