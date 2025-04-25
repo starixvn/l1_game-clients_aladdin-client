@@ -41,6 +41,7 @@ export const languages = {
         "hot": "热",
         "invalid_bet": "无效投注",
         "invalid_deal_hands": "这数量手牌无效",
+        "invalid_free_spin": "无效的免费旋转",
         "invalid_position": "无效位置",
         "invalid_stake_level": "无效的赌注级别",
         "join_game": "加入游戏",

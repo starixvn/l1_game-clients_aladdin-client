@@ -41,6 +41,7 @@ export const languages = {
         "hot": "Hot",
         "invalid_bet": "Cược không hợp lệ",
         "invalid_deal_hands": "Số lượng tay bài không hợp lệ.",
+        "invalid_free_spin": "Lượt quay FreeSpin không hợp lệ.",
         "invalid_position": "Vị trí tay bài không đúng",
         "invalid_stake_level": "Mức cược không hợp lệ.",
         "join_game": "Vào Bàn",

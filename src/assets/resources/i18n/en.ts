@@ -41,6 +41,7 @@ export const languages = {
         "hot": "Hot",
         "invalid_bet": "Invalid Bet",
         "invalid_deal_hands": "The number of Hands is invalid",
+        "invalid_free_spin": "Invalid Freespin ",
         "invalid_position": "Invalid Position",
         "invalid_stake_level": "Invalid Stake level",
         "join_game": "Join Game",

@@ -41,6 +41,7 @@ export const languages = {
         "hot": "熱",
         "invalid_bet": "無效投注",
         "invalid_deal_hands": "這數量手牌無效",
+        "invalid_free_spin": "無效的免費旋轉",
         "invalid_position": "無效位置",
         "invalid_stake_level": "無效的賭注級別",
         "join_game": "加入遊戲",

@@ -41,6 +41,7 @@ export const languages = {
         "hot": "PANAS",
         "invalid_bet": "Taruhan Tidak Valid",
         "invalid_deal_hands": "Jumlah Tangan tidak valid",
+        "invalid_free_spin": "Freespin tidak valid",
         "invalid_position": "Posisi Tidak Valid",
         "invalid_stake_level": "Level Taruhan Tidak Valid",
         "join_game": "Gabung\nPermainan",

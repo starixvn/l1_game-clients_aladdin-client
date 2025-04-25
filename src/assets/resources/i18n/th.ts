@@ -41,6 +41,7 @@ export const languages = {
         "hot": "สีร้อนแรง",
         "invalid_bet": "เดิมพันไม่ถูกต้อง",
         "invalid_deal_hands": "จำนวนมือไม่ถูกต้อง",
+        "invalid_free_spin": "การหมุนฟรีสปินไม่ถูกต้อง",
         "invalid_position": "ตำแหน่งไม่ถูกต้อง",
         "invalid_stake_level": "ระดับเงินเดิมพันไม่ถูกต้อง",
         "join_game": "เข้าเกมส์",
