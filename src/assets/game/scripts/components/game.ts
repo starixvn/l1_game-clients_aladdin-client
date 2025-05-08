@@ -7,7 +7,7 @@ import { siteConfigs } from "../../../scripts/site-configs";
 import { containerOptions, settings } from "../game-settings";
 import "./../../../resources/i18n";
 
-startGame(settings.name, containerOptions, siteConfigs, settings.namespaces);
+startGame(settings.name, containerOptions, siteConfigs, settings.tolgeeNamespaces);
 
 const { ccclass, property } = _decorator;
 const { observer, render, handle } = Observer;

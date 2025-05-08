@@ -4,10 +4,11 @@ import { LogStore } from "db://shared-components/game/scripts/stores/log-store";
 import { sharedContainer } from "../../scripts/shared-container";
 import { NullErrorHandlers } from "./null-errors-handlers";
 
+const GAME_NAME = "WukongsRevenge";
 export const settings = {
     id: 121,
-    name: "WukongsRevenge",
-    namespaces: ["WukongsRevenge", "cascadingslot"],
+    name: GAME_NAME,
+    tolgeeNamespaces: [GAME_NAME, "cascadingslot"],
     durations: {
         wholeRound: 14,
         lockingBet: 3,

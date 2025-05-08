@@ -24,7 +24,6 @@ const defaultConfig: gc.Configs.SiteConfigs = {
         proxyPath: "wukongsrevenge",
         route: "wukongsrevenge",
     },
-    mainObserverNamespace: "WukongsRevenge",
     storagePrefixKey: "wukongs_revenge",
     tolgeeUrl: "",
 };
