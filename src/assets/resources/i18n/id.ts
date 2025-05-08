@@ -265,9 +265,9 @@ export const languages = {
         "win_tumble_msg": "SELAMAT!",
         "you_win_free_spin": "Anda memenangkan"
     },
-    "WukongsRevenge": {
-        "game_icon_name": "Pembalasan Wukong",
-        "game_name": "Pembalasan Wukong"
+    "PoseidonsRealm": {
+        "game_icon_name": "Kerajaan Poseidon",
+        "game_name": "Kerajaan Poseidon"
     }
 };
 

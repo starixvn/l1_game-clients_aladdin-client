@@ -265,9 +265,9 @@ export const languages = {
         "win_tumble_msg": "CONGRATULATION!",
         "you_win_free_spin": "You win"
     },
-    "WukongsRevenge": {
-        "game_icon_name": "Wukong's Revenge",
-        "game_name": "Wukong's Revenge"
+    "PoseidonsRealm": {
+        "game_icon_name": "Poseidon's Realm",
+        "game_name": "Poseidon's Realm"
     }
 };
 

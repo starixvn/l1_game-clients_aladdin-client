@@ -1,6 +1,6 @@
-export const GAME_NAME = "WukongsRevenge";
+const GAME_NAME = "PoseidonsRealm";
 export const settings = {
-    id: 121,
+    id: 126,
     name: GAME_NAME,
     observerNamespace: GAME_NAME,
     tolgeeNamespaces: [GAME_NAME, "cascadingslot"],

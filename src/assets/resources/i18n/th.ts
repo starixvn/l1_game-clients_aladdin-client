@@ -265,9 +265,9 @@ export const languages = {
         "win_tumble_msg": "ขอแสดงความยินดี!",
         "you_win_free_spin": "คุณชนะ"
     },
-    "WukongsRevenge": {
-        "game_icon_name": "การล้างแค้น\nของหงอคง",
-        "game_name": "การล้างแค้นของหงอคง"
+    "PoseidonsRealm": {
+        "game_icon_name": "อาณาจักร\nแห่งโพไซดอน",
+        "game_name": "อาณาจักรแห่งโพไซดอน"
     }
 };
 

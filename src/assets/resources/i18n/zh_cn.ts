@@ -265,9 +265,9 @@ export const languages = {
         "win_tumble_msg": "恭喜！",
         "you_win_free_spin": "您赢得"
     },
-    "WukongsRevenge": {
-        "game_icon_name": "悟空复仇",
-        "game_name": "悟空复仇"
+    "PoseidonsRealm": {
+        "game_icon_name": "波塞冬领域",
+        "game_name": "波塞冬领域"
     }
 };
 

@@ -265,9 +265,9 @@ export const languages = {
         "win_tumble_msg": "CHÚC MỪNG!",
         "you_win_free_spin": "Bạn đã thắng"
     },
-    "WukongsRevenge": {
-        "game_icon_name": "Ngộ Không Báo Thù",
-        "game_name": "Ngộ Không Báo Thù"
+    "PoseidonsRealm": {
+        "game_icon_name": "Kho Báu Poseidon",
+        "game_name": "Kho Báu Poseidon"
     }
 };
 
