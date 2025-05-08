@@ -2,6 +2,7 @@ const GAME_NAME = "WukongsRevenge";
 export const settings = {
     id: 121,
     name: GAME_NAME,
+    observerNamespace: GAME_NAME,
     tolgeeNamespaces: [GAME_NAME, "cascadingslot"],
     durations: {
         wholeRound: 14,
