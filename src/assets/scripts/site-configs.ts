@@ -26,6 +26,7 @@ const defaultConfig: gc.Configs.SiteConfigs = {
     },
     storagePrefixKey: "wukongs_revenge",
     tolgeeUrl: "",
+    mainObserverNamespace: "WukongsRevenge"
 };
 
 let configDev = {

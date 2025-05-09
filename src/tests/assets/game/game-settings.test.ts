@@ -1,6 +1,5 @@
 import { GameConfigs } from "@sg/game-client-base";
 import { LogStore } from "db://shared-components/game/scripts/stores/log-store";
-
 import { containerOptions } from "db://assets/game/scripts/containerOptions";
 import { settings } from "../../../assets/game/scripts/game-settings";
 
@@ -12,16 +11,22 @@ describe("settings", () => {
     it("should have data as expected", () => {
         // Assert
         expect(settings).toStrictEqual({
-            id: 73,
-            name: "Spaceflight",
+            id: 121,
+            name: "WukongsRevenge",
+            tolgeeNamespaces: ["WukongsRevenge", "cascadingslot"],
             durations: {
                 wholeRound: 14,
                 lockingBet: 3,
                 placingBet: 10,
                 generatingResult: 0,
                 startRound: 1,
+                bigWinNotice: 5,
+                normalWinNotice: 3,
+                loseNotice: 1,
             },
+            isMiniGame: false,
             numberOfRoundHistory: 11,
+            observerNamespace: "WukongsRevenge",
             validateBalanceWhenBet: true,
         });
     });
