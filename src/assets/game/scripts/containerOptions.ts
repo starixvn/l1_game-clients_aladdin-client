@@ -11,7 +11,6 @@ export const containerOptions: gc.IContainerOptions = {
         container.bind(gc.GameConfigs.GameSetting).toConstantValue(settings);
         container.bind(LogStore).to(LogStore);
 
-        //container.bind(gc.Rounds.RoundTimeHandlers).to(NullRoundTimeHandlers);
         container.bind(gc.Error.ErrorHandlers).to(NullErrorHandlers);
     },
     features: [CascadingSlotFeature, gc.BetDetailsNew, ...gc.defaultFeatures],
