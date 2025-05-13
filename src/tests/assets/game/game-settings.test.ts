@@ -1,6 +1,7 @@
 import { GameConfigs } from "@sg/game-client-base";
-import { LogStore } from "db://shared-components/game/scripts/stores/log-store";
 import { containerOptions } from "db://assets/game/scripts/containerOptions";
+import { LogStore } from "db://shared-components/game/scripts/stores/log-store";
+
 import { settings } from "../../../assets/game/scripts/game-settings";
 
 jest.mock("db://shared-components/shared/scripts/startup", () => ({
@@ -11,9 +12,9 @@ describe("settings", () => {
     it("should have data as expected", () => {
         // Assert
         expect(settings).toStrictEqual({
-            id: 121,
-            name: "WukongsRevenge",
-            tolgeeNamespaces: ["WukongsRevenge", "cascadingslot"],
+            id: 126,
+            name: "PoseidonsRealm",
+            tolgeeNamespaces: ["PoseidonsRealm", "cascadingslot"],
             durations: {
                 wholeRound: 14,
                 lockingBet: 3,
@@ -26,7 +27,7 @@ describe("settings", () => {
             },
             isMiniGame: false,
             numberOfRoundHistory: 11,
-            observerNamespace: "WukongsRevenge",
+            observerNamespace: "PoseidonsRealm",
             validateBalanceWhenBet: true,
         });
     });
