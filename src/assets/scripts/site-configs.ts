@@ -22,8 +22,8 @@ const defaultConfig: gc.Configs.SiteConfigs = {
     enableMsgpackParserAllGames: false,
     enableMsgpackParserOnNotification: false,
     websocket: {
-        proxyPath: `${GAME_NAME.toLowerCase()}`,
-        route: `${GAME_NAME.toLowerCase()}`,
+        proxyPath: GAME_NAME.toLowerCase(),
+        route: GAME_NAME.toLowerCase(),
     },
     storagePrefixKey: "poseidons_realm",
     tolgeeUrl: "",
