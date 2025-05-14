@@ -1,4 +1,4 @@
-const GAME_NAME = "PoseidonsRealm";
+export const GAME_NAME = "PoseidonsRealm";
 export const settings = {
     id: 126,
     name: GAME_NAME,

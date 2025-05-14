@@ -1,4 +1,5 @@
 import gc from "@sg/game-client-base";
+import { GAME_NAME } from "../game/scripts/game-settings";
 
 declare global {
     interface Window {
@@ -14,19 +15,18 @@ const defaultConfig: gc.Configs.SiteConfigs = {
         localhost: "lumigame.com",
     },
     ssl: true,
-    subDomain: "l1-proxy",
+    subDomain: "l1-proxy3",
     env: "LOCAL",
     subGuideDomain: "l1-guide-2",
     SGConnectSubDomain: "connectsite",
     enableMsgpackParserAllGames: false,
     enableMsgpackParserOnNotification: false,
     websocket: {
-        proxyPath: "poseidonsrealm",
-        route: "poseidonsrealm",
+        proxyPath: `${GAME_NAME.toLowerCase()}`,
+        route: `${GAME_NAME.toLowerCase()}`,
     },
     storagePrefixKey: "poseidons_realm",
     tolgeeUrl: "",
-    mainObserverNamespace: "PoseidonsRealm",
 };
 
 let configDev = {
