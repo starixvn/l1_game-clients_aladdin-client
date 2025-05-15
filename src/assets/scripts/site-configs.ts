@@ -1,4 +1,5 @@
 import gc from "@sg/game-client-base";
+import { GAME_NAME } from "../game/scripts/game-settings";
 
 declare global {
     interface Window {
@@ -21,12 +22,11 @@ const defaultConfig: gc.Configs.SiteConfigs = {
     enableMsgpackParserAllGames: false,
     enableMsgpackParserOnNotification: false,
     websocket: {
-        proxyPath: "wukongsrevenge",
-        route: "wukongsrevenge",
+        proxyPath: GAME_NAME.toLowerCase(),
+        route: GAME_NAME.toLowerCase(),
     },
     storagePrefixKey: "wukongs_revenge",
     tolgeeUrl: "",
-    mainObserverNamespace: "WukongsRevenge"
 };
 
 let configDev = {

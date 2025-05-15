@@ -1,4 +1,4 @@
-const GAME_NAME = "WukongsRevenge";
+export const GAME_NAME = "WukongsRevenge";
 export const settings = {
     id: 121,
     name: GAME_NAME,
