@@ -1,17 +1,17 @@
 {
-"skeleton": { "hash": "LEE2Q5gufROkqcSRHOwZUDdSQ4A", "spine": "3.8.99" },
+"skeleton": { "hash": "W11m5m2FF06dEAtC+GpliRe5FCY", "spine": "3.8.99" },
 "bones": [
 	{ "name": "root" },
 	{ "name": "explode", "parent": "root", "scaleX": 0.8, "scaleY": 0.8 },
 	{ "name": "bubble", "parent": "root", "y": 24.67 },
 	{ "name": "Twinkle Bubble", "parent": "root" },
 	{ "name": "explose light circle", "parent": "root", "scaleX": 1.3, "scaleY": 1.3 },
-	{ "name": "key", "parent": "root", "rotation": 62.54, "x": 3.5, "y": 11.25 },
+	{ "name": "key", "parent": "root", "rotation": 62.54 },
 	{ "name": "key2", "parent": "key", "length": 23.76, "rotation": 180, "x": -0.03, "y": -16.99 },
 	{ "name": "IKkey", "parent": "key", "x": -23.79, "y": -17.01 },
 	{ "name": "side", "parent": "key", "x": -22.89, "y": -17.02 },
 	{ "name": "bone3", "parent": "side", "length": 10, "rotation": 2.78, "x": -0.05, "y": -0.02 },
-	{ "name": "shadowkey", "parent": "root", "rotation": -29.2, "scaleX": 1.0016, "scaleY": 1.0016 },
+	{ "name": "shadowkey", "parent": "root", "rotation": -29.2, "y": -9.8, "scaleX": 1.0016, "scaleY": 1.0016 },
 	{
 		"name": "highlight",
 		"parent": "key",
