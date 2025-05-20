@@ -1,108 +1,364 @@
 {
-"skeleton": {
-	"hash": "mtzdmt/jBTgQVg4Jw/gXOxQz+mQ",
-	"spine": "3.8.99",
-	"x": -717.48,
-	"y": -403.61,
-	"width": 1434.97,
-	"height": 808.22,
-	"images": "",
-	"audio": ""
-},
-"bones": [
-	{ "name": "root" },
-	{ "name": "watervfx", "parent": "root", "scaleX": 2.1102, "scaleY": 2.1102 }
-],
-"slots": [
-	{ "name": "watervfx", "bone": "watervfx", "attachment": "watervfx/Comp 176", "blend": "additive" }
-],
-"skins": [
-	{
-		"name": "default",
-		"attachments": {
-			"watervfx": {
-				"watervfx/Comp 103": { "y": 0.24, "width": 680, "height": 383 },
-				"watervfx/Comp 105": { "y": 0.24, "width": 680, "height": 383 },
-				"watervfx/Comp 107": { "y": 0.24, "width": 680, "height": 383 },
-				"watervfx/Comp 109": { "y": 0.24, "width": 680, "height": 383 },
-				"watervfx/Comp 111": { "y": 0.24, "width": 680, "height": 383 },
-				"watervfx/Comp 114": { "y": 0.24, "width": 680, "height": 383 },
-				"watervfx/Comp 116": { "y": 0.24, "width": 680, "height": 383 },
-				"watervfx/Comp 118": { "y": 0.24, "width": 680, "height": 383 },
-				"watervfx/Comp 120": { "y": 0.24, "width": 680, "height": 383 },
-				"watervfx/Comp 122": { "y": 0.24, "width": 680, "height": 383 },
-				"watervfx/Comp 124": { "y": 0.24, "width": 680, "height": 383 },
-				"watervfx/Comp 127": { "y": 0.24, "width": 680, "height": 383 },
-				"watervfx/Comp 129": { "y": 0.24, "width": 680, "height": 383 },
-				"watervfx/Comp 131": { "y": 0.24, "width": 680, "height": 383 },
-				"watervfx/Comp 133": { "y": 0.24, "width": 680, "height": 383 },
-				"watervfx/Comp 135": { "y": 0.24, "width": 680, "height": 383 },
-				"watervfx/Comp 137": { "y": 0.24, "width": 680, "height": 383 },
-				"watervfx/Comp 140": { "y": 0.24, "width": 680, "height": 383 },
-				"watervfx/Comp 142": { "y": 0.24, "width": 680, "height": 383 },
-				"watervfx/Comp 144": { "y": 0.24, "width": 680, "height": 383 },
-				"watervfx/Comp 146": { "y": 0.24, "width": 680, "height": 383 },
-				"watervfx/Comp 148": { "y": 0.24, "width": 680, "height": 383 },
-				"watervfx/Comp 150": { "y": 0.24, "width": 680, "height": 383 },
-				"watervfx/Comp 153": { "y": 0.24, "width": 680, "height": 383 },
-				"watervfx/Comp 155": { "y": 0.24, "width": 680, "height": 383 },
-				"watervfx/Comp 157": { "y": 0.24, "width": 680, "height": 383 },
-				"watervfx/Comp 159": { "y": 0.24, "width": 680, "height": 383 },
-				"watervfx/Comp 161": { "y": 0.24, "width": 680, "height": 383 },
-				"watervfx/Comp 163": { "y": 0.24, "width": 680, "height": 383 },
-				"watervfx/Comp 166": { "y": 0.24, "width": 680, "height": 383 },
-				"watervfx/Comp 168": { "y": 0.24, "width": 680, "height": 383 },
-				"watervfx/Comp 170": { "y": 0.24, "width": 680, "height": 383 },
-				"watervfx/Comp 172": { "y": 0.24, "width": 680, "height": 383 },
-				"watervfx/Comp 174": { "y": 0.24, "width": 680, "height": 383 },
-				"watervfx/Comp 176": { "y": 0.24, "width": 680, "height": 383 }
+	"skeleton": {
+		"hash": "mtzdmt/jBTgQVg4Jw/gXOxQz+mQ",
+		"spine": "3.8.99",
+		"x": -717.48,
+		"y": -403.61,
+		"width": 1434.97,
+		"height": 808.22,
+		"images": "",
+		"audio": ""
+	},
+	"bones": [
+		{
+			"name": "root"
+		},
+		{
+			"name": "watervfx",
+			"parent": "root",
+			"scaleX": 2.1102,
+			"scaleY": 2.1102
+		}
+	],
+	"slots": [
+		{
+			"name": "watervfx",
+			"bone": "watervfx",
+			"attachment": "watervfx/Comp 176",
+			"blend": "additive"
+		}
+	],
+	"skins": [
+		{
+			"name": "default",
+			"attachments": {
+				"watervfx": {
+					"watervfx/Comp 103": {
+						"y": 0.24,
+						"width": 680,
+						"height": 383
+					},
+					"watervfx/Comp 105": {
+						"y": 0.24,
+						"width": 680,
+						"height": 383
+					},
+					"watervfx/Comp 107": {
+						"y": 0.24,
+						"width": 680,
+						"height": 383
+					},
+					"watervfx/Comp 109": {
+						"y": 0.24,
+						"width": 680,
+						"height": 383
+					},
+					"watervfx/Comp 111": {
+						"y": 0.24,
+						"width": 680,
+						"height": 383
+					},
+					"watervfx/Comp 114": {
+						"y": 0.24,
+						"width": 680,
+						"height": 383
+					},
+					"watervfx/Comp 116": {
+						"y": 0.24,
+						"width": 680,
+						"height": 383
+					},
+					"watervfx/Comp 118": {
+						"y": 0.24,
+						"width": 680,
+						"height": 383
+					},
+					"watervfx/Comp 120": {
+						"y": 0.24,
+						"width": 680,
+						"height": 383
+					},
+					"watervfx/Comp 122": {
+						"y": 0.24,
+						"width": 680,
+						"height": 383
+					},
+					"watervfx/Comp 124": {
+						"y": 0.24,
+						"width": 680,
+						"height": 383
+					},
+					"watervfx/Comp 127": {
+						"y": 0.24,
+						"width": 680,
+						"height": 383
+					},
+					"watervfx/Comp 129": {
+						"y": 0.24,
+						"width": 680,
+						"height": 383
+					},
+					"watervfx/Comp 131": {
+						"y": 0.24,
+						"width": 680,
+						"height": 383
+					},
+					"watervfx/Comp 133": {
+						"y": 0.24,
+						"width": 680,
+						"height": 383
+					},
+					"watervfx/Comp 135": {
+						"y": 0.24,
+						"width": 680,
+						"height": 383
+					},
+					"watervfx/Comp 137": {
+						"y": 0.24,
+						"width": 680,
+						"height": 383
+					},
+					"watervfx/Comp 140": {
+						"y": 0.24,
+						"width": 680,
+						"height": 383
+					},
+					"watervfx/Comp 142": {
+						"y": 0.24,
+						"width": 680,
+						"height": 383
+					},
+					"watervfx/Comp 144": {
+						"y": 0.24,
+						"width": 680,
+						"height": 383
+					},
+					"watervfx/Comp 146": {
+						"y": 0.24,
+						"width": 680,
+						"height": 383
+					},
+					"watervfx/Comp 148": {
+						"y": 0.24,
+						"width": 680,
+						"height": 383
+					},
+					"watervfx/Comp 150": {
+						"y": 0.24,
+						"width": 680,
+						"height": 383
+					},
+					"watervfx/Comp 153": {
+						"y": 0.24,
+						"width": 680,
+						"height": 383
+					},
+					"watervfx/Comp 155": {
+						"y": 0.24,
+						"width": 680,
+						"height": 383
+					},
+					"watervfx/Comp 157": {
+						"y": 0.24,
+						"width": 680,
+						"height": 383
+					},
+					"watervfx/Comp 159": {
+						"y": 0.24,
+						"width": 680,
+						"height": 383
+					},
+					"watervfx/Comp 161": {
+						"y": 0.24,
+						"width": 680,
+						"height": 383
+					},
+					"watervfx/Comp 163": {
+						"y": 0.24,
+						"width": 680,
+						"height": 383
+					},
+					"watervfx/Comp 166": {
+						"y": 0.24,
+						"width": 680,
+						"height": 383
+					},
+					"watervfx/Comp 168": {
+						"y": 0.24,
+						"width": 680,
+						"height": 383
+					},
+					"watervfx/Comp 170": {
+						"y": 0.24,
+						"width": 680,
+						"height": 383
+					},
+					"watervfx/Comp 172": {
+						"y": 0.24,
+						"width": 680,
+						"height": 383
+					},
+					"watervfx/Comp 174": {
+						"y": 0.24,
+						"width": 680,
+						"height": 383
+					},
+					"watervfx/Comp 176": {
+						"y": 0.24,
+						"width": 680,
+						"height": 383
+					}
+				}
+			}
+		}
+	],
+	"animations": {
+		"transition": {
+			"slots": {
+				"watervfx": {
+					"attachment": [
+						{
+							"name": "watervfx/Comp 103"
+						},
+						{
+							"time": 0.0333,
+							"name": "watervfx/Comp 105"
+						},
+						{
+							"time": 0.0667,
+							"name": "watervfx/Comp 107"
+						},
+						{
+							"time": 0.1,
+							"name": "watervfx/Comp 109"
+						},
+						{
+							"time": 0.1333,
+							"name": "watervfx/Comp 111"
+						},
+						{
+							"time": 0.1667,
+							"name": "watervfx/Comp 114"
+						},
+						{
+							"time": 0.2,
+							"name": "watervfx/Comp 116"
+						},
+						{
+							"time": 0.2333,
+							"name": "watervfx/Comp 118"
+						},
+						{
+							"time": 0.2667,
+							"name": "watervfx/Comp 120"
+						},
+						{
+							"time": 0.3,
+							"name": "watervfx/Comp 122"
+						},
+						{
+							"time": 0.3333,
+							"name": "watervfx/Comp 124"
+						},
+						{
+							"time": 0.3667,
+							"name": "watervfx/Comp 127"
+						},
+						{
+							"time": 0.4,
+							"name": "watervfx/Comp 129"
+						},
+						{
+							"time": 0.4333,
+							"name": "watervfx/Comp 131"
+						},
+						{
+							"time": 0.4667,
+							"name": "watervfx/Comp 133"
+						},
+						{
+							"time": 0.5,
+							"name": "watervfx/Comp 135"
+						},
+						{
+							"time": 0.5333,
+							"name": "watervfx/Comp 137"
+						},
+						{
+							"time": 0.5667,
+							"name": "watervfx/Comp 140"
+						},
+						{
+							"time": 0.6,
+							"name": "watervfx/Comp 142"
+						},
+						{
+							"time": 0.6333,
+							"name": "watervfx/Comp 144"
+						},
+						{
+							"time": 0.6667,
+							"name": "watervfx/Comp 146"
+						},
+						{
+							"time": 0.7,
+							"name": "watervfx/Comp 148"
+						},
+						{
+							"time": 0.7333,
+							"name": "watervfx/Comp 150"
+						},
+						{
+							"time": 0.7667,
+							"name": "watervfx/Comp 153"
+						},
+						{
+							"time": 0.8,
+							"name": "watervfx/Comp 155"
+						},
+						{
+							"time": 0.8333,
+							"name": "watervfx/Comp 157"
+						},
+						{
+							"time": 0.8667,
+							"name": "watervfx/Comp 159"
+						},
+						{
+							"time": 0.9,
+							"name": "watervfx/Comp 161"
+						},
+						{
+							"time": 0.9333,
+							"name": "watervfx/Comp 163"
+						},
+						{
+							"time": 0.9667,
+							"name": "watervfx/Comp 166"
+						},
+						{
+							"time": 1,
+							"name": "watervfx/Comp 168"
+						},
+						{
+							"time": 1.0333,
+							"name": "watervfx/Comp 170"
+						},
+						{
+							"time": 1.0667,
+							"name": "watervfx/Comp 172"
+						},
+						{
+							"time": 1.1,
+							"name": "watervfx/Comp 174"
+						},
+						{
+							"time": 1.1333,
+							"name": "watervfx/Comp 176"
+						}
+					]
+				}
 			}
 		}
 	}
-],
-"animations": {
-	"show": {
-		"slots": {
-			"watervfx": {
-				"attachment": [
-					{ "name": "watervfx/Comp 103" },
-					{ "time": 0.0333, "name": "watervfx/Comp 105" },
-					{ "time": 0.0667, "name": "watervfx/Comp 107" },
-					{ "time": 0.1, "name": "watervfx/Comp 109" },
-					{ "time": 0.1333, "name": "watervfx/Comp 111" },
-					{ "time": 0.1667, "name": "watervfx/Comp 114" },
-					{ "time": 0.2, "name": "watervfx/Comp 116" },
-					{ "time": 0.2333, "name": "watervfx/Comp 118" },
-					{ "time": 0.2667, "name": "watervfx/Comp 120" },
-					{ "time": 0.3, "name": "watervfx/Comp 122" },
-					{ "time": 0.3333, "name": "watervfx/Comp 124" },
-					{ "time": 0.3667, "name": "watervfx/Comp 127" },
-					{ "time": 0.4, "name": "watervfx/Comp 129" },
-					{ "time": 0.4333, "name": "watervfx/Comp 131" },
-					{ "time": 0.4667, "name": "watervfx/Comp 133" },
-					{ "time": 0.5, "name": "watervfx/Comp 135" },
-					{ "time": 0.5333, "name": "watervfx/Comp 137" },
-					{ "time": 0.5667, "name": "watervfx/Comp 140" },
-					{ "time": 0.6, "name": "watervfx/Comp 142" },
-					{ "time": 0.6333, "name": "watervfx/Comp 144" },
-					{ "time": 0.6667, "name": "watervfx/Comp 146" },
-					{ "time": 0.7, "name": "watervfx/Comp 148" },
-					{ "time": 0.7333, "name": "watervfx/Comp 150" },
-					{ "time": 0.7667, "name": "watervfx/Comp 153" },
-					{ "time": 0.8, "name": "watervfx/Comp 155" },
-					{ "time": 0.8333, "name": "watervfx/Comp 157" },
-					{ "time": 0.8667, "name": "watervfx/Comp 159" },
-					{ "time": 0.9, "name": "watervfx/Comp 161" },
-					{ "time": 0.9333, "name": "watervfx/Comp 163" },
-					{ "time": 0.9667, "name": "watervfx/Comp 166" },
-					{ "time": 1, "name": "watervfx/Comp 168" },
-					{ "time": 1.0333, "name": "watervfx/Comp 170" },
-					{ "time": 1.0667, "name": "watervfx/Comp 172" },
-					{ "time": 1.1, "name": "watervfx/Comp 174" },
-					{ "time": 1.1333, "name": "watervfx/Comp 176" }
-				]
-			}
-		}
-	}
-}
 }

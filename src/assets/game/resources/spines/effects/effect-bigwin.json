@@ -1,9 +1,9 @@
 {
-"skeleton": { "hash": "izmqr6iX503jkWcUHEMzgOigIXs", "spine": "3.8.99" },
+"skeleton": { "hash": "sY0MMFldJum9W3QZlNE52BkaTr4", "spine": "3.8.99" },
 "bones": [
 	{ "name": "root" },
 	{ "name": "column", "parent": "root", "length": 154.56, "rotation": 48.43, "x": 171.39, "y": -156.06 },
-	{ "name": "bgseaweed", "parent": "root", "y": 35 },
+	{ "name": "bgseaweed", "parent": "root", "y": 29 },
 	{ "name": "bone", "parent": "bgseaweed", "x": -148.99 },
 	{ "name": "bone2", "parent": "bgseaweed" },
 	{ "name": "bone3", "parent": "bgseaweed", "x": 145.15 },
@@ -25,7 +25,7 @@
 	{ "name": "bone16", "parent": "seaweed 1", "length": 44.09, "rotation": -21.95, "x": 5.78, "y": -7.3 },
 	{ "name": "bone17", "parent": "bone16", "length": 35.52, "rotation": 23.49, "x": 52.09, "y": 0.49 },
 	{ "name": "bone18", "parent": "bone17", "length": 28.11, "rotation": -8.66, "x": 46.16, "y": -5.36 },
-	{ "name": "money-number", "parent": "root", "y": 35 },
+	{ "name": "money-number", "parent": "root", "y": 29 },
 	{
 		"name": "seaweed 5",
 		"parent": "root",
@@ -64,7 +64,8 @@
 	{ "name": "bubble 2", "parent": "bubble 3", "x": -193.44, "y": -104.83 },
 	{ "name": "bubble 4", "parent": "root", "x": 199.95 },
 	{ "name": "bubble 5", "parent": "bubble 4", "x": -193.44, "y": -104.83 },
-	{ "name": "circle light", "parent": "root", "x": 18.1, "y": -80.17 }
+	{ "name": "circle light", "parent": "root", "x": 18.1, "y": -80.17 },
+	{ "name": "text-bigwin", "parent": "root", "y": 108 }
 ],
 "slots": [
 	{ "name": "seaweed 1", "bone": "seaweed 1" },
