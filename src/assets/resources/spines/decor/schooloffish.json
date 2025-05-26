@@ -1,5 +1,14 @@
 {
-"skeleton": { "hash": "jIO/+HcESxmCmnNGQs/Mz290qbY", "spine": "3.8.99" },
+"skeleton": {
+	"hash": "9sgRaAok3qGggQ1Wy1lvsyNYalI",
+	"spine": "3.8.99",
+	"x": -100.73,
+	"y": 260.96,
+	"width": 267.77,
+	"height": 150.4,
+	"images": "./images/",
+	"audio": "D:/Lumi/game/Poseidon/anim/decor"
+},
 "bones": [
 	{ "name": "root" },
 	{ "name": "water", "parent": "root", "y": 349.73, "scaleX": 2.2731, "scaleY": 0.4637 },
@@ -9,7 +18,7 @@
 "slots": [
 	{ "name": "water", "bone": "water", "color": "ffffff32", "blend": "additive" },
 	{ "name": "water2", "bone": "water2", "color": "ffffff21", "blend": "additive" },
-	{ "name": "fishes-swimming", "bone": "fishes-swimming", "color": "ffffff40", "blend": "additive" },
+	{ "name": "fishes-swimming", "bone": "fishes-swimming", "color": "ffffff40", "attachment": "fishes-swimming/fishes-swimming_00002", "blend": "multiply" },
 	{ "name": "fishpath", "bone": "root", "attachment": "fishpath" }
 ],
 "path": [
@@ -138,7 +147,6 @@
 		"slots": {
 			"fishes-swimming": {
 				"attachment": [
-					{ "name": "fishes-swimming/fishes-swimming_00002" },
 					{ "time": 0.0333, "name": "fishes-swimming/fishes-swimming_00011" },
 					{ "time": 0.1, "name": "fishes-swimming/fishes-swimming_00019" },
 					{ "time": 0.1667, "name": "fishes-swimming/fishes-swimming_00027" },
