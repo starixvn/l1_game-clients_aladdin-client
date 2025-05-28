@@ -1,5 +1,5 @@
 {
-"skeleton": { "hash": "lBX0+mWhFmzZoM4Yx7Yecd7GoLE", "spine": "3.8.99", "images": "./images/", "audio": "" },
+"skeleton": { "hash": "v3Alp9URPVX6nJdzrdmExagMbyg", "spine": "3.8.99", "images": "", "audio": "" },
 "bones": [
 	{ "name": "root" },
 	{ "name": "circle", "parent": "root" },
@@ -17,7 +17,8 @@
 	{ "name": "strokecircle", "bone": "strokecircle" },
 	{ "name": "light circle", "bone": "light circle", "color": "0095ffff", "blend": "additive" },
 	{ "name": "circleidle", "bone": "circleidle", "color": "2a74ffff", "blend": "additive" },
-	{ "name": "explodefire", "bone": "explodefire", "color": "3bb8ffff", "blend": "additive" }
+	{ "name": "explodefire", "bone": "explodefire", "color": "3bb8ffff", "blend": "additive" },
+	{ "name": "disable", "bone": "root" }
 ],
 "skins": [
 	{
@@ -83,6 +84,9 @@
 				"circleidle/circleidle_00188": { "y": 0.5, "width": 300, "height": 261 },
 				"circleidle/circleidle_00190": { "y": 0.5, "width": 300, "height": 261 }
 			},
+			"disable": {
+				"hinhle/disable": { "width": 208, "height": 208 }
+			},
 			"explodefire": {
 				"explodefire/explodefire_00003": { "width": 186, "height": 144 },
 				"explodefire/explodefire_00007": { "width": 186, "height": 144 },
@@ -137,6 +141,15 @@
 	}
 ],
 "animations": {
+	"disable": {
+		"slots": {
+			"disable": {
+				"attachment": [
+					{ "name": "hinhle/disable" }
+				]
+			}
+		}
+	},
 	"hover": {
 		"slots": {
 			"circleidle": {
@@ -360,13 +373,6 @@
 					{ "time": 2.6667 }
 				]
 			},
-			"strokecircle": {
-				"rotate": [
-					{},
-					{ "time": 1.6667, "angle": 5 },
-					{ "time": 3.3333 }
-				]
-			},
 			"light": {
 				"scale": [
 					{ "curve": 0.25, "c3": 0.75 },
@@ -377,6 +383,13 @@
 					{},
 					{ "time": 1, "y": 21.27 },
 					{ "time": 2.3333, "y": -10.33 },
+					{ "time": 3.3333 }
+				]
+			},
+			"strokecircle": {
+				"rotate": [
+					{},
+					{ "time": 1.6667, "angle": 5 },
 					{ "time": 3.3333 }
 				]
 			}

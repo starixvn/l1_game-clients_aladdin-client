@@ -1,7 +1,7 @@
 export const settings = {
-    id: 121,
-    name: "WukongsRevenge",
-    tolgeeNamespaces: ["WukongsRevenge", "cascadingslot"],
+    id: 126,
+    name: "PoseidonsRealm",
+    tolgeeNamespaces: ["PoseidonsRealm", "cascadingslot"],
     durations: {
         wholeRound: 14,
         lockingBet: 3,
@@ -14,7 +14,7 @@ export const settings = {
     },
     isMiniGame: false,
     numberOfRoundHistory: 11,
-    observerNamespace: "WukongsRevenge",
+    observerNamespace: "PoseidonsRealm",
     validateBalanceWhenBet: true,
 };
 
@@ -22,4 +22,4 @@ export const containerOptions = {
     globalContainer: {},
     onContainerCreated: jest.fn(),
     features: [],
-}; 
+};
