@@ -21,6 +21,11 @@ export const languages = {
         "bet_option_odd": "คี่",
         "button_change": "เปลี่ยน",
         "button_confirm": "ยืนยัน",
+        "cant_double_hand": "ตัวเลือก \"สองเท่า\" ไม่สามารถใช้ได้สำหรับมือนี้ได้",
+        "cant_hit": "ไม่สามารถจั่วไพ่เพิ่มได้",
+        "cant_split_child_hand": " ตัวเลือก \"แยก\" ไม่พร้อมใช้งานสำหรับมือนี้",
+        "cant_split_hand": "ตัวเลือก \"แยก\" ไม่พร้อมใช้งานสำหรับมือนี้",
+        "cards_not_equal": " ไพ่มีมูลค่าไม่เท่ากัน",
         "character_name": "ชื่อเล่น",
         "copy_failed_md5": "ฟังก์ชันคัดลอกใช้งานไม่ได้ชั่วคราว",
         "copy_successfully_md5": "คัดลอกสำเร็จ!",
@@ -29,6 +34,7 @@ export const languages = {
         "enter_your_name": "กรอกชื่อเล่น",
         "even_win": "คู่ชนะ",
         "from": "จาก",
+        "game_category_new_releases": "เกมใหม่",
         "game_category_ph_1": "เกมทั้งหมด",
         "game_category_ph_2": "ปินอยพิเศษ",
         "game_category_ph_3": "เกมสล็อต",
@@ -37,11 +43,17 @@ export const languages = {
         "game_category_ph_6": "ลอตเตอรี",
         "game_excluded": "%{gameName}\n\nบัญชีของคุณไม่ได้รับอนุญาตให้เล่นเกมนี้อีกต่อไป โปรดลองเกมอื่น",
         "game_guide": "คู่มือเกม",
+        "hand_already_splitted": "มือนี้แยกออกไปแล้ว",
+        "hand_is_stand": "มือสิ้นสุด",
         "hand_not_active": "มือที่ไม่ใช้งาน",
         "hot": "สีร้อนแรง",
         "invalid_bet": "เดิมพันไม่ถูกต้อง",
+        "invalid_bonus": "โบนัสเกมไม่ถูกต้อง",
         "invalid_deal_hands": "จำนวนมือไม่ถูกต้อง",
         "invalid_free_spin": "การหมุนฟรีสปินไม่ถูกต้อง",
+        "invalid_hand_id": "ลายนิ้วมือไม่ถูกต้อง",
+        "invalid_jackpot": "เกม Jackpot ไม่ถูกต้อง",
+        "invalid_payline": "เพย์ไลน์ไม่ถูกต้อง",
         "invalid_position": "ตำแหน่งไม่ถูกต้อง",
         "invalid_stake_level": "ระดับเงินเดิมพันไม่ถูกต้อง",
         "join_game": "เข้าเกมส์",
@@ -59,7 +71,7 @@ export const languages = {
         "message_account_notexist_place_bet": "เกม %{gameName} (#%{gameRoundId})\n\nการวางเดิมพันล้มเหลว! เกิดข้อผิดพลาด กรุณาติดต่อแอดมินสำหรับรายละเอียดเพิ่มเติม ขอบคุณค่ะ (%{errorCode})",
         "message_account_signout": "บัญชีถูกออกจากระบบเนื่องจากมีคนอื่นลงชื่อเข้าใช้บัญชีนี้",
         "message_account_suspended": "เกม %{gameName} (#%{gameRoundId})\n\nการเดิมพันล้มเหลว! บัญชีถูกระงับ รุณาติดต่อทีมงานของคุณ ขอบคุณค่ะ (%{errorCode})",
-        "message_balanced_betting_pool": "กลุ่มการเดิมพันที่สมดุล.",
+        "message_balanced_betting_pool": "กลุ่มการเดิมพันที่สมดุล",
         "message_bet_limit_change": "วงเงินเดิมพันของคุณเพิ่งมีการเปลี่ยนแปลง",
         "message_cannot_bet": "ไม่สามารถเดิมพันได้ในขณะนี้ กรุณารอสักครู่",
         "message_close_account": "บัญชีถูกปิดระงับใช้งาน เซสชั่นของคุณจะหมดอายุหลังจาก 10 วินาที โปรดติดต่อแดมมินสำหรับรายละเอียดเพิ่มเติม (%{errorCode})",
@@ -138,6 +150,8 @@ export const languages = {
         "ok_and_don't_show_again": "ตกลงและไม่ต้องแสดงอีก",
         "one_choice_allowed": "สามารถเดิมพันได้เพียงตัวเลือกเดียวเท่านั้น",
         "open_new_table": "เปิดโต๊ะใหม่",
+        "opened_bonus": "โบนัสเกมไม่ถูกต้อง",
+        "opened_jackpot": "เกม Jackpot ไม่ถูกต้อง",
         "pf_ header_merge_client_seed": "ผสาน Client Seed",
         "pf_button_clear": "ล้าง",
         "pf_button_save": "บันทึก",
@@ -265,9 +279,9 @@ export const languages = {
         "win_tumble_msg": "ขอแสดงความยินดี!",
         "you_win_free_spin": "คุณชนะ"
     },
-    "PoseidonsRealm": {
-        "game_icon_name": "อาณาจักร\nแห่งโพไซดอน",
-        "game_name": "อาณาจักรแห่งโพไซดอน"
+    "Aladdin": {
+        "game_icon_name": "อะลาดิน\nกับตะเกียงวิเศษ",
+        "game_name": "อะลาดินกับตะเกียงวิเศษ"
     }
 };
 

@@ -12,9 +12,9 @@ describe("settings", () => {
     it("should have data as expected", () => {
         // Assert
         expect(settings).toStrictEqual({
-            id: 126,
-            name: "PoseidonsRealm",
-            tolgeeNamespaces: ["PoseidonsRealm", "cascadingslot"],
+            id: 130,
+            name: "Aladdin",
+            tolgeeNamespaces: ["Aladdin", "cascadingslot"],
             durations: {
                 wholeRound: 14,
                 lockingBet: 3,
@@ -27,7 +27,7 @@ describe("settings", () => {
             },
             isMiniGame: false,
             numberOfRoundHistory: 11,
-            observerNamespace: "PoseidonsRealm",
+            observerNamespace: "Aladdin",
             validateBalanceWhenBet: true,
         });
     });

@@ -1,364 +1,106 @@
 {
-	"skeleton": {
-		"hash": "mtzdmt/jBTgQVg4Jw/gXOxQz+mQ",
-		"spine": "3.8.99",
-		"x": -717.48,
-		"y": -403.61,
-		"width": 1434.97,
-		"height": 808.22,
-		"images": "",
-		"audio": ""
-	},
-	"bones": [
-		{
-			"name": "root"
-		},
-		{
-			"name": "watervfx",
-			"parent": "root",
-			"scaleX": 2.1102,
-			"scaleY": 2.1102
-		}
-	],
-	"slots": [
-		{
-			"name": "watervfx",
-			"bone": "watervfx",
-			"attachment": "watervfx/Comp 176",
-			"blend": "additive"
-		}
-	],
-	"skins": [
-		{
-			"name": "default",
-			"attachments": {
-				"watervfx": {
-					"watervfx/Comp 103": {
-						"y": 0.24,
-						"width": 680,
-						"height": 383
-					},
-					"watervfx/Comp 105": {
-						"y": 0.24,
-						"width": 680,
-						"height": 383
-					},
-					"watervfx/Comp 107": {
-						"y": 0.24,
-						"width": 680,
-						"height": 383
-					},
-					"watervfx/Comp 109": {
-						"y": 0.24,
-						"width": 680,
-						"height": 383
-					},
-					"watervfx/Comp 111": {
-						"y": 0.24,
-						"width": 680,
-						"height": 383
-					},
-					"watervfx/Comp 114": {
-						"y": 0.24,
-						"width": 680,
-						"height": 383
-					},
-					"watervfx/Comp 116": {
-						"y": 0.24,
-						"width": 680,
-						"height": 383
-					},
-					"watervfx/Comp 118": {
-						"y": 0.24,
-						"width": 680,
-						"height": 383
-					},
-					"watervfx/Comp 120": {
-						"y": 0.24,
-						"width": 680,
-						"height": 383
-					},
-					"watervfx/Comp 122": {
-						"y": 0.24,
-						"width": 680,
-						"height": 383
-					},
-					"watervfx/Comp 124": {
-						"y": 0.24,
-						"width": 680,
-						"height": 383
-					},
-					"watervfx/Comp 127": {
-						"y": 0.24,
-						"width": 680,
-						"height": 383
-					},
-					"watervfx/Comp 129": {
-						"y": 0.24,
-						"width": 680,
-						"height": 383
-					},
-					"watervfx/Comp 131": {
-						"y": 0.24,
-						"width": 680,
-						"height": 383
-					},
-					"watervfx/Comp 133": {
-						"y": 0.24,
-						"width": 680,
-						"height": 383
-					},
-					"watervfx/Comp 135": {
-						"y": 0.24,
-						"width": 680,
-						"height": 383
-					},
-					"watervfx/Comp 137": {
-						"y": 0.24,
-						"width": 680,
-						"height": 383
-					},
-					"watervfx/Comp 140": {
-						"y": 0.24,
-						"width": 680,
-						"height": 383
-					},
-					"watervfx/Comp 142": {
-						"y": 0.24,
-						"width": 680,
-						"height": 383
-					},
-					"watervfx/Comp 144": {
-						"y": 0.24,
-						"width": 680,
-						"height": 383
-					},
-					"watervfx/Comp 146": {
-						"y": 0.24,
-						"width": 680,
-						"height": 383
-					},
-					"watervfx/Comp 148": {
-						"y": 0.24,
-						"width": 680,
-						"height": 383
-					},
-					"watervfx/Comp 150": {
-						"y": 0.24,
-						"width": 680,
-						"height": 383
-					},
-					"watervfx/Comp 153": {
-						"y": 0.24,
-						"width": 680,
-						"height": 383
-					},
-					"watervfx/Comp 155": {
-						"y": 0.24,
-						"width": 680,
-						"height": 383
-					},
-					"watervfx/Comp 157": {
-						"y": 0.24,
-						"width": 680,
-						"height": 383
-					},
-					"watervfx/Comp 159": {
-						"y": 0.24,
-						"width": 680,
-						"height": 383
-					},
-					"watervfx/Comp 161": {
-						"y": 0.24,
-						"width": 680,
-						"height": 383
-					},
-					"watervfx/Comp 163": {
-						"y": 0.24,
-						"width": 680,
-						"height": 383
-					},
-					"watervfx/Comp 166": {
-						"y": 0.24,
-						"width": 680,
-						"height": 383
-					},
-					"watervfx/Comp 168": {
-						"y": 0.24,
-						"width": 680,
-						"height": 383
-					},
-					"watervfx/Comp 170": {
-						"y": 0.24,
-						"width": 680,
-						"height": 383
-					},
-					"watervfx/Comp 172": {
-						"y": 0.24,
-						"width": 680,
-						"height": 383
-					},
-					"watervfx/Comp 174": {
-						"y": 0.24,
-						"width": 680,
-						"height": 383
-					},
-					"watervfx/Comp 176": {
-						"y": 0.24,
-						"width": 680,
-						"height": 383
-					}
-				}
-			}
-		}
-	],
-	"animations": {
-		"transition": {
-			"slots": {
-				"watervfx": {
-					"attachment": [
-						{
-							"name": "watervfx/Comp 103"
-						},
-						{
-							"time": 0.0333,
-							"name": "watervfx/Comp 105"
-						},
-						{
-							"time": 0.0667,
-							"name": "watervfx/Comp 107"
-						},
-						{
-							"time": 0.1,
-							"name": "watervfx/Comp 109"
-						},
-						{
-							"time": 0.1333,
-							"name": "watervfx/Comp 111"
-						},
-						{
-							"time": 0.1667,
-							"name": "watervfx/Comp 114"
-						},
-						{
-							"time": 0.2,
-							"name": "watervfx/Comp 116"
-						},
-						{
-							"time": 0.2333,
-							"name": "watervfx/Comp 118"
-						},
-						{
-							"time": 0.2667,
-							"name": "watervfx/Comp 120"
-						},
-						{
-							"time": 0.3,
-							"name": "watervfx/Comp 122"
-						},
-						{
-							"time": 0.3333,
-							"name": "watervfx/Comp 124"
-						},
-						{
-							"time": 0.3667,
-							"name": "watervfx/Comp 127"
-						},
-						{
-							"time": 0.4,
-							"name": "watervfx/Comp 129"
-						},
-						{
-							"time": 0.4333,
-							"name": "watervfx/Comp 131"
-						},
-						{
-							"time": 0.4667,
-							"name": "watervfx/Comp 133"
-						},
-						{
-							"time": 0.5,
-							"name": "watervfx/Comp 135"
-						},
-						{
-							"time": 0.5333,
-							"name": "watervfx/Comp 137"
-						},
-						{
-							"time": 0.5667,
-							"name": "watervfx/Comp 140"
-						},
-						{
-							"time": 0.6,
-							"name": "watervfx/Comp 142"
-						},
-						{
-							"time": 0.6333,
-							"name": "watervfx/Comp 144"
-						},
-						{
-							"time": 0.6667,
-							"name": "watervfx/Comp 146"
-						},
-						{
-							"time": 0.7,
-							"name": "watervfx/Comp 148"
-						},
-						{
-							"time": 0.7333,
-							"name": "watervfx/Comp 150"
-						},
-						{
-							"time": 0.7667,
-							"name": "watervfx/Comp 153"
-						},
-						{
-							"time": 0.8,
-							"name": "watervfx/Comp 155"
-						},
-						{
-							"time": 0.8333,
-							"name": "watervfx/Comp 157"
-						},
-						{
-							"time": 0.8667,
-							"name": "watervfx/Comp 159"
-						},
-						{
-							"time": 0.9,
-							"name": "watervfx/Comp 161"
-						},
-						{
-							"time": 0.9333,
-							"name": "watervfx/Comp 163"
-						},
-						{
-							"time": 0.9667,
-							"name": "watervfx/Comp 166"
-						},
-						{
-							"time": 1,
-							"name": "watervfx/Comp 168"
-						},
-						{
-							"time": 1.0333,
-							"name": "watervfx/Comp 170"
-						},
-						{
-							"time": 1.0667,
-							"name": "watervfx/Comp 172"
-						},
-						{
-							"time": 1.1,
-							"name": "watervfx/Comp 174"
-						},
-						{
-							"time": 1.1333,
-							"name": "watervfx/Comp 176"
-						}
-					]
-				}
+"skeleton": { "hash": "KHhmId6jwxux2PysVeRAV4f0a2I", "spine": "3.8.99", "x": -699, "y": -450, "width": 1398, "height": 900 },
+"bones": [
+	{ "name": "root" },
+	{ "name": "vfx", "parent": "root", "x": -1.1, "scaleX": 3, "scaleY": 3 }
+],
+"slots": [
+	{ "name": "ime/effect00", "bone": "vfx", "attachment": "transition47", "blend": "additive" }
+],
+"skins": [
+	{
+		"name": "default",
+		"attachments": {
+			"ime/effect00": {
+				"transition00": { "width": 300, "height": 300 },
+				"transition01": { "width": 300, "height": 300 },
+				"transition02": { "width": 300, "height": 300 },
+				"transition03": { "width": 300, "height": 300 },
+				"transition04": { "width": 300, "height": 300 },
+				"transition05": { "width": 300, "height": 300 },
+				"transition06": { "width": 300, "height": 300 },
+				"transition07": { "width": 300, "height": 300 },
+				"transition08": { "width": 300, "height": 300 },
+				"transition09": { "width": 300, "height": 300 },
+				"transition10": { "width": 300, "height": 300 },
+				"transition11": { "width": 300, "height": 300 },
+				"transition12": { "width": 300, "height": 300 },
+				"transition13": { "width": 300, "height": 300 },
+				"transition14": { "width": 300, "height": 300 },
+				"transition15": { "width": 300, "height": 300 },
+				"transition16": { "width": 300, "height": 300 },
+				"transition17": { "width": 300, "height": 300 },
+				"transition18": { "width": 300, "height": 300 },
+				"transition19": { "width": 300, "height": 300 },
+				"transition20": { "width": 300, "height": 300 },
+				"transition21": { "width": 300, "height": 300 },
+				"transition22": { "width": 300, "height": 300 },
+				"transition23": { "width": 300, "height": 300 },
+				"transition24": { "width": 300, "height": 300 },
+				"transition25": { "width": 300, "height": 300 },
+				"transition26": { "width": 300, "height": 300 },
+				"transition27": { "width": 300, "height": 300 },
+				"transition28": { "width": 300, "height": 300 },
+				"transition29": { "width": 300, "height": 300 },
+				"transition30": { "width": 300, "height": 300 },
+				"transition31": { "width": 300, "height": 300 },
+				"transition32": { "width": 300, "height": 300 },
+				"transition33": { "width": 300, "height": 300 },
+				"transition34": { "width": 300, "height": 300 },
+				"transition35": { "width": 300, "height": 300 },
+				"transition36": { "width": 300, "height": 300 },
+				"transition37": { "width": 300, "height": 300 },
+				"transition38": { "width": 300, "height": 300 },
+				"transition39": { "width": 300, "height": 300 },
+				"transition40": { "width": 300, "height": 300 },
+				"transition41": { "width": 300, "height": 300 },
+				"transition42": { "width": 300, "height": 300 },
+				"transition43": { "width": 300, "height": 300 },
+				"transition44": { "width": 300, "height": 300 },
+				"transition45": { "width": 300, "height": 300 },
+				"transition46": { "width": 300, "height": 300 },
+				"transition47": { "width": 300, "height": 300 }
 			}
 		}
 	}
+],
+"animations": {
+	"transition": {
+		"slots": {
+			"ime/effect00": {
+				"color": [
+					{ "color": "ffffff00" },
+					{ "time": 0.0333, "color": "ffffffff" }
+				],
+				"attachment": [
+					{ "name": "transition14" },
+					{ "time": 0.0333, "name": "transition15" },
+					{ "time": 0.0667, "name": "transition16" },
+					{ "time": 0.1, "name": "transition17" },
+					{ "time": 0.1333, "name": "transition18" },
+					{ "time": 0.1667, "name": "transition19" },
+					{ "time": 0.2, "name": "transition20" },
+					{ "time": 0.2333, "name": "transition21" },
+					{ "time": 0.2667, "name": "transition22" },
+					{ "time": 0.3, "name": "transition23" },
+					{ "time": 0.3333, "name": "transition24" },
+					{ "time": 0.3667, "name": "transition25" },
+					{ "time": 0.4, "name": "transition26" },
+					{ "time": 0.4333, "name": "transition27" },
+					{ "time": 0.4667, "name": "transition28" },
+					{ "time": 0.5, "name": "transition29" },
+					{ "time": 0.5333, "name": "transition30" },
+					{ "time": 0.5667, "name": "transition31" },
+					{ "time": 0.6, "name": "transition32" },
+					{ "time": 0.6333, "name": "transition33" },
+					{ "time": 0.6667, "name": "transition34" },
+					{ "time": 0.7, "name": "transition35" },
+					{ "time": 0.7333, "name": "transition36" },
+					{ "time": 0.7667, "name": "transition37" },
+					{ "time": 0.8, "name": null }
+				]
+			}
+		}
+	}
+}
 }

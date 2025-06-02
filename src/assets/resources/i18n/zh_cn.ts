@@ -21,6 +21,11 @@ export const languages = {
         "bet_option_odd": "单",
         "button_change": "改变",
         "button_confirm": "确认",
+        "cant_double_hand": "\"加倍\"选项不适用于这手牌",
+        "cant_hit": "不能抽更多的牌。",
+        "cant_split_child_hand": "\"分牌\"选项不适用于这手牌",
+        "cant_split_hand": "“分牌”选项不适用于这手牌",
+        "cards_not_equal": "卡牌不等价。",
         "character_name": "昵称",
         "copy_failed_md5": "复印功能暂时不能用。",
         "copy_successfully_md5": "复制成功！",
@@ -29,6 +34,7 @@ export const languages = {
         "enter_your_name": "输入你的昵称。",
         "even_win": "双赢",
         "from": "從",
+        "game_category_new_releases": "新品发布",
         "game_category_ph_1": "所有游戏",
         "game_category_ph_2": "菲律宾特色游戏",
         "game_category_ph_3": "老虎机游戏",
@@ -37,11 +43,14 @@ export const languages = {
         "game_category_ph_6": "乐透游戏",
         "game_excluded": "%{gameName}\n\n您的帐户不再允许玩此游戏。 请尝试其他游戏。",
         "game_guide": "游戏指南",
+        "hand_already_splitted": "这只手已经分牌了。",
+        "hand_is_stand": "结束手牌",
         "hand_not_active": "不活跃手牌",
         "hot": "热",
         "invalid_bet": "无效投注",
         "invalid_deal_hands": "这数量手牌无效",
         "invalid_free_spin": "无效的免费旋转",
+        "invalid_hand_id": "无效的手 ID",
         "invalid_position": "无效位置",
         "invalid_stake_level": "无效的赌注级别",
         "join_game": "加入游戏",
@@ -59,7 +68,7 @@ export const languages = {
         "message_account_notexist_place_bet": "%{gameName} 游戏 (#%{gameRoundId})\n\n下注失败！ 发生了错误。 详情请联系CSD，谢谢。(%{errorCode})",
         "message_account_signout": "该帐户已被注销，因为其他人已登录此帐户。",
         "message_account_suspended": "%{gameName} 游戏 (#%{gameRoundId})\n\n下注失败！ 帐户已被暂停。 详情请联络您的上线，谢谢。(%{errorCode})",
-        "message_balanced_betting_pool": "平衡的投注池。",
+        "message_balanced_betting_pool": "平衡的投注池",
         "message_bet_limit_change": "您的投注限额刚刚更改。",
         "message_cannot_bet": "暂时不能下注。 请等待几秒钟。",
         "message_close_account": "帐户已关闭。 您的会话将在 10 秒后过期，详情请联系 CSD。(%{errorCode})",
@@ -78,9 +87,12 @@ export const languages = {
         "message_hedge_bet": "可以下注 %{betChoice1} 或 %{betChoice2}。",
         "message_insufficient_fund": "您的账户资金不足。(%{errorCode})",
         "message_invalid_bet_choice": "无效的投注选择",
+        "message_invalid_bonus": "无效的奖金游戏",
         "message_invalid_cashout": "兑现失败",
         "message_invalid_data": "无效数据。",
         "message_invalid_deal_dueto_running_round": "无效投注",
+        "message_invalid_jackpot": "无效Jackpot游戏",
+        "message_invalid_payline": "无效的支付线",
         "message_invalid_value_cashout": "自动兑现值无效。",
         "message_ip_restricted": "您的 IP 地址受到限制。(%{errorCode})",
         "message_ip_restricted_place_bet": "%{gameName} 游戏 (#%{gameRoundId})\n\n下注失败！ 您的 IP 地址受到限制。(%{errorCode})",
@@ -100,6 +112,8 @@ export const languages = {
         "message_nickname_distance": "昵称的长度必须在 3 到 14 个字符之间。",
         "message_no_game_offer": "您的帐户不支持此游戏。请联系您的上线，谢谢。",
         "message_not_enough_scoin": "没有足够的 Scoin 下注。",
+        "message_opened_bonus": "无效的奖金游戏",
+        "message_opened_jackpot": "无效Jackpot游戏",
         "message_option_maxbet": "此选项的最大赌注是 %{maxBet}",
         "message_place_bets": "投注开始",
         "message_placebet_failed": "%{gameName} 游戏 (#%{gameRoundId})\n\n下注失败！(%{errorCode})",
@@ -265,9 +279,9 @@ export const languages = {
         "win_tumble_msg": "恭喜！",
         "you_win_free_spin": "您赢得"
     },
-    "PoseidonsRealm": {
-        "game_icon_name": "波塞冬领域",
-        "game_name": "波塞冬领域"
+    "Aladdin": {
+        "game_icon_name": "阿拉丁神灯",
+        "game_name": "阿拉丁神灯"
     }
 };
 
