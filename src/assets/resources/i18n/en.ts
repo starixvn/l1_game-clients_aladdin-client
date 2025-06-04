@@ -280,7 +280,7 @@ export const languages = {
         "you_win_free_spin": "You win"
     },
     "Aladdin": {
-        "game_icon_name": "Aladdin & \nThe Magic Lamp",
+        "game_icon_name": "Aladdin & The\nMagic Lamp",
         "game_name": "Aladdin & The Magic Lamp"
     }
 };
