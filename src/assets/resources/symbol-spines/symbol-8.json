@@ -1,17 +1,26 @@
 {
 "skeleton": {
-	"hash": "VC8bB5/pieP1eNLVLmq6mDJU/fA",
+	"hash": "nr+D0Y8pnK6h4+UJr6EJIwm3b5M",
 	"spine": "3.8.99",
-	"x": -91.48,
-	"y": -104.1,
-	"width": 157.48,
-	"height": 172.8,
+	"x": -81.74,
+	"y": -90.02,
+	"width": 147.74,
+	"height": 156.02,
 	"images": "./ime/",
 	"audio": ""
 },
 "bones": [
 	{ "name": "root" },
-	{ "name": "all", "parent": "root", "length": 97.63, "rotation": 90.62, "x": 5.99, "y": -58.66 },
+	{
+		"name": "all",
+		"parent": "root",
+		"length": 97.63,
+		"rotation": 90.62,
+		"x": 5.98,
+		"y": -57.77,
+		"scaleX": 0.9,
+		"scaleY": 0.9
+	},
 	{ "name": "body", "parent": "all", "rotation": -90.62, "x": 10.04, "y": -1.83 },
 	{ "name": "head", "parent": "body", "x": -0.11, "y": -1.41 },
 	{ "name": "base", "parent": "head", "x": -35.46, "y": 48.22 },
@@ -142,21 +151,19 @@
 	},
 	{ "name": "idle", "parent": "root", "x": 1.59, "y": 3.72 },
 	{ "name": "body9", "parent": "body", "x": -12.48, "y": 22.5 },
-	{ "name": "hand2", "parent": "body", "rotation": -8.33, "x": -39.73, "y": 38.23 },
 	{ "name": "laclu", "parent": "body", "x": -0.3, "y": 1.75 },
 	{ "name": "laclu2", "parent": "laclu", "length": 4.71, "rotation": -95.19, "x": -0.22, "y": 0.75 },
 	{ "name": "laclu3", "parent": "laclu2", "length": 10.45, "rotation": 2.86, "x": 4.71 },
 	{ "name": "explode", "parent": "root", "scaleX": 1.2, "scaleY": 1.2 },
-	{ "name": "taaosau", "parent": "hand2", "x": -6.62, "y": -31.54 },
-	{ "name": "taaotruoc", "parent": "hand2", "x": -7.31, "y": -30.63 },
-	{ "name": "vongtren", "parent": "hand2", "x": -3.62, "y": -29.34 },
-	{ "name": "taaotruoc2", "parent": "taaotruoc", "length": 15, "rotation": -125.31, "x": -1.31, "y": -0.52 },
-	{ "name": "taaotruoc3", "parent": "taaotruoc2", "length": 17.3, "rotation": 3.35, "x": 15 },
-	{ "name": "taaotruoc4", "parent": "taaotruoc3", "length": 12.47, "rotation": 19.92, "x": 17.3 },
-	{ "name": "taaotruoc5", "parent": "taaotruoc4", "length": 12.81, "rotation": 32.42, "x": 12.47 },
-	{ "name": "taaosau2", "parent": "taaosau", "length": 15.66, "rotation": -105.63, "x": -1.09, "y": -1.24 },
-	{ "name": "taaosau3", "parent": "taaosau2", "length": 22.64, "rotation": -3.2, "x": 15.66 },
-	{ "name": "taaosau4", "parent": "taaosau3", "length": 15.59, "rotation": 9.35, "x": 22.64 }
+	{
+		"name": "light8",
+		"parent": "light-all",
+		"rotation": 90.62,
+		"x": -42.73,
+		"y": 4.43,
+		"scaleX": 0.3,
+		"scaleY": 0.3
+	}
 ],
 "slots": [
 	{ "name": "base", "bone": "base", "attachment": "base" },
@@ -167,21 +174,18 @@
 	{ "name": "toctrai2", "bone": "toctrai2", "attachment": "toctrai2" },
 	{ "name": "crown", "bone": "crown", "attachment": "crown" },
 	{ "name": "bongtaitrai", "bone": "bongtaitrai", "attachment": "bongtaitrai" },
-	{ "name": "taaosau", "bone": "taaosau", "attachment": "taaosau" },
 	{ "name": "hand2", "bone": "bantay", "attachment": "hand2" },
 	{ "name": "hand", "bone": "hand", "attachment": "hand" },
 	{ "name": "lip", "bone": "lip", "attachment": "lip" },
 	{ "name": "eye-close", "bone": "eye", "attachment": "eye-close" },
 	{ "name": "eye-r", "bone": "eye-r", "attachment": "eye-r" },
 	{ "name": "idle-s8", "bone": "idle", "attachment": "idle-s8" },
-	{ "name": "taytrai", "bone": "hand2", "attachment": "taytrai" },
 	{ "name": "laclu", "bone": "laclu", "attachment": "laclu" },
 	{ "name": "smoke00/smoke00", "bone": "explode", "attachment": "smoke00/smoke36", "blend": "additive" },
-	{ "name": "taaotruoc", "bone": "taaotruoc", "attachment": "taaotruoc" },
-	{ "name": "vongtren", "bone": "vongtren", "attachment": "vongtren" },
 	{ "name": "light", "bone": "light", "attachment": "light", "blend": "additive" },
 	{ "name": "light7", "bone": "light7", "attachment": "light", "blend": "additive" },
 	{ "name": "light2", "bone": "light2", "attachment": "light", "blend": "additive" },
+	{ "name": "light8", "bone": "light8", "attachment": "light", "blend": "additive" },
 	{ "name": "light3", "bone": "light3", "attachment": "light", "blend": "additive" },
 	{ "name": "light4", "bone": "light4", "attachment": "light", "blend": "additive" },
 	{ "name": "light5", "bone": "light5", "attachment": "light", "blend": "additive" },
@@ -256,7 +260,7 @@
 					"type": "mesh",
 					"uvs": [ 0.51137, 0, 0.91052, 0, 1, 0.66537, 1, 1, 0.11695, 1, 0, 0.84686, 0, 0.71926, 0.48987, 7.0E-5, 0.57075, 0.67143, 0.64175, 0.28094 ],
 					"triangles": [ 4, 8, 3, 8, 2, 3, 4, 5, 8, 5, 6, 8, 8, 6, 9, 8, 9, 2, 9, 6, 7, 9, 7, 0, 9, 1, 2, 9, 0, 1 ],
-					"vertices": [ 2, 70, -1.46, -2.13, 0.99954, 71, -6.27, -1.82, 4.6E-4, 2, 70, -1.9, 2.64, 0.03172, 69, 2.58, 2.4, 0.96828, 2, 71, 5.46, 4.53, 0.9974, 69, 3.66, -9.58, 0.0026, 1, 71, 11.48, 4.77, 1, 1, 71, 11.91, -5.82, 1, 1, 71, 9.22, -7.33, 1, 1, 71, 6.92, -7.42, 1, 2, 70, -1.44, -2.39, 0.99929, 71, -6.25, -2.08, 7.1E-4, 1, 71, 5.78, -0.62, 1, 1, 70, 3.43, -0.12, 1 ],
+					"vertices": [ 2, 69, -1.46, -2.13, 0.99954, 70, -6.27, -1.82, 4.6E-4, 2, 69, -1.9, 2.64, 0.03172, 68, 2.58, 2.4, 0.96828, 2, 70, 5.46, 4.53, 0.9974, 68, 3.66, -9.58, 0.0026, 1, 70, 11.48, 4.77, 1, 1, 70, 11.91, -5.82, 1, 1, 70, 9.22, -7.33, 1, 1, 70, 6.92, -7.42, 1, 2, 69, -1.44, -2.39, 0.99929, 70, -6.25, -2.08, 7.1E-4, 1, 70, 5.78, -0.62, 1, 1, 69, 3.43, -0.12, 1 ],
 					"hull": 8,
 					"edges": [ 0, 14, 0, 2, 2, 4, 4, 6, 6, 8, 8, 10, 10, 12, 12, 14 ],
 					"width": 12,
@@ -283,6 +287,9 @@
 			},
 			"light7": {
 				"light": { "x": -1.15, "y": 0.21, "width": 17, "height": 17 }
+			},
+			"light8": {
+				"light": { "x": -2.16, "y": -1.13, "scaleX": 2, "scaleY": 2, "width": 17, "height": 17 }
 			},
 			"lip": {
 				"lip": { "x": 5.7, "y": -12.29, "width": 29, "height": 23 }
@@ -326,33 +333,6 @@
 				"smoke00/smoke35": { "width": 110, "height": 110 },
 				"smoke00/smoke36": { "width": 110, "height": 110 }
 			},
-			"taaosau": {
-				"taaosau": {
-					"type": "mesh",
-					"uvs": [ 0.557, 0.00151, 0.83447, 0.06488, 1, 0.06517, 1, 0.07057, 1, 0.54427, 0.89255, 0.74949, 0.44241, 1, 0.19832, 1, 0, 0.82388, 0, 0.47504, 0.3512, 0.23018, 0.65825, 0.24487, 0.52512, 0.4577, 0.41852, 0.68154, 0.32415, 0.92195 ],
-					"triangles": [ 1, 2, 3, 11, 0, 1, 10, 0, 11, 12, 10, 11, 11, 1, 3, 9, 10, 12, 11, 3, 4, 12, 11, 4, 13, 9, 12, 13, 12, 4, 5, 13, 4, 8, 9, 13, 14, 8, 13, 14, 13, 5, 7, 8, 14, 6, 14, 5, 7, 14, 6 ],
-					"vertices": [ 1, 80, -5.3, -7.21, 1, 1, 80, -4.12, 2.92, 1, 1, 80, -5.61, 8.34, 1, 2, 80, -5.3, 8.43, 0.99997, 81, -21.4, 7.25, 3.0E-5, 3, 80, 22.53, 16.22, 0.03182, 81, 5.95, 16.58, 0.94579, 82, -13.77, 19.07, 0.02238, 2, 81, 18.98, 17.16, 0.74278, 82, -0.82, 17.53, 0.25722, 2, 81, 38.38, 7.61, 0.00213, 82, 16.77, 4.95, 0.99787, 1, 82, 18.14, -3.24, 1, 2, 81, 33.07, -10.1, 0.11271, 82, 8.66, -11.66, 0.88729, 3, 80, 27.62, -17.66, 0.04273, 81, 12.93, -16.97, 0.91958, 82, -12.33, -15.17, 0.03769, 2, 80, 10.02, -10.19, 0.84323, 81, -5.06, -10.49, 0.15677, 2, 80, 8.07, 0.11, 0.99968, 81, -7.58, -0.32, 3.2E-4, 2, 80, 21.79, -0.75, 0.00424, 81, 6.17, -0.41, 0.99576, 2, 81, 20.26, 0.57, 0.97543, 82, -2.25, 0.95, 0.02457, 2, 81, 35.18, 2.26, 9.0E-5, 82, 12.74, 0.2, 0.99991 ],
-					"hull": 11,
-					"edges": [ 0, 20, 0, 2, 2, 4, 4, 6, 6, 8, 8, 10, 10, 12, 12, 14, 14, 16, 16, 18, 18, 20 ],
-					"width": 34,
-					"height": 61
-				}
-			},
-			"taaotruoc": {
-				"taaotruoc": {
-					"type": "mesh",
-					"uvs": [ 0.48668, 0, 0.59046, 0, 0.74293, 0.04475, 0.89761, 0.06353, 0.89809, 0.10605, 0.75947, 0.20158, 0.61705, 0.31748, 0.41214, 0.4385, 0.32921, 0.53551, 0.26798, 0.66892, 0.30751, 0.78656, 0.42242, 0.90094, 0.39159, 0.92468, 0.28191, 0.92473, 0.17799, 0.86311, 0.05099, 0.73701, 0.0501, 0.50057, 0.41154, 0.07388, 0.58345, 0.15035, 0.38807, 0.30982, 0.21754, 0.46715, 0.16844, 0.57645, 0.17378, 0.72605, 0.25478, 0.83709 ],
-					"triangles": [ 1, 17, 0, 18, 1, 2, 18, 17, 1, 4, 5, 2, 4, 2, 3, 18, 2, 5, 19, 17, 18, 6, 18, 5, 19, 18, 6, 7, 19, 6, 17, 19, 16, 20, 19, 7, 19, 20, 16, 8, 20, 7, 21, 16, 20, 21, 20, 8, 9, 21, 8, 22, 21, 9, 15, 16, 21, 15, 21, 22, 22, 9, 10, 23, 22, 10, 14, 22, 23, 15, 22, 14, 23, 10, 11, 11, 13, 23, 12, 13, 11, 14, 23, 13 ],
-					"vertices": [ 1, 76, 0.5, -8.27, 1, 2, 74, -4.31, 3.85, 0.00822, 76, -1.84, -4.97, 0.99178, 1, 74, 1.64, 0.9, 1, 1, 74, 7.67, -0.34, 1, 2, 74, 7.69, -3.15, 0.94818, 76, -3.07, 8.86, 0.05182, 3, 74, 2.28, -9.45, 0.2476, 76, 5.2, 8.1, 0.74951, 77, -9.31, 8.66, 0.00289, 3, 74, -3.27, -17.1, 0.00171, 76, 14.66, 7.99, 0.52348, 77, 0.12, 7.99, 0.4748, 2, 77, 11.13, 5.44, 0.97213, 78, -3.95, 7.22, 0.02787, 2, 77, 18.27, 6.09, 0.23386, 78, 2.99, 5.39, 0.76614, 2, 78, 12.1, 4.89, 0.37088, 79, 2.31, 4.33, 0.62912, 1, 79, 10.13, 3.07, 1, 1, 79, 18.76, 4.64, 1, 1, 79, 19.81, 2.97, 1, 1, 79, 18.33, -1.04, 1, 1, 79, 13.1, -3.42, 1, 2, 78, 18.26, -2.44, 0.00107, 79, 3.58, -5.17, 0.99893, 2, 77, 22.08, -4.37, 0.03244, 78, 3.01, -5.73, 0.96756, 2, 76, 6.17, -7.85, 0.99996, 77, -9.27, -7.32, 4.0E-5, 2, 74, -4.58, -6.07, 0.00468, 76, 6.41, 0.54, 0.99532, 2, 76, 19.41, 0.41, 6.0E-5, 77, 4.42, 0.15, 0.99994, 2, 77, 16.75, 0.01, 0.91813, 78, -0.51, 0.19, 0.08187, 1, 78, 6.94, -0.18, 1, 1, 79, 4.57, -0.43, 1, 1, 79, 12.54, -0.02, 1 ],
-					"hull": 18,
-					"edges": [ 0, 34, 0, 2, 2, 4, 4, 6, 6, 8, 8, 10, 10, 12, 12, 14, 14, 16, 16, 18, 18, 20, 20, 22, 22, 24, 24, 26, 26, 28, 28, 30, 30, 32, 32, 34 ],
-					"width": 39,
-					"height": 66
-				}
-			},
-			"taytrai": {
-				"taytrai": { "x": 8.14, "y": -41.24, "width": 79, "height": 93 }
-			},
 			"toctrai": {
 				"toctrai": {
 					"type": "mesh",
@@ -376,9 +356,6 @@
 					"width": 30,
 					"height": 63
 				}
-			},
-			"vongtren": {
-				"vongtren": { "y": 0.5, "width": 22, "height": 9 }
 			}
 		}
 	}
@@ -481,6 +458,11 @@
 					{ "name": null }
 				]
 			},
+			"light8": {
+				"attachment": [
+					{ "name": null }
+				]
+			},
 			"lip": {
 				"attachment": [
 					{ "name": null }
@@ -488,6 +470,7 @@
 			},
 			"smoke00/smoke00": {
 				"attachment": [
+					{ "name": null },
 					{ "time": 0.0333, "name": "smoke00/smoke12" },
 					{ "time": 0.0667, "name": "smoke00/smoke15" },
 					{ "time": 0.1, "name": "smoke00/smoke16" },
@@ -514,32 +497,12 @@
 					{ "time": 0.8, "name": null }
 				]
 			},
-			"taaosau": {
-				"attachment": [
-					{ "name": null }
-				]
-			},
-			"taaotruoc": {
-				"attachment": [
-					{ "name": null }
-				]
-			},
-			"taytrai": {
-				"attachment": [
-					{ "name": null }
-				]
-			},
 			"toctrai": {
 				"attachment": [
 					{ "name": null }
 				]
 			},
 			"toctrai2": {
-				"attachment": [
-					{ "name": null }
-				]
-			},
-			"vongtren": {
 				"attachment": [
 					{ "name": null }
 				]
@@ -625,6 +588,14 @@
 					{ "time": 0.3667, "color": "ffffff00" },
 					{ "time": 0.4667, "color": "ffffffff" },
 					{ "time": 0.5667, "color": "ffffff00" }
+				]
+			},
+			"light8": {
+				"color": [
+					{ "color": "ffffff00", "curve": "stepped" },
+					{ "time": 0.3667, "color": "ffffff00" },
+					{ "time": 0.6, "color": "ffffffff" },
+					{ "time": 0.8667, "color": "ffffff00" }
 				]
 			},
 			"lip": {
@@ -948,13 +919,6 @@
 					{ "time": 0.6667 }
 				]
 			},
-			"hand2": {
-				"rotate": [
-					{ "time": 0.3333 },
-					{ "time": 0.9, "angle": 0.81 },
-					{ "time": 1.5 }
-				]
-			},
 			"bantay": {
 				"rotate": [
 					{ "time": 0.3333 },
@@ -983,68 +947,10 @@
 					{ "time": 1 }
 				]
 			},
-			"taaotruoc2": {
+			"light8": {
 				"rotate": [
-					{ "curve": 0.25, "c3": 0.75 },
-					{ "time": 0.8333, "angle": -13.34, "curve": 0.25, "c3": 0.75 },
-					{ "time": 1.5 }
-				]
-			},
-			"taaotruoc5": {
-				"rotate": [
-					{ "curve": 0.25, "c3": 0.75 },
-					{ "time": 0.8333, "angle": -2.01, "curve": 0.25, "c3": 0.75 },
-					{ "time": 1.5 }
-				]
-			},
-			"taaotruoc4": {
-				"rotate": [
-					{ "curve": 0.25, "c3": 0.75 },
-					{ "time": 0.8333, "angle": -1.71, "curve": 0.25, "c3": 0.75 },
-					{ "time": 1.5 }
-				]
-			},
-			"taaotruoc3": {
-				"rotate": [
-					{ "curve": 0.25, "c3": 0.75 },
-					{ "time": 0.8333, "angle": -1.71, "curve": 0.25, "c3": 0.75 },
-					{ "time": 1.5 }
-				]
-			},
-			"taaosau2": {
-				"rotate": [
-					{ "curve": 0.25, "c3": 0.75 },
-					{ "time": 0.8333, "angle": -2.76, "curve": 0.25, "c3": 0.75 },
-					{ "time": 1.5 }
-				],
-				"scale": [
-					{ "curve": 0.25, "c3": 0.75 },
-					{ "time": 0.8333, "x": 1.03, "curve": 0.25, "c3": 0.75 },
-					{ "time": 1.5 }
-				]
-			},
-			"taaosau3": {
-				"rotate": [
-					{ "curve": 0.25, "c3": 0.75 },
-					{ "time": 0.8333, "angle": -11.84, "curve": 0.25, "c3": 0.75 },
-					{ "time": 1.5 }
-				],
-				"scale": [
-					{ "curve": 0.25, "c3": 0.75 },
-					{ "time": 0.8333, "x": 1.03, "curve": 0.25, "c3": 0.75 },
-					{ "time": 1.5 }
-				]
-			},
-			"taaosau4": {
-				"rotate": [
-					{ "curve": 0.25, "c3": 0.75 },
-					{ "time": 0.8333, "angle": -2.76, "curve": 0.25, "c3": 0.75 },
-					{ "time": 1.5 }
-				],
-				"scale": [
-					{ "curve": 0.25, "c3": 0.75 },
-					{ "time": 0.8333, "x": 1.03, "curve": 0.25, "c3": 0.75 },
-					{ "time": 1.5 }
+					{},
+					{ "time": 0.8667, "angle": -48.89 }
 				]
 			}
 		}
@@ -1058,8 +964,7 @@
 			},
 			"body": {
 				"attachment": [
-					{ "name": null },
-					{ "time": 1.5, "name": null }
+					{ "name": null }
 				]
 			},
 			"bongtaiphai": {
@@ -1142,6 +1047,12 @@
 					{ "name": null }
 				]
 			},
+			"light8": {
+				"attachment": [
+					{ "name": null },
+					{ "time": 1.5, "name": null }
+				]
+			},
 			"lip": {
 				"attachment": [
 					{ "name": null }
@@ -1152,32 +1063,12 @@
 					{ "name": null }
 				]
 			},
-			"taaosau": {
-				"attachment": [
-					{ "name": null }
-				]
-			},
-			"taaotruoc": {
-				"attachment": [
-					{ "name": null }
-				]
-			},
-			"taytrai": {
-				"attachment": [
-					{ "name": null }
-				]
-			},
 			"toctrai": {
 				"attachment": [
 					{ "name": null }
 				]
 			},
 			"toctrai2": {
-				"attachment": [
-					{ "name": null }
-				]
-			},
-			"vongtren": {
 				"attachment": [
 					{ "name": null }
 				]
