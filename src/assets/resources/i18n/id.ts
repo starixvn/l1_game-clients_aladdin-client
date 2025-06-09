@@ -19,6 +19,7 @@ export const languages = {
         "bet_limit": "Batas taruhan",
         "bet_option_even": "Genap",
         "bet_option_odd": "Ganjil",
+        "bet_type": "Jenis Taruhan",
         "button_change": "Mengubah",
         "button_confirm": "Konfirmasi",
         "cant_double_hand": "Opsi \"Ganda\" tidak tersedia untuk tangan ini.",

@@ -19,6 +19,7 @@ export const languages = {
         "bet_limit": "จำกัดการเดิมพัน",
         "bet_option_even": "คู่",
         "bet_option_odd": "คี่",
+        "bet_type": "ชนิดการเดิมพัน",
         "button_change": "เปลี่ยน",
         "button_confirm": "ยืนยัน",
         "cant_double_hand": "ตัวเลือก \"สองเท่า\" ไม่สามารถใช้ได้สำหรับมือนี้ได้",

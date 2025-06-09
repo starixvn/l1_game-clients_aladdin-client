@@ -19,6 +19,7 @@ export const languages = {
         "bet_limit": "Bet Limit",
         "bet_option_even": "Even",
         "bet_option_odd": "Odd",
+        "bet_type": "Bet Type",
         "button_change": "Change",
         "button_confirm": "Confirm",
         "cant_double_hand": "\"Double\" option is not available for this hand.",
@@ -280,8 +281,8 @@ export const languages = {
         "you_win_free_spin": "You win"
     },
     "Aladdin": {
-        "game_icon_name": "Aladdin & The\nMagic Lamp",
-        "game_name": "Aladdin & The Magic Lamp"
+        "game_icon_name": "Aladdin's Wishes",
+        "game_name": "Aladdin's Wishes"
     }
 };
 

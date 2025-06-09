@@ -19,6 +19,7 @@ export const languages = {
         "bet_limit": "投注限额",
         "bet_option_even": "双",
         "bet_option_odd": "单",
+        "bet_type": "投注类型",
         "button_change": "改变",
         "button_confirm": "确认",
         "cant_double_hand": "\"加倍\"选项不适用于这手牌",

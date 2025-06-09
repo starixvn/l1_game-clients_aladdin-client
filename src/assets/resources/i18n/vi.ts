@@ -19,6 +19,7 @@ export const languages = {
         "bet_limit": "Giới Hạn Cược",
         "bet_option_even": "Chẵn",
         "bet_option_odd": "Lẻ",
+        "bet_type": "Loại Cược",
         "button_change": "Thay Đổi",
         "button_confirm": "Xác Nhận",
         "cant_double_hand": "Không thể gấp đôi tiền cược.",
