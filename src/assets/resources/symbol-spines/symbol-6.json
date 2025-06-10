@@ -1,6 +1,6 @@
 {
 "skeleton": {
-	"hash": "GXxfA1CPBl/z9yPFnbqWyu7fjLc",
+	"hash": "elzDdpOg/nTPoIsoOZRRffEGDTQ",
 	"spine": "3.8.99",
 	"x": -66,
 	"y": -66,
@@ -15,14 +15,14 @@
 	{ "name": "explode", "parent": "root", "scaleX": 1.2, "scaleY": 1.2 },
 	{ "name": "body", "parent": "root", "x": 0.81, "y": -51.12 },
 	{ "name": "body2", "parent": "body", "length": 66.63, "rotation": 91.86, "x": 0.19, "y": 4.88 },
-	{ "name": "mouse", "parent": "body2", "rotation": -91.86, "x": 41.17, "y": -23.95 },
-	{ "name": "smile", "parent": "body2", "rotation": -91.86, "x": 48.47, "y": 0.25 },
+	{ "name": "mouse", "parent": "body2", "rotation": -91.86, "x": 38.21, "y": -22.78 },
+	{ "name": "smile", "parent": "body2", "rotation": -91.86, "x": 44.95, "y": -2.64 },
 	{ "name": "eye", "parent": "body2", "rotation": -91.86, "x": -4.87, "y": 0.35 },
 	{ "name": "light", "parent": "root", "y": -9.52 }
 ],
 "slots": [
-	{ "name": "light", "bone": "light", "attachment": "light" },
 	{ "name": "idle", "bone": "idle", "attachment": "idle2" },
+	{ "name": "light", "bone": "light", "attachment": "light" },
 	{ "name": "smoke00/smoke00", "bone": "explode", "attachment": "smoke00/smoke36", "blend": "additive" },
 	{ "name": "2light", "bone": "body", "attachment": "2light" },
 	{ "name": "normal", "bone": "mouse", "attachment": "normal" },
@@ -58,7 +58,7 @@
 				"normal": { "x": 0.5, "y": 0.5, "width": 43, "height": 53 }
 			},
 			"smile": {
-				"smile": { "x": 24.42, "y": -5.7, "width": 50, "height": 46 }
+				"smile": { "x": 22.54, "y": -3.81, "width": 50, "height": 46 }
 			},
 			"smoke00/smoke00": {
 				"smoke00/smoke00": { "width": 110, "height": 110 },
@@ -171,8 +171,8 @@
 		"slots": {
 			"eye-smile": {
 				"color": [
-					{ "time": 0.5, "color": "ffffffff" },
-					{ "time": 0.5333, "color": "ffffff00" }
+					{ "time": 1.0667, "color": "ffffffff" },
+					{ "time": 1.1, "color": "ffffff00" }
 				]
 			},
 			"idle": {
@@ -182,15 +182,16 @@
 			},
 			"normal": {
 				"color": [
-					{ "time": 0.5, "color": "ffffffff" },
-					{ "time": 0.5333, "color": "ffffff00" }
+					{ "color": "ffffffff" },
+					{ "time": 0.0333, "color": "ffffff00", "curve": "stepped" },
+					{ "time": 1.0667, "color": "ffffff00" },
+					{ "time": 1.1, "color": "ffffffff" }
 				]
 			},
 			"smile": {
 				"color": [
-					{ "color": "ffffff00", "curve": "stepped" },
-					{ "time": 0.5, "color": "ffffff00" },
-					{ "time": 0.5333, "color": "ffffffff" }
+					{ "time": 1.0667, "color": "ffffffff" },
+					{ "time": 1.1, "color": "ffffff00" }
 				]
 			},
 			"smoke00/smoke00": {
