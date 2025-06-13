@@ -280,7 +280,7 @@ export const languages = {
         "win_tumble_msg": "ขอแสดงความยินดี!",
         "you_win_free_spin": "คุณชนะ"
     },
-    "Aladdin": {
+    "AladdinsWishes": {
         "game_icon_name": "อะลาดิน\nกับตะเกียงวิเศษ",
         "game_name": "อะลาดินกับตะเกียงวิเศษ"
     }

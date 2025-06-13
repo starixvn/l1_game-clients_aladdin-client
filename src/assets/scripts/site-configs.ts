@@ -25,7 +25,7 @@ const defaultConfig: gc.Configs.SiteConfigs = {
         proxyPath: GAME_NAME.toLowerCase(),
         route: GAME_NAME.toLowerCase(),
     },
-    storagePrefixKey: "poseidons_realm",
+    storagePrefixKey: "aladdins_wishes",
     tolgeeUrl: "",
 };
 
