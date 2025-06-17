@@ -15,6 +15,11 @@ jest.mock("@sg/game-client-base", () => ({
 
 jest.mock("../../../assets/scripts/site-configs", () => ({ siteConfigs: { mockedConfig: true } }));
 
+jest.mock("mobx", () => ({
+    makeAutoObservable: jest.fn(),
+    runInAction: jest.fn(),
+}));
+
 describe("when imported", () => {
     it("should create shared container", () => {
         // Assert
