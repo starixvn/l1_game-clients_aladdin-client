@@ -13,8 +13,8 @@ describe("settings", () => {
         // Assert
         expect(settings).toStrictEqual({
             id: 130,
-            name: "Aladdin",
-            tolgeeNamespaces: ["Aladdin", "cascadingslot"],
+            name: "AladdinsWishes",
+            tolgeeNamespaces: ["AladdinsWishes", "cascadingslot"],
             durations: {
                 wholeRound: 14,
                 lockingBet: 3,
@@ -27,7 +27,7 @@ describe("settings", () => {
             },
             isMiniGame: false,
             numberOfRoundHistory: 11,
-            observerNamespace: "Aladdin",
+            observerNamespace: "AladdinsWishes",
             validateBalanceWhenBet: true,
         });
     });
