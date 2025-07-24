@@ -228,8 +228,8 @@ export const languages = {
     },
     "cascadingslot": {
         "auto_spin": "オートスピン",
-        "auto_spin_guide_text": "自動スピン数",
-        "auto_spin_left": "残り自動スピン",
+        "auto_spin_guide_text": "自動スピン回数",
+        "auto_spin_left": "オートスピン残り",
         "bet_level": "ベットレベル",
         "bet_level_shorten": "ベットレベル",
         "bet_multiplier_x": "ベットマルチプライヤー 20倍",
@@ -286,7 +286,7 @@ export const languages = {
     },
     "AladdinsWishes": {
         "game_icon_name": "Aladdin's Wishes",
-        "game_name": "Aladdin's Wishes"
+        "game_name": "アラジンの願い"
     }
 };
 
