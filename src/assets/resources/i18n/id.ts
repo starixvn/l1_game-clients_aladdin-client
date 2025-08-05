@@ -232,6 +232,7 @@ export const languages = {
         "bet_multiplier_x": "Pengali Taruhan 20x",
         "big_win": "Kemenangan Besar",
         "coin_value": "Nilai Koin",
+        "coin_value_shorten": "Nilai Koin",
         "Common-example": "Contoh:",
         "congratulations": "Selamat",
         "disable_turbo_mode": "Mode Turbo \"MATI\"",

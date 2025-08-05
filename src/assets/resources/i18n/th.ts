@@ -232,6 +232,7 @@ export const languages = {
         "bet_multiplier_x": "เดิมพัน 20x",
         "big_win": "รางวัลใหญ่",
         "coin_value": "มูลค่าเหรียญ",
+        "coin_value_shorten": "มูลค่าเหรียญ",
         "Common-example": "ตัวอย่าง:",
         "congratulations": "ยินดีด้วยค่ะ",
         "disable_turbo_mode": "โหมดเทอร์โบ \"ปิด\"",

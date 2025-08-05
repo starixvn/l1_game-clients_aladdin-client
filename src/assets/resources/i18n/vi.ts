@@ -232,6 +232,7 @@ export const languages = {
         "bet_multiplier_x": "Hệ Số Cược 20X",
         "big_win": "Thắng Lớn",
         "coin_value": "Giá trị xu",
+        "coin_value_shorten": "Giá trị xu",
         "Common-example": "Ví Dụ:",
         "congratulations": "Chúc Mừng",
         "disable_turbo_mode": "Tắt chế độ Siêu Tốc.",

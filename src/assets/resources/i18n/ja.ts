@@ -235,6 +235,7 @@ export const languages = {
         "bet_multiplier_x": "ベットマルチプライヤー 20倍",
         "big_win": "Big Win",
         "coin_value": "コインバリュー",
+        "coin_value_shorten": "コインバリュー",
         "Common-example": "例：",
         "congratulations": "おめでとうございます",
         "disable_turbo_mode": "ターボモードをオフにする",

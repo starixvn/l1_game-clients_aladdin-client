@@ -235,6 +235,7 @@ export const languages = {
         "bet_multiplier_x": "Bet Multiplier 20x",
         "big_win": "Big Win",
         "coin_value": "Coin Value",
+        "coin_value_shorten": "Coin Value",
         "Common-example": "Example:",
         "congratulations": "Congratulations",
         "disable_turbo_mode": "Turbo Mode \"OFF\"",

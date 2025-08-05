@@ -232,6 +232,7 @@ export const languages = {
         "bet_multiplier_x": "投注乘数20倍",
         "big_win": "大赢",
         "coin_value": "硬币价值",
+        "coin_value_shorten": "硬币价值",
         "Common-example": "例子：",
         "congratulations": "恭喜",
         "disable_turbo_mode": "涡轮模式“关闭”",
