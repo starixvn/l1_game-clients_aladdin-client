@@ -51,6 +51,8 @@
         "db://assets/(.*)": "<rootDir>/assets/$1",
         "db://shared-components/(.*)": "<rootDir>/extensions/shared-components/assets/$1",
         "db://shared-cascading-slot/(.*)": "<rootDir>/tests/mocks/shared-cascading-slot/$1",
+        "db://shared-common-slot/index": "<rootDir>/tests/mocks/shared-common-slot/index",
+        "db://shared-common-slot/(.*)": "<rootDir>/tests/mocks/shared-common-slot/$1",
         "db://i18n/(.*)": "<rootDir>/extensions/i18n/assets/$1",
         "socket.io-client/dist/socket.io.msgpack.min.js": "socket.io-client/dist/socket.io.js"
     },
